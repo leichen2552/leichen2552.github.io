@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://leichen2552.github.io/leichen.github.io/</id>
+    <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-01-05T12:05:01.057Z</updated>
+    <updated>2020-01-05T12:20:19.579Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://leichen2552.github.io/leichen.github.io/"/>
-    <link rel="self" href="https://leichen2552.github.io/leichen.github.io/atom.xml"/>
+    <link rel="alternate" href="https://leichen2552.github.io/"/>
+    <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
     <subtitle>温故而知新</subtitle>
-    <logo>https://leichen2552.github.io/leichen.github.io/images/avatar.png</logo>
-    <icon>https://leichen2552.github.io/leichen.github.io/favicon.ico</icon>
+    <logo>https://leichen2552.github.io/images/avatar.png</logo>
+    <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
     <entry>
         <title type="html"><![CDATA[从0到1写RTOS]]></title>
-        <id>https://leichen2552.github.io/leichen.github.io/post/rtos_from_zero_to_one</id>
-        <link href="https://leichen2552.github.io/leichen.github.io/post/rtos_from_zero_to_one">
+        <id>https://leichen2552.github.io/post/rtos_from_zero_to_one</id>
+        <link href="https://leichen2552.github.io/post/rtos_from_zero_to_one">
         </link>
         <updated>2020-01-05T07:59:42.000Z</updated>
         <content type="html"><![CDATA[<h1 id="从0到1写rtos">从0到1写RTOS</h1>
