@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://leichen.github.io</id>
+    <id>https://github.com/leichen2552/leichen.github.io</id>
     <title>Gridea</title>
-    <updated>2020-01-05T09:19:54.817Z</updated>
+    <updated>2020-01-05T09:27:29.963Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://leichen.github.io"/>
-    <link rel="self" href="https://leichen.github.io/atom.xml"/>
+    <link rel="alternate" href="https://github.com/leichen2552/leichen.github.io"/>
+    <link rel="self" href="https://github.com/leichen2552/leichen.github.io/atom.xml"/>
     <subtitle>温故而知新</subtitle>
-    <logo>https://leichen.github.io/images/avatar.png</logo>
-    <icon>https://leichen.github.io/favicon.ico</icon>
+    <logo>https://github.com/leichen2552/leichen.github.io/images/avatar.png</logo>
+    <icon>https://github.com/leichen2552/leichen.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Gridea</rights>
     <entry>
         <title type="html"><![CDATA[RTOS_from_ZERO_to_ONE]]></title>
-        <id>https://leichen.github.io/post/rtos_from_zero_to_one</id>
-        <link href="https://leichen.github.io/post/rtos_from_zero_to_one">
+        <id>https://github.com/leichen2552/leichen.github.io/post/rtos_from_zero_to_one</id>
+        <link href="https://github.com/leichen2552/leichen.github.io/post/rtos_from_zero_to_one">
         </link>
         <updated>2020-01-05T07:59:42.000Z</updated>
         <content type="html"><![CDATA[<h1 id="从0到1写rtos">从0到1写RTOS</h1>
@@ -420,8 +420,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://leichen.github.io/post/hello-gridea</id>
-        <link href="https://leichen.github.io/post/hello-gridea">
+        <id>https://github.com/leichen2552/leichen.github.io/post/hello-gridea</id>
+        <link href="https://github.com/leichen2552/leichen.github.io/post/hello-gridea">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
