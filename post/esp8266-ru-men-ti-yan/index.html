@@ -199,12 +199,21 @@
 <p>看到最后的ready。这时，固件启动完成。</p>
 <p>中间有一串乱码，这串乱码可以再74880的波特率下查看系统日志信息。</p>
 <ul>
-<li>rst cause :  1    上电<br>
-2    外部复位<br>
-3    硬件看门狗复位</li>
-<li>Boot mode : 启动模式后面有两个参数，只看第一个参数即可<br>
-1   下载模式<br>
-3   运行模式</li>
+<li>rst cause :  红框种的数值</li>
+</ul>
+<ol>
+<li>上电</li>
+<li>外部复位</li>
+<li>硬件看门狗复位</li>
+</ol>
+<ul>
+<li>Boot mode : 启动模式后面有两个参数，只看第一个参数即可</li>
+</ul>
+<ol>
+<li>下载模式</li>
+<li>运行模式</li>
+</ol>
+<ul>
 <li>chksum : chksum和csum值相等，表明启动过程中flash读值准确</li>
 </ul>
 
