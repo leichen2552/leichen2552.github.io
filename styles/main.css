@@ -1,18 +1,15 @@
 @charset "UTF-8";
 .Like {
-  width: 100%;
-  z-index: 10;
-  align-items: center;
+  width: 100px;
   display: flex;
-  justify-content: right;
-  left: -1%;
+  align-items: center;
   line-height: 1rem;
   cursor: pointer;
   bottom: -20px;
   color: #596369;
   position: relative;
-  min-height: 100%;
-  background-size: cover;
+  margin-left: 91%;
+  margin-right: 0;
 }
 .Like:hover {
   color: #fff;
