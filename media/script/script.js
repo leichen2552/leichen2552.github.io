@@ -27,6 +27,69 @@
     };
 })();
 
+function hitokoto() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('get', 'https://v1.hitokoto.cn');
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            var data = JSON.parse(xhr.responseText);
+            var hitokoto = document.getElementById('hitokoto');
+            hitokoto.innerText = data.hitokoto;
+        }
+    }
+    xhr.send();
+}
+
+function getStar() {
+    var star = document.getElementById("star");
+    var star_count = 0;
+    var url = "https://api.github.com/users/ITJoker233/repos?page=";
+    var xhr = new XMLHttpRequest();
+    xhr.open('get', url);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            var data = JSON.parse(xhr.responseText);
+            for (var i = 0; i < data.length; i++) {
+                if (data[i]['name'] == "Gridea-theme-Chic") {
+                    star_count = data[i]['stargazers_count'];
+                    for (var j = 0; j < parseInt(star_count) + 1; j++) {
+                        setTimeout(star.innerHTML = j.toString(), 500);
+                    }
+                    break;
+                }
+            }
+        }
+    }
+    xhr.send();
+}
+
+function CheckVersion() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('get', 'https://api.github.com/repos/ITJoker233/Gridea-theme-Chic/releases/latest');
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            var data = JSON.parse(xhr.responseText);
+            var version = document.getElementById('version').innerText;
+            var update = document.getElementById('update').innerText;
+            var hitokoto = document.getElementById('hitokoto');
+            if (update == "on") {
+                if (version == "") {
+                    hitokoto.innerText = "因为新版本特性,请重新点击下主题->自定义配置->保存 或参考最新的README.md";
+                }
+                if (data.tag_name != version) {
+                    console.log("🎉Current Theme Version: " + version);
+                    hitokoto.innerText = "请及时更新当前版本为：" + version + " 最新版本为：" + data.tag_name;
+                } else
+                    console.log("\n %c🎉Latest Version: " + data.tag_name + "\n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;", );
+            } else if (data.body = "重要更新") {
+                console.log("🎉Current Theme Version: " + version);
+                hitokoto.innerText = "有重大更新，请及时更新当前版本为：" + version + " 最新版本为：" + data.tag_name;
+            }
+        }
+    }
+    xhr.send();
+}
+
 function getStyle(element, attr) {
     return window.getComputedStyle ? window.getComputedStyle(element, null)[attr] : element.currentStyle[attr];
 }
