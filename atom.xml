@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-01-06T13:18:38.798Z</updated>
+    <updated>2020-01-06T13:20:10.101Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -26,21 +26,13 @@
 <p>看到最后的ready。这时，固件启动完成。</p>
 <p>中间有一串乱码，这串乱码可以再74880的波特率下查看系统日志信息。</p>
 <ul>
-<li>rst cause :  红框种的数值</li>
-</ul>
-<ol>
-<li>上电</li>
-<li>外部复位</li>
-<li>硬件看门狗复位</li>
-</ol>
-<ul>
-<li>Boot mode : 启动模式后面有两个参数，只看第一个参数即可</li>
-</ul>
-<ol>
-<li>下载模式</li>
-<li>运行模式</li>
-</ol>
-<ul>
+<li>rst cause :  红框种的数值<br>
+1   上电<br>
+2   外部复位<br>
+3   硬件看门狗复位</li>
+<li>Boot mode : 启动模式后面有两个参数，只看第一个参数即可<br>
+1   下载模式<br>
+3   运行模式</li>
 <li>chksum : chksum和csum值相等，表明启动过程中flash读值准确</li>
 </ul>
 ]]></content>
