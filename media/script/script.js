@@ -69,8 +69,8 @@ function CheckVersion() {
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
             var data = JSON.parse(xhr.responseText);
-            var version = document.getElementById('version').innerText;
-            var update = document.getElementById('update').innerText;
+            var version = document.getElementById('version').innerText.trim();
+            var update = document.getElementById('update').innerText.trim();
             var hitokoto = document.getElementById('hitokoto');
             if (update == "on") {
                 if (version == "") {
@@ -81,7 +81,7 @@ function CheckVersion() {
                     hitokoto.innerText = "请及时更新当前版本为：" + version + " 最新版本为：" + data.tag_name;
                 } else
                     console.log("\n %c🎉Latest Version: " + data.tag_name + "\n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;", );
-            } else if (data.body = "重要更新") {
+            } else if ((update == "off") && data.body == "重要更新") {
                 console.log("🎉Current Theme Version: " + version);
                 hitokoto.innerText = "有重大更新，请及时更新当前版本为：" + version + " 最新版本为：" + data.tag_name;
             }
