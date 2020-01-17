@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
 <title>
@@ -13,17 +14,22 @@
 <meta name="author" content="Bomb">
 <meta name="description" content="In me the tiger sniffs the rose.">
 <meta name="keywords" content="FPGA,Linux,RTOS">
-<link rel="stylesheet" href="https://leichen2552.github.io//media/css/style.min.css" />
-<link rel="stylesheet" href="https://leichen2552.github.io//styles/main.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic@latest/assets/media/css/style.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic@latest/cdn/main.css" />
+<!--<link rel="stylesheet" href="https://leichen2552.github.io//media/css/style.min.css" />
+<link rel="stylesheet" href="https://leichen2552.github.io//styles/main.css" />-->
 <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.0/dist/APlayer.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.0/dist/APlayer.min.css">
     
         <script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js"></script>
-        <script src="https://leichen2552.github.io//media/script/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic@latest/assets/media/script/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic@latest/assets/media/script/script.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic@latest/assets/media/script/icon.min.js"></script>
+        <!--<script src="https://leichen2552.github.io//media/script/tocbot.min.js"></script>
         <script src="https://leichen2552.github.io//media/script/script.min.js"></script>
-        <script src="https://leichen2552.github.io//media/script/icon.min.js"></script>
+        <script src="https://leichen2552.github.io//media/script/icon.min.js"></script>-->
         <script src="https://cdn.bootcss.com/highlight.js/9.13.1/highlight.min.js"></script>
         <link href="https://cdn.bootcss.com/highlight.js/9.13.1/styles/atelier-estuary-dark.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css">
@@ -45,6 +51,7 @@
             
                 
 </head>
+
 <body>
     <div class="wrapper">
         <header>
@@ -55,79 +62,85 @@
                     ChenLei&#39;s Blog
                 </a>
             </div>
+
             <div class="menu navbar-right">
                 
-                <a class="menu-item" href="/">
-                    Home
-                </a>
-                
-                <a class="menu-item" href="/archives">
-                    Archives
-                </a>
-                
-                <a class="menu-item" href="/tags">
-                    Tags
-                </a>
-                
-                <a class="menu-item" href="/friends">
-                    Friends
-                </a>
-                
-                <a class="menu-item" href="/post/about">
-                    About
-                </a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
+                    <a class="menu-item" href="/">
+                        Home
+                    </a>
+                    
+                    <a class="menu-item" href="/archives">
+                        Archives
+                    </a>
+                    
+                    <a class="menu-item" href="/tags">
+                        Tags
+                    </a>
+                    
+                    <a class="menu-item" href="/friends">
+                        Friends
+                    </a>
+                    
+                    <a class="menu-item" href="/post/about">
+                        About
+                    </a>
+                    
+                        <input id="switch_default" type="checkbox" class="switch_default">
+                        <label for="switch_default" class="toggleBtn"></label>
             </div>
-
+            <form id="gridea-search-form" data-update="1579269077540" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+            </form>
         </div>
     </nav>
 
     
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="https://leichen2552.github.io/">
-                        ChenLei&#39;s Blog
-                    </a>
+        <nav class="navbar-mobile" id="nav-mobile">
+            <div class="container">
+                <div class="navbar-header">
+                    <div>
+                        <a href="https://leichen2552.github.io/">
+                            ChenLei&#39;s Blog
+                        </a>
+                        <!--en-->
+                        <a id="mobile-toggle-theme-en" class="a en">&nbsp;Dark</a>
+                        <!--zh-->
+                        <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;\u6697\u9ED1</a>
+                    </div>
+                    <form id="gridea-search-form" data-update="1579269077540" action="/search/index.html">
+                        <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+                    </form>
                     <!--en-->
-                    <a id="mobile-toggle-theme-en" class="a en">&nbsp;Dark</a>
+                    <div class="menu-toggle" id="menu-toggle-en" onclick="mobileBtn()">&#9776; Menu</div>
                     <!--zh-->
-                    <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;\u6697\u9ED1</a>
-                </div>
-                <!--en-->
-                <div class="menu-toggle" id="menu-toggle-en" onclick="mobileBtn()">&#9776; Menu</div>
-                <!--zh-->
-                <div class="menu-toggle" id="menu-toggle-zh" onclick="mobileBtn()">&#9776; è�œå�•</div>
+                    <div class="menu-toggle" id="menu-toggle-zh" onclick="mobileBtn()">&#9776; &#x83DC;&#x5355;</div>
 
+                </div>
+                <div class="menu" id="mobile-menu">
+                    
+                        <a class="menu-item" href="/">
+                            Home
+                        </a>
+                        
+                        <a class="menu-item" href="/archives">
+                            Archives
+                        </a>
+                        
+                        <a class="menu-item" href="/tags">
+                            Tags
+                        </a>
+                        
+                        <a class="menu-item" href="/friends">
+                            Friends
+                        </a>
+                        
+                        <a class="menu-item" href="/post/about">
+                            About
+                        </a>
+                        
+                </div>
             </div>
-            <div class="menu" id="mobile-menu">
-                
-                <a class="menu-item" href="/">
-                    Home
-                </a>
-                
-                <a class="menu-item" href="/archives">
-                    Archives
-                </a>
-                
-                <a class="menu-item" href="/tags">
-                    Tags
-                </a>
-                
-                <a class="menu-item" href="/friends">
-                    Friends
-                </a>
-                
-                <a class="menu-item" href="/post/about">
-                    About
-                </a>
-                
-            </div>
-        </div>
-    </nav>
+        </nav>
 </header>
 <script>
     var mobileBtn = function f() {
@@ -155,52 +168,53 @@
 
     }
 </script>
-        <div class="main">
-            <div class="container">
-                <article class="post-wrap">
-                    <header class="post-header">
-                        <h1 class="post-title">
-                            markdownNotes
-                        </h1>
-                        <!--en-->
-                        <div class="post-meta en">
-                            Author:
-                            <a itemprop="author" rel="author" href="/">
-                                ChenLei's Blog
-                            </a>
-                            <span class="post-time">
+            <div class="main">
+                <div class="container">
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                markdownNotes
+                            </h1>
+                            <!--en-->
+                            <div class="post-meta en">
+                                Author:
+                                <a itemprop="author" rel="author" href="/">
+                                    ChenLei's Blog
+                                </a>
+                                <span class="post-time">
                                 Date: <a href="#">2020-01-06</a>
                             </span>
-                            
-                            <span class="post-category">
+                                <span class="post-readtime">Reading Time:<a href="#">1.4 mins</a></span>
+                                <span class="post-words">words:<a href="#">341</a></span>
+                                
+                                    <span class="post-category">
                                 Category:
                                 
                                 <a href="https://leichen2552.github.io/tag/Qzv1kR5wT">markdown</a>
                                 
                             </span>
-                            
-                        </div>
-                        <!--zh-->
-                        <div class="post-meta zh">
-                            &#x4F5C;&#x8005;:
-                            <a itemprop="author" rel="author" href="/">
-                                ChenLei's Blog
-                            </a>
-                            <span class="post-time">
-                                &#x65E5;&#x671F;: <a href="#">2020-01-06</a>
-                            </span>
-                            
-                            <span class="post-category">
-                                &#x5206;&#x7C7B;:
+                                    
+                            </div>
+                            <!--zh-->
+                            <div class="post-meta zh">
+                                &#x4F5C;&#x8005;:
+                                <a itemprop="author" rel="author" href="/">
+                                    ChenLei's Blog
+                                </a>
+                                <span class="post-time">&#x65E5;&#x671F;: <a href="#">2020-01-06</a></span>
+                                <span class="post-readtime">&#x9605;&#x8BFB;&#x65F6;&#x95F4;:<a href="#">1.4 &#x5206;&#x949F;</a></span>
+                                <span class="post-words">&#x5B57;&#x6570;:<a href="#">341</a></span>
+                                
+                                    <span class="post-category">&#x5206;&#x7C7B;:
                                 
                                 <a href="https://leichen2552.github.io/tag/Qzv1kR5wT">markdown</a>
                                 
                             </span>
-                            
-                        </div>
-                    </header>
-                    <div class="post-content">
-                        <p><strong>目录</strong><br>
+                                    
+                            </div>
+                        </header>
+                        <div class="post-content">
+                            <p><strong>目录</strong><br>
 <ul class="markdownIt-TOC">
 <li><a href="#markdown-%E7%AC%94%E8%AE%B0">Markdown 笔记</a>
 <ul>
@@ -289,94 +303,118 @@
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.5584800000000003em;vertical-align:-1.29164em;"></span><span class="mord sizing reset-size6 size8"><span class="mop"><span class="mop op-symbol large-op" style="margin-right:0.44445em;position:relative;top:-0.0011249999999999316em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.5741944444444447em;"><span style="top:-2.1030277777777777em;margin-left:-0.44445em;margin-right:0.034722222222222224em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size8 size6 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">b</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">h</span></span></span></span><span style="top:-4.091944444444445em;margin-right:0.034722222222222224em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size8 size6 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">d</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">h</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8969722222222222em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">u</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord mathdefault">d</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span><span class="mord mathdefault">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">e</span></span></span></span></span></span></p>
 <p>更新会继续添加！</p>
 
-                    </div>
-                    <section class="post-copyright en">
+                        </div>
+                        <div class="post-toc">
+                            <ul class="markdownIt-TOC">
+<li><a href="#markdown-%E7%AC%94%E8%AE%B0">Markdown 笔记</a>
+<ul>
+<li><a href="#%E7%94%9F%E6%88%90%E7%9B%AE%E5%BD%95">生成目录</a></li>
+<li><a href="#%E4%BB%A3%E7%A0%81%E9%AB%98%E4%BA%AE">代码高亮</a></li>
+<li><a href="#%E6%97%A0%E5%BA%8F%E6%A0%87%E5%8F%B7%E5%92%8C%E6%9C%89%E5%BA%8F%E6%A0%87%E5%8F%B7">无序标号和有序标号</a></li>
+<li><a href="#%E6%96%87%E5%AD%97%E5%8A%A0%E7%B2%97">文字加粗</a></li>
+<li><a href="#%E6%96%9C%E4%BD%93%E5%AD%97">斜体字</a></li>
+<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%97%E4%BD%93%E5%A4%A7%E5%B0%8F">自定义字体大小</a></li>
+<li><a href="#%E5%AD%97%E4%BD%93%E5%8F%98%E5%A4%A7%E5%8F%98%E5%B0%8F%E6%A0%87%E7%AD%BE">字体变大变小标签</a></li>
+<li><a href="#%E6%8D%A2%E8%A1%8C">换行</a></li>
+<li><a href="#%E5%AD%97%E4%BD%93%E5%A4%A7%E5%B0%8F%E4%B8%8E%E9%A2%9C%E8%89%B2">字体大小与颜色</a></li>
+</ul>
+</li>
+<li><a href="#latex-%E7%AC%94%E8%AE%B0">latex 笔记</a>
+<ul>
+<li><a href="#latex%E8%B0%83%E5%A4%A7%E5%AD%97%E4%BD%93">latex调大字体</a></li>
+<li><a href="#%E7%A7%AF%E5%88%86%E5%8F%B7-%E4%B8%8B%E6%A0%87-%E4%B8%8A%E4%B8%8B%E9%99%90">积分号、下标、上下限</a></li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                        <section class="post-copyright en">
+                            <!--en-->
+                            <p class="copyright-item">
+                                <span>Author:</span>
+                                <span>ChenLei's Blog</span>
+                            </p>
+
+                            <p class="copyright-item">
+                                <span>Permalink:</span>
+                                <span><a href="https://leichen2552.github.io/post/markdownnotes">https://leichen2552.github.io/post/markdownnotes</a></span>
+                            </p>
+
+                            <p class="copyright-item">
+                                <span>License:</span>
+                                <span>MIT License</span>
+                            </p>
+                        </section>
+                        <section class="post-copyright zh">
+                            <!--zh-->
+                            <p class="copyright-item ">
+                                <span>&#x4F5C;&#x8005;:</span>
+                                <span>ChenLei's Blog</span>
+                            </p>
+
+                            <p class="copyright-item">
+                                <span>&#x6C38;&#x4E45;&#x94FE;&#x63A5;:</span>
+                                <span><a href="https://leichen2552.github.io/post/markdownnotes">https://leichen2552.github.io/post/markdownnotes</a></span>
+                            </p>
+
+                            <p class="copyright-item">
+                                <span>&#x534F;&#x8BAE;:</span>
+                                <span>MIT License</span>
+                            </p>
+                        </section>
                         <!--en-->
-                        <p class="copyright-item">
-                            <span>Author:</span>
-                            <span>ChenLei's Blog</span>
-                        </p>
-
-                        <p class="copyright-item">
-                            <span>Permalink:</span>
-                            <span><a href="https://leichen2552.github.io/post/markdownnotes">https://leichen2552.github.io/post/markdownnotes</a></span>
-                        </p>
-
-                        <p class="copyright-item">
-                            <span>License:</span>
-                            <span>MIT License</span>
-                        </p>
-                    </section>
-                    <section class="post-copyright zh">
+                        <section class="post-tags en">
+                            <div>
+                                <span>Tag(s):</span>
+                                <span class="tag">
+                                
+                                
+                                <a href="https://leichen2552.github.io/tag/Qzv1kR5wT"># markdown</a>
+                                
+                                
+                            </span>
+                            </div>
+                            <div>
+                                <a href="javascript:window.history.back();">back</a>
+                                <span>&dot;</span>
+                                <a href="#">home</a>
+                            </div>
+                        </section>
                         <!--zh-->
-                        <p class="copyright-item ">
-                            <span>&#x4F5C;&#x8005;:</span>
-                            <span>ChenLei's Blog</span>
-                        </p>
-
-                        <p class="copyright-item">
-                            <span>&#x6C38;&#x4E45;&#x94FE;&#x63A5;:</span>
-                            <span><a href="https://leichen2552.github.io/post/markdownnotes">https://leichen2552.github.io/post/markdownnotes</a></span>
-                        </p>
-
-                        <p class="copyright-item">
-                            <span>&#x534F;&#x8BAE;:</span>
-                            <span>MIT License</span>
-                        </p>
-                    </section>
-                    <!--en-->
-                    <section class="post-tags en">
-                        <div>
-                            <span>Tag(s):</span>
-                            <span class="tag">
+                        <section class="post-tags zh">
+                            <div>
+                                <span>&#x6807;&#x7B7E;:</span>
+                                <span class="tag">
                                 
                                 
                                 <a href="https://leichen2552.github.io/tag/Qzv1kR5wT"># markdown</a>
                                 
                                 
                             </span>
-                        </div>
-                        <div>
-                            <a href="javascript:window.history.back();">back</a>
-                            <span>&dot;</span>
-                            <a href="#">home</a>
-                        </div>
-                    </section>
-                    <!--zh-->
-                    <section class="post-tags zh">
-                        <div>
-                            <span>&#x6807;&#x7B7E;:</span>
-                            <span class="tag">
-                                
-                                
-                                <a href="https://leichen2552.github.io/tag/Qzv1kR5wT"># markdown</a>
-                                
-                                
-                            </span>
-                        </div>
-                        <div>
-                            <a href="javascript:window.history.back();">
+                            </div>
+                            <div>
+                                <a href="javascript:window.history.back();">
                                 &#x8FD4;&#x56DE;</a>
-                            <span>&dot;</span>
-                            <a href="#">&#x4E3B;&#x9875;</a>
-                        </div>
-                    </section>
-                    <section class="post-nav">
-                        
-                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/esp8266-ru-men-ti-yan">
-                            ESP8266入门体验
-                        </a>
-                        
-                        
-                        <a class="next" rel="next" href="https://leichen2552.github.io/post/rtos_from_zero_to_one">
-                            从0到1写RTOS
-                        </a>
-                        
-                    </section>
-                </article>
+                                <span>&dot;</span>
+                                <a href="#">&#x4E3B;&#x9875;</a>
+                            </div>
+                        </section>
+                        <section class="post-nav">
+                            
+                                <a class="prev" rel="prev" href="https://leichen2552.github.io/post/esp8266-ru-men-ti-yan">
+                                    ESP8266入门体验
+                                </a>
+                                
+                                    
+                                        <a class="next" rel="next" href="https://leichen2552.github.io/post/rtos_from_zero_to_one">
+                                            从0到1写RTOS
+                                        </a>
+                                        
+                        </section>
+                    </article>
+                </div>
+                
             </div>
-            
-        </div>
     </div>
     </div>
     </div>
@@ -413,7 +451,7 @@
             </div>
             
                 <div id="version" style="display:none;">
-                    1.5.3
+                    1.6.1
                 </div>
                 
                     <script>
@@ -424,10 +462,7 @@
 
         </footer>
         
-            <script type="text/javascript" src="https://leichen2552.github.io//media/live2d/L2Dwidget.min.js"></script>
-            <script>
-                loadlive2d()
-            </script>
+            <script src='https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js'></script>
             
                 <script>
                     
@@ -447,18 +482,25 @@
                                 cover: audio_cover,
                             }]
                         });
-
                     }
                     LoadPlayer();
+                    
+                    
+                    loadlive2d();
                     
                     hitokoto();
                     getStar();
                     hljs.initHighlighting();
                     console.clear();
+                    
                     CheckVersion();
+                    
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
-    </div>
+        </div>
 </body>
+<script>
+    scroll();
+</script>
 
 </html>
