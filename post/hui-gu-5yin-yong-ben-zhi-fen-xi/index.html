@@ -173,7 +173,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                回顾（2）：C到C++的升级
+                                回顾（5）：引用本质分析
                             </h1>
                             <!--en-->
                             <div class="post-meta en">
@@ -182,10 +182,10 @@
                                     ChenLei's Blog
                                 </a>
                                 <span class="post-time">
-                                Date: <a href="#">2020-01-12</a>
+                                Date: <a href="#">2020-01-30</a>
                             </span>
-                                <span class="post-readtime">Reading Time:<a href="#">3.5 mins</a></span>
-                                <span class="post-words">words:<a href="#">954</a></span>
+                                <span class="post-readtime">Reading Time:<a href="#">4.1 mins</a></span>
+                                <span class="post-words">words:<a href="#">1024</a></span>
                                 
                                     <span class="post-category">
                                 Category:
@@ -201,9 +201,9 @@
                                 <a itemprop="author" rel="author" href="/">
                                     ChenLei's Blog
                                 </a>
-                                <span class="post-time">&#x65E5;&#x671F;: <a href="#">2020-01-12</a></span>
-                                <span class="post-readtime">&#x9605;&#x8BFB;&#x65F6;&#x95F4;:<a href="#">3.5 &#x5206;&#x949F;</a></span>
-                                <span class="post-words">&#x5B57;&#x6570;:<a href="#">954</a></span>
+                                <span class="post-time">&#x65E5;&#x671F;: <a href="#">2020-01-30</a></span>
+                                <span class="post-readtime">&#x9605;&#x8BFB;&#x65F6;&#x95F4;:<a href="#">4.1 &#x5206;&#x949F;</a></span>
+                                <span class="post-words">&#x5B57;&#x6570;:<a href="#">1024</a></span>
                                 
                                     <span class="post-category">&#x5206;&#x7C7B;:
                                 
@@ -215,140 +215,187 @@
                         </header>
                         <div class="post-content">
                             <p><ul class="markdownIt-TOC">
-<li><a href="#c%E4%B8%8Ec%E7%9A%84%E5%85%B3%E7%B3%BB">C与C++的关系</a></li>
-<li><a href="#c%E5%88%B0c%E7%9A%84%E5%8D%87%E7%BA%A7">C到C++的升级</a>
+<li><a href="#c%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8">C++中的引用</a>
 <ul>
-<li><a href="#%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89">变量定义</a></li>
-<li><a href="#register%E5%85%B3%E9%94%AE%E5%AD%97">register关键字</a></li>
-<li><a href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89">全局变量的定义</a></li>
-<li><a href="#struct%E5%85%B3%E9%94%AE%E8%AF%8D%E7%9A%84%E5%8A%A0%E5%BC%BA">struct关键词的加强</a>
+<li><a href="#%E5%BC%95%E7%94%A8%E7%9A%84%E6%84%8F%E4%B9%89">引用的意义</a>
 <ul>
-<li><a href="#c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84struct">C语言中的struct</a></li>
-<li><a href="#c%E4%B8%AD%E7%9A%84struct">C++中的struct</a></li>
+<li><a href="#exampleswap%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%AF%B9%E6%AF%94">Example：Swap函数的实现对比</a></li>
 </ul>
 </li>
-<li><a href="#int-f%E4%B8%8Eint-fvoid%E7%9A%84%E5%8C%BA%E5%88%AB">int f()与int f(void)的区别</a></li>
-<li><a href="#%E7%B1%BB%E5%9E%8B">类型</a>
+<li><a href="#%E7%89%B9%E6%AE%8A%E7%9A%84%E5%BC%95%E7%94%A8">特殊的引用</a>
 <ul>
-<li><a href="#%E5%9C%A8c%E8%AF%AD%E8%A8%80%E4%B8%AD">在C语言中</a></li>
-<li><a href="#%E5%9C%A8c%E4%B8%AD">在C++中</a></li>
+<li><a href="#const%E5%BC%95%E7%94%A8">const引用</a></li>
 </ul>
 </li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+<li><a href="#%E5%BC%95%E7%94%A8%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E5%90%97">引用有自己的存储空间吗</a></li>
+<li><a href="#%E5%BC%95%E7%94%A8%E7%9A%84%E6%9C%AC%E8%B4%A8">引用的本质</a>
+<ul>
+<li><a href="#%E5%BC%95%E7%94%A8%E5%9C%A8c%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E6%98%AF%E4%B8%80%E4%B8%AA%E6%8C%87%E9%92%88%E5%B8%B8%E9%87%8F">引用在C++内部实现是一个指针常量</a></li>
+</ul>
+</li>
+<li><a href="#%E5%BC%95%E7%94%A8%E7%9A%84%E6%84%8F%E4%B9%89-2">引用的意义</a></li>
+<li><a href="#%E5%AE%9E%E4%BE%8B%E8%A7%A3%E8%AF%BB">实例解读</a></li>
 </ul>
 </li>
 </ul>
 </p>
-<h1 id="c与c的关系">C与C++的关系</h1>
+<h1 id="c中的引用">C++中的引用</h1>
+<h2 id="引用的意义">引用的意义</h2>
 <ul>
-<li>C++<font color = blue size = 4>继承了所有的C特性</font></li>
-<li>C++在C的基础上<font color = purple size = 4>提供了更多的语法和特性</font></li>
-<li>C++的设计目标是<font color = red size = 4>运行效率与开发效率的统一</font></li>
+<li>引用作为变量别名而存在，因此在一些场合可以代替指针</li>
+<li>引用相对于指针来说具有更好的可读性和实用性</li>
 </ul>
-<p><font size = 5>以<font color = red size = 7>C</font>语言为基础，<font color = red size = 7>+</font>面对对象支持，<font color = red size = 7>+</font>类型加强、函数加强、异常处理等等 = <font color = red size = 7>C + +</font></font></p>
-<h1 id="c到c的升级">C到C++的升级</h1>
-<h2 id="变量定义">变量定义</h2>
-<ul>
-<li>C++更强调语言的实用性</li>
-<li>所有变量都可以在需要使用时在定义，对比C语言中的所有变量必须在作用域开始的位置定义</li>
-</ul>
-<h2 id="register关键字">register关键字</h2>
-<ul>
-<li><font color = blue>register</font>关键字请求编译器将局部变量存储在寄存器中，在C++中依然支持<font color = blue>register</font>关键字，但是在C++编译器有自己的优化方式，<strong>C语言中无法获取</strong><font color = blue>register</font>变量的地址，<strong>C++中可以取得</strong><font color = blue>register</font>变量的地址</li>
-<li><font color = 990000>C++编译器发现程序中需要取<font color = blue>register</font>变量的地址时，<font color = blue>register</font>对变量的声明变得无效</font></li>
-<li><font color = 1fffdd>在早期C语言编译器不会对代码进行优化，因此<font color = blue>register</font>变量是一个很好的补充</font></li>
-</ul>
-<h2 id="全局变量的定义">全局变量的定义</h2>
-<ul>
-<li>在C语言中，<font color = 991122>重复定义多个同名的全局变量是合法的</font>。<font color = 991122>C语言中多个同名的全局变量最终会被链接到同一个地址空间上</font></li>
-<li>在C++中，<font color = purple>不允许定义多个同名的全局变量</font></li>
-</ul>
-<h2 id="struct关键词的加强">struct关键词的加强</h2>
-<ul>
-<li>C语言中的<font  face = "Courier New" color = blue size = 4><strong>struct</strong></font>定义了<strong>一组变量的集合</strong></li>
-<li>C语言中的<font face = "Courier New" color = blue size = 4><strong>struct</strong></font>定义的<font color = green>标识符</font>并不是<font color = purple>一种新的类型</font></li>
-<li>C++中的<font face = "Courier New" color = blue size = 4><strong>struct</strong></font>用于<font color = blue>定义一个全新的类型</font></li>
-</ul>
-<h3 id="c语言中的struct">C语言中的struct</h3>
-<pre><code class="language-c">struct _tag_student//这只是定义一个标签，并不是一个全新的类型
+<h3 id="exampleswap函数的实现对比">Example：Swap函数的实现对比</h3>
+<pre><code class="language-c++">void Swap(int&amp; a, int&amp; b)
 {
-    const char* name;
-    int age;
-} ;
-typedef struct _tag_student Student;//C语言只是利用typedef把一个标签变成一个类型，
-                            //只是当做一个类型来用，而C语言并不认为Student是一个类型
-</code></pre>
-<h3 id="c中的struct">C++中的struct</h3>
-<pre><code class="language-c++">struct Student//直接就是一个全新的类型
-{
-    const char* name;
-    int age;
-};
-</code></pre>
-<h2 id="int-f与int-fvoid的区别">int f()与int f(void)的区别</h2>
-<h2 id="类型">类型</h2>
-<ul>
-<li>C++中<font color = blue>所有的标识符都必须显示的声明类型</font></li>
-<li>C语言中的<font color = red>默认类型<font color = green>在C++中</font>是不合法的</font></li>
-</ul>
-<pre><code class="language-c">f(i)
-{
-    printf(&quot;i = %d\n&quot;,i);
+    int t = a;
+    a = b;
+    b = t;
 }
 
-g()
+void Swap(int* a, int* b)
 {
-    return 5;
+    int t = *a;
+    *a = *b;
+    *b = t;
 }
-//函数f的返回值和参数分别是什么类型？函数在没有给出返回值时，默认类型为int
-//函数g可以接受多少个参数？任意多的参数
 </code></pre>
-<p>思考题：int f() 与 int f(void)有什么区别？<br>
-解答：他们有没有区别看什么编译器</p>
+<p>这两种就好像手动挡的车与自动挡的车，自动挡的车好开，这就好比是引用</p>
+<p>注意：</p>
 <ul>
-<li>如果是C语言编译器，那么<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">f()</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mclose">)</span></span></span></span>就是接受任意多的参数，并且返回值是int类型的函数，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mi>v</mi><mi>o</mi><mi>i</mi><mi>d</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">f(void)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">o</span><span class="mord mathdefault">i</span><span class="mord mathdefault">d</span><span class="mclose">)</span></span></span></span>是不接收参数并且返回值是int类型的函数</li>
-<li>如果是C++编译器，那它们两个就没什么区别</li>
+<li>函数的引用形参不需要进行初始化，它的初始化发生在函数调用的时候</li>
 </ul>
-<h3 id="在c语言中">在C语言中</h3>
+<h2 id="特殊的引用">特殊的引用</h2>
+<h3 id="const引用">const引用</h3>
 <ul>
-<li><font color = blue>int</font> f() 表示<font color = blue>返回值</font>为<font color = blue>int</font>类型，<font color = 888888>接受任意参数的函数</font></li>
-<li>f(<font color = blue>void</font>)表示返回值为<font color = blue>int</font>的<font color = purple>无参函数</font></li>
+<li>在C++中可以声明const引用</li>
+<li>语法：const Type&amp; name = var;</li>
+<li>const 引用让变量拥有只读属性</li>
 </ul>
-<h3 id="在c中">在C++中</h3>
+<pre><code class="language-c++">int a = 4;
+const int&amp; b = a;
+int* p = (int*)&amp;b;
+
+b = 5;              // Error，只读变量
+*p = 5;             //OK，修改变量 a 的值
+</code></pre>
 <ul>
-<li><font color = blue>int</font> f() 和 <font color = blue>int</font> f(<font color = blue>void</font>)具有<font color = 979700>相同的意义</font>，表示返回值为<font color = blue>int</font>的无参函数</li>
+<li>现在已经知道引用是另一个变量的别名，因此一个引用绝对不可能是常量值的别名。换句话说，就是不能定义一个引用然后用常量值来初始化，这里的常量是字面常量，因为从概念上来说是不可行的。但是有一个例外，就是const引用，我么可以用字面常量来对一个const引用初始化，编译器这个时候就会真真正正产生一个只读变量。</li>
 </ul>
-<h2 id="小结">小结</h2>
+<pre><code class="language-c++">const int&amp; b = 1;   //ok
+int* p = (int*)&amp;b;
+
+b = 5;                  //Error，只读变量
+
+*p = 5;                 //OK，修改变量 b 的值
+</code></pre>
 <ul>
-<li>C++更<font color = blue>强调实用性</font>，可以在<font color = cd0000>任意地方声明变量</font></li>
-<li>C++中的<font color = blue>register</font>只是一个兼容的作用，C++兼容C语言只是为了兼容C语言，因为C++有自己的优化方式，他不需要register这个关键字来指示优化</li>
-<li>C++编译器能够<font color = ff00ff>更好的进行优化</font></li>
-<li>C++中<font color = 71c671>任意的标识符都必须显示的指明类型</font></li>
+<li>当使用常量对const引用进行初始化时，C++编译器会为这个常量分配空间，并将引用名作为这段空间的别名</li>
+<li>结论：使用常量对const引用初始化后将生成一个只读变量</li>
+</ul>
+<h2 id="引用有自己的存储空间吗">引用有自己的存储空间吗</h2>
+<p>小测试：</p>
+<pre><code class="language-c++">#include &lt;stdio.h&gt;
+struct TRef
+{
+    char&amp; r;
+};
+
+int main()
+{
+    char c = 'c';
+    char&amp; rc = c;
+
+    TRef ref = {c};
+
+    printf(&quot;sizeof(char&amp;) = %d\n&quot;,sizeof(char&amp;));   //1
+    printf(&quot;sizeof(rc) = %d\n&quot;,sizeof(rc));                 //1
+
+    printf(&quot;sizeof(TRef) = %d\n&quot;,sizeof(TRef));         //4
+    printf(&quot;sizeof(ref.r) = %d\n&quot;,sizeof(ref.r));           //1
+
+    return 0;
+}
+</code></pre>
+<h2 id="引用的本质">引用的本质</h2>
+<h3 id="引用在c内部实现是一个指针常量">引用在C++内部实现是一个指针常量</h3>
+<p>Type&amp; name      <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>←</mo><mo>→</mo></mrow><annotation encoding="application/x-tex">\leftarrow \rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">←</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span>        Type* const name</p>
+<pre><code class="language-c++">void f(int&amp; a)              void f(int* const a)
+{                           {
+    a = 5;                      *a = 5
+}                           }
+</code></pre>
+<p>注意：</p>
+<ul>
+<li>C++编译器在编译过程中用指针常量作为引用的内部实现，因此引用所占的空间大小与指针相同</li>
+<li>从使用的角度，引用只是一个别名，C++为了实用性而隐藏了引用的存储空间这一细节</li>
+</ul>
+<h2 id="引用的意义-2">引用的意义</h2>
+<ul>
+<li>C++中的引用旨在大多数情况下代替指针</li>
+<li>功能性：可以满足多数需要使用指针的场合</li>
+<li>安全性：可以避开由于指针操作不当而带来的内存错误</li>
+<li>操作性：简单易用，又不失功能强大</li>
+</ul>
+<h2 id="实例解读">实例解读</h2>
+<ol>
+<li>不能返回局部变量的引用</li>
+</ol>
+<pre><code class="language-c++">int&amp; demo()     //int* const
+{
+    int d = 0;
+
+    printf(&quot;demo : d = %d\n&quot;, d);
+
+    return d;       //return &amp;d，返回一个局部变量的地址就是有问题
+} 
+</code></pre>
+<ol start="2">
+<li>可以返回在全局存储区内变量的引用</li>
+</ol>
+<pre><code class="language-c++">int&amp; func()     //int* const
+{
+   static int s = 0;
+
+   printf(&quot;func : s = %d\n&quot;, s);
+
+   return s;   //return &amp;s，静态的局部变量的存储空间是一个全局的存储区，
+               //所以说它的空间不会以为函数调用而摧毁，由于引用的本质是指针，
+               //所以返回一个全局存储区中的地址是完全可以的
+} 
+</code></pre>
+<p>#小结</p>
+<ul>
+<li>引用作为别名而存在旨在代替指针</li>
+<li>const引用可以使得变量具有只读属性</li>
+<li>引用在一起内部使用<strong>指针常量实现</strong></li>
+<li>引用的最终本质为指针</li>
+<li>引用尽可能的避开内存错误</li>
 </ul>
 
                         </div>
                         <div class="post-toc">
                             <ul class="markdownIt-TOC">
-<li><a href="#c%E4%B8%8Ec%E7%9A%84%E5%85%B3%E7%B3%BB">C与C++的关系</a></li>
-<li><a href="#c%E5%88%B0c%E7%9A%84%E5%8D%87%E7%BA%A7">C到C++的升级</a>
+<li><a href="#c%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8">C++中的引用</a>
 <ul>
-<li><a href="#%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89">变量定义</a></li>
-<li><a href="#register%E5%85%B3%E9%94%AE%E5%AD%97">register关键字</a></li>
-<li><a href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89">全局变量的定义</a></li>
-<li><a href="#struct%E5%85%B3%E9%94%AE%E8%AF%8D%E7%9A%84%E5%8A%A0%E5%BC%BA">struct关键词的加强</a>
+<li><a href="#%E5%BC%95%E7%94%A8%E7%9A%84%E6%84%8F%E4%B9%89">引用的意义</a>
 <ul>
-<li><a href="#c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84struct">C语言中的struct</a></li>
-<li><a href="#c%E4%B8%AD%E7%9A%84struct">C++中的struct</a></li>
+<li><a href="#exampleswap%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%AF%B9%E6%AF%94">Example：Swap函数的实现对比</a></li>
 </ul>
 </li>
-<li><a href="#int-f%E4%B8%8Eint-fvoid%E7%9A%84%E5%8C%BA%E5%88%AB">int f()与int f(void)的区别</a></li>
-<li><a href="#%E7%B1%BB%E5%9E%8B">类型</a>
+<li><a href="#%E7%89%B9%E6%AE%8A%E7%9A%84%E5%BC%95%E7%94%A8">特殊的引用</a>
 <ul>
-<li><a href="#%E5%9C%A8c%E8%AF%AD%E8%A8%80%E4%B8%AD">在C语言中</a></li>
-<li><a href="#%E5%9C%A8c%E4%B8%AD">在C++中</a></li>
+<li><a href="#const%E5%BC%95%E7%94%A8">const引用</a></li>
 </ul>
 </li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+<li><a href="#%E5%BC%95%E7%94%A8%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E5%90%97">引用有自己的存储空间吗</a></li>
+<li><a href="#%E5%BC%95%E7%94%A8%E7%9A%84%E6%9C%AC%E8%B4%A8">引用的本质</a>
+<ul>
+<li><a href="#%E5%BC%95%E7%94%A8%E5%9C%A8c%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E6%98%AF%E4%B8%80%E4%B8%AA%E6%8C%87%E9%92%88%E5%B8%B8%E9%87%8F">引用在C++内部实现是一个指针常量</a></li>
+</ul>
+</li>
+<li><a href="#%E5%BC%95%E7%94%A8%E7%9A%84%E6%84%8F%E4%B9%89-2">引用的意义</a></li>
+<li><a href="#%E5%AE%9E%E4%BE%8B%E8%A7%A3%E8%AF%BB">实例解读</a></li>
 </ul>
 </li>
 </ul>
@@ -363,7 +410,7 @@ g()
 
                             <p class="copyright-item">
                                 <span>Permalink:</span>
-                                <span><a href="https://leichen2552.github.io/post/hui-gu-2">https://leichen2552.github.io/post/hui-gu-2</a></span>
+                                <span><a href="https://leichen2552.github.io/post/hui-gu-5yin-yong-ben-zhi-fen-xi">https://leichen2552.github.io/post/hui-gu-5yin-yong-ben-zhi-fen-xi</a></span>
                             </p>
 
                             <p class="copyright-item">
@@ -380,7 +427,7 @@ g()
 
                             <p class="copyright-item">
                                 <span>&#x6C38;&#x4E45;&#x94FE;&#x63A5;:</span>
-                                <span><a href="https://leichen2552.github.io/post/hui-gu-2">https://leichen2552.github.io/post/hui-gu-2</a></span>
+                                <span><a href="https://leichen2552.github.io/post/hui-gu-5yin-yong-ben-zhi-fen-xi">https://leichen2552.github.io/post/hui-gu-5yin-yong-ben-zhi-fen-xi</a></span>
                             </p>
 
                             <p class="copyright-item">
@@ -427,13 +474,9 @@ g()
                         </section>
                         <section class="post-nav">
                             
-                                <a class="prev" rel="prev" href="https://leichen2552.github.io/post/hui-gu-3jin-hua-hou-de-const-fen-xi">
-                                    回顾（3）：进化后的const分析
-                                </a>
-                                
                                     
-                                        <a class="next" rel="next" href="https://leichen2552.github.io/post/xue-xi-cde-yi-yi">
-                                            回顾（1）：学习C++的意义
+                                        <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-4bu-er-lei-xing-he-yin-yong">
+                                            回顾（4）：布尔类型和引用
                                         </a>
                                         
                         </section>
