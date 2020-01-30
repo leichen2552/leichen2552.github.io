@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-01-30T09:56:03.295Z</updated>
+    <updated>2020-01-30T09:59:12.555Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -16,32 +16,7 @@
         <link href="https://leichen2552.github.io/post/hui-gu-5yin-yong-ben-zhi-fen-xi">
         </link>
         <updated>2020-01-30T01:49:37.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#c%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8">C++中的引用</a>
-<ul>
-<li><a href="#%E5%BC%95%E7%94%A8%E7%9A%84%E6%84%8F%E4%B9%89">引用的意义</a>
-<ul>
-<li><a href="#exampleswap%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%AF%B9%E6%AF%94">Example：Swap函数的实现对比</a></li>
-</ul>
-</li>
-<li><a href="#%E7%89%B9%E6%AE%8A%E7%9A%84%E5%BC%95%E7%94%A8">特殊的引用</a>
-<ul>
-<li><a href="#const%E5%BC%95%E7%94%A8">const引用</a></li>
-</ul>
-</li>
-<li><a href="#%E5%BC%95%E7%94%A8%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E5%90%97">引用有自己的存储空间吗</a></li>
-<li><a href="#%E5%BC%95%E7%94%A8%E7%9A%84%E6%9C%AC%E8%B4%A8">引用的本质</a>
-<ul>
-<li><a href="#%E5%BC%95%E7%94%A8%E5%9C%A8c%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E6%98%AF%E4%B8%80%E4%B8%AA%E6%8C%87%E9%92%88%E5%B8%B8%E9%87%8F">引用在C++内部实现是一个指针常量</a></li>
-</ul>
-</li>
-<li><a href="#%E5%BC%95%E7%94%A8%E7%9A%84%E6%84%8F%E4%B9%89-2">引用的意义</a></li>
-<li><a href="#%E5%AE%9E%E4%BE%8B%E8%A7%A3%E8%AF%BB">实例解读</a></li>
-</ul>
-</li>
-</ul>
-</p>
-<h1 id="c中的引用">C++中的引用</h1>
+        <content type="html"><![CDATA[<h1 id="c中的引用">C++中的引用</h1>
 <h2 id="引用的意义">引用的意义</h2>
 <ul>
 <li>引用作为变量别名而存在，因此在一些场合可以代替指针</li>
