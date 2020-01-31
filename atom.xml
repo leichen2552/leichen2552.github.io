@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-01-30T09:59:12.555Z</updated>
+    <updated>2020-01-31T08:43:15.283Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,113 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[回顾（6）：内联函数分析]]></title>
+        <id>https://leichen2552.github.io/post/hui-gu-6nei-lian-han-shu-fen-xi</id>
+        <link href="https://leichen2552.github.io/post/hui-gu-6nei-lian-han-shu-fen-xi">
+        </link>
+        <updated>2020-01-31T02:11:49.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E5%B8%B8%E9%87%8F%E4%B8%8E%E5%AE%8F%E5%9B%9E%E9%A1%BE">常量与宏回顾</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98">问题：</a>
+<ul>
+<li><a href="#%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0">内联函数</a></li>
+<li><a href="#%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0%E7%89%B9%E6%80%A7">内联函数特性</a></li>
+<li><a href="#%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0%E5%88%9D%E6%8E%A2">内联函数初探</a></li>
+<li><a href="#%E5%86%85%E8%81%94%E8%AF%B7%E6%B1%82">内联请求</a>
+<ul>
+<li><a href="#c%E4%B8%ADinline%E5%86%85%E8%81%94%E7%BC%96%E8%AF%91%E7%9A%84%E9%99%90%E5%88%B6">C++中inline内联编译的限制</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</p>
+<h1 id="常量与宏回顾">常量与宏回顾</h1>
+<ul>
+<li>C++中的const常量可以代替宏常数定义，如：<br>
+const int A = 3; <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>←</mo><mo>→</mo></mrow><annotation encoding="application/x-tex">\leftarrow\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">←</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span>#define A 3</li>
+</ul>
+<h1 id="问题">问题：</h1>
+<pre><code>C++中是否有解决方案代替宏代码片段呢？
+</code></pre>
+<h2 id="内联函数">内联函数</h2>
+<ul>
+<li>宏代码块使用会有副作用的</li>
+<li>C++中推荐使用内联函数代替宏代码片段</li>
+<li>C++中使用inline关键字声明内联函数</li>
+<li>内联函数声明时inline关键字必须和函数定义结合在一起，否则编译器会直接忽略内敛请求，这只是一种请求，编译器也可以拒绝</li>
+</ul>
+<pre><code class="language-c++">inline int func(int a, int b)
+{
+    return a &lt; b ? a : b
+}
+</code></pre>
+<h2 id="内联函数特性">内联函数特性</h2>
+<ul>
+<li>C++编译器可以将一个函数进行内敛编译</li>
+<li>被C++编译器内联编译的函数叫做内联函数</li>
+<li>C++编译器直接将函数体插入函数调用的地方</li>
+<li>内联函数没有普通函数调用时的额外开销（压栈、跳转、返回）</li>
+<li><strong>C++编译器不一定满足函数的内敛请求</strong></li>
+</ul>
+<h2 id="内联函数初探">内联函数初探</h2>
+<pre><code class="language-c++">#include &lt;stdio.h&gt;
+
+#define     FUNC(a,b)   ((a) &lt; (b) ? (a) : (b))
+
+inline int func(int a, int b)
+{
+    return a &lt; b ? a :b 
+}
+
+int main()
+{
+    int a = 1;
+    int b = 3;
+    int c = FUNC(++a, b);
+
+    printf(&quot;a = %d\n&quot;, a); 
+    printf(&quot;b = %d\n&quot;, b); 
+    printf(&quot;c = %d\n&quot;, c);
+
+    return 0; 
+}
+//如果调用FUNC(a, b)，打印3, 3, 3
+//如果调用func(a, b)，   打印2, 3, 3
+</code></pre>
+<ul>
+<li>内联函数具有普通函数的特征（参数检查，返回类型）</li>
+<li>函数的内联请求可能被编译器拒绝</li>
+<li>函数被内联编译后，函数体直接扩展到调用的地方</li>
+<li>宏代码片段由预处理处理，进行简单的文本替换，没有任何编译过程，因此可能出现副作用</li>
+</ul>
+<h2 id="内联请求">内联请求</h2>
+<ul>
+<li>现代C++编译器能够进行编译优化，一些函数即使没有inline声明，也可能被内联编译</li>
+<li>一些现代C++编译器提供了扩展语法，能够对函数进行强制内联，如：</li>
+</ul>
+<pre><code>    g++：__attribute__((always_inline))属性
+    MSVC：__forceinline
+</code></pre>
+<h3 id="c中inline内联编译的限制">C++中inline内联编译的限制</h3>
+<ul>
+<li>不能存在任何形式的循环语句</li>
+<li>不能存在过多的条件判断语句</li>
+<li>函数体不能过于庞大</li>
+<li>不能对函数进行取址操作</li>
+<li>函数内联声明必须在调用语句之前</li>
+</ul>
+<p>#小结<br>
+<strong>内联函数的提出是为了替代宏代码块的，原因是高效</strong></p>
+<ul>
+<li>C++中可以通过inline声明内联函数</li>
+<li>编译器直接将内联函数体扩展到函数调用的地方</li>
+<li>inline只是一种请求，编译器不一定允许这种请求</li>
+<li>内联函数省去了函数调用时的压栈、跳转和返回的开销</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[回顾（5）：引用本质分析]]></title>
         <id>https://leichen2552.github.io/post/hui-gu-5yin-yong-ben-zhi-fen-xi</id>
