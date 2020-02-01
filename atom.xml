@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-01-31T08:45:33.085Z</updated>
+    <updated>2020-02-01T08:27:22.414Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,121 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[回顾（7）：函数参数拓展]]></title>
+        <id>https://leichen2552.github.io/post/hui-gu-7han-shu-can-shu-tuo-zhan</id>
+        <link href="https://leichen2552.github.io/post/hui-gu-7han-shu-can-shu-tuo-zhan">
+        </link>
+        <updated>2020-02-01T02:15:32.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="函数参数的默认值">函数参数的默认值</h1>
+<ul>
+<li>C++中可以在函数声明时为参数提供一个默认值</li>
+<li>当函数调用时没有提供参数的值，则使用默认值</li>
+</ul>
+<pre><code class="language-c++">int mul(int x = 0);//提供一个参数默认值
+
+int main()
+{
+    printf(&quot;%d\n&quot;, mul());  //mul(0)
+
+    return 0;
+}
+
+int mul(int x)
+{
+    return x*x;
+}
+</code></pre>
+<p>参数默认值必须在函数声明中指定，那么问题来了<br>
+问题：</p>
+<pre><code>    函数定义是否可以出现函数参数的默认值？
+    当函数声明和定义中的参数默认值不同会发生什么？
+</code></pre>
+<pre><code class="language-c++">int mul(int x = 0);
+//...
+int mul(int x = 5)
+{
+    return x*x;
+}      
+</code></pre>
+<p><code>函数参数默认值只能在声明时设置</code></p>
+<h1 id="函数默认参数的规则">函数默认参数的规则</h1>
+<ul>
+<li>参数默认值必须从右向左提供</li>
+<li>函数调用时使用了默认值，则后续参数必须使用默认值</li>
+</ul>
+<pre><code class="language-c++">int add(int x, int y = 1, int z = 2)
+{
+    return x + y+ z;
+}
+
+add(0);         //x = 0
+add(2, 3);      //x = 2, y = 3
+add(3, 2, 1);   //x = 3, y = 2, z = 1
+</code></pre>
+<p>C++是强类型语言</p>
+<h1 id="函数的占位参数">函数的占位参数</h1>
+<ul>
+<li>占位参数只有参数类型声明，而没有参数名声明</li>
+<li>一般情况下，在函数体内部无法使用占位参数</li>
+</ul>
+<pre><code class="language-c++">int func(int x, int)
+{
+    return x;
+}
+
+//  ...
+
+func(1, 2);
+</code></pre>
+<h2 id="函数占位参数的意义">函数占位参数的意义</h2>
+<ul>
+<li>占位参数与默认参数结合起来使用</li>
+<li>兼容C语言程序中可能出现的不规范写法</li>
+</ul>
+<p>举个例子：</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+void func()
+{
+
+}
+
+int main()
+{
+    func();
+    func(1, 2);
+
+    return 0;
+}
+//这部分代码在C语言里是可以编译通过的
+</code></pre>
+<p>但是移植到C++环境里面，是编译不通过的，但是C++为了兼容C语言</p>
+<pre><code class="language-c++">#include &lt;stdio.h&gt;
+
+void func(int = 0, int = 0)
+{
+
+}
+
+int main()
+{
+    func();
+    func(1, 2);
+
+    return 0;
+}
+</code></pre>
+<h1 id="小结">小结</h1>
+<ul>
+<li>C++中支持函数参数的默认值</li>
+<li>如果函数调用时没有提供参数，则使用默认值</li>
+<li>参数的默认值必须从右向左提供</li>
+<li>函数调用使用了默认值，则后续参数必须使用默认值</li>
+<li>C++中支持占位参数，用于兼容C语言中的不规范写法</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[回顾（6）：内联函数分析]]></title>
         <id>https://leichen2552.github.io/post/hui-gu-6nei-lian-han-shu-fen-xi</id>
