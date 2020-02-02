@@ -184,7 +184,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                关于
+                                回顾（8）：函数重载分析（上）
                             </h1>
                             
                                 <!--en-->
@@ -194,43 +194,201 @@
                                         ChenLei's Blog
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2019-01-25</a>
+                                Date: <a href="#">2020-02-02</a>
                             </span>
-                                    <span class="post-readtime">Reading Time:<a href="#">0.7 mins</a></span>
-                                    <span class="post-words">words:<a href="#">174</a></span>
+                                    <span class="post-readtime">Reading Time:<a href="#">3.1 mins</a></span>
+                                    <span class="post-words">words:<a href="#">817</a></span>
                                     
+                                        <span class="post-category">
+                                Category:
+                                
+                                <a href="https://leichen2552.github.io/tag/dTVQPvwPR">C++</a>
+                                
+                            </span>
+                                        
                                 </div>
                                 
                         </header>
                         <div class="post-content">
-                            <p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
-<h2 id="关于本站">🏠 关于本站</h2>
-<p>分享学习知识的乐园</p>
-<h2 id="博主是谁">👨‍💻 博主是谁</h2>
-<p>电子与通信工程科班出身，从事硬件开发，熟悉主流的单片机51、stm32，对RTOS十分感兴趣，像freertos、ucos等，自己尝试写过一个轻量级的RTOS内核。</p>
-<h2 id="关于学习">📐关于学习</h2>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mstyle mathsize="1.44em"><mrow><msubsup><mo>∫</mo><mrow><mi>b</mi><mi>i</mi><mi>r</mi><mi>t</mi><mi>h</mi></mrow><mrow><mi>d</mi><mi>e</mi><mi>a</mi><mi>t</mi><mi>h</mi></mrow></msubsup><mi>s</mi><mi>t</mi><mi>u</mi><mi>d</mi><mi>y</mi><mi>d</mi><mi>t</mi><mi>i</mi><mi>m</mi><mi>e</mi><mo>=</mo><mi>l</mi><mi>i</mi><mi>f</mi><mi>e</mi></mrow></mstyle></mrow><annotation encoding="application/x-tex">\Large {\int_{birth}^{death} study dtime = life} 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.5584800000000003em;vertical-align:-1.29164em;"></span><span class="mord sizing reset-size6 size8"><span class="mop"><span class="mop op-symbol large-op" style="margin-right:0.44445em;position:relative;top:-0.0011249999999999316em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.5741944444444447em;"><span style="top:-2.1030277777777777em;margin-left:-0.44445em;margin-right:0.034722222222222224em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size8 size6 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">b</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">h</span></span></span></span><span style="top:-4.091944444444445em;margin-right:0.034722222222222224em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size8 size6 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">d</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">h</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8969722222222222em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">u</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord mathdefault">d</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span><span class="mord mathdefault">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">e</span></span></span></span></span></span></p>
-<h2 id="兴趣爱好">⛹ 兴趣爱好</h2>
-<p>爱好广泛，篮球、台球、乒乓球，也喜欢打游戏。</p>
-<h2 id="联系我呀">📬 联系我呀</h2>
+                            <p><ul class="markdownIt-TOC">
+<li><a href="#%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E4%B8%8A%E4%B8%8B%E6%96%87">自然语言中的上下文</a>
 <ul>
-<li>Home: https://leichen2552.github.io</li>
-<li>博客园:https://www.cnblogs.com/sanshijvshi/</li>
-<li>Github:https://github.com/leichen2552</li>
-<li>微信公众号：耳东三石的电子乐园，分享专业心得，分享生活，可以关注我哦</li>
+<li><a href="#%E6%B4%97%E5%AD%97%E7%9A%84%E5%90%AB%E4%B9%89">“洗”字的含义</a></li>
+<li><a href="#%E7%BB%93%E8%AE%BA">结论</a></li>
+</ul>
+</li>
+<li><a href="#%E9%87%8D%E8%BD%BDoverload">重载（overload）</a>
+<ul>
+<li><a href="#c%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD">C++中的函数重载</a>
+<ul>
+<li><a href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD">函数重载</a></li>
+<li><a href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E6%9D%A1%E4%BB%B6">函数重载条件</a></li>
+<li><a href="#%E7%BC%96%E8%AF%91%E5%99%A8%E8%B0%83%E7%94%A8%E9%87%8D%E8%BD%BD%E5%87%BD%E6%95%B0%E7%9A%84%E5%87%86%E5%88%99">编译器调用重载函数的准则</a></li>
+<li><a href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E6%9C%AC%E8%B4%A8">函数重载本质</a></li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</p>
+<h1 id="自然语言中的上下文">自然语言中的上下文</h1>
+<h2 id="洗字的含义">“洗”字的含义</h2>
+<pre><code>洗衣服、洗脑、洗车、洗脸、洗马桶
+</code></pre>
+<h2 id="结论">结论</h2>
+<ul>
+<li>能和“洗”字搭配的词汇有很多</li>
+<li>“洗”字和不同的词汇搭配有不同的含义</li>
+</ul>
+<h1 id="重载overload">重载（overload）</h1>
+<ul>
+<li>同一个标识符在不同的上下文有不同的意义</li>
+<li>如：<br>
+“洗”字和不同的词汇搭配有不同的含义： 洗衣服、洗脑、洗车、洗脸、洗马桶。。。<br>
+“play”和不同的单词搭配后有不同的含义：play chess, play piano, play basketball, ...<br>
+思考：</li>
+</ul>
+<pre><code>重载在自然语言中随处可见的，那在程序设计中是否也有重载呢？    
+</code></pre>
+<h2 id="c中的函数重载">C++中的函数重载</h2>
+<h3 id="函数重载">函数重载</h3>
+<ul>
+<li>用同一个函数名定义不同的函数</li>
+<li>当函数名和不同参数搭配时函数的含义不同</li>
+<li>其实不止在C++中，在java、D语言、C#中，重载都是这么定义的</li>
+</ul>
+<pre><code class="language-c++">int func(int x)
+{
+    return x;
+}
+
+int func(int a, int b)
+{
+    return a + b;
+}
+
+int func(const char* s)
+{
+    return strlen(s);
+}
+</code></pre>
+<h3 id="函数重载条件">函数重载条件</h3>
+<ul>
+<li>参数个数不同</li>
+<li>参数类型不同</li>
+<li>参数顺序不同</li>
+</ul>
+<pre><code class="language-c++">int func(int a, const char* s)
+{
+    return a;
+}
+
+int func(const char* s, int a)
+{
+    return strlen(s);
+}
+//以上两个函数可以构成重载
+</code></pre>
+<p>问题：</p>
+<pre><code>当函数默认参数遇上函数重载会发生什么？
+</code></pre>
+<pre><code class="language-c++">int func(int a, int b, int c = 0)
+{
+    return a * b *c
+}
+
+int func(int a, int b)
+{
+    return a + b;
+}
+
+int main()
+{
+    int c = func(1, 2);// which one?
+    return 0;
+}
+//编译器编译出错，就是编译器抱怨了，因为编译器不知道该去匹配哪个函数，出现了二义性！！！
+//C++中有很多特性都是冲突的，所以我们要知道如何去避开这些特性冲突
+</code></pre>
+<h3 id="编译器调用重载函数的准则">编译器调用重载函数的准则</h3>
+<ul>
+<li>将所有同名函数作为候选者</li>
+<li>尝试寻找可行的候选函数
+<ol>
+<li>精确匹配实参</li>
+<li>通过默认参数能够匹配实参</li>
+<li>通过默认类型转换匹配实参</li>
+</ol>
+</li>
+<li>匹配失败
+<ol>
+<li>最终寻找到的候选函数不唯一，则出现二义性，编译失败</li>
+<li>无法匹配所有候选者，函数未定义，编译失败</li>
+</ol>
+</li>
+</ul>
+<h3 id="函数重载本质">函数重载本质</h3>
+<ul>
+<li>
+<p>重载函数在本质上是相互独立的不同函数</p>
+</li>
+<li>
+<p>重载函数的函数类型不同</p>
+</li>
+<li>
+<p>函数返回值不能作为函数重载的依据</p>
+<p><code>函数重载是由函数名和参数列表决定的，跟函数返回值没有半毛钱关系!</code></p>
+</li>
+</ul>
+<pre><code class="language-c++">int func(int a, int b, int c)
+{
+    return a * b * c;
+}
+
+int func(int a, int b)
+{
+    return a + b;
+}
+
+int main()
+{
+    printf(&quot;%p\n&quot;,(int(*)(int, int))add);
+    printf(&quot;%p\n&quot;,(int(*)(int, int, int))add);
+
+    return 0;
+}
+//打印出两个函数地址不同
+</code></pre>
+<h3 id="小结">小结</h3>
+<ul>
+<li>函数重载是C++中引入的概念</li>
+<li>函数重载用于模拟自然语言中的词汇搭配</li>
+<li>函数重载使得C++具有更加丰富的语义表达能力</li>
+<li>函数重载的本质为相互独立的不同函数</li>
+<li>C++中通过函数名和函数参数确定究竟调用那一个函数</li>
 </ul>
 
                         </div>
                         <div class="post-toc">
                             <ul class="markdownIt-TOC">
-<li>
+<li><a href="#%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E4%B8%8A%E4%B8%8B%E6%96%87">自然语言中的上下文</a>
 <ul>
-<li><a href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E7%AB%99">🏠 关于本站</a></li>
-<li><a href="#%E5%8D%9A%E4%B8%BB%E6%98%AF%E8%B0%81">👨‍💻 博主是谁</a></li>
-<li><a href="#%E5%85%B3%E4%BA%8E%E5%AD%A6%E4%B9%A0">📐关于学习</a></li>
-<li><a href="#%E5%85%B4%E8%B6%A3%E7%88%B1%E5%A5%BD">⛹ 兴趣爱好</a></li>
-<li><a href="#%E8%81%94%E7%B3%BB%E6%88%91%E5%91%80">📬 联系我呀</a></li>
+<li><a href="#%E6%B4%97%E5%AD%97%E7%9A%84%E5%90%AB%E4%B9%89">“洗”字的含义</a></li>
+<li><a href="#%E7%BB%93%E8%AE%BA">结论</a></li>
+</ul>
+</li>
+<li><a href="#%E9%87%8D%E8%BD%BDoverload">重载（overload）</a>
+<ul>
+<li><a href="#c%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD">C++中的函数重载</a>
+<ul>
+<li><a href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD">函数重载</a></li>
+<li><a href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E6%9D%A1%E4%BB%B6">函数重载条件</a></li>
+<li><a href="#%E7%BC%96%E8%AF%91%E5%99%A8%E8%B0%83%E7%94%A8%E9%87%8D%E8%BD%BD%E5%87%BD%E6%95%B0%E7%9A%84%E5%87%86%E5%88%99">编译器调用重载函数的准则</a></li>
+<li><a href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E6%9C%AC%E8%B4%A8">函数重载本质</a></li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -247,7 +405,7 @@
 
                                     <p class="copyright-item">
                                         <span>Permalink:</span>
-                                        <span><a href="https://leichen2552.github.io/post/about">https://leichen2552.github.io/post/about</a></span>
+                                        <span><a href="https://leichen2552.github.io/post/hui-gu-8han-shu-chong-zai-fen-xi">https://leichen2552.github.io/post/hui-gu-8han-shu-chong-zai-fen-xi</a></span>
                                     </p>
 
                                     <p class="copyright-item">
@@ -264,6 +422,10 @@
                                                         <span>Tag(s):</span>
                                                         <span class="tag">
                                 
+                                
+                                <a href="https://leichen2552.github.io/tag/dTVQPvwPR"># C++</a>
+                                
+                                
                             </span>
                                                     </div>
                                                     <div>
@@ -276,7 +438,15 @@
                                                         <!---->
                                                         <section class="post-nav">
                                                             
+                                                                <a class="prev" rel="prev" href="https://leichen2552.github.io/post/hui-gu-9han-shu-chong-zai-fen-xi-xia">
+                                                                    回顾（9）：函数重载分析（下）
+                                                                </a>
+                                                                
                                                                     
+                                                                        <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-7han-shu-can-shu-tuo-zhan">
+                                                                            回顾（7）：函数参数拓展
+                                                                        </a>
+                                                                        
                                                         </section>
                     </article>
                 </div>

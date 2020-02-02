@@ -184,7 +184,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                关于
+                                回顾（9）：函数重载分析（下）
                             </h1>
                             
                                 <!--en-->
@@ -194,45 +194,200 @@
                                         ChenLei's Blog
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2019-01-25</a>
+                                Date: <a href="#">2020-02-02</a>
                             </span>
-                                    <span class="post-readtime">Reading Time:<a href="#">0.7 mins</a></span>
-                                    <span class="post-words">words:<a href="#">174</a></span>
+                                    <span class="post-readtime">Reading Time:<a href="#">3.2 mins</a></span>
+                                    <span class="post-words">words:<a href="#">781</a></span>
                                     
+                                        <span class="post-category">
+                                Category:
+                                
+                                <a href="https://leichen2552.github.io/tag/dTVQPvwPR">C++</a>
+                                
+                            </span>
+                                        
                                 </div>
                                 
                         </header>
                         <div class="post-content">
-                            <p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
-<h2 id="关于本站">🏠 关于本站</h2>
-<p>分享学习知识的乐园</p>
-<h2 id="博主是谁">👨‍💻 博主是谁</h2>
-<p>电子与通信工程科班出身，从事硬件开发，熟悉主流的单片机51、stm32，对RTOS十分感兴趣，像freertos、ucos等，自己尝试写过一个轻量级的RTOS内核。</p>
-<h2 id="关于学习">📐关于学习</h2>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mstyle mathsize="1.44em"><mrow><msubsup><mo>∫</mo><mrow><mi>b</mi><mi>i</mi><mi>r</mi><mi>t</mi><mi>h</mi></mrow><mrow><mi>d</mi><mi>e</mi><mi>a</mi><mi>t</mi><mi>h</mi></mrow></msubsup><mi>s</mi><mi>t</mi><mi>u</mi><mi>d</mi><mi>y</mi><mi>d</mi><mi>t</mi><mi>i</mi><mi>m</mi><mi>e</mi><mo>=</mo><mi>l</mi><mi>i</mi><mi>f</mi><mi>e</mi></mrow></mstyle></mrow><annotation encoding="application/x-tex">\Large {\int_{birth}^{death} study dtime = life} 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.5584800000000003em;vertical-align:-1.29164em;"></span><span class="mord sizing reset-size6 size8"><span class="mop"><span class="mop op-symbol large-op" style="margin-right:0.44445em;position:relative;top:-0.0011249999999999316em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.5741944444444447em;"><span style="top:-2.1030277777777777em;margin-left:-0.44445em;margin-right:0.034722222222222224em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size8 size6 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">b</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">h</span></span></span></span><span style="top:-4.091944444444445em;margin-right:0.034722222222222224em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size8 size6 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">d</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">h</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8969722222222222em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">u</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord mathdefault">d</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span><span class="mord mathdefault">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">e</span></span></span></span></span></span></p>
-<h2 id="兴趣爱好">⛹ 兴趣爱好</h2>
-<p>爱好广泛，篮球、台球、乒乓球，也喜欢打游戏。</p>
-<h2 id="联系我呀">📬 联系我呀</h2>
+                            <p><ul class="markdownIt-TOC">
+<li><a href="#%E9%87%8D%E8%BD%BD%E4%B8%8E%E6%8C%87%E9%92%88">重载与指针</a>
 <ul>
-<li>Home: https://leichen2552.github.io</li>
-<li>博客园:https://www.cnblogs.com/sanshijvshi/</li>
-<li>Github:https://github.com/leichen2552</li>
-<li>微信公众号：耳东三石的电子乐园，分享专业心得，分享生活，可以关注我哦</li>
+<li><a href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E9%81%87%E4%B8%8A%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88">函数重载遇上函数指针</a></li>
+<li><a href="#c%E5%92%8Cc%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8">C++和C相互调用</a>
+<ul>
+<li><a href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">注意事项</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</li>
+<li><a href="#%E9%97%AE%E9%A2%98">问题</a></li>
+</ul>
+</p>
+<h1 id="重载与指针">重载与指针</h1>
+<ul>
+<li>下面的函数指针将保存哪个函数的地址？</li>
+</ul>
+<pre><code class="language-c++">int func(int x)
+{
+    return x;
+}
+
+int func(int a, int b)
+{
+    return a +b;
+}
+
+int func(const char* s)
+{
+    return strlen(s);
+}
+
+typedef int(*PFUNC)(int a);//函数指针类型为int
+int c = 0;
+PFUNC p = func;
+c = p(1); 
+</code></pre>
+<h2 id="函数重载遇上函数指针">函数重载遇上函数指针</h2>
+<ul>
+<li>将重载函数名赋值给函数指针时
+<ol>
+<li>根据重载规则挑选与函数指针参数列表一致的候选者</li>
+<li>严格匹配候选者的函数类型与函数指针的函数类型</li>
+</ol>
+</li>
+</ul>
+<pre><code>这也体现出C++是强类型的语言
+</code></pre>
+<ul>
+<li>注意
+<ul>
+<li>函数重载必然发生在同一个作用域</li>
+<li>编译器需要用参数列表或函数类型进行函数选择</li>
+<li>无法直接通过函数名得到重载函数的入口地址</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">int func(int a, int b, int c)
+{
+    return a * b * c;
+}
+
+int func(int a, int b)
+{
+    return a + b;
+}
+
+int main()
+{
+    printf(&quot;%p\n&quot;,(int(*)(int, int))add);
+    printf(&quot;%p\n&quot;,(int(*)(int, int, int))add);
+
+    //下面这两句就饿没有指定函数指针的函数类型和参数列表的类型，所以肯定会报错
+    printf(&quot;%p\n&quot;,add);
+    printf(&quot;%p\n&quot;,add);
+
+    return 0;
+}
+//打印出两个函数地址不同
+</code></pre>
+<h2 id="c和c相互调用">C++和C相互调用</h2>
+<ul>
+<li>实际工程中C++和C代码相互调用时不可避免的</li>
+<li>C++编译器能够兼容C语言的编译方式</li>
+<li>C++编译器会优先使用C++的编译的方式</li>
+<li>extern关键字能强制让C++编译器进行C方式的编译</li>
+</ul>
+<pre><code class="language-c++">extern &quot;C&quot;
+{
+    //do C-style compilation here
+}
+</code></pre>
+<ul>
+<li>__cplusplus是C++内置的标准宏定义</li>
+<li>__cplusplus的意义
+<ul>
+<li>确保C代码以统一的C方式被编译成目标文件</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">#ifdef __cplusplus
+extern &quot;C&quot;{
+#endif    
+
+//C code
+
+#ifdef __cplusplus
+}
+#endif
+</code></pre>
+<h3 id="注意事项">注意事项</h3>
+<ul>
+<li>C++编译器不能以C的方式编译重载函数</li>
+<li>编译方式决定函数名被编译后的目标名
+<ul>
+<li>C++编译方式将函数名和参数列表编译成目标名</li>
+<li>C编译方式只将函数名作为目标名进行编译</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">//1
+int func(int a, int b, int c)
+{
+    return a * b * c;
+}
+
+int func(int a, int b)
+{
+    return a + b;
+}
+
+//2
+extern &quot;C&quot;{
+    int func(int a, int b, int c)
+    {
+        return a * b * c;
+    }
+
+    int func(int a, int b)
+    {
+        return a + b;
+    }
+}
+</code></pre>
+<pre><code>    利用这句g++ -c test.cpp -o test.oo将上面两部分代码进行编译后
+    用 nm 命令查看test.oo中的符号表，nm test.oo
+    结果第一部分代码能编译通过，二部分代码编译报错
+    所以C++编译方式将函数名和参数列表编译成目标名，C编译方式只将函数名作为目标名进行编译
+</code></pre>
+<h2 id="小结">小结</h2>
+<ul>
+<li>函数重载是C++对C的一个重要升级</li>
+<li>函数重载通过函数参数列表区分不同的同名函数</li>
+<li>extern关键字能够实现C和C++的相互调用</li>
+<li>编译方式决定符号表中的函数名的最终目标名</li>
+</ul>
+<h1 id="问题">问题</h1>
+<ul>
+<li>C中如何调用C++函数？</li>
 </ul>
 
                         </div>
                         <div class="post-toc">
                             <ul class="markdownIt-TOC">
-<li>
+<li><a href="#%E9%87%8D%E8%BD%BD%E4%B8%8E%E6%8C%87%E9%92%88">重载与指针</a>
 <ul>
-<li><a href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E7%AB%99">🏠 关于本站</a></li>
-<li><a href="#%E5%8D%9A%E4%B8%BB%E6%98%AF%E8%B0%81">👨‍💻 博主是谁</a></li>
-<li><a href="#%E5%85%B3%E4%BA%8E%E5%AD%A6%E4%B9%A0">📐关于学习</a></li>
-<li><a href="#%E5%85%B4%E8%B6%A3%E7%88%B1%E5%A5%BD">⛹ 兴趣爱好</a></li>
-<li><a href="#%E8%81%94%E7%B3%BB%E6%88%91%E5%91%80">📬 联系我呀</a></li>
+<li><a href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E9%81%87%E4%B8%8A%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88">函数重载遇上函数指针</a></li>
+<li><a href="#c%E5%92%8Cc%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8">C++和C相互调用</a>
+<ul>
+<li><a href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">注意事项</a></li>
 </ul>
 </li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</li>
+<li><a href="#%E9%97%AE%E9%A2%98">问题</a></li>
 </ul>
 
                         </div>
@@ -247,7 +402,7 @@
 
                                     <p class="copyright-item">
                                         <span>Permalink:</span>
-                                        <span><a href="https://leichen2552.github.io/post/about">https://leichen2552.github.io/post/about</a></span>
+                                        <span><a href="https://leichen2552.github.io/post/hui-gu-9han-shu-chong-zai-fen-xi-xia">https://leichen2552.github.io/post/hui-gu-9han-shu-chong-zai-fen-xi-xia</a></span>
                                     </p>
 
                                     <p class="copyright-item">
@@ -264,6 +419,10 @@
                                                         <span>Tag(s):</span>
                                                         <span class="tag">
                                 
+                                
+                                <a href="https://leichen2552.github.io/tag/dTVQPvwPR"># C++</a>
+                                
+                                
                             </span>
                                                     </div>
                                                     <div>
@@ -277,6 +436,10 @@
                                                         <section class="post-nav">
                                                             
                                                                     
+                                                                        <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-8han-shu-chong-zai-fen-xi">
+                                                                            回顾（8）：函数重载分析（上）
+                                                                        </a>
+                                                                        
                                                         </section>
                     </article>
                 </div>
