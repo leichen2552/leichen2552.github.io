@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-02-02T13:23:45.697Z</updated>
+    <updated>2020-02-03T09:21:35.031Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,288 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[回顾（11）：新型的类型转换]]></title>
+        <id>https://leichen2552.github.io/post/hui-gu-11xin-xing-de-lei-xing-zhuan-huan</id>
+        <link href="https://leichen2552.github.io/post/hui-gu-11xin-xing-de-lei-xing-zhuan-huan">
+        </link>
+        <updated>2020-02-03T08:08:18.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="强制类型转换">强制类型转换</h1>
+<h2 id="c方式的强制类型转换">C方式的强制类型转换</h2>
+<ul>
+<li>( Type ) ( Expression )</li>
+<li>Type( Expression )</li>
+</ul>
+<h2 id="c方式强制类型转换存在的问题">C方式强制类型转换存在的问题</h2>
+<ul>
+<li>过于粗暴
+<ul>
+<li>任意类型之间都可以进行转换，编译器很难判断其正确性</li>
+</ul>
+</li>
+<li>难于定位
+<ul>
+<li>在源代码中无法快速定位所有使用强制类型转换的语句</li>
+</ul>
+</li>
+</ul>
+<pre><code>强制类型在实际工程中是很难完全避免的！！！
+</code></pre>
+<h2 id="新式类型转换">新式类型转换</h2>
+<ul>
+<li>static_cast</li>
+<li>const_cast</li>
+<li>dynamic_cast</li>
+<li>reinterpret_cast</li>
+</ul>
+<h3 id="static_cast">static_cast</h3>
+<ul>
+<li>用于基本类型间的转换</li>
+<li>不能用于基本类型指针间的转换</li>
+<li>用于有继承关系类对象之间的转换和类指针之间的转换</li>
+</ul>
+<pre><code class="language-c++">void static_cast_demo()
+{
+    int i = 0x12345;
+    char c = 'c';
+    int* pi = &amp;i;
+    char* pc = &amp;c;
+    
+    c = static_cast&lt;char&gt;(i);
+    pc = static_cast&lt;char*&gt;(pi);//Error
+}
+</code></pre>
+<h3 id="const_cast">const_cast</h3>
+<ul>
+<li>用于去除变量的只读属性</li>
+<li>强制转换的目标类型必须是指针或引用</li>
+</ul>
+<pre><code class="language-c++">void const_cast_demo()
+{
+    const int&amp; j = 1;
+    int&amp; k = const_cast&lt;int&amp;&gt;(j);
+    
+    const int x = 2;
+    int&amp; y = const_cast&lt;int&amp;&gt;(x);
+    
+    int z = const_cast&lt;int&gt;(x);//Error
+    
+    k = 5;
+    
+    printf(&quot;k = %d\n&quot;, k);
+    printf(&quot;j = %d\n&quot;, j);
+    
+    y = 8;
+    
+    printf(&quot;x = %d\n&quot;, x);
+    printf(&quot;y = %d\n&quot;, y);
+    printf(&quot;&amp;x = %p\n&quot;, &amp;x);
+    printf(&quot;&amp;y = %p\n&quot;, &amp;y);
+}
+</code></pre>
+<h3 id="reinterpret_cast">reinterpret_cast</h3>
+<ul>
+<li>用于指针类型间的强制转换</li>
+<li>用于整数和指针类型间的强制转换</li>
+</ul>
+<pre><code class="language-c++">void reinterpret_cast_demo()
+{
+    int i = 0;
+    char c = 'c';
+    int* pi = &amp;i;
+    char* pc = &amp;c;
+    
+    pc = reinterpret_cast&lt;char*&gt;(pi);
+    pi = reinterpret_cast&lt;int*&gt;(pc);
+    pi = reinterpret_cast&lt;int*&gt;(i);
+    c = reinterpret_cast&lt;char&gt;(i); //Error
+}
+
+</code></pre>
+<h3 id="dynamic_cast">dynamic_cast</h3>
+<ul>
+<li>用于有继承关系的类指针间的转换</li>
+<li>用于有交叉关系的类指针间的转换</li>
+<li>具有类型检查的功能</li>
+<li>需要虚函数的支持</li>
+<li>具有类型检查的功能，如果类型转换失败的话，会被转换成<strong>空指针</strong></li>
+</ul>
+<pre><code class="language-c++">void dynamic_cast_demo()
+{
+    int i = 0;
+    int* pi = &amp;i;
+    char* pc = dynamic_cast&lt;char*&gt;(pi);//Error
+}
+
+int main()
+{
+    static_cast_demo();
+    const_cast_demo();
+    reinterpret_cast_demo();
+    dynamic_cast_demo();
+    
+    return 0;
+}
+</code></pre>
+<h1 id="小结">小结</h1>
+<ul>
+<li>C方式的强制类型转换
+<ul>
+<li>过于粗暴</li>
+<li>潜在的问题不易被发现</li>
+<li>不易在代码中定位</li>
+</ul>
+</li>
+<li>新式类型转换以C++关键字的方式出现
+<ul>
+<li>编译器能够帮助检查潜在的问题</li>
+<li>非常方便的在代码中定位</li>
+<li>支持动态类型识别（dynamic_cast）</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[回顾（10）：C++中的新成员]]></title>
+        <id>https://leichen2552.github.io/post/hui-gu-10czhong-de-xin-cheng-yuan</id>
+        <link href="https://leichen2552.github.io/post/hui-gu-10czhong-de-xin-cheng-yuan">
+        </link>
+        <updated>2020-02-03T01:01:48.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="动态内存分配">动态内存分配</h1>
+<h2 id="c中的动态内存分配">C++中的动态内存分配</h2>
+<ul>
+<li>C++中通过new关键字进行动态内存申请</li>
+<li>C++中的动态内存申请是基于类型进行的</li>
+<li>delete关键字用于内存释放</li>
+</ul>
+<pre><code class="language-c++">//变量申请
+Type* pointer = new Type;
+//......
+delete pointer;
+
+//数组申请
+Type* pointer = new Type[N];
+//......
+delete[] pointer;
+</code></pre>
+<pre><code>怎么申请的就怎么释放！有没有[]要注意！！！
+</code></pre>
+<pre><code class="language-c++">int p = new int;
+
+p = new int[10];//这句动态内存申请，并不是表示p指向的是40个字节的一片内存空间
+                //这样说的话，面试官会不给你过
+                //因为动态内存分配时，分配的可能会比你申请的空间要大
+                //应该这样说，p指向的内存空间至少40个字节
+</code></pre>
+<h2 id="new关键字与malloc函数的区别">new关键字与malloc函数的区别</h2>
+<ul>
+<li>new关键字是C++的一部分
+<ul>
+<li>malloc是由C库提供的函数</li>
+</ul>
+</li>
+<li>new以具体类型为单位进行内存分配
+<ul>
+<li>malloc以字节为单位进行内存分配</li>
+</ul>
+</li>
+<li>new在申请单个类型变量时可进行初始化
+<ul>
+<li>malloc不具备内存初始化的特性</li>
+</ul>
+</li>
+</ul>
+<h2 id="new关键字的初始化">new关键字的初始化</h2>
+<pre><code class="language-c++">int* pi = new int(1);
+float* pf = new float(2.0f);
+char* pc = new char('c');
+</code></pre>
+<h1 id="c中的命名空间">C++中的命名空间</h1>
+<h2 id="在c语言中只有一个全局作用域">在C语言中只有一个全局作用域</h2>
+<ul>
+<li>C语言所有的全局标识符共享同一个作用域</li>
+<li>标识符之间可能发生冲突</li>
+</ul>
+<h2 id="c中提出了命名空间的概念">C++中提出了命名空间的概念</h2>
+<ul>
+<li>命名空间将全局作用域分成不同部分</li>
+<li>不同命名空间中的标识符可以同名而不会发生冲突</li>
+<li>命名空间可以相互嵌套</li>
+<li>全局作用域也叫做默认命名空间</li>
+</ul>
+<h3 id="c命名空间的定义">C++命名空间的定义</h3>
+<pre><code class="language-c++">namespace Name
+{
+    namespace Internal
+    {
+        /*  */
+    }
+    /**/
+}
+</code></pre>
+<h3 id="c命名空间的使用">C++命名空间的使用</h3>
+<ul>
+<li>使用整个命名空间：</li>
+</ul>
+<pre><code class="language-c++">using namespace name;
+</code></pre>
+<ul>
+<li>使用命名空间中的变量：</li>
+</ul>
+<pre><code class="language-c++">using name::varible;
+</code></pre>
+<ul>
+<li>使用默认命名空间中的变量：</li>
+</ul>
+<pre><code class="language-c++">::varible
+</code></pre>
+<pre><code class="language-c++">#include &lt;stdio.h&gt;
+
+namespace First
+{
+    int i = 0;
+}
+
+namespace Second
+{
+    int i =1;
+
+    namespace Internal
+    {
+        struct P
+        {
+            int x;
+            int y;
+        };
+    }
+}
+
+int main()
+{
+    using namespace First;
+    using Second::Internal::P;
+
+    printf(&quot;First::i = %d\n&quot;, i);
+    printf(&quot;Second::i = %d\n&quot;, Second::i);
+
+    P p = {2, 3};
+
+    printf(&quot;p.x = %d\n&quot;, p.x);
+    printf(&quot;p.y = %d\n&quot;, p.y);
+
+    return 0;
+}
+</code></pre>
+<h1 id="小结">小结</h1>
+<ul>
+<li>C++中内置的动态内存分配的专用关键字</li>
+<li>C++中的动态内存分配可以同时进行初始化</li>
+<li>C++中的动态内存分配时基于类型进行的</li>
+<li>C++中命名空间概念用于解决名称冲突问题</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[回顾（9）：函数重载分析（下）]]></title>
         <id>https://leichen2552.github.io/post/hui-gu-9han-shu-chong-zai-fen-xi-xia</id>
@@ -1091,122 +1373,6 @@ g()
 <li>C++中的<font color = blue>register</font>只是一个兼容的作用，C++兼容C语言只是为了兼容C语言，因为C++有自己的优化方式，他不需要register这个关键字来指示优化</li>
 <li>C++编译器能够<font color = ff00ff>更好的进行优化</font></li>
 <li>C++中<font color = 71c671>任意的标识符都必须显示的指明类型</font></li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（1）：学习C++的意义]]></title>
-        <id>https://leichen2552.github.io/post/xue-xi-cde-yi-yi</id>
-        <link href="https://leichen2552.github.io/post/xue-xi-cde-yi-yi">
-        </link>
-        <updated>2020-01-11T07:07:14.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E5%B8%B8%E8%A7%81%E8%A7%82%E7%82%B9">常见观点：</a></li>
-<li><a href="#%E8%BD%AF%E4%BB%B6%E6%96%B9%E6%B3%95%E8%AE%BA%E7%9A%84%E5%8F%91%E5%B1%95">软件方法论的发展</a>
-<ul>
-<li><a href="#%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1">面向过程的程序设计</a></li>
-</ul>
-</li>
-<li><a href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1">面向对象的程序设计</a></li>
-<li><a href="#%E6%98%AF%E5%90%A6%E9%9C%80%E8%A6%81%E6%96%B0%E7%9A%84%E8%AF%AD%E8%A8%80">是否需要新的语言</a></li>
-<li><a href="#c%E8%AF%AD%E8%A8%80%E7%9A%84%E5%8A%A0%E5%BC%BA">C语言的加强</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
-</ul>
-</p>
-<h2 id="常见观点">常见观点：</h2>
-<ul>
-<li>操作系统和驱动程序都是C写的，学好C就够了</li>
-<li>C++在应用层用的多，学嵌入式没有必要</li>
-<li>linus大神认为C++一无是处，还学它干嘛</li>
-<li>我以后就做驱动开发，没有精力也没有必要学C++</li>
-</ul>
-<p>Unix诞生之初是汇编语言写的，但是汇编语言的开发效率太低。<br>
-所以两个大神对B语言进行改进，C语言就诞生了！</p>
-<p>C语言的诞生只是为了开发操作系统，所以C语言里有很多灰色地带。</p>
-<h2 id="软件方法论的发展">软件方法论的发展</h2>
-<h3 id="面向过程的程序设计">面向过程的程序设计</h3>
-<ol>
-<li>特点</li>
-</ol>
-<ul>
-<li>分析解决问题所需要的步骤</li>
-<li>利用函数实现各个步骤</li>
-<li>依次调用函数解决问题</li>
-</ul>
-<ol start="2">
-<li>问题</li>
-</ol>
-<ul>
-<li>软件可重用性差</li>
-<li>软件可维护性差</li>
-</ul>
-<h2 id="面向对象的程序设计">面向对象的程序设计</h2>
-<ol>
-<li>
-<p>将现实中的事物直接映射到程序中去，可直接满足用户需求</p>
-</li>
-<li>
-<p>特点：</p>
-</li>
-</ol>
-<ul>
-<li>直接分析用户需求中涉及的各个实体</li>
-<li>在代码中描述显示师姐中的实体</li>
-<li>在代码中关联各个实体协同工作解决问题</li>
-</ul>
-<ol start="3">
-<li>优势：</li>
-</ol>
-<ul>
-<li>构建的软件能够适应用户需求的不断变化</li>
-<li>直接利用面向过程方法的优势而避开其劣势</li>
-</ul>
-<h2 id="是否需要新的语言">是否需要新的语言</h2>
-<p>高效的面对对象语言，并且能够兼容已经存在的代码。</p>
-<p>C语言 + 面向对象方法论，Obiective-C，C++</p>
-<h2 id="c语言的加强">C语言的加强</h2>
-<ul>
-<li>C语言和C++并不是对立竞争的关系</li>
-<li>C++是C语言的加强，是一种更好的C语言</li>
-<li>C++是以C语言为基础的，并且完全兼容C语言的特性</li>
-</ul>
-<h1 id="小结">小结</h1>
-<ul>
-<li>所有的软件系统都是为了满足用户需求开发的</li>
-<li>对于一个团队而言，在短期内内开发出用户满意的软件系统是其核心竞争力的体现</li>
-<li>对于一个开发者而言，能够胜任系统中的任意一个模块的开发是其核心价值的体现</li>
-<li>对于一个架构师的而言，掌握各种语言的优势并合理运用到系统中，由此化繁为简，是其核心价值的体现</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[ESP8266入门体验]]></title>
-        <id>https://leichen2552.github.io/post/esp8266-ru-men-ti-yan</id>
-        <link href="https://leichen2552.github.io/post/esp8266-ru-men-ti-yan">
-        </link>
-        <updated>2020-01-06T12:11:43.000Z</updated>
-        <content type="html"><![CDATA[<p>由于项目需要把有线传输改成无线传输，蓝牙传输容易丢包，所以就用现在很火的WiFi芯片——ESP8266。</p>
-<p>前前后后购置了三样东西<br>
-<img src="https://leichen2552.github.io//post-images/1578316456867.png" alt="" loading="lazy"><br>
-<img src="https://leichen2552.github.io//post-images/1578316462777.png" alt="" loading="lazy"><br>
-<img src="https://leichen2552.github.io//post-images/1578313188960.png" alt="" loading="lazy"></p>
-<p>随机打开安信可串口调试助手，发送AT+RST，一定要先发这个保证初始化。<br>
-<img src="https://leichen2552.github.io//post-images/1578314172950.png" alt="" loading="lazy"></p>
-<p>看到最后的ready。这时，固件启动完成。</p>
-<p>中间有一串乱码，这串乱码可以再74880的波特率下查看系统日志信息。</p>
-<ul>
-<li>rst cause :  红框种的数值<br>
-1   上电<br>
-2   外部复位<br>
-3   硬件看门狗复位</li>
-<li>Boot mode : 启动模式后面有两个参数，只看第一个参数即可<br>
-1   下载模式<br>
-3   运行模式</li>
-<li>chksum : chksum和csum值相等，表明启动过程中flash读值准确</li>
 </ul>
 ]]></content>
     </entry>
