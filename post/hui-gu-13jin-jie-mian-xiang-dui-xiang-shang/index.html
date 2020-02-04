@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
 <title>
@@ -53,6 +54,7 @@
             
                 
 </head>
+
 <body>
     <div class="wrapper">
         <header>
@@ -177,29 +179,163 @@
 
     }
 </script>
-        <div class="main">
-            <div class="container">
-                <div class="post-wrap archive">
-                    
-                    
-                    <h3>
-                        2020
-                    </h3>
-                    
-                    
+            <div class="main">
+                <div class="container">
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                回顾（13）：进阶面向对象（上）
+                            </h1>
+                            
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        ChenLei's Blog
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2020-02-04</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a href="#">1.6 mins</a></span>
+                                    <span class="post-words">words:<a href="#">480</a></span>
+                                    
+                                        <span class="post-category">
+                                Category:
+                                
+                                <a href="https://leichen2552.github.io/tag/dTVQPvwPR">C++</a>
+                                
+                            </span>
+                                        
+                                </div>
+                                
+                        </header>
+                        <div class="post-content">
+                            <h1 id="面向对象基本概念">面向对象基本概念</h1>
+<h2 id="面向对象的意义在于">面向对象的意义在于</h2>
+<ul>
+<li>将日常生活中习惯的思维引入程序设计中</li>
+<li>将需求中的概念只管的映射到解决方案中</li>
+<li>以模块为中心构建可复用的软件系统</li>
+<li>提高软件产品的可维护性和可拓展性</li>
+</ul>
+<h2 id="类和对象是面向对象的两个基本概念">类和对象是面向对象的两个基本概念</h2>
+<ul>
+<li>类：指的是一类事物，是一个抽象的概念</li>
+<li>对象：指的是属于某个类的具体实体</li>
+<li>类是一种模型。这种模型课以创建出不同的对象实体</li>
+<li>对象实体是类模型的一个具体事例</li>
+</ul>
+<p><code>一个类可以有很多对象，而一个对象必然属于某个类</code></p>
+<p>对象就是一个具体实体，老虎分为华南虎、东北虎、孟加拉虎，这些是老虎的类别，成都动物园里的花花就是具体的对象</p>
+<h2 id="类和对象的意义">类和对象的意义</h2>
+<ul>
+<li>类用于抽象的描述一类事物所特有的属性和行为
+<ul>
+<li>如：电脑拥有CPU，内存和硬盘，并且课以开机和运行程序</li>
+</ul>
+</li>
+<li>对象是具体的事物，拥有所属类中描述一些属性和行为
+<ul>
+<li>如：每一只老虎都有各自的体重、食量和惰性</li>
+</ul>
+</li>
+</ul>
+<h3 id="一些有趣的问题">一些有趣的问题</h3>
+<ul>
+<li>类一定存在实际的对象吗？</li>
+<li>类的对象数目是确定的吗？</li>
+<li>类一定都来源于现实生活吗？</li>
+<li>类都是独立的吗？类之间存在关系吗？</li>
+<li>对象实例一定只属于一个类吗？</li>
+<li>对象实例可能完全相同吗？</li>
+</ul>
+<h1 id="小结">小结</h1>
+<ul>
+<li>面向对象是当今软件开发中的重要方法</li>
+<li>类和对象是面向对象理论中的基本概念</li>
+<li>类和对象均来源于日常生活中</li>
+<li>每个类可以有很多对象</li>
+<li>每个对象必然属于某个类</li>
+</ul>
 
-                    <article class="archive-item">
-                        <a class="archive-item-link" href="https://leichen2552.github.io/post/markdownnotes">
-                            markdownNotes
-                        </a>
-                        <span class="archive-item-date">2020-01-06 </span>
+                        </div>
+                        <div class="post-toc">
+                            <ul class="markdownIt-TOC">
+<li><a href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">面向对象基本概念</a>
+<ul>
+<li><a href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%84%8F%E4%B9%89%E5%9C%A8%E4%BA%8E">面向对象的意义在于</a></li>
+<li><a href="#%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%E6%98%AF%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%B8%A4%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">类和对象是面向对象的两个基本概念</a></li>
+<li><a href="#%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%84%8F%E4%B9%89">类和对象的意义</a>
+<ul>
+<li><a href="#%E4%B8%80%E4%BA%9B%E6%9C%89%E8%B6%A3%E7%9A%84%E9%97%AE%E9%A2%98">一些有趣的问题</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+
+                        </div>
+                        
+                            
+                                <!--en-->
+                                <section class="post-copyright en">
+                                    <p class="copyright-item">
+                                        <span>Author:</span>
+                                        <span>ChenLei's Blog</span>
+                                    </p>
+
+                                    <p class="copyright-item">
+                                        <span>Permalink:</span>
+                                        <span><a href="https://leichen2552.github.io/post/hui-gu-13jin-jie-mian-xiang-dui-xiang-shang">https://leichen2552.github.io/post/hui-gu-13jin-jie-mian-xiang-dui-xiang-shang</a></span>
+                                    </p>
+
+                                    <p class="copyright-item">
+                                        <span>License:</span>
+                                        <span>MIT License</span>
+                                    </p>
+                                </section>
+                                
+                                        
+                                            
+                                                <!--en-->
+                                                <section class="post-tags en">
+                                                    <div>
+                                                        <span>Tag(s):</span>
+                                                        <span class="tag">
+                                
+                                
+                                <a href="https://leichen2552.github.io/tag/dTVQPvwPR"># C++</a>
+                                
+                                
+                            </span>
+                                                    </div>
+                                                    <div>
+                                                        <a href="javascript:window.history.back();">back</a>
+                                                        <span>&dot;</span>
+                                                        <a href="#">home</a>
+                                                    </div>
+                                                </section>
+                                                
+                                                        <!---->
+                                                        <section class="post-nav">
+                                                            
+                                                                <a class="prev" rel="prev" href="https://leichen2552.github.io/post/hui-gu-14jin-jie-mian-dui-dui-xiang-xia">
+                                                                    回顾（14）：进阶面对对象（下）
+                                                                </a>
+                                                                
+                                                                    
+                                                                        <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-12jing-dian-wen-ti-jie-xi-yi">
+                                                                            回顾（12）：经典问题解析一
+                                                                        </a>
+                                                                        
+                                                        </section>
                     </article>
-                    
-                    
-                    
                 </div>
+                
             </div>
-        </div>
+    </div>
+    </div>
     </div>
     
     <div id="player"></div>
@@ -286,6 +422,10 @@
                     
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
-    </div>
+        </div>
 </body>
+<script>
+    scroll();
+</script>
+
 </html>
