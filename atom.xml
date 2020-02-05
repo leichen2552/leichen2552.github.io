@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-02-04T14:09:28.471Z</updated>
+    <updated>2020-02-05T14:15:18.585Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -16,7 +16,64 @@
         <link href="https://leichen2552.github.io/post/hui-gu-14jin-jie-mian-dui-dui-xiang-xia">
         </link>
         <updated>2020-02-04T08:20:26.000Z</updated>
-        <content type="html"><![CDATA[<p>111</p>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E7%B1%BB%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB">类之间的关系</a></li>
+<li><a href="#%E7%B1%BB%E7%9A%84%E8%A1%A8%E7%A4%BA%E6%B3%95">类的表示法</a>
+<ul>
+<li><a href="#%E5%A6%82%E4%BD%95%E8%AE%A9%E7%BC%96%E8%AF%91%E5%99%A8%E8%AF%BB%E6%87%82%E8%BF%99%E4%BA%9B%E7%B1%BB%E7%9A%84%E8%A1%A8%E7%A4%BA%E6%B3%95">如何让编译器读懂这些类的表示法</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</p>
+<h1 id="类之间的关系">类之间的关系</h1>
+<ul>
+<li>
+<p>继承</p>
+<ul>
+<li>从已存在细分出来的类和原类之间有继承关系</li>
+<li>继承的类（子类）拥有原类（父类）的所有属性和行为</li>
+</ul>
+</li>
+<li>
+<p>组合</p>
+<ul>
+<li>一些类的存在必须依赖于其他的类，这种关系叫组合</li>
+<li>组合的类在某一个局部上有其他的类组成</li>
+</ul>
+</li>
+<li>
+<p>继承：惠普电脑、苹果电脑继承了电脑的所有属性</p>
+</li>
+<li>
+<p>组合：电脑这个类需要硬盘、内存、主板、CPU这些类组合起来</p>
+</li>
+</ul>
+<h1 id="类的表示法">类的表示法</h1>
+<h2 id="如何让编译器读懂这些类的表示法">如何让编译器读懂这些类的表示法</h2>
+<ul>
+<li>类的表示法<br>
+<img src="https://leichen2552.github.io//post-images/1580911863301.png" alt="" loading="lazy"></li>
+<li>类的表示法-改进1<br>
+<img src="https://leichen2552.github.io//post-images/1580911870890.png" alt="" loading="lazy"></li>
+<li>类的表示法-改进2<br>
+<img src="https://leichen2552.github.io//post-images/1580911881299.png" alt="" loading="lazy"></li>
+<li>类的表示法-改进3<br>
+<img src="https://leichen2552.github.io//post-images/1580911885439.png" alt="" loading="lazy"></li>
+<li>类的表示法-改进4<br>
+<img src="https://leichen2552.github.io//post-images/1580911900662.png" alt="" loading="lazy"></li>
+<li>类的表示法-改进5<br>
+<img src="https://leichen2552.github.io//post-images/1580911905917.png" alt="" loading="lazy"></li>
+</ul>
+<p>貌似大功告成，好像看着编译器可以识别了！</p>
+<h1 id="小结">小结</h1>
+<ul>
+<li>类之间课已存在继承关系或者组合关系</li>
+<li>继承关系中子类拥有父类的一切属性和行为</li>
+<li>组合关系是类之间整体和部分的关系</li>
+<li>类及类之间的关系可以有不同的表示法</li>
+<li>编译器对类的表示法有具体的要求</li>
+</ul>
 ]]></content>
     </entry>
     <entry>
