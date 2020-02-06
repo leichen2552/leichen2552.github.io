@@ -187,7 +187,7 @@
                 <article class="post-wrap">
                     <header class="post-header">
                         <h1 class="post-title">
-                            markdownNotes
+                            回顾（17）：对象的构造（上）
                         </h1>
                         
                         <!--en-->
@@ -197,17 +197,17 @@
                                 ChenLei's Blog
                             </a>
                             <span class="post-time">
-                                Date: <a href="#">2020-01-06</a>
+                                Date: <a href="#">2020-02-06</a>
                             </span>
                             <span class="post-readtime">Reading Time:<a
-                                    href="#">1.4
+                                    href="#">2.6
                                     mins</a></span>
-                            <span class="post-words">words:<a href="#">341</a></span>
+                            <span class="post-words">words:<a href="#">635</a></span>
                             
                             <span class="post-category">
                                 Category:
                                 
-                                <a href="https://leichen2552.github.io/tag/Qzv1kR5wT">markdown</a>
+                                <a href="https://leichen2552.github.io/tag/dTVQPvwPR">C++</a>
                                 
                             </span>
                             
@@ -218,117 +218,145 @@
                         
                         </header>
                         <div class="post-content">
-                            <p><strong>目录</strong><br>
-<ul class="markdownIt-TOC">
-<li><a href="#markdown-%E7%AC%94%E8%AE%B0">Markdown 笔记</a>
+                            <h1 id="对象的初始化">对象的初始化</h1>
+<pre><code>问题：对象中的成员变量初始值是多少？
+</code></pre>
+<p>试验一下就知道了！</p>
+<pre><code class="language-c++">class Test
+{
+private:
+    int i;
+    int j;
+public:
+    void int getI() {return i;}
+    void int getJ() {return j;}
+}
+
+//类得到的其实是数据类型
+
+Test gt;//因为存储空间在全局数据区
+
+int main()
+{
+    printf(&quot;gt.i = %d\n&quot;,gt.getI());
+    printf(&quot;gt.j = %d\n&quot;,gt.getJ());
+
+    Test t1;//因为存储空间在栈上面
+
+    printf(&quot;t1.i = %d\n&quot;,t1.getI());
+    printf(&quot;t1.j = %d\n&quot;,t1.getJ());
+
+    Test* pt = new Test;
+
+    printf(&quot;pt-&gt;i = %d\n&quot;,pt-&gt;getI());
+    printf(&quot;pt-&gt;j = %d\n&quot;,pt-&gt;getJ());
+
+    delete pt;
+    return 0;
+}
+//打印结果
+//i = 0
+//j = 0
+//i = 1236584
+//j = 1256981
+//i = 0，这个0只是一个巧合
+//j = 0，这个0只是一个巧合
+</code></pre>
 <ul>
-<li><a href="#%E7%94%9F%E6%88%90%E7%9B%AE%E5%BD%95">生成目录</a></li>
-<li><a href="#%E4%BB%A3%E7%A0%81%E9%AB%98%E4%BA%AE">代码高亮</a></li>
-<li><a href="#%E6%97%A0%E5%BA%8F%E6%A0%87%E5%8F%B7%E5%92%8C%E6%9C%89%E5%BA%8F%E6%A0%87%E5%8F%B7">无序标号和有序标号</a></li>
-<li><a href="#%E6%96%87%E5%AD%97%E5%8A%A0%E7%B2%97">文字加粗</a></li>
-<li><a href="#%E6%96%9C%E4%BD%93%E5%AD%97">斜体字</a></li>
-<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%97%E4%BD%93%E5%A4%A7%E5%B0%8F">自定义字体大小</a></li>
-<li><a href="#%E5%AD%97%E4%BD%93%E5%8F%98%E5%A4%A7%E5%8F%98%E5%B0%8F%E6%A0%87%E7%AD%BE">字体变大变小标签</a></li>
-<li><a href="#%E6%8D%A2%E8%A1%8C">换行</a></li>
-<li><a href="#%E5%AD%97%E4%BD%93%E5%A4%A7%E5%B0%8F%E4%B8%8E%E9%A2%9C%E8%89%B2">字体大小与颜色</a></li>
+<li>从程序设计角度，对象只是变量，因此：
+<ul>
+<li>在栈上创建对象，成员变量初始为随机值</li>
+<li>在堆上创建对象，成员变量初始为随机值</li>
+<li>在静态存储区创建对象，成员变量初始值为0</li>
 </ul>
 </li>
-<li><a href="#latex-%E7%AC%94%E8%AE%B0">latex 笔记</a>
+</ul>
+<h1 id="对象如何初始化">对象如何初始化</h1>
 <ul>
-<li><a href="#latex%E8%B0%83%E5%A4%A7%E5%AD%97%E4%BD%93">latex调大字体</a></li>
-<li><a href="#%E7%A7%AF%E5%88%86%E5%8F%B7-%E4%B8%8B%E6%A0%87-%E4%B8%8A%E4%B8%8B%E9%99%90">积分号、下标、上下限</a></li>
+<li>生活中的对象都是初始化后上市的</li>
+<li>初始状态（出厂设置）是对象普遍存在的一个状态</li>
+</ul>
+<pre><code>问题：程序中如何对一个对象进行初始化
+</code></pre>
+<h2 id="一个public的initialize函数">一个public的initialize函数</h2>
+<ul>
+<li>一般而言，对象需要一个确定的初始状态</li>
+<li>解决方案
+<ul>
+<li>再类中提供一个public的initialize函数</li>
+<li>对象创建后理解调用initialize函数进行初始化</li>
 </ul>
 </li>
 </ul>
-</p>
-<h1 id="markdown-笔记">Markdown 笔记</h1>
-<h2 id="生成目录">生成目录</h2>
-<pre><code>@[toc] 或者 [toc]
+<pre><code class="language-c++">class Test
+{
+private:
+    int i;
+    int j;
+public:
+    void initialize() {i = 0; j = 0;}
+    void int getI() {return i;}
+    void int getJ() {return j;}
+};
 </code></pre>
-<h2 id="代码高亮">代码高亮</h2>
-<p>tab键上面的的那个按键</p>
-<pre><code>```C
-```
-</code></pre>
-<p>void function1()  \\就是C语言高亮<br>
-{</p>
-<p>}</p>
-<h2 id="无序标号和有序标号">无序标号和有序标号</h2>
-<p>星号*加一个空格</p>
 <ul>
-<li>我</li>
-<li>爱</li>
-<li>RTOS</li>
-</ul>
-<p>数字后面一个点再一个空格</p>
-<ol>
-<li>我</li>
-<li>爱</li>
-<li>RTOS</li>
-</ol>
-<h2 id="文字加粗">文字加粗</h2>
-<pre><code>**这时加粗字体**
-</code></pre>
-<h2 id="斜体字">斜体字</h2>
-<pre><code>*这是斜体字*
-</code></pre>
-<h2 id="自定义字体大小">自定义字体大小</h2>
-<p><font size = 4>我是变大字体</font></p>
-<h2 id="字体变大变小标签">字体变大变小标签</h2>
-<p><small>字体变小</small><br>
-<big>字体变大</big></p>
-<h2 id="换行">换行</h2>
-<p>空格+空格+回车</p>
-<h2 id="字体大小与颜色">字体大小与颜色</h2>
-<p><font face="黑体">我是黑体字</font><br>
-<font face="微软雅黑">我是微软雅黑</font><br>
-<font face="STCAIYUN">我是华文彩云</font><br>
-<font color=#0099ff size=6 face="黑体">color=#0099ff size=72 face=&quot;黑体&quot;</font><br>
-<font color=#00ffff size=50>color=#00ffff</font><br>
-<font color=gray size=50>color=gray</font></p>
-<h1 id="latex-笔记">latex 笔记</h1>
-<h2 id="latex调大字体">latex调大字体</h2>
+<li>存在的问题
 <ul>
-<li>七号 　　5.25pt 　　    1.845mm　　　　\tiny</li>
-<li>六号 　　7.875pt 　　  2.768mm　　　　\scriptsize</li>
-<li>小五号 　9pt 　　　　  3.163mm　　　　\footnotesize</li>
-<li>五号 　　10.5pt 　　    3.69mm　　　　  \small</li>
-<li>小四号 　12pt 　　　　4.2175mm　　　 \normalsize</li>
-<li>四号 　　13.75pt 　　  4.83mm　　　　  \large</li>
-<li>三号 　　15.75pt 　　  5.53mm　　　　  \Large</li>
-<li>二号 　　21pt 　　      7.38mm                \LARGE</li>
-<li>一号 　　27.5pt 　　   9.48mm　　　　   \huge</li>
-<li>小初号 　36pt 　　　  12.65mm　　　　 \Huge</li>
+<li>initialize只是一个普通函数，必须显示调用</li>
+<li>如果未调用initialize函数，运行结果是不确定的</li>
 </ul>
-<h2 id="积分号-下标-上下限">积分号、下标、上下限</h2>
-<pre><code>\Large {\int_{birth}^{death} study dtime = life} 
+</li>
+</ul>
+<p><strong>通过人手工来调用这个初始化函数太麻烦了！有没有那种刚创建完对象就自动来调用初始化的函数</strong></p>
+<h2 id="构造函数">构造函数</h2>
+<ul>
+<li>C++中可以定义与类名相同的特殊成员函数
+<ul>
+<li>这种特殊的成员函数叫做构造函数
+<ul>
+<li>构造函数没有任何返回类型的声明</li>
+<li>构造函数在对象定义时自动被调用</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">class Test
+{
+private:
+    int i;
+    int j;
+public:
+    void int getI() {return i;}
+    void int getJ() {return j;}
+    Test() 
+    {
+        printf(&quot;Test() Enter\n&quot;);
+        i = 0; 
+        j = 0;
+        printf(&quot;Test() Exit\n&quot;);
+    }
+};
 </code></pre>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mstyle mathsize="1.44em"><mrow><msubsup><mo>∫</mo><mrow><mi>b</mi><mi>i</mi><mi>r</mi><mi>t</mi><mi>h</mi></mrow><mrow><mi>d</mi><mi>e</mi><mi>a</mi><mi>t</mi><mi>h</mi></mrow></msubsup><mi>s</mi><mi>t</mi><mi>u</mi><mi>d</mi><mi>y</mi><mi>d</mi><mi>t</mi><mi>i</mi><mi>m</mi><mi>e</mi><mo>=</mo><mi>l</mi><mi>i</mi><mi>f</mi><mi>e</mi></mrow></mstyle></mrow><annotation encoding="application/x-tex">\Large {\int_{birth}^{death} study dtime = life} 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.5584800000000003em;vertical-align:-1.29164em;"></span><span class="mord sizing reset-size6 size8"><span class="mop"><span class="mop op-symbol large-op" style="margin-right:0.44445em;position:relative;top:-0.0011249999999999316em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.5741944444444447em;"><span style="top:-2.1030277777777777em;margin-left:-0.44445em;margin-right:0.034722222222222224em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size8 size6 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">b</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">h</span></span></span></span><span style="top:-4.091944444444445em;margin-right:0.034722222222222224em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size8 size6 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">d</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">h</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8969722222222222em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">u</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord mathdefault">d</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span><span class="mord mathdefault">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">e</span></span></span></span></span></span></p>
-<p>更新会继续添加！</p>
+<h1 id="小结">小结</h1>
+<ul>
+<li>每个对象在使用之前都应该初始化</li>
+<li>类的构造函数用于对象的初始化</li>
+<li>构造函数与类同名并且没有返回值</li>
+<li>构造函数在对象定义时自动被调用</li>
+</ul>
 
             </div>
             <div class="post-toc">
                 <ul class="markdownIt-TOC">
-<li><a href="#markdown-%E7%AC%94%E8%AE%B0">Markdown 笔记</a>
+<li><a href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96">对象的初始化</a></li>
+<li><a href="#%E5%AF%B9%E8%B1%A1%E5%A6%82%E4%BD%95%E5%88%9D%E5%A7%8B%E5%8C%96">对象如何初始化</a>
 <ul>
-<li><a href="#%E7%94%9F%E6%88%90%E7%9B%AE%E5%BD%95">生成目录</a></li>
-<li><a href="#%E4%BB%A3%E7%A0%81%E9%AB%98%E4%BA%AE">代码高亮</a></li>
-<li><a href="#%E6%97%A0%E5%BA%8F%E6%A0%87%E5%8F%B7%E5%92%8C%E6%9C%89%E5%BA%8F%E6%A0%87%E5%8F%B7">无序标号和有序标号</a></li>
-<li><a href="#%E6%96%87%E5%AD%97%E5%8A%A0%E7%B2%97">文字加粗</a></li>
-<li><a href="#%E6%96%9C%E4%BD%93%E5%AD%97">斜体字</a></li>
-<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%97%E4%BD%93%E5%A4%A7%E5%B0%8F">自定义字体大小</a></li>
-<li><a href="#%E5%AD%97%E4%BD%93%E5%8F%98%E5%A4%A7%E5%8F%98%E5%B0%8F%E6%A0%87%E7%AD%BE">字体变大变小标签</a></li>
-<li><a href="#%E6%8D%A2%E8%A1%8C">换行</a></li>
-<li><a href="#%E5%AD%97%E4%BD%93%E5%A4%A7%E5%B0%8F%E4%B8%8E%E9%A2%9C%E8%89%B2">字体大小与颜色</a></li>
+<li><a href="#%E4%B8%80%E4%B8%AApublic%E7%9A%84initialize%E5%87%BD%E6%95%B0">一个public的initialize函数</a></li>
+<li><a href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">构造函数</a></li>
 </ul>
 </li>
-<li><a href="#latex-%E7%AC%94%E8%AE%B0">latex 笔记</a>
-<ul>
-<li><a href="#latex%E8%B0%83%E5%A4%A7%E5%AD%97%E4%BD%93">latex调大字体</a></li>
-<li><a href="#%E7%A7%AF%E5%88%86%E5%8F%B7-%E4%B8%8B%E6%A0%87-%E4%B8%8A%E4%B8%8B%E9%99%90">积分号、下标、上下限</a></li>
-</ul>
-</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
 </ul>
 
             </div>
@@ -343,7 +371,7 @@
 
                 <p class="copyright-item">
                     <span>Permalink:</span>
-                    <span><a href="https://leichen2552.github.io/post/markdownnotes">https://leichen2552.github.io/post/markdownnotes</a></span>
+                    <span><a href="https://leichen2552.github.io/post/hui-gu-17dui-xiang-de-gou-zao-shang">https://leichen2552.github.io/post/hui-gu-17dui-xiang-de-gou-zao-shang</a></span>
                 </p>
 
                 <p class="copyright-item">
@@ -361,7 +389,7 @@
                     <span class="tag">
                         
                         
-                        <a href="https://leichen2552.github.io/tag/Qzv1kR5wT"># markdown</a>
+                        <a href="https://leichen2552.github.io/tag/dTVQPvwPR"># C++</a>
                         
                         
                     </span>
@@ -376,13 +404,9 @@
                                                         <!---->
                                                         <section class="post-nav">
                                                             
-            <a class="prev" rel="prev" href="https://leichen2552.github.io/post/esp8266-ru-men-ti-yan">
-                ESP8266入门体验
-            </a>
             
-            
-            <a class="next" rel="next" href="https://leichen2552.github.io/post/rtos_from_zero_to_one">
-                从0到1写RTOS
+            <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-16lei-de-zhen-zheng-xing-tai">
+                回顾（16）：类的真正形态
             </a>
             
             </section>

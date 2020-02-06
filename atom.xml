@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-02-06T13:15:57.456Z</updated>
+    <updated>2020-02-06T15:00:48.793Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,141 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[回顾（17）：对象的构造（上）]]></title>
+        <id>https://leichen2552.github.io/post/hui-gu-17dui-xiang-de-gou-zao-shang</id>
+        <link href="https://leichen2552.github.io/post/hui-gu-17dui-xiang-de-gou-zao-shang">
+        </link>
+        <updated>2020-02-06T13:28:03.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="对象的初始化">对象的初始化</h1>
+<pre><code>问题：对象中的成员变量初始值是多少？
+</code></pre>
+<p>试验一下就知道了！</p>
+<pre><code class="language-c++">class Test
+{
+private:
+    int i;
+    int j;
+public:
+    void int getI() {return i;}
+    void int getJ() {return j;}
+}
+
+//类得到的其实是数据类型
+
+Test gt;//因为存储空间在全局数据区
+
+int main()
+{
+    printf(&quot;gt.i = %d\n&quot;,gt.getI());
+    printf(&quot;gt.j = %d\n&quot;,gt.getJ());
+
+    Test t1;//因为存储空间在栈上面
+
+    printf(&quot;t1.i = %d\n&quot;,t1.getI());
+    printf(&quot;t1.j = %d\n&quot;,t1.getJ());
+
+    Test* pt = new Test;
+
+    printf(&quot;pt-&gt;i = %d\n&quot;,pt-&gt;getI());
+    printf(&quot;pt-&gt;j = %d\n&quot;,pt-&gt;getJ());
+
+    delete pt;
+    return 0;
+}
+//打印结果
+//i = 0
+//j = 0
+//i = 1236584
+//j = 1256981
+//i = 0，这个0只是一个巧合
+//j = 0，这个0只是一个巧合
+</code></pre>
+<ul>
+<li>从程序设计角度，对象只是变量，因此：
+<ul>
+<li>在栈上创建对象，成员变量初始为随机值</li>
+<li>在堆上创建对象，成员变量初始为随机值</li>
+<li>在静态存储区创建对象，成员变量初始值为0</li>
+</ul>
+</li>
+</ul>
+<h1 id="对象如何初始化">对象如何初始化</h1>
+<ul>
+<li>生活中的对象都是初始化后上市的</li>
+<li>初始状态（出厂设置）是对象普遍存在的一个状态</li>
+</ul>
+<pre><code>问题：程序中如何对一个对象进行初始化
+</code></pre>
+<h2 id="一个public的initialize函数">一个public的initialize函数</h2>
+<ul>
+<li>一般而言，对象需要一个确定的初始状态</li>
+<li>解决方案
+<ul>
+<li>再类中提供一个public的initialize函数</li>
+<li>对象创建后理解调用initialize函数进行初始化</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">class Test
+{
+private:
+    int i;
+    int j;
+public:
+    void initialize() {i = 0; j = 0;}
+    void int getI() {return i;}
+    void int getJ() {return j;}
+};
+</code></pre>
+<ul>
+<li>存在的问题
+<ul>
+<li>initialize只是一个普通函数，必须显示调用</li>
+<li>如果未调用initialize函数，运行结果是不确定的</li>
+</ul>
+</li>
+</ul>
+<p><strong>通过人手工来调用这个初始化函数太麻烦了！有没有那种刚创建完对象就自动来调用初始化的函数</strong></p>
+<h2 id="构造函数">构造函数</h2>
+<ul>
+<li>C++中可以定义与类名相同的特殊成员函数
+<ul>
+<li>这种特殊的成员函数叫做构造函数
+<ul>
+<li>构造函数没有任何返回类型的声明</li>
+<li>构造函数在对象定义时自动被调用</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">class Test
+{
+private:
+    int i;
+    int j;
+public:
+    void int getI() {return i;}
+    void int getJ() {return j;}
+    Test() 
+    {
+        printf(&quot;Test() Enter\n&quot;);
+        i = 0; 
+        j = 0;
+        printf(&quot;Test() Exit\n&quot;);
+    }
+};
+</code></pre>
+<h1 id="小结">小结</h1>
+<ul>
+<li>每个对象在使用之前都应该初始化</li>
+<li>类的构造函数用于对象的初始化</li>
+<li>构造函数与类同名并且没有返回值</li>
+<li>构造函数在对象定义时自动被调用</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[回顾（16）：类的真正形态]]></title>
         <id>https://leichen2552.github.io/post/hui-gu-16lei-de-zhen-zheng-xing-tai</id>
