@@ -185,7 +185,7 @@
                 <article class="post-wrap">
                     <header class="post-header">
                         <h1 class="post-title">
-                            回顾（10）：C++中的新成员
+                            回顾（16）：类的真正形态
                         </h1>
                         
                         <!--en-->
@@ -195,12 +195,12 @@
                                 ChenLei's Blog
                             </a>
                             <span class="post-time">
-                                Date: <a href="#">2020-02-03</a>
+                                Date: <a href="#">2020-02-06</a>
                             </span>
                             <span class="post-readtime">Reading Time:<a
                                     href="#">2.5
                                     mins</a></span>
-                            <span class="post-words">words:<a href="#">622</a></span>
+                            <span class="post-words">words:<a href="#">563</a></span>
                             
                             <span class="post-category">
                                 Category:
@@ -216,156 +216,210 @@
                         
                         </header>
                         <div class="post-content">
-                            <h1 id="动态内存分配">动态内存分配</h1>
-<h2 id="c中的动态内存分配">C++中的动态内存分配</h2>
+                            <p><ul class="markdownIt-TOC">
+<li><a href="#%E7%B1%BB%E7%9A%84%E5%85%B3%E9%94%AE%E5%AD%97">类的关键字</a></li>
+<li><a href="#%E5%B0%8F%E5%AE%9E%E4%BE%8B">小实例</a>
 <ul>
-<li>C++中通过new关键字进行动态内存申请</li>
-<li>C++中的动态内存申请是基于类型进行的</li>
-<li>delete关键字用于内存释放</li>
-</ul>
-<pre><code class="language-c++">//变量申请
-Type* pointer = new Type;
-//......
-delete pointer;
-
-//数组申请
-Type* pointer = new Type[N];
-//......
-delete[] pointer;
-</code></pre>
-<pre><code>怎么申请的就怎么释放！有没有[]要注意！！！
-</code></pre>
-<pre><code class="language-c++">int p = new int;
-
-p = new int[10];//这句动态内存申请，并不是表示p指向的是40个字节的一片内存空间
-                //这样说的话，面试官会不给你过
-                //因为动态内存分配时，分配的可能会比你申请的空间要大
-                //应该这样说，p指向的内存空间至少40个字节
-</code></pre>
-<h2 id="new关键字与malloc函数的区别">new关键字与malloc函数的区别</h2>
+<li><a href="#%E7%B1%BB%E7%9A%84%E7%9C%9F%E6%AD%A3%E5%BD%A2%E6%80%81">类的真正形态</a>
 <ul>
-<li>new关键字是C++的一部分
-<ul>
-<li>malloc是由C库提供的函数</li>
-</ul>
-</li>
-<li>new以具体类型为单位进行内存分配
-<ul>
-<li>malloc以字节为单位进行内存分配</li>
-</ul>
-</li>
-<li>new在申请单个类型变量时可进行初始化
-<ul>
-<li>malloc不具备内存初始化的特性</li>
+<li><a href="#operatorh">Operator.h</a></li>
+<li><a href="#operatorcpp">Operator.cpp</a></li>
+<li><a href="#maincpp">main.cpp</a></li>
 </ul>
 </li>
 </ul>
-<h2 id="new关键字的初始化">new关键字的初始化</h2>
-<pre><code class="language-c++">int* pi = new int(1);
-float* pf = new float(2.0f);
-char* pc = new char('c');
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</p>
+<h1 id="类的关键字">类的关键字</h1>
+<p>经过不停地改进，结构体struct变得越来越不像它在C语言中的样子</p>
+<ul>
+<li>但是struct在C语言中已经有了自己的含义，必须继续兼容</li>
+<li>在C++中提供了行的关键字class用于类定义</li>
+<li>class和struct的用法是完全相同的</li>
+</ul>
+<pre><code>class和struct有什么区别呢？
 </code></pre>
-<h1 id="c中的命名空间">C++中的命名空间</h1>
-<h2 id="在c语言中只有一个全局作用域">在C语言中只有一个全局作用域</h2>
 <ul>
-<li>C语言所有的全局标识符共享同一个作用域</li>
-<li>标识符之间可能发生冲突</li>
+<li>在struct定义类时，所有成员的默认访问级别是public</li>
+<li>在class定义类时，所有成员的默认访问级别为private</li>
 </ul>
-<h2 id="c中提出了命名空间的概念">C++中提出了命名空间的概念</h2>
-<ul>
-<li>命名空间将全局作用域分成不同部分</li>
-<li>不同命名空间中的标识符可以同名而不会发生冲突</li>
-<li>命名空间可以相互嵌套</li>
-<li>全局作用域也叫做默认命名空间</li>
-</ul>
-<h3 id="c命名空间的定义">C++命名空间的定义</h3>
-<pre><code class="language-c++">namespace Name
+<pre><code class="language-c++">struct A
 {
-    namespace Internal
+    //default to public
+    int i;
+    //default to public
+    int getI()
     {
-        /*  */
+        return i;
     }
-    /**/
-}
-</code></pre>
-<h3 id="c命名空间的使用">C++命名空间的使用</h3>
-<ul>
-<li>使用整个命名空间：</li>
-</ul>
-<pre><code class="language-c++">using namespace name;
-</code></pre>
-<ul>
-<li>使用命名空间中的变量：</li>
-</ul>
-<pre><code class="language-c++">using name::varible;
-</code></pre>
-<ul>
-<li>使用默认命名空间中的变量：</li>
-</ul>
-<pre><code class="language-c++">::varible
-</code></pre>
-<pre><code class="language-c++">#include &lt;stdio.h&gt;
+};
 
-namespace First
+class A
 {
-    int i = 0;
-}
-
-namespace Second
-{
-    int i =1;
-
-    namespace Internal
+    //default to private
+    int i;
+    //default to private
+    int getI()
     {
-        struct P
-        {
-            int x;
-            int y;
-        };
+        return i;
     }
+};
+</code></pre>
+<h1 id="小实例">小实例</h1>
+<ul>
+<li>需求：开发一个用于四则运算的类
+<ul>
+<li>提供setOperator函数设置运算类型</li>
+<li>提供setParameter函数设置运算参数</li>
+<li>提供result函数进行运算
+<ul>
+<li>其返回值表示运算的合法性</li>
+<li>通过引用参数来返回结果</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="类的真正形态">类的真正形态</h2>
+<ul>
+<li>C++中的类支持声明和实现的分离</li>
+<li>将类的实现和定义分开
+<ul>
+<li>.h头文件中只有类的声明
+<ul>
+<li>成员变量和成员函数的声明</li>
+</ul>
+</li>
+<li>.cpp源文件中完成类的其他实现
+<ul>
+<li>成员函数的具体实现</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>使用方式与实现细节相分离
+</code></pre>
+<h3 id="operatorh">Operator.h</h3>
+<pre><code class="language-c++">#ifndef OPEARTOR_H
+#define OPERATOR_H
+
+class Operator
+{
+private:
+	char mOp;
+	int mPa;
+	int mPb;
+	
+public:
+	bool setOperator(char mop);
+  	bool setParameter(int mpa, int mpb);
+    bool getresult(double&amp; r);		
+	
+};
+</code></pre>
+<h3 id="operatorcpp">Operator.cpp</h3>
+<pre><code class="language-c++">#include &quot;Operator.h&quot;
+
+
+bool Operator::setOperator(char mop)
+{
+	bool ret = true;
+	
+	if((mop == '/') || (mop == '+')||(mop == '-')||(mop == '*'))
+	{
+		ret = true;
+		mOp = mop;
+	}
+	else
+	{
+		ret = false;
+		mOp = '\0'		
+	}
+	
+	return ret;
 }
 
-int main()
+bool Operator::setParameter(int mpa, int mpb)
 {
-    using namespace First;
-    using Second::Internal::P;
+	mPa = mpa;
+	mPb = mpb;
+}
 
-    printf(&quot;First::i = %d\n&quot;, i);
-    printf(&quot;Second::i = %d\n&quot;, Second::i);
+bool Operator::getresult(double&amp; r)
+{
+	bool ret = true;
+	if( mOp == '/' &amp;&amp; mPb != 0 )
+	{
+		r = mPa/mPb;	
+	}
+	else
+	{
+		ret = false;
+	}
+	
+	if(mOp == '+')
+	{
+		r = mPa+mPb;
+	}
+	if(mOp == '-')
+	{
+		r = mPa-mPb;
+	}
+	if(mOp == '*')
+	{
+		r = mPa*mPb;
+	}
+	
+	return ret;
+}	
+</code></pre>
+<h3 id="maincpp">main.cpp</h3>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &quot;Operator.h&quot;
 
-    P p = {2, 3};
+using namespace std;
 
-    printf(&quot;p.x = %d\n&quot;, p.x);
-    printf(&quot;p.y = %d\n&quot;, p.y);
-
-    return 0;
+int main(int argc, char *argv[])
+{
+	Operator o;
+	double r = 0;
+	
+	o.setOperator('/');
+	o.setParameter(6, 3);
+	if(o.getresult(r))
+	{
+		cout &lt;&lt; r &lt;&lt; endl;
+	}
+	
+	return 0;
 }
 </code></pre>
 <h1 id="小结">小结</h1>
 <ul>
-<li>C++中内置的动态内存分配的专用关键字</li>
-<li>C++中的动态内存分配可以同时进行初始化</li>
-<li>C++中的动态内存分配时基于类型进行的</li>
-<li>C++中命名空间概念用于解决名称冲突问题</li>
+<li>C++引进新的关键字class用于定义类</li>
+<li>struct和class的区别在于默认访问级别不同</li>
+<li>C++中的类支持声明和实现的分离
+<ul>
+<li>在.h头文件中声明类的使用方式</li>
+<li>在.cpp源文件中实现类的实现细节</li>
+</ul>
+</li>
 </ul>
 
             </div>
             <div class="post-toc">
                 <ul class="markdownIt-TOC">
-<li><a href="#%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D">动态内存分配</a>
+<li><a href="#%E7%B1%BB%E7%9A%84%E5%85%B3%E9%94%AE%E5%AD%97">类的关键字</a></li>
+<li><a href="#%E5%B0%8F%E5%AE%9E%E4%BE%8B">小实例</a>
 <ul>
-<li><a href="#c%E4%B8%AD%E7%9A%84%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D">C++中的动态内存分配</a></li>
-<li><a href="#new%E5%85%B3%E9%94%AE%E5%AD%97%E4%B8%8Emalloc%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB">new关键字与malloc函数的区别</a></li>
-<li><a href="#new%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96">new关键字的初始化</a></li>
-</ul>
-</li>
-<li><a href="#c%E4%B8%AD%E7%9A%84%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4">C++中的命名空间</a>
+<li><a href="#%E7%B1%BB%E7%9A%84%E7%9C%9F%E6%AD%A3%E5%BD%A2%E6%80%81">类的真正形态</a>
 <ul>
-<li><a href="#%E5%9C%A8c%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8F%AA%E6%9C%89%E4%B8%80%E4%B8%AA%E5%85%A8%E5%B1%80%E4%BD%9C%E7%94%A8%E5%9F%9F">在C语言中只有一个全局作用域</a></li>
-<li><a href="#c%E4%B8%AD%E6%8F%90%E5%87%BA%E4%BA%86%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E7%9A%84%E6%A6%82%E5%BF%B5">C++中提出了命名空间的概念</a>
-<ul>
-<li><a href="#c%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E7%9A%84%E5%AE%9A%E4%B9%89">C++命名空间的定义</a></li>
-<li><a href="#c%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E7%9A%84%E4%BD%BF%E7%94%A8">C++命名空间的使用</a></li>
+<li><a href="#operatorh">Operator.h</a></li>
+<li><a href="#operatorcpp">Operator.cpp</a></li>
+<li><a href="#maincpp">main.cpp</a></li>
 </ul>
 </li>
 </ul>
@@ -385,7 +439,7 @@ int main()
 
                 <p class="copyright-item">
                     <span>Permalink:</span>
-                    <span><a href="https://leichen2552.github.io/post/hui-gu-10czhong-de-xin-cheng-yuan">https://leichen2552.github.io/post/hui-gu-10czhong-de-xin-cheng-yuan</a></span>
+                    <span><a href="https://leichen2552.github.io/post/hui-gu-16lei-de-zhen-zheng-xing-tai">https://leichen2552.github.io/post/hui-gu-16lei-de-zhen-zheng-xing-tai</a></span>
                 </p>
 
                 <p class="copyright-item">
@@ -418,13 +472,9 @@ int main()
                                                         <!---->
                                                         <section class="post-nav">
                                                             
-            <a class="prev" rel="prev" href="https://leichen2552.github.io/post/hui-gu-11xin-xing-de-lei-xing-zhuan-huan">
-                回顾（11）：新型的类型转换
-            </a>
             
-            
-            <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-9han-shu-chong-zai-fen-xi-xia">
-                回顾（9）：函数重载分析（下）
+            <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-15lei-yu-feng-zhuang-de-gai-nian">
+                回顾（15）：类与封装的概念
             </a>
             
             </section>
