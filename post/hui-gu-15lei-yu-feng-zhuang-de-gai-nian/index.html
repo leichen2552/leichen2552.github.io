@@ -9,20 +9,21 @@
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="https://leichen2552.github.io/">
-<link rel="dns-prefetch" href="https://cdn.bootcss.com">
 <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 <meta name="author" content="Bomb">
 <meta name="description" content="I still miss her.">
 <meta name="keywords" content="FPGA,Linux,RTOS">
+<script src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
 <!--CDN样式-->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic@latest/assets/media/css/style.min.css" />
 <!--本地样式-->
 <!--<link rel="stylesheet" href="https://leichen2552.github.io//media/css/style.min.css" />-->
 <link rel="stylesheet" href="https://leichen2552.github.io//styles/main.css" />
-<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+
+    <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+    <script src="https://jerryz.sgp1.cdn.digitaloceanspaces.com/lib/hit-kounter/hit-kounter-lc-0.3.0.js"></script>
     
         <script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js"></script>
         <!--CDN样式-->
@@ -33,8 +34,8 @@
         <!--<script src="https://leichen2552.github.io//media/script/tocbot.min.js"></script>
         <script src="https://leichen2552.github.io//media/script/script.min.js"></script>
         <script src="https://leichen2552.github.io//media/script/icon.min.js"></script>-->
-        <script src="https://cdn.bootcss.com/highlight.js/9.13.1/highlight.min.js"></script>
-        <link href="https://cdn.bootcss.com/highlight.js/9.13.1/styles/atelier-estuary-dark.min.css" rel="stylesheet">
+        <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.13.1/build/highlight.min.js"></script>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/atelier-estuary-dark.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css">
         <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js"></script>
         
@@ -95,7 +96,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1580972411665" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1580973064341" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -114,7 +115,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1580972411665" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1580973064341" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -179,35 +180,40 @@
 
     }
 </script>
-            <div class="main">
-                <div class="container">
-                    <article class="post-wrap">
-                        <header class="post-header">
-                            <h1 class="post-title">
-                                回顾（15）：类与封装的概念
-                            </h1>
-                            
-                                <!--en-->
-                                <div class="post-meta en">
-                                    Author:
-                                    <a itemprop="author" rel="author" href="/">
-                                        ChenLei's Blog
-                                    </a>
-                                    <span class="post-time">
+        <div class="main">
+            <div class="container">
+                <article class="post-wrap">
+                    <header class="post-header">
+                        <h1 class="post-title">
+                            回顾（15）：类与封装的概念
+                        </h1>
+                        
+                        <!--en-->
+                        <div class="post-meta en">
+                            Author:
+                            <a itemprop="author" rel="author" href="/">
+                                ChenLei's Blog
+                            </a>
+                            <span class="post-time">
                                 Date: <a href="#">2020-02-06</a>
                             </span>
-                                    <span class="post-readtime">Reading Time:<a href="#">3.7 mins</a></span>
-                                    <span class="post-words">words:<a href="#">892</a></span>
-                                    
-                                        <span class="post-category">
+                            <span class="post-readtime">Reading Time:<a
+                                    href="#">3.7
+                                    mins</a></span>
+                            <span class="post-words">words:<a href="#">892</a></span>
+                            
+                            <span class="post-category">
                                 Category:
                                 
                                 <a href="https://leichen2552.github.io/tag/dTVQPvwPR">C++</a>
                                 
                             </span>
-                                        
-                                </div>
-                                
+                            
+                            Views:
+                            <span data-hk-page="current"> - </span>
+                            
+                        </div>
+                        
                         </header>
                         <div class="post-content">
                             <p><ul class="markdownIt-TOC">
@@ -410,9 +416,9 @@ int main()
 <li>private成员只能在类的内部被访问和调用</li>
 </ul>
 
-                        </div>
-                        <div class="post-toc">
-                            <ul class="markdownIt-TOC">
+            </div>
+            <div class="post-toc">
+                <ul class="markdownIt-TOC">
 <li><a href="#%E7%B1%BB%E7%9A%84%E7%BB%84%E5%90%88">类的组合</a></li>
 <li><a href="#%E7%B1%BB%E9%80%9A%E5%B8%B8%E5%88%86%E4%B8%BA%E4%BB%A5%E4%B8%8B%E4%B8%A4%E4%B8%AA%E9%83%A8%E5%88%86">类通常分为以下两个部分</a></li>
 <li><a href="#%E7%B1%BB%E7%9A%84%E5%B0%81%E8%A3%85">类的封装</a>
@@ -425,69 +431,66 @@ int main()
 <li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
 </ul>
 
-                        </div>
-                        
-                            
-                                <!--en-->
-                                <section class="post-copyright en">
-                                    <p class="copyright-item">
-                                        <span>Author:</span>
-                                        <span>ChenLei's Blog</span>
-                                    </p>
+            </div>
+            
+            
+            <!--en-->
+            <section class="post-copyright en">
+                <p class="copyright-item">
+                    <span>Author:</span>
+                    <span>ChenLei's Blog</span>
+                </p>
 
-                                    <p class="copyright-item">
-                                        <span>Permalink:</span>
-                                        <span><a href="https://leichen2552.github.io/post/hui-gu-15lei-yu-feng-zhuang-de-gai-nian">https://leichen2552.github.io/post/hui-gu-15lei-yu-feng-zhuang-de-gai-nian</a></span>
-                                    </p>
+                <p class="copyright-item">
+                    <span>Permalink:</span>
+                    <span><a href="https://leichen2552.github.io/post/hui-gu-15lei-yu-feng-zhuang-de-gai-nian">https://leichen2552.github.io/post/hui-gu-15lei-yu-feng-zhuang-de-gai-nian</a></span>
+                </p>
 
-                                    <p class="copyright-item">
-                                        <span>License:</span>
-                                        <span>MIT License</span>
-                                    </p>
-                                </section>
-                                
+                <p class="copyright-item">
+                    <span>License:</span>
+                    <span>MIT License</span>
+                </p>
+            </section>
+            
                                         
-                                            
-                                                <!--en-->
-                                                <section class="post-tags en">
-                                                    <div>
-                                                        <span>Tag(s):</span>
-                                                        <span class="tag">
-                                
-                                
-                                <a href="https://leichen2552.github.io/tag/dTVQPvwPR"># C++</a>
-                                
-                                
-                            </span>
-                                                    </div>
-                                                    <div>
-                                                        <a href="javascript:window.history.back();">back</a>
-                                                        <span>&dot;</span>
-                                                        <a href="#">home</a>
-                                                    </div>
-                                                </section>
-                                                
+            
+            <!--en-->
+            <section class="post-tags en">
+                <div>
+                    <span>Tag(s):</span>
+                    <span class="tag">
+                        
+                        
+                        <a href="https://leichen2552.github.io/tag/dTVQPvwPR"># C++</a>
+                        
+                        
+                    </span>
+                </div>
+                <div>
+                    <a href="javascript:window.history.back();">back</a>
+                    <span>&dot;</span>
+                    <a href="#">home</a>
+                </div>
+            </section>
+            
                                                         <!---->
                                                         <section class="post-nav">
                                                             
-                                                                    
-                                                                        <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-14jin-jie-mian-dui-dui-xiang-xia">
-                                                                            回顾（14）：进阶面对对象（下）
-                                                                        </a>
-                                                                        
-                                                        </section>
-                    </article>
-                </div>
-                
-            </div>
+            
+            <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-14jin-jie-mian-dui-dui-xiang-xia">
+                回顾（14）：进阶面对对象（下）
+            </a>
+            
+            </section>
+            </article>
+        </div>
+        
     </div>
     </div>
     </div>
-    
-    <div id="player"></div>
+    </div>
     
         <footer id="footer" class="footer">
-
             <div class="copyright">
                 <div class="Like">
                     <div class="tip" data-tooltip="Do you like it?">
@@ -498,28 +501,28 @@ int main()
                     </div>
                 </div>
                 <a href="https://github.com/getgridea/gridea" target="_blank">Chenlei</a>
-                
-                <b id="hitokoto"></b><br>
-                
-                
-                    <svg viewBox="0 0 1024 1024" style="margin-left: 5px;margin-right: 5px;" version="1.0" width="8" height="8" class="my-face">
+                    
+                        <b id="hitokoto"></b><br>
+                        
+                            
+                                            <svg viewBox="0 0 1024 1024" style="margin-left: 5px;margin-right: 5px;" version="1.0" width="8" height="8" class="my-face">
             <path
                 d="M863.597631 513.574282l-271.33965-140.213484L729.783667 81.926656c3.583731-7.87141 7.167462-15.742819 7.167462-25.214109C736.887134 25.226908 708.345275 0.012799 672.635953 0.012799a63.611229 63.611229 0 0 0-39.293053 12.607055c-1.791866 1.59988-3.519736 3.19976-5.311602 3.19976L147.87531 418.925381a55.547834 55.547834 0 0 0-19.646527 47.356448c1.791866 17.278704 14.27093 33.021523 32.125591 42.492813l271.33965 141.749369L292.504463 945.221908c-12.479064 25.214109-1.791866 53.563983 23.166262 69.306802 10.751194 6.335525 23.230258 9.47129 35.709322 9.47129 16.062795 0 32.125591-4.735645 44.604655-15.742819l480.091993-403.297753a55.547834 55.547834 0 0 0 19.646526-47.228458 61.243407 61.243407 0 0 0-32.12559-44.156688z"
                 fill="#93b5cf"></path>
         </svg>
-                    ChenLei&#39;s Blog &copy;Copyright
-                        <script>
-                            var date = new Date();
-                            document.write("" + date.getFullYear());
-                        </script>
-                        | Powered by <a href="https://coding.net" target="_blank">Coding.net</a>
+                                            ChenLei&#39;s Blog &copy;Copyright
+                                                <script>
+                                                    var date = new Date();
+                                                    document.write("" + date.getFullYear());
+                                                </script>
+                                                | Powered by <a href=< %=s ite.customConfig.platform_link  target="_blank">Coding.net</a>
             </div>
             <div id="update" style="display:none;">
                 on
             </div>
             
                 <div id="version" style="display:none;">
-                    1.6.4
+                    1.6.7
                 </div>
                 
                     <script>
@@ -527,31 +530,11 @@ int main()
                         
                         document.write('<div id="home_path" style="display:none;">' + document.location.protocol + '//' + window.document.location.hostname + pat + '</div>')
                     </script>
-
         </footer>
         
             <script src='https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js'></script>
             
                 <script>
-                    
-
-                    function LoadPlayer() {
-                        var audio_name = '简单爱';
-                        var audio_artist = '周杰伦';
-                        var audio_url = 'https://leichen2552.github.io/简单爱-周杰伦.mp3';
-                        var audio_cover = 'https://tse3-mm.cn.bing.net/th/id/OIP.61KBBSG3rTykjAbebjYNkwHaHa?w=197&amp;h=197&amp;c=7&amp;o=5&amp;pid=1.7';
-                        const ap = new APlayer({
-                            container: document.getElementById('player'),
-                            fixed: true,
-                            audio: [{
-                                name: audio_name,
-                                artist: audio_artist,
-                                url: audio_url,
-                                cover: audio_cover,
-                            }]
-                        });
-                    }
-                    LoadPlayer();
                     
                     
                     loadlive2d();
@@ -566,9 +549,54 @@ int main()
                     
                     CheckVersion();
                     
+                    var newDate = new Date();
+                    newDate.setTime(1580973064341);
+                    console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
-        </div>
+                
+                    <div id="tp-weather-widget" style="background: #666;display: flex;"></div>
+                    <script>
+                        (function(T, h, i, n, k, P, a, g, e) {
+                            g = function() {
+                                P = h.createElement(i);
+                                a = h.getElementsByTagName(i)[0];
+                                P.src = k;
+                                P.charset = "utf-8";
+                                P.async = 1;
+                                a.parentNode.insertBefore(P, a)
+                            };
+                            T["ThinkPageWeatherWidgetObject"] = n;
+                            T[n] || (T[n] = function() {
+                                (T[n].q = T[n].q || []).push(arguments)
+                            });
+                            T[n].l = +new Date();
+                            if (T.attachEvent) {
+                                T.attachEvent("onload", g)
+                            } else {
+                                T.addEventListener("load", g, false)
+                            }
+                        }(window, document, "script", "tpwidget", "//widget.seniverse.com/widget/chameleon.js"))
+                    </script>
+                    <script>
+                        var wearther_margin = "10px 10px";
+                        
+                        tpwidget("init", {
+                            "flavor": "bubble",
+                            "location": "WX4FBXXFKE4F",
+                            "geolocation": "enabled",
+                            "position": "bottom-left",
+                            "margin": wearther_margin,
+                            "language": "zh-chs",
+                            "unit": "c",
+                            "theme": "chameleon",
+                            "uid": "UFC977E1C7",
+                            "hash": "213ad798bc472dc365da3a9d4a9ff115"
+                        });
+                        tpwidget("show");
+                    </script>
+                    
+    </div>
 </body>
 <script>
     scroll();
