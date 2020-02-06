@@ -184,7 +184,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                ESP8266入门体验
+                                回顾（15）：类与封装的概念
                             </h1>
                             
                                 <!--en-->
@@ -194,15 +194,15 @@
                                         ChenLei's Blog
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2020-01-06</a>
+                                Date: <a href="#">2020-02-06</a>
                             </span>
-                                    <span class="post-readtime">Reading Time:<a href="#">0.7 mins</a></span>
-                                    <span class="post-words">words:<a href="#">194</a></span>
+                                    <span class="post-readtime">Reading Time:<a href="#">3.7 mins</a></span>
+                                    <span class="post-words">words:<a href="#">892</a></span>
                                     
                                         <span class="post-category">
                                 Category:
                                 
-                                <a href="https://leichen2552.github.io/tag/7IwgeGrjA">ESP8266</a>
+                                <a href="https://leichen2552.github.io/tag/dTVQPvwPR">C++</a>
                                 
                             </span>
                                         
@@ -210,29 +210,221 @@
                                 
                         </header>
                         <div class="post-content">
-                            <p>由于项目需要把有线传输改成无线传输，蓝牙传输容易丢包，所以就用现在很火的WiFi芯片——ESP8266。</p>
-<p>前前后后购置了三样东西<br>
-<img src="https://leichen2552.github.io//post-images/1578316456867.png" alt="" loading="lazy"><br>
-<img src="https://leichen2552.github.io//post-images/1578316462777.png" alt="" loading="lazy"><br>
-<img src="https://leichen2552.github.io//post-images/1578313188960.png" alt="" loading="lazy"></p>
-<p>随机打开安信可串口调试助手，发送AT+RST，一定要先发这个保证初始化。<br>
-<img src="https://leichen2552.github.io//post-images/1578314172950.png" alt="" loading="lazy"></p>
-<p>看到最后的ready。这时，固件启动完成。</p>
-<p>中间有一串乱码，这串乱码可以再74880的波特率下查看系统日志信息。</p>
+                            <p><ul class="markdownIt-TOC">
+<li><a href="#%E7%B1%BB%E7%9A%84%E7%BB%84%E5%90%88">类的组合</a></li>
+<li><a href="#%E7%B1%BB%E9%80%9A%E5%B8%B8%E5%88%86%E4%B8%BA%E4%BB%A5%E4%B8%8B%E4%B8%A4%E4%B8%AA%E9%83%A8%E5%88%86">类通常分为以下两个部分</a></li>
+<li><a href="#%E7%B1%BB%E7%9A%84%E5%B0%81%E8%A3%85">类的封装</a>
 <ul>
-<li>rst cause :  红框种的数值<br>
-1   上电<br>
-2   外部复位<br>
-3   硬件看门狗复位</li>
-<li>Boot mode : 启动模式后面有两个参数，只看第一个参数即可<br>
-1   下载模式<br>
-3   运行模式</li>
-<li>chksum : chksum和csum值相等，表明启动过程中flash读值准确</li>
+<li><a href="#%E5%B0%81%E8%A3%85%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">封装的基本概念</a></li>
+<li><a href="#c%E4%B8%AD%E7%B1%BB%E7%9A%84%E5%B0%81%E8%A3%85">C++中类的封装</a></li>
+<li><a href="#%E7%B1%BB%E7%9A%84%E6%88%90%E5%91%98%E4%BD%9C%E7%94%A8%E5%9F%9F">类的成员作用域</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+<br>
+类就是日常生活中分类的思想</p>
+<h1 id="类的组合">类的组合</h1>
+<ul>
+<li>电脑这个类是由硬盘、内存、CPU、主板这些类组成的</li>
+</ul>
+<h1 id="类通常分为以下两个部分">类通常分为以下两个部分</h1>
+<ul>
+<li>类的实现细节</li>
+<li>类的使用方式</li>
+</ul>
+<h1 id="类的封装">类的封装</h1>
+<ul>
+<li>
+<p>当使用类时，不需要关心其实现细节</p>
+</li>
+<li>
+<p>当创建类时，才需要考虑其内部实现细节</p>
+</li>
+<li>
+<p>普通用户使用手机，只需要学习如何发短信、打电话、拍照等等</p>
+</li>
+<li>
+<p>手机开发工程师，需要知道细节功能是如何实现的</p>
+</li>
+</ul>
+<h2 id="封装的基本概念">封装的基本概念</h2>
+<ul>
+<li>根据经验，并不是类的每个属性都是对外公开的
+<ul>
+<li>如：女孩子不希望别人知道自己的体重和年龄</li>
+<li>如：男孩子不希望别人知道自己的身高和收入</li>
+</ul>
+</li>
+<li>而一些类的属性是对外公开的
+<ul>
+<li>如：人的姓名，学历，国籍，等</li>
+</ul>
+</li>
+<li>必须在类的表示法中定义属性和行为的公开级别
+<ul>
+<li>类似文件系统中文件的权限</li>
+</ul>
+</li>
+</ul>
+<h2 id="c中类的封装">C++中类的封装</h2>
+<ul>
+<li>成员变量：C++中表示类属性的变量</li>
+<li>成员函数：C++中用于表示类行为的函数</li>
+<li>C++中可以给成员变量和成员函数定义访问级别
+<ul>
+<li>public：成员变量和成员函数可以在类的内部和外界访问和调用</li>
+<li>private：成员变量和成员函数只能在类的内部被访问和调用</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">#include &lt;stdio.h&gt;
+
+struct Biology {
+    bool living;
+};
+
+struct Animal : Biology {
+    bool movable;
+    void findFood() { }
+};
+
+struct Plant : Biology {
+    bool growable;
+};
+
+struct Beast : Animal {
+    void sleep() { }
+};
+
+struct Human : Animal {
+    void sleep() { }
+    void work() { }
+};
+
+struct Girl : Human{
+	private:
+		int age;
+		int weight;
+	public:
+		void print()
+		{
+			age = 22;
+			weight = 48;
+			
+			printf(&quot;I'm girl, I'm %d years old\n&quot;,age);
+			printf(&quot;My weight is %d kg\n&quot;,weight);
+		}	
+};
+
+struct Boy : Human{
+	private:
+		int height;
+		int salary;
+	public:
+		int age;
+		int weight;
+		void print()
+		{
+			height = 175;
+			salary = 9000;
+			age = 22;
+			weight = 48;
+			
+			printf(&quot;I'm boy, my height is %d cm\n&quot;,height);
+			printf(&quot;My salary is %d RMB\n&quot;,salary);
+		}
+};
+
+int main(int argc, char *argv[]) {
+	Girl g;//从C++语言的角度：创建了一个类的对象，
+	Boy b;
+	
+	g.print();
+	b.age = 19;
+	b.weight = 120;
+	
+	
+	b.print();
+	return 0;
+}
+</code></pre>
+<ul>
+<li>成员函数可以访问类的的成员变量</li>
+</ul>
+<h2 id="类的成员作用域">类的成员作用域</h2>
+<ul>
+<li>类成员的作用域只在类的内部，外部是无法访问的</li>
+<li>成员函数可以直接访问成员变量和调用成员函数</li>
+<li>类的外部可以通过类变量访问public成员</li>
+<li>类成员的作用域与访问级别没有任何关系
+<ul>
+<li>C++中用struct定义的类中所有成员默认为public</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">#include &lt;stdio.h&gt;
+
+int i = 1;
+
+struct Test
+{
+private:
+    int i;
+
+public:
+    int j;
+        
+    int getI()
+    {
+        i = 3;
+        
+        return i;
+    }
+};
+
+int main()
+{
+    int i = 2;
+    
+    Test test;
+    
+    test.j = 4;
+    
+    printf(&quot;i = %d\n&quot;, i);              //局部 i = 2;
+    printf(&quot;::i = %d\n&quot;, ::i);          //全局 ::i = 1;
+    // printf(&quot;test.i = %d\n&quot;, test.i);    //不能访问 Error
+    printf(&quot;test.j = %d\n&quot;, test.j);    //public可以访问 test.j = 4
+    printf(&quot;test.getI() = %d\n&quot;, test.getI());  // test.getI() = 3，
+                         //类成员的作用域和类成员的访问级别是两个概念
+    
+    return 0;
+}
+</code></pre>
+<h1 id="小结">小结</h1>
+<ul>
+<li>类通常可以分为使用方式和内部细节两部分</li>
+<li>类的封装机制使得使用方式和内部细节相分离</li>
+<li>C++中通过定义类成员的访问级别实现封装机制</li>
+<li>public成员可以在类的背部和外界访问和调用</li>
+<li>private成员只能在类的内部被访问和调用</li>
 </ul>
 
                         </div>
                         <div class="post-toc">
-                            
+                            <ul class="markdownIt-TOC">
+<li><a href="#%E7%B1%BB%E7%9A%84%E7%BB%84%E5%90%88">类的组合</a></li>
+<li><a href="#%E7%B1%BB%E9%80%9A%E5%B8%B8%E5%88%86%E4%B8%BA%E4%BB%A5%E4%B8%8B%E4%B8%A4%E4%B8%AA%E9%83%A8%E5%88%86">类通常分为以下两个部分</a></li>
+<li><a href="#%E7%B1%BB%E7%9A%84%E5%B0%81%E8%A3%85">类的封装</a>
+<ul>
+<li><a href="#%E5%B0%81%E8%A3%85%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">封装的基本概念</a></li>
+<li><a href="#c%E4%B8%AD%E7%B1%BB%E7%9A%84%E5%B0%81%E8%A3%85">C++中类的封装</a></li>
+<li><a href="#%E7%B1%BB%E7%9A%84%E6%88%90%E5%91%98%E4%BD%9C%E7%94%A8%E5%9F%9F">类的成员作用域</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+
                         </div>
                         
                             
@@ -245,7 +437,7 @@
 
                                     <p class="copyright-item">
                                         <span>Permalink:</span>
-                                        <span><a href="https://leichen2552.github.io/post/esp8266-ru-men-ti-yan">https://leichen2552.github.io/post/esp8266-ru-men-ti-yan</a></span>
+                                        <span><a href="https://leichen2552.github.io/post/hui-gu-15lei-yu-feng-zhuang-de-gai-nian">https://leichen2552.github.io/post/hui-gu-15lei-yu-feng-zhuang-de-gai-nian</a></span>
                                     </p>
 
                                     <p class="copyright-item">
@@ -263,7 +455,7 @@
                                                         <span class="tag">
                                 
                                 
-                                <a href="https://leichen2552.github.io/tag/7IwgeGrjA"># ESP8266</a>
+                                <a href="https://leichen2552.github.io/tag/dTVQPvwPR"># C++</a>
                                 
                                 
                             </span>
@@ -278,13 +470,9 @@
                                                         <!---->
                                                         <section class="post-nav">
                                                             
-                                                                <a class="prev" rel="prev" href="https://leichen2552.github.io/post/xue-xi-cde-yi-yi">
-                                                                    回顾（1）：学习C++的意义
-                                                                </a>
-                                                                
                                                                     
-                                                                        <a class="next" rel="next" href="https://leichen2552.github.io/post/markdownnotes">
-                                                                            markdownNotes
+                                                                        <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-14jin-jie-mian-dui-dui-xiang-xia">
+                                                                            回顾（14）：进阶面对对象（下）
                                                                         </a>
                                                                         
                                                         </section>
