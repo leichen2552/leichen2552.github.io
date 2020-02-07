@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-02-07T07:55:59.078Z</updated>
+    <updated>2020-02-07T09:51:37.314Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,308 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[回顾（19）：对象的构造（下）]]></title>
+        <id>https://leichen2552.github.io/post/hui-gu-19dui-xiang-de-gou-zao-xia</id>
+        <link href="https://leichen2552.github.io/post/hui-gu-19dui-xiang-de-gou-zao-xia">
+        </link>
+        <updated>2020-02-07T07:56:13.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E7%89%B9%E6%AE%8A%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">特殊的构造函数</a>
+<ul>
+<li><a href="#%E6%97%A0%E5%8F%82%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">无参构造函数</a></li>
+<li><a href="#%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">拷贝构造函数</a></li>
+<li><a href="#%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%9A%84%E6%84%8F%E4%B9%89">拷贝构造函数的意义</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E9%9C%80%E8%A6%81%E6%B7%B1%E6%8B%B7%E8%B4%9D">什么时候需要深拷贝</a></li>
+<li><a href="#%E6%95%B0%E7%BB%84%E7%B1%BB%E6%94%B9%E8%BF%9B">数组类改进</a>
+<ul>
+<li><a href="#intarrayh">IntArray.h</a></li>
+<li><a href="#intarraycpp">IntArray.cpp</a></li>
+<li><a href="#maincpp">main.cpp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</p>
+<h1 id="特殊的构造函数">特殊的构造函数</h1>
+<h2 id="无参构造函数">无参构造函数</h2>
+<ul>
+<li>没有参数的构造函数
+<ul>
+<li>当类中没有定义构造函数，编译器默认提供一个无参构造函数，并且其函数体为空</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">#include &lt;stdio.h&gt;
+class Test
+{
+private:
+    int i;
+    int j;
+public:
+    int getI(){ return i;}
+    int getJ(){ return j;}
+    //编译器为什么能编译器通过。
+    //我们没有定义任何的构造函数时，编译器就提供了默认的无参构造函数
+    /*
+    Test()
+    {}
+    */
+
+    //类中并没有手工构造函数，就提供一个默认的拷贝构造函数，
+    //但是如果只有一个手工拷贝构造函数，编译器就不会提供默认的无参构造函数
+    //但是编译会出错，还需要一个手工无参构造函数
+      /*
+    Test(const Test&amp; t)
+    {
+        i = t.i;
+        j = t.j;
+    }
+    */
+};    
+
+int main()
+{
+    Test t1;
+    Test t2 = t1;
+
+    cout &lt;&lt; &quot;t1.i = &quot; &lt;&lt; t1.i &lt;&lt; &quot;t1.j&quot; &lt;&lt; t1.j;
+    cout &lt;&lt; &quot;t2.i = &quot; &lt;&lt; t2.i &lt;&lt; &quot;t2.j&quot; &lt;&lt; t2.j;
+
+    return 0;
+}
+</code></pre>
+<h2 id="拷贝构造函数">拷贝构造函数</h2>
+<ul>
+<li>参数为const class_name&amp; 的构造函数
+<ul>
+<li>当类中没有定义拷贝构造函数，编译器默认提供一个拷贝构造函数，简单的进行成员变量的值的赋值</li>
+</ul>
+</li>
+</ul>
+<h2 id="拷贝构造函数的意义">拷贝构造函数的意义</h2>
+<ul>
+<li>
+<p>兼容C语言的初始化方式</p>
+</li>
+<li>
+<p>初始化行为能够符合预期的逻辑</p>
+</li>
+<li>
+<p>浅拷贝</p>
+<ul>
+<li>拷贝后对象的物理状态相同</li>
+</ul>
+</li>
+<li>
+<p>深拷贝</p>
+<ul>
+<li>拷贝后对象的逻辑状态相同</li>
+</ul>
+</li>
+</ul>
+<p><strong>编译器提供的拷贝构造函数只进行浅拷贝</strong></p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+#include &lt;stdio.h&gt;
+class Test
+{
+private:
+    int i;
+    int j;
+    int* p; 
+public:
+    int getI(){ return i;}
+    int getJ(){ return j;}
+    int* getP(){return p;}
+    Test(int v)
+    {
+        i = 1;
+        j = 2;
+        p = new int;
+
+        *p = v;
+    }
+    Test(const Test&amp; t)
+    {
+        i = t.i;
+        j = t.j;
+        p = new int;
+
+        *p = *t.p;
+    }   
+    void free()
+    {
+        delete p;
+    }
+};    //类的创建一定要加分号
+
+int main()
+{
+    Test t1(3);
+    Test t2 = t1;
+
+    cout &lt;&lt; &quot;t1.i = &quot; &lt;&lt; t1.getI() &lt;&lt; &quot;,t1.j =&quot; &lt;&lt; t1.getJ() &lt;&lt; &quot;,t1.p = &quot;&lt;&lt; t1.getP() &lt;&lt; &quot;,*t1.p = &quot;&lt;&lt; *t1.getP() &lt;&lt; endl;
+    cout &lt;&lt; &quot;t2.i = &quot; &lt;&lt; t2.getI() &lt;&lt; &quot;,t2.j =&quot; &lt;&lt; t2.getJ() &lt;&lt; &quot;,t2.p = &quot;&lt;&lt; t2.getP() &lt;&lt; &quot;,*t2.p = &quot;&lt;&lt; *t2.getP() &lt;&lt; endl;
+
+    t1.free();
+    t2.free();
+   
+    return 0;
+}
+</code></pre>
+<p><strong>这两个指针指向了一个内存空间，并且被释放了两次，采用浅拷贝编译器会报错，如图所示</strong><br>
+<img src="https://leichen2552.github.io//post-images/1581067898285.png" alt="" loading="lazy"></p>
+<h3 id="什么时候需要深拷贝">什么时候需要深拷贝</h3>
+<ul>
+<li>对象中有成员指代了系统中的资源
+<ul>
+<li>成员指向了动态内存空间</li>
+<li>成员打开了外存中的文件</li>
+<li>成员使用了系统中的网络端口</li>
+</ul>
+</li>
+</ul>
+<h3 id="数组类改进">数组类改进</h3>
+<p>因为上一节课的数组类中有对堆空间的申请，所以需要添加深拷贝构造函数</p>
+<h4 id="intarrayh">IntArray.h</h4>
+<pre><code class="language-c++">#ifndef INTARRAY_H
+#define INTARRAY_H
+
+class IntArray{
+private:
+	int m_length;
+	int* m_pointer;
+public:
+	IntArray(int len);
+	int length();
+	bool get(int index, int&amp; value);
+	bool set(int index, int value);	
+    IntArray(const IntArray&amp; ob);
+    void free();
+};//类的创建一定要加分号！！！
+
+#endif
+</code></pre>
+<h4 id="intarraycpp">IntArray.cpp</h4>
+<pre><code class="language-c++">#include &quot;IntArray.h&quot;
+
+IntArray::IntArray(int len)
+{
+	m_pointer = new int[len];
+	
+	for(int i = 0;i &lt; len; i++)
+	{
+		m_pointer[i] = 0;
+	}
+	
+	m_length = len;	
+}
+
+IntArray::IntArray(const IntArray&amp; ob)
+{
+	m_length = ob.m_length;
+	m_pointer = new int[ob.m_length];
+	
+	for(int i = 0;i &lt; ob.m_length;i++)
+	{
+		m_pointer[i] = ob.m_pointer[i]; 	
+	}		
+}
+
+int IntArray::length()
+{
+	return m_length;
+}
+
+bool IntArray::get(int index, int&amp; value)
+{
+	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
+	
+	if(ret)
+	{
+		value = m_pointer[index];
+	}
+	
+	return ret;
+}
+
+bool IntArray::set(int index, int value)
+{
+	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
+	
+	if(ret)
+	{
+ 		m_pointer[index] = value;
+	}
+	
+	return ret;
+}
+
+void IntArray::free()
+{
+	delete[] m_pointer;
+}
+</code></pre>
+<h4 id="maincpp">main.cpp</h4>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &quot;IntArray.h&quot;
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+	IntArray a(5);
+	
+	for(int i=0; i&lt;a.length(); i++)
+	{
+		a.set(i,i+1);	
+	}
+	
+	for(int i=0; i&lt;a.length(); i++)
+	{
+		int value = 0;
+		if(a.get(i,value))
+		{
+			cout &lt;&lt; &quot;a[&quot;&lt;&lt; i&lt;&lt; &quot;]= &quot; &lt;&lt;value &lt;&lt; endl;
+		}
+	}
+	
+	IntArray b = a;
+	
+	for(int i=0; i&lt;b.length(); i++)
+	{
+		int value = 0;
+		if(b.get(i,value))
+		{
+			cout &lt;&lt; &quot;b[&quot;&lt;&lt; i&lt;&lt; &quot;]= &quot; &lt;&lt;value &lt;&lt; endl;
+		}
+	}
+	a.free();
+	b.free();
+	return 0;
+}
+</code></pre>
+<h1 id="小结">小结</h1>
+<ul>
+<li>C++编译器会默认提供构造函数</li>
+<li>无参构造函数用于定义对象的默认初始状态，编译器发现没有任何的构造函数时，才会提供无参构造函数</li>
+<li>拷贝构造函数在创建对象时拷贝对象的状态</li>
+<li>对象的拷贝有深拷贝和浅拷贝两种方式
+<ul>
+<li>浅拷贝使得对象的物理状态相同</li>
+<li>深拷贝使得对象的逻辑状态相同，如果使用了系统资源，就必须手动提供深拷贝函数</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[回顾（18）：对象的构造（中）]]></title>
         <id>https://leichen2552.github.io/post/hui-gu-18dui-xiang-de-gou-zao-zhong</id>
@@ -2574,102 +2876,6 @@ g()
 3   运行模式</li>
 <li>chksum : chksum和csum值相等，表明启动过程中flash读值准确</li>
 </ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[markdownNotes]]></title>
-        <id>https://leichen2552.github.io/post/markdownnotes</id>
-        <link href="https://leichen2552.github.io/post/markdownnotes">
-        </link>
-        <updated>2020-01-06T05:50:11.000Z</updated>
-        <content type="html"><![CDATA[<p><strong>目录</strong><br>
-<ul class="markdownIt-TOC">
-<li><a href="#markdown-%E7%AC%94%E8%AE%B0">Markdown 笔记</a>
-<ul>
-<li><a href="#%E7%94%9F%E6%88%90%E7%9B%AE%E5%BD%95">生成目录</a></li>
-<li><a href="#%E4%BB%A3%E7%A0%81%E9%AB%98%E4%BA%AE">代码高亮</a></li>
-<li><a href="#%E6%97%A0%E5%BA%8F%E6%A0%87%E5%8F%B7%E5%92%8C%E6%9C%89%E5%BA%8F%E6%A0%87%E5%8F%B7">无序标号和有序标号</a></li>
-<li><a href="#%E6%96%87%E5%AD%97%E5%8A%A0%E7%B2%97">文字加粗</a></li>
-<li><a href="#%E6%96%9C%E4%BD%93%E5%AD%97">斜体字</a></li>
-<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%97%E4%BD%93%E5%A4%A7%E5%B0%8F">自定义字体大小</a></li>
-<li><a href="#%E5%AD%97%E4%BD%93%E5%8F%98%E5%A4%A7%E5%8F%98%E5%B0%8F%E6%A0%87%E7%AD%BE">字体变大变小标签</a></li>
-<li><a href="#%E6%8D%A2%E8%A1%8C">换行</a></li>
-<li><a href="#%E5%AD%97%E4%BD%93%E5%A4%A7%E5%B0%8F%E4%B8%8E%E9%A2%9C%E8%89%B2">字体大小与颜色</a></li>
-</ul>
-</li>
-<li><a href="#latex-%E7%AC%94%E8%AE%B0">latex 笔记</a>
-<ul>
-<li><a href="#latex%E8%B0%83%E5%A4%A7%E5%AD%97%E4%BD%93">latex调大字体</a></li>
-<li><a href="#%E7%A7%AF%E5%88%86%E5%8F%B7-%E4%B8%8B%E6%A0%87-%E4%B8%8A%E4%B8%8B%E9%99%90">积分号、下标、上下限</a></li>
-</ul>
-</li>
-</ul>
-</p>
-<h1 id="markdown-笔记">Markdown 笔记</h1>
-<h2 id="生成目录">生成目录</h2>
-<pre><code>@[toc] 或者 [toc]
-</code></pre>
-<h2 id="代码高亮">代码高亮</h2>
-<p>tab键上面的的那个按键</p>
-<pre><code>```C
-```
-</code></pre>
-<p>void function1()  \\就是C语言高亮<br>
-{</p>
-<p>}</p>
-<h2 id="无序标号和有序标号">无序标号和有序标号</h2>
-<p>星号*加一个空格</p>
-<ul>
-<li>我</li>
-<li>爱</li>
-<li>RTOS</li>
-</ul>
-<p>数字后面一个点再一个空格</p>
-<ol>
-<li>我</li>
-<li>爱</li>
-<li>RTOS</li>
-</ol>
-<h2 id="文字加粗">文字加粗</h2>
-<pre><code>**这时加粗字体**
-</code></pre>
-<h2 id="斜体字">斜体字</h2>
-<pre><code>*这是斜体字*
-</code></pre>
-<h2 id="自定义字体大小">自定义字体大小</h2>
-<p><font size = 4>我是变大字体</font></p>
-<h2 id="字体变大变小标签">字体变大变小标签</h2>
-<p><small>字体变小</small><br>
-<big>字体变大</big></p>
-<h2 id="换行">换行</h2>
-<p>空格+空格+回车</p>
-<h2 id="字体大小与颜色">字体大小与颜色</h2>
-<p><font face="黑体">我是黑体字</font><br>
-<font face="微软雅黑">我是微软雅黑</font><br>
-<font face="STCAIYUN">我是华文彩云</font><br>
-<font color=#0099ff size=6 face="黑体">color=#0099ff size=72 face=&quot;黑体&quot;</font><br>
-<font color=#00ffff size=50>color=#00ffff</font><br>
-<font color=gray size=50>color=gray</font></p>
-<h1 id="latex-笔记">latex 笔记</h1>
-<h2 id="latex调大字体">latex调大字体</h2>
-<ul>
-<li>七号 　　5.25pt 　　    1.845mm　　　　\tiny</li>
-<li>六号 　　7.875pt 　　  2.768mm　　　　\scriptsize</li>
-<li>小五号 　9pt 　　　　  3.163mm　　　　\footnotesize</li>
-<li>五号 　　10.5pt 　　    3.69mm　　　　  \small</li>
-<li>小四号 　12pt 　　　　4.2175mm　　　 \normalsize</li>
-<li>四号 　　13.75pt 　　  4.83mm　　　　  \large</li>
-<li>三号 　　15.75pt 　　  5.53mm　　　　  \Large</li>
-<li>二号 　　21pt 　　      7.38mm                \LARGE</li>
-<li>一号 　　27.5pt 　　   9.48mm　　　　   \huge</li>
-<li>小初号 　36pt 　　　  12.65mm　　　　 \Huge</li>
-</ul>
-<h2 id="积分号-下标-上下限">积分号、下标、上下限</h2>
-<pre><code>\Large {\int_{birth}^{death} study dtime = life} 
-</code></pre>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mstyle mathsize="1.44em"><mrow><msubsup><mo>∫</mo><mrow><mi>b</mi><mi>i</mi><mi>r</mi><mi>t</mi><mi>h</mi></mrow><mrow><mi>d</mi><mi>e</mi><mi>a</mi><mi>t</mi><mi>h</mi></mrow></msubsup><mi>s</mi><mi>t</mi><mi>u</mi><mi>d</mi><mi>y</mi><mi>d</mi><mi>t</mi><mi>i</mi><mi>m</mi><mi>e</mi><mo>=</mo><mi>l</mi><mi>i</mi><mi>f</mi><mi>e</mi></mrow></mstyle></mrow><annotation encoding="application/x-tex">\Large {\int_{birth}^{death} study dtime = life} 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.5584800000000003em;vertical-align:-1.29164em;"></span><span class="mord sizing reset-size6 size8"><span class="mop"><span class="mop op-symbol large-op" style="margin-right:0.44445em;position:relative;top:-0.0011249999999999316em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.5741944444444447em;"><span style="top:-2.1030277777777777em;margin-left:-0.44445em;margin-right:0.034722222222222224em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size8 size6 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">b</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">h</span></span></span></span><span style="top:-4.091944444444445em;margin-right:0.034722222222222224em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size8 size6 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">d</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">h</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8969722222222222em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">u</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord mathdefault">d</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span><span class="mord mathdefault">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">e</span></span></span></span></span></span></p>
-<p>更新会继续添加！</p>
 ]]></content>
     </entry>
 </feed>

@@ -187,7 +187,7 @@
                 <article class="post-wrap">
                     <header class="post-header">
                         <h1 class="post-title">
-                            回顾（4）：布尔类型和引用
+                            回顾（19）：对象的构造（下）
                         </h1>
                         
                         <!--en-->
@@ -197,12 +197,19 @@
                                 ChenLei's Blog
                             </a>
                             <span class="post-time">
-                                Date: <a href="#">2020-01-29</a>
+                                Date: <a href="#">2020-02-07</a>
                             </span>
                             <span class="post-readtime">Reading Time:<a
-                                    href="#">4.9
+                                    href="#">5.5
                                     mins</a></span>
-                            <span class="post-words">words:<a href="#">1218</a></span>
+                            <span class="post-words">words:<a href="#">1194</a></span>
+                            
+                            <span class="post-category">
+                                Category:
+                                
+                                <a href="https://leichen2552.github.io/tag/dTVQPvwPR">C++</a>
+                                
+                            </span>
                             
                             Views:
                             <span data-hk-page="current"> - </span>
@@ -212,26 +219,20 @@
                         </header>
                         <div class="post-content">
                             <p><ul class="markdownIt-TOC">
-<li><a href="#c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B">C语言中的布尔类型</a></li>
-<li><a href="#c%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B">C++中的布尔类型</a>
+<li><a href="#%E7%89%B9%E6%AE%8A%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">特殊的构造函数</a>
 <ul>
-<li><a href="#%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%80%BC">布尔类型的值</a></li>
-<li><a href="#%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B">布尔类型</a>
+<li><a href="#%E6%97%A0%E5%8F%82%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">无参构造函数</a></li>
+<li><a href="#%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">拷贝构造函数</a></li>
+<li><a href="#%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%9A%84%E6%84%8F%E4%B9%89">拷贝构造函数的意义</a>
 <ul>
-<li><a href="#%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B%E6%98%AFc%E4%B8%AD%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">布尔类型是C++中的基本数据类型</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E9%9C%80%E8%A6%81%E6%B7%B1%E6%8B%B7%E8%B4%9D">什么时候需要深拷贝</a></li>
+<li><a href="#%E6%95%B0%E7%BB%84%E7%B1%BB%E6%94%B9%E8%BF%9B">数组类改进</a>
+<ul>
+<li><a href="#intarrayh">IntArray.h</a></li>
+<li><a href="#intarraycpp">IntArray.cpp</a></li>
+<li><a href="#maincpp">main.cpp</a></li>
 </ul>
 </li>
-<li><a href="#%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6">三目运算符</a>
-<ul>
-<li><a href="#c%E5%AF%B9%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6%E8%BF%9B%E8%A1%8C%E4%BA%86%E5%8D%87%E7%BA%A7">C++对三目运算符进行了升级</a></li>
-<li><a href="#c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6%E8%BF%94%E5%9B%9E%E7%9A%84%E6%98%AF%E5%8F%98%E9%87%8F%E5%80%BC">C语言中的三目运算符返回的是变量值</a></li>
-<li><a href="#c%E4%B8%AD%E7%9A%84%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6%E8%BF%94%E5%9B%9E%E7%9A%84%E6%98%AF%E5%8F%98%E9%87%8F%E6%9C%AC%E8%BA%AB%E6%B3%A8%E6%84%8F%E6%98%AF%E5%8F%98%E9%87%8F%E6%9C%AC%E8%BA%AB">C++中的三目运算符返回的是变量本身（注意是变量本身）</a></li>
-</ul>
-</li>
-<li><a href="#c%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8">C++中的引用</a>
-<ul>
-<li><a href="#%E5%8F%98%E9%87%8F%E5%90%8D%E5%9B%9E%E9%A1%BE">变量名回顾</a></li>
-<li><a href="#c%E5%AF%B9%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88">C++对三目运算符做了什么</a></li>
 </ul>
 </li>
 </ul>
@@ -239,193 +240,296 @@
 <li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
 </ul>
 </p>
-<h1 id="c语言中的布尔类型">C语言中的布尔类型</h1>
-<p>C语言中没有布尔类型</p>
-<h1 id="c中的布尔类型">C++中的布尔类型</h1>
+<h1 id="特殊的构造函数">特殊的构造函数</h1>
+<h2 id="无参构造函数">无参构造函数</h2>
 <ul>
-<li>C++在C语言的基础类型系统里增加了bool</li>
-<li>C++中的bool可取的值只有true和false</li>
-<li>理论上bool只占用了一个字节</li>
-</ul>
-<p>注意：</p>
+<li>没有参数的构造函数
 <ul>
-<li>true代表真值，编译器内部用1来表示</li>
-<li>false代表非真值，编译器内部用0来表示</li>
+<li>当类中没有定义构造函数，编译器默认提供一个无参构造函数，并且其函数体为空</li>
 </ul>
-<p>C++的两个加号，一个加号就是类型上面的增强，另一个加号就是面向对象的加强<br>
-所以C语言中没有的布尔类型，在C++中就提供了这种bool类型</p>
-<h2 id="布尔类型的值">布尔类型的值</h2>
-<ul>
-<li>bool类型只有true（非0）和false（0）两个值</li>
-<li>C++编译器会将非0值转换为true，0值转换为false</li>
+</li>
 </ul>
-<pre><code class="language-c++">//下面的代码会输出什么？
-bool b = 0;
-printf(&quot;b = %d&quot;,b);//0
-
-b++;
-printf(&quot;b = %d&quot;,b);//1
-
-b = b - 3;
-printf(&quot;b = %d&quot;,b);//1
-</code></pre>
-<p>但是C++中的布尔类型的内部实现还是用一个字节(byte)的整型来实现的。</p>
 <pre><code class="language-c++">#include &lt;stdio.h&gt;
+class Test
+{
+private:
+    int i;
+    int j;
+public:
+    int getI(){ return i;}
+    int getJ(){ return j;}
+    //编译器为什么能编译器通过。
+    //我们没有定义任何的构造函数时，编译器就提供了默认的无参构造函数
+    /*
+    Test()
+    {}
+    */
+
+    //类中并没有手工构造函数，就提供一个默认的拷贝构造函数，
+    //但是如果只有一个手工拷贝构造函数，编译器就不会提供默认的无参构造函数
+    //但是编译会出错，还需要一个手工无参构造函数
+      /*
+    Test(const Test&amp; t)
+    {
+        i = t.i;
+        j = t.j;
+    }
+    */
+};    
 
 int main()
 {
-    bool b = false;
-    int a = b;
+    Test t1;
+    Test t2 = t1;
 
-    printf(&quot;sizeof(b) = %d\n&quot;, sizeof(b));//1
-    printf(&quot;b = %d, a = %d&quot;, b, a);//0,0
-
-    b = 3;
-    a = b;
-
-    printf(&quot;b = %d, a = %d&quot;, b, a);//1,1
-
-    b = -5;
-    a = b;
-
-    printf(&quot;b = %d, a = %d&quot;, b, a);//1,1
-
-    a = 10;
-    b = a;
-
-    printf(&quot;a = %d, b = %d&quot;, a, b);//10,1
-
-    a = 0;
-    b = a;
-
-    printf(&quot;a = %d, b = %d&quot;, a, b);//0,0
+    cout &lt;&lt; &quot;t1.i = &quot; &lt;&lt; t1.i &lt;&lt; &quot;t1.j&quot; &lt;&lt; t1.j;
+    cout &lt;&lt; &quot;t2.i = &quot; &lt;&lt; t2.i &lt;&lt; &quot;t2.j&quot; &lt;&lt; t2.j;
 
     return 0;
 }
 </code></pre>
-<h2 id="布尔类型">布尔类型</h2>
-<h3 id="布尔类型是c中的基本数据类型">布尔类型是C++中的基本数据类型</h3>
+<h2 id="拷贝构造函数">拷贝构造函数</h2>
 <ul>
-<li>可以定义bool类型的全局变量</li>
-<li>可以定义bool类型的常量</li>
-<li>可以定义bool类型的指针</li>
-<li>可以定义bool类型的数组</li>
-<li>其他基本类型能干的事情，bool类型都能干</li>
+<li>参数为const class_name&amp; 的构造函数
+<ul>
+<li>当类中没有定义拷贝构造函数，编译器默认提供一个拷贝构造函数，简单的进行成员变量的值的赋值</li>
 </ul>
-<h2 id="三目运算符">三目运算符</h2>
-<h3 id="c对三目运算符进行了升级">C++对三目运算符进行了升级</h3>
-<pre><code class="language-c++">#include &lt;stdio.h&gt;
+</li>
+</ul>
+<h2 id="拷贝构造函数的意义">拷贝构造函数的意义</h2>
+<ul>
+<li>
+<p>兼容C语言的初始化方式</p>
+</li>
+<li>
+<p>初始化行为能够符合预期的逻辑</p>
+</li>
+<li>
+<p>浅拷贝</p>
+<ul>
+<li>拷贝后对象的物理状态相同</li>
+</ul>
+</li>
+<li>
+<p>深拷贝</p>
+<ul>
+<li>拷贝后对象的逻辑状态相同</li>
+</ul>
+</li>
+</ul>
+<p><strong>编译器提供的拷贝构造函数只进行浅拷贝</strong></p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+#include &lt;stdio.h&gt;
+class Test
+{
+private:
+    int i;
+    int j;
+    int* p; 
+public:
+    int getI(){ return i;}
+    int getJ(){ return j;}
+    int* getP(){return p;}
+    Test(int v)
+    {
+        i = 1;
+        j = 2;
+        p = new int;
+
+        *p = v;
+    }
+    Test(const Test&amp; t)
+    {
+        i = t.i;
+        j = t.j;
+        p = new int;
+
+        *p = *t.p;
+    }   
+    void free()
+    {
+        delete p;
+    }
+};    //类的创建一定要加分号
 
 int main()
 {
-    int a = 1;
-    int b = 2;
+    Test t1(3);
+    Test t2 = t1;
 
-    (a &lt; b ? a : b) = 3;//等价于a = 3;
+    cout &lt;&lt; &quot;t1.i = &quot; &lt;&lt; t1.getI() &lt;&lt; &quot;,t1.j =&quot; &lt;&lt; t1.getJ() &lt;&lt; &quot;,t1.p = &quot;&lt;&lt; t1.getP() &lt;&lt; &quot;,*t1.p = &quot;&lt;&lt; *t1.getP() &lt;&lt; endl;
+    cout &lt;&lt; &quot;t2.i = &quot; &lt;&lt; t2.getI() &lt;&lt; &quot;,t2.j =&quot; &lt;&lt; t2.getJ() &lt;&lt; &quot;,t2.p = &quot;&lt;&lt; t2.getP() &lt;&lt; &quot;,*t2.p = &quot;&lt;&lt; *t2.getP() &lt;&lt; endl;
 
-    printf(&quot;a = %d, b = %d\n&quot;, a, b);
+    t1.free();
+    t2.free();
+   
+    return 0;
 }
 </code></pre>
-<h3 id="c语言中的三目运算符返回的是变量值">C语言中的三目运算符返回的是变量值</h3>
+<p><strong>这两个指针指向了一个内存空间，并且被释放了两次，采用浅拷贝编译器会报错，如图所示</strong><br>
+<img src="https://leichen2552.github.io//post-images/1581067898285.png" alt="" loading="lazy"></p>
+<h3 id="什么时候需要深拷贝">什么时候需要深拷贝</h3>
 <ul>
-<li>不能作为左值使用</li>
-</ul>
-<h3 id="c中的三目运算符返回的是变量本身注意是变量本身">C++中的三目运算符返回的是变量本身（注意是变量本身）</h3>
+<li>对象中有成员指代了系统中的资源
 <ul>
-<li>既可以作为右值使用，又可以作为左值使用</li>
+<li>成员指向了动态内存空间</li>
+<li>成员打开了外存中的文件</li>
+<li>成员使用了系统中的网络端口</li>
 </ul>
-<p>牢记：</p>
-<ul>
-<li>三目运算符就只有在所有的可能返回都是变量的时候才能作为左值使用</li>
-<li>如果混搭，编译器就会报错，像如下：</li>
+</li>
 </ul>
-<pre><code class="language-c++">    int a = 1;
-    int b = 2;
+<h3 id="数组类改进">数组类改进</h3>
+<p>因为上一节课的数组类中有对堆空间的申请，所以需要添加深拷贝构造函数</p>
+<h4 id="intarrayh">IntArray.h</h4>
+<pre><code class="language-c++">#ifndef INTARRAY_H
+#define INTARRAY_H
 
-    (a &lt; b ? a : 2) = 3;//这句就会报错
+class IntArray{
+private:
+	int m_length;
+	int* m_pointer;
+public:
+	IntArray(int len);
+	int length();
+	bool get(int index, int&amp; value);
+	bool set(int index, int value);	
+    IntArray(const IntArray&amp; ob);
+    void free();
+};//类的创建一定要加分号！！！
+
+#endif
 </code></pre>
-<p>注意：</p>
-<ul>
-<li>三目运算符可能返回的值中如果有一个常量值，则不能作为左值使用</li>
-</ul>
-<h2 id="c中的引用">C++中的引用</h2>
-<h3 id="变量名回顾">变量名回顾</h3>
-<ul>
-<li>变量是一段实际连续存储空间的别名</li>
-<li>程序是通过变量来申请并命名存储空间</li>
-<li>通过变量的名字可以使用存储空间</li>
-</ul>
-<p>问题：一段连续的存储空间只能有一个别名吗？答案：不一定</p>
-<p>###在C++中新增加了引用的概念</p>
-<ul>
-<li>引用可以看做是一个已定义变量的别名</li>
-<li>引用的语法：Type&amp; name = var;</li>
-</ul>
-<pre><code class="language-c++">    int a = 4;
-    int&amp; b = a;//b为a的别名
+<h4 id="intarraycpp">IntArray.cpp</h4>
+<pre><code class="language-c++">#include &quot;IntArray.h&quot;
 
-    b = 5; //操作b就是操作a
-</code></pre>
-<p>注意：</p>
-<ul>
-<li>普通引用在定义时必须用同类型的变量进行初始化。初始化一定是其他同类型（一定要同类型，不然编译器报错）变量的别名，不能用字面常量进行初始化（不然编译器报错）</li>
-</ul>
-<pre><code class="language-c++">#include &lt;stdio.h&gt;
-
-int main()
+IntArray::IntArray(int len)
 {
-    int a = 4;
-    int&amp; b = a;
+	m_pointer = new int[len];
+	
+	for(int i = 0;i &lt; len; i++)
+	{
+		m_pointer[i] = 0;
+	}
+	
+	m_length = len;	
+}
 
-    printf(&quot;a = %d\n&quot;, a);
-    printf(&quot;b = %d\n&quot;, b);//a、b值一样
-    printf(&quot;&amp;a = %p\n&quot;, &amp;a);
-    printf(&quot;&amp;b = %p\n&quot;, &amp;b);//a、b地址也一样
+IntArray::IntArray(const IntArray&amp; ob)
+{
+	m_length = ob.m_length;
+	m_pointer = new int[ob.m_length];
+	
+	for(int i = 0;i &lt; ob.m_length;i++)
+	{
+		m_pointer[i] = ob.m_pointer[i]; 	
+	}		
+}
+
+int IntArray::length()
+{
+	return m_length;
+}
+
+bool IntArray::get(int index, int&amp; value)
+{
+	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
+	
+	if(ret)
+	{
+		value = m_pointer[index];
+	}
+	
+	return ret;
+}
+
+bool IntArray::set(int index, int value)
+{
+	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
+	
+	if(ret)
+	{
+ 		m_pointer[index] = value;
+	}
+	
+	return ret;
+}
+
+void IntArray::free()
+{
+	delete[] m_pointer;
 }
 </code></pre>
-<h3 id="c对三目运算符做了什么">C++对三目运算符做了什么</h3>
-<ul>
-<li>当三目运算符的可能返回都是变量时，返回的就是变量引用</li>
-<li>当三目运算府的可能返回中有常量时，返回的是值</li>
-</ul>
-<pre><code class="language-c++">int a = 1;
-int b = 2;
+<h4 id="maincpp">main.cpp</h4>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &quot;IntArray.h&quot;
 
-(a &lt; b ? a : b) = 3;//正确，返回 a 或 b 的引用，可作为左值
-(a &lt; b ? a : b) = 4;//错误，返回 1 或 b 的值，不能作为左值 
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+	IntArray a(5);
+	
+	for(int i=0; i&lt;a.length(); i++)
+	{
+		a.set(i,i+1);	
+	}
+	
+	for(int i=0; i&lt;a.length(); i++)
+	{
+		int value = 0;
+		if(a.get(i,value))
+		{
+			cout &lt;&lt; &quot;a[&quot;&lt;&lt; i&lt;&lt; &quot;]= &quot; &lt;&lt;value &lt;&lt; endl;
+		}
+	}
+	
+	IntArray b = a;
+	
+	for(int i=0; i&lt;b.length(); i++)
+	{
+		int value = 0;
+		if(b.get(i,value))
+		{
+			cout &lt;&lt; &quot;b[&quot;&lt;&lt; i&lt;&lt; &quot;]= &quot; &lt;&lt;value &lt;&lt; endl;
+		}
+	}
+	a.free();
+	b.free();
+	return 0;
+}
 </code></pre>
 <h1 id="小结">小结</h1>
 <ul>
-<li>bool类型是C++新增加的基础类型</li>
-<li>bool类型的值只能是true和false</li>
-<li>C++中的三目运算符可作为左值使用</li>
-<li>C++中的引用可以看做是变量的别名来使用</li>
-<li>三目运算符的可能返回都是变量时，返回的是引用</li>
+<li>C++编译器会默认提供构造函数</li>
+<li>无参构造函数用于定义对象的默认初始状态，编译器发现没有任何的构造函数时，才会提供无参构造函数</li>
+<li>拷贝构造函数在创建对象时拷贝对象的状态</li>
+<li>对象的拷贝有深拷贝和浅拷贝两种方式
+<ul>
+<li>浅拷贝使得对象的物理状态相同</li>
+<li>深拷贝使得对象的逻辑状态相同，如果使用了系统资源，就必须手动提供深拷贝函数</li>
+</ul>
+</li>
 </ul>
 
             </div>
             <div class="post-toc">
                 <ul class="markdownIt-TOC">
-<li><a href="#c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B">C语言中的布尔类型</a></li>
-<li><a href="#c%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B">C++中的布尔类型</a>
+<li><a href="#%E7%89%B9%E6%AE%8A%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">特殊的构造函数</a>
 <ul>
-<li><a href="#%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%80%BC">布尔类型的值</a></li>
-<li><a href="#%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B">布尔类型</a>
+<li><a href="#%E6%97%A0%E5%8F%82%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">无参构造函数</a></li>
+<li><a href="#%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">拷贝构造函数</a></li>
+<li><a href="#%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%9A%84%E6%84%8F%E4%B9%89">拷贝构造函数的意义</a>
 <ul>
-<li><a href="#%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B%E6%98%AFc%E4%B8%AD%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">布尔类型是C++中的基本数据类型</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E9%9C%80%E8%A6%81%E6%B7%B1%E6%8B%B7%E8%B4%9D">什么时候需要深拷贝</a></li>
+<li><a href="#%E6%95%B0%E7%BB%84%E7%B1%BB%E6%94%B9%E8%BF%9B">数组类改进</a>
+<ul>
+<li><a href="#intarrayh">IntArray.h</a></li>
+<li><a href="#intarraycpp">IntArray.cpp</a></li>
+<li><a href="#maincpp">main.cpp</a></li>
 </ul>
 </li>
-<li><a href="#%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6">三目运算符</a>
-<ul>
-<li><a href="#c%E5%AF%B9%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6%E8%BF%9B%E8%A1%8C%E4%BA%86%E5%8D%87%E7%BA%A7">C++对三目运算符进行了升级</a></li>
-<li><a href="#c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6%E8%BF%94%E5%9B%9E%E7%9A%84%E6%98%AF%E5%8F%98%E9%87%8F%E5%80%BC">C语言中的三目运算符返回的是变量值</a></li>
-<li><a href="#c%E4%B8%AD%E7%9A%84%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6%E8%BF%94%E5%9B%9E%E7%9A%84%E6%98%AF%E5%8F%98%E9%87%8F%E6%9C%AC%E8%BA%AB%E6%B3%A8%E6%84%8F%E6%98%AF%E5%8F%98%E9%87%8F%E6%9C%AC%E8%BA%AB">C++中的三目运算符返回的是变量本身（注意是变量本身）</a></li>
-</ul>
-</li>
-<li><a href="#c%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8">C++中的引用</a>
-<ul>
-<li><a href="#%E5%8F%98%E9%87%8F%E5%90%8D%E5%9B%9E%E9%A1%BE">变量名回顾</a></li>
-<li><a href="#c%E5%AF%B9%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88">C++对三目运算符做了什么</a></li>
 </ul>
 </li>
 </ul>
@@ -445,7 +549,7 @@ int b = 2;
 
                 <p class="copyright-item">
                     <span>Permalink:</span>
-                    <span><a href="https://leichen2552.github.io/post/hui-gu-4bu-er-lei-xing-he-yin-yong">https://leichen2552.github.io/post/hui-gu-4bu-er-lei-xing-he-yin-yong</a></span>
+                    <span><a href="https://leichen2552.github.io/post/hui-gu-19dui-xiang-de-gou-zao-xia">https://leichen2552.github.io/post/hui-gu-19dui-xiang-de-gou-zao-xia</a></span>
                 </p>
 
                 <p class="copyright-item">
@@ -462,6 +566,10 @@ int b = 2;
                     <span>Tag(s):</span>
                     <span class="tag">
                         
+                        
+                        <a href="https://leichen2552.github.io/tag/dTVQPvwPR"># C++</a>
+                        
+                        
                     </span>
                 </div>
                 <div>
@@ -474,13 +582,9 @@ int b = 2;
                                                         <!---->
                                                         <section class="post-nav">
                                                             
-            <a class="prev" rel="prev" href="https://leichen2552.github.io/post/hui-gu-5yin-yong-ben-zhi-fen-xi">
-                回顾（5）：引用本质分析
-            </a>
             
-            
-            <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-3jin-hua-hou-de-const-fen-xi">
-                回顾（3）：进化后的const分析
+            <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-18dui-xiang-de-gou-zao-zhong">
+                回顾（18）：对象的构造（中）
             </a>
             
             </section>
