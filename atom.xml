@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-02-09T02:16:46.291Z</updated>
+    <updated>2020-02-09T03:00:44.933Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,108 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[回顾（21）：对象构造顺序]]></title>
+        <id>https://leichen2552.github.io/post/hui-gu-21dui-xiang-gou-zao-shun-xu</id>
+        <link href="https://leichen2552.github.io/post/hui-gu-21dui-xiang-gou-zao-shun-xu">
+        </link>
+        <updated>2020-02-09T02:21:14.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="对象的构造顺序">对象的构造顺序</h1>
+<pre><code>C++中的类可以定义多个对象，那么对象构造的顺序是怎样的？
+</code></pre>
+<h2 id="对于局部对象">对于局部对象</h2>
+<ul>
+<li>当程序执行流到达对象的定义语句时进行构造</li>
+</ul>
+<pre><code class="language-c++">class Test
+{
+private:
+    int mi;
+public:
+    Test()
+    {
+        mi = i;
+        printf(&quot;Test(int i): %d\n&quot;, mi);
+    }   
+    Test()
+    {
+        mi = obj.mi;
+        printf(&quot;Test(const Test&amp; obj): %d\n&quot;, mi);
+    } 
+};
+
+int main
+{
+    int i = 0;
+    Test a1 = i;
+
+    while(i&lt;3)
+    {
+        Test a2 = ++i;
+    }
+
+    if(i &lt; 4)
+    {
+        Test a = a1;
+    }
+    else
+    {
+        Test a(100);
+    }
+
+    return 0;
+}
+
+</code></pre>
+<h2 id="对于堆对象">对于堆对象</h2>
+<ul>
+<li>当程序执行流到达new语句时创建对象</li>
+<li>使用new创建对象将自动触发构造函数的调用</li>
+</ul>
+<pre><code class="language-c++">int main
+{
+    int i = 0;
+    Test* a1 = new Test(i);
+
+    while(++i&lt;10)
+    {
+        if(i % 2)
+            new Test(i);
+    }
+
+    if(i &lt; 4)
+    {
+        new Test(*a1);
+    }
+    else
+    {
+        new Test a(100);
+    }
+
+    return 0;
+}
+</code></pre>
+<h2 id="对于全局对象">对于全局对象</h2>
+<ul>
+<li>全局对象的构造顺序是不确定的
+<ul>
+<li>全局对象的构造顺序是不确定的
+<ul>
+<li>全局对象的构造顺序是不确定的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>不同的编译器使用不同的规则确定构造顺序</li>
+</ul>
+<h1 id="小结">小结</h1>
+<ul>
+<li>局部对象的构造顺序依赖于程序的执行流，goto语句会破坏程序的执行流</li>
+<li>堆对象的构造顺序依赖于new的使用顺序</li>
+<li>全局对象的构造顺序是不确定的，也是日常工程开发bug的主要来源之一</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[回顾（20）：初始化列表的使用]]></title>
         <id>https://leichen2552.github.io/post/hui-gu-20chu-shi-hua-lie-biao-de-shi-yong</id>
@@ -2909,95 +3011,6 @@ g()
 <li>C++中的<font color = blue>register</font>只是一个兼容的作用，C++兼容C语言只是为了兼容C语言，因为C++有自己的优化方式，他不需要register这个关键字来指示优化</li>
 <li>C++编译器能够<font color = ff00ff>更好的进行优化</font></li>
 <li>C++中<font color = 71c671>任意的标识符都必须显示的指明类型</font></li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（1）：学习C++的意义]]></title>
-        <id>https://leichen2552.github.io/post/xue-xi-cde-yi-yi</id>
-        <link href="https://leichen2552.github.io/post/xue-xi-cde-yi-yi">
-        </link>
-        <updated>2020-01-11T07:07:14.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E5%B8%B8%E8%A7%81%E8%A7%82%E7%82%B9">常见观点：</a></li>
-<li><a href="#%E8%BD%AF%E4%BB%B6%E6%96%B9%E6%B3%95%E8%AE%BA%E7%9A%84%E5%8F%91%E5%B1%95">软件方法论的发展</a>
-<ul>
-<li><a href="#%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1">面向过程的程序设计</a></li>
-</ul>
-</li>
-<li><a href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1">面向对象的程序设计</a></li>
-<li><a href="#%E6%98%AF%E5%90%A6%E9%9C%80%E8%A6%81%E6%96%B0%E7%9A%84%E8%AF%AD%E8%A8%80">是否需要新的语言</a></li>
-<li><a href="#c%E8%AF%AD%E8%A8%80%E7%9A%84%E5%8A%A0%E5%BC%BA">C语言的加强</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
-</ul>
-</p>
-<h2 id="常见观点">常见观点：</h2>
-<ul>
-<li>操作系统和驱动程序都是C写的，学好C就够了</li>
-<li>C++在应用层用的多，学嵌入式没有必要</li>
-<li>linus大神认为C++一无是处，还学它干嘛</li>
-<li>我以后就做驱动开发，没有精力也没有必要学C++</li>
-</ul>
-<p>Unix诞生之初是汇编语言写的，但是汇编语言的开发效率太低。<br>
-所以两个大神对B语言进行改进，C语言就诞生了！</p>
-<p>C语言的诞生只是为了开发操作系统，所以C语言里有很多灰色地带。</p>
-<h2 id="软件方法论的发展">软件方法论的发展</h2>
-<h3 id="面向过程的程序设计">面向过程的程序设计</h3>
-<ol>
-<li>特点</li>
-</ol>
-<ul>
-<li>分析解决问题所需要的步骤</li>
-<li>利用函数实现各个步骤</li>
-<li>依次调用函数解决问题</li>
-</ul>
-<ol start="2">
-<li>问题</li>
-</ol>
-<ul>
-<li>软件可重用性差</li>
-<li>软件可维护性差</li>
-</ul>
-<h2 id="面向对象的程序设计">面向对象的程序设计</h2>
-<ol>
-<li>
-<p>将现实中的事物直接映射到程序中去，可直接满足用户需求</p>
-</li>
-<li>
-<p>特点：</p>
-</li>
-</ol>
-<ul>
-<li>直接分析用户需求中涉及的各个实体</li>
-<li>在代码中描述显示师姐中的实体</li>
-<li>在代码中关联各个实体协同工作解决问题</li>
-</ul>
-<ol start="3">
-<li>优势：</li>
-</ol>
-<ul>
-<li>构建的软件能够适应用户需求的不断变化</li>
-<li>直接利用面向过程方法的优势而避开其劣势</li>
-</ul>
-<h2 id="是否需要新的语言">是否需要新的语言</h2>
-<p>高效的面对对象语言，并且能够兼容已经存在的代码。</p>
-<p>C语言 + 面向对象方法论，Obiective-C，C++</p>
-<h2 id="c语言的加强">C语言的加强</h2>
-<ul>
-<li>C语言和C++并不是对立竞争的关系</li>
-<li>C++是C语言的加强，是一种更好的C语言</li>
-<li>C++是以C语言为基础的，并且完全兼容C语言的特性</li>
-</ul>
-<h1 id="小结">小结</h1>
-<ul>
-<li>所有的软件系统都是为了满足用户需求开发的</li>
-<li>对于一个团队而言，在短期内内开发出用户满意的软件系统是其核心竞争力的体现</li>
-<li>对于一个开发者而言，能够胜任系统中的任意一个模块的开发是其核心价值的体现</li>
-<li>对于一个架构师的而言，掌握各种语言的优势并合理运用到系统中，由此化繁为简，是其核心价值的体现</li>
 </ul>
 ]]></content>
     </entry>
