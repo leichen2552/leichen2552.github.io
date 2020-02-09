@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-02-09T03:00:44.933Z</updated>
+    <updated>2020-02-09T04:16:24.752Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,220 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[回顾（22）：对象的销毁]]></title>
+        <id>https://leichen2552.github.io/post/hui-gu-22dui-xiang-de-xiao-hui</id>
+        <link href="https://leichen2552.github.io/post/hui-gu-22dui-xiang-de-xiao-hui">
+        </link>
+        <updated>2020-02-09T03:01:05.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="对象的销毁">对象的销毁</h1>
+<ul>
+<li>生活中的对象都是被初始化之后才上市的</li>
+<li>生活中的对象被销毁前会做一些清理工作</li>
+</ul>
+<pre><code>问题：C++中如何清理需要销毁的对象？
+</code></pre>
+<h2 id="添加public的free函数">添加public的free函数</h2>
+<ul>
+<li>一般而言，需要销毁的对象都应该被清理</li>
+<li>解决方案：
+<ul>
+<li>为每个类都提供一个public的free函数</li>
+<li>对象不需要时立即调用free函数进行清理</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">class Test
+{
+    int* p;
+public:
+    Test() {p = new int}
+    void free() {delete p;}
+}
+</code></pre>
+<h3 id="存在的问题">存在的问题</h3>
+<ul>
+<li>free只是一个普通的函数，必须显示调用</li>
+<li>对象销毁没有做处理，很可能造成资源泄露</li>
+</ul>
+<pre><code>想法：C++编译器能否自动调用某个特殊函数进行对象的清理？
+</code></pre>
+<h2 id="析构函数">析构函数</h2>
+<ul>
+<li>C++的类中可以定义个特殊的清理函数
+<ul>
+<li>这个特殊的清理函数叫做析构函数</li>
+<li>析构函数的功能与构造函数相反</li>
+</ul>
+</li>
+<li>定义：~ClassName()
+<ul>
+<li>析构函数没有参数也没有返回值类型，直接推出这个函数不能被<strong>重载</strong></li>
+<li>析构函数在对象销毁时自动被调用</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">class Test
+{
+    int i;
+public:
+    Test(int v) 
+    {
+        i = v;
+        printf(&quot;Test(): i = %d\n&quot;,i);
+    }
+    ~Test()
+    {
+        printf(&quot;~Test(): i = %d\n&quot;,i);
+    }
+}
+
+int main()
+{
+    Test t(1);
+
+    Test* p = new Test(2);
+
+    delete p;
+
+    return 0;
+}
+</code></pre>
+<h2 id="修改之前的数组类">修改之前的数组类</h2>
+<h3 id="inrarrayh">InrArray.h</h3>
+<pre><code class="language-c++">#ifndef INTARRAY_H
+#define INTARRAY_H
+
+class IntArray{
+private:
+	int m_length;
+	int* m_pointer;
+public:
+	IntArray(int len);
+	IntArray(const IntArray&amp; ob);
+	int length();
+	bool get(int index, int&amp; value);
+	bool set(int index, int value);	
+	~IntArray();
+};
+</code></pre>
+<p>#endif</p>
+<h3 id="intarraycpp">IntArray.cpp</h3>
+<pre><code class="language-c++">#include &quot;IntArray.h&quot;
+#include &lt;iostream&gt;
+using namespace std;//命名空间声明在此
+
+IntArray::IntArray(int len)
+{
+	m_pointer = new int[len];
+	
+	for(int i = 0;i &lt; len; i++)
+	{
+		m_pointer[i] = 0;
+	}
+	
+	m_length = len;	
+}
+
+IntArray::IntArray(const IntArray&amp; ob)
+{
+	m_length = ob.m_length;
+	m_pointer = new int[ob.m_length];
+	
+	for(int i = 0;i &lt; ob.m_length;i++)
+	{
+		m_pointer[i] = ob.m_pointer[i]; 	
+	}		
+}
+
+int IntArray::length()
+{
+	return m_length;
+}
+
+bool IntArray::get(int index, int&amp; value)
+{
+	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
+	
+	if(ret)
+	{
+		value = m_pointer[index];
+	}
+	
+	return ret;
+}
+
+bool IntArray::set(int index, int value)
+{
+	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
+	
+	if(ret)
+	{
+ 		m_pointer[index] = value;
+	}
+	
+	return ret;
+}
+
+IntArray::~IntArray()
+{
+	cout &lt;&lt; &quot;~IntArray()&quot; &lt;&lt; endl;//在数组类实现细节的代码中加入输入输出，
+                                  //必须要有命名空间的声明
+	delete[] m_pointer;
+}
+</code></pre>
+<h3 id="mainc">main.c</h3>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &quot;IntArray.h&quot;
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+	IntArray a(5);
+	
+	for(int i=0; i&lt;a.length(); i++)
+	{
+		a.set(i,i+1);	
+	}
+	
+	for(int i=0; i&lt;a.length(); i++)
+	{
+		int value = 0;
+		if(a.get(i,value))
+		{
+			cout &lt;&lt; &quot;a[&quot;&lt;&lt; i&lt;&lt; &quot;]= &quot; &lt;&lt;value &lt;&lt; endl;
+		}
+	}
+	
+	IntArray b = a;
+	
+	for(int i=0; i&lt;b.length(); i++)
+	{
+		int value = 0;
+		if(b.get(i,value))
+		{
+			cout &lt;&lt; &quot;b[&quot;&lt;&lt; i&lt;&lt; &quot;]= &quot; &lt;&lt;value &lt;&lt; endl;
+		}
+	}
+	return 0;
+}
+</code></pre>
+<ul>
+<li>析构函数的定义准则
+<ul>
+<li>当类中自定义了构造函数并且构造函数中使用了系统资源（如：内存申请，文件打开，等），需要自定义析构函数</li>
+</ul>
+</li>
+</ul>
+<h1 id="小结">小结</h1>
+<ul>
+<li>析构函数是对象销毁时进行清理的特殊函数</li>
+<li>析构函数在对象销毁时自动被调用</li>
+<li>析构函数是对象释放系统资源的保障，意义非常重要，可以让我们编写的软件能更加稳定！</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[回顾（21）：对象构造顺序]]></title>
         <id>https://leichen2552.github.io/post/hui-gu-21dui-xiang-gou-zao-shun-xu</id>
@@ -2892,125 +3106,6 @@ C++编译器虽然可能为<font  face = "Courier New" color = blue size = 4><st
 <li>C++中的<font  face = "Courier New" color = blue size = 4><strong>const</strong></font>是一个<font color = purple><strong>真正意义上的常量</strong></font></li>
 <li>C++编译器<font size = 4><strong>可能</strong></font>会为<font  face = "Courier New" color = blue size = 4><strong>const</strong></font>常量分配空间</li>
 <li>C++<font color = green>完全兼容</font>C语言<font  face = "Courier New" color = blue size = 4><strong>const</strong></font>常量的<font color = green>语法特性</font></li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（2）：C到C++的升级]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-2</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-2">
-        </link>
-        <updated>2020-01-12T05:36:30.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#c%E4%B8%8Ec%E7%9A%84%E5%85%B3%E7%B3%BB">C与C++的关系</a></li>
-<li><a href="#c%E5%88%B0c%E7%9A%84%E5%8D%87%E7%BA%A7">C到C++的升级</a>
-<ul>
-<li><a href="#%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89">变量定义</a></li>
-<li><a href="#register%E5%85%B3%E9%94%AE%E5%AD%97">register关键字</a></li>
-<li><a href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89">全局变量的定义</a></li>
-<li><a href="#struct%E5%85%B3%E9%94%AE%E8%AF%8D%E7%9A%84%E5%8A%A0%E5%BC%BA">struct关键词的加强</a>
-<ul>
-<li><a href="#c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84struct">C语言中的struct</a></li>
-<li><a href="#c%E4%B8%AD%E7%9A%84struct">C++中的struct</a></li>
-</ul>
-</li>
-<li><a href="#int-f%E4%B8%8Eint-fvoid%E7%9A%84%E5%8C%BA%E5%88%AB">int f()与int f(void)的区别</a></li>
-<li><a href="#%E7%B1%BB%E5%9E%8B">类型</a>
-<ul>
-<li><a href="#%E5%9C%A8c%E8%AF%AD%E8%A8%80%E4%B8%AD">在C语言中</a></li>
-<li><a href="#%E5%9C%A8c%E4%B8%AD">在C++中</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
-</ul>
-</li>
-</ul>
-</p>
-<h1 id="c与c的关系">C与C++的关系</h1>
-<ul>
-<li>C++<font color = blue size = 4>继承了所有的C特性</font></li>
-<li>C++在C的基础上<font color = purple size = 4>提供了更多的语法和特性</font></li>
-<li>C++的设计目标是<font color = red size = 4>运行效率与开发效率的统一</font></li>
-</ul>
-<p><font size = 5>以<font color = red size = 7>C</font>语言为基础，<font color = red size = 7>+</font>面对对象支持，<font color = red size = 7>+</font>类型加强、函数加强、异常处理等等 = <font color = red size = 7>C + +</font></font></p>
-<h1 id="c到c的升级">C到C++的升级</h1>
-<h2 id="变量定义">变量定义</h2>
-<ul>
-<li>C++更强调语言的实用性</li>
-<li>所有变量都可以在需要使用时在定义，对比C语言中的所有变量必须在作用域开始的位置定义</li>
-</ul>
-<h2 id="register关键字">register关键字</h2>
-<ul>
-<li><font color = blue>register</font>关键字请求编译器将局部变量存储在寄存器中，在C++中依然支持<font color = blue>register</font>关键字，但是在C++编译器有自己的优化方式，<strong>C语言中无法获取</strong><font color = blue>register</font>变量的地址，<strong>C++中可以取得</strong><font color = blue>register</font>变量的地址</li>
-<li><font color = 990000>C++编译器发现程序中需要取<font color = blue>register</font>变量的地址时，<font color = blue>register</font>对变量的声明变得无效</font></li>
-<li><font color = 1fffdd>在早期C语言编译器不会对代码进行优化，因此<font color = blue>register</font>变量是一个很好的补充</font></li>
-</ul>
-<h2 id="全局变量的定义">全局变量的定义</h2>
-<ul>
-<li>在C语言中，<font color = 991122>重复定义多个同名的全局变量是合法的</font>。<font color = 991122>C语言中多个同名的全局变量最终会被链接到同一个地址空间上</font></li>
-<li>在C++中，<font color = purple>不允许定义多个同名的全局变量</font></li>
-</ul>
-<h2 id="struct关键词的加强">struct关键词的加强</h2>
-<ul>
-<li>C语言中的<font  face = "Courier New" color = blue size = 4><strong>struct</strong></font>定义了<strong>一组变量的集合</strong></li>
-<li>C语言中的<font face = "Courier New" color = blue size = 4><strong>struct</strong></font>定义的<font color = green>标识符</font>并不是<font color = purple>一种新的类型</font></li>
-<li>C++中的<font face = "Courier New" color = blue size = 4><strong>struct</strong></font>用于<font color = blue>定义一个全新的类型</font></li>
-</ul>
-<h3 id="c语言中的struct">C语言中的struct</h3>
-<pre><code class="language-c">struct _tag_student//这只是定义一个标签，并不是一个全新的类型
-{
-    const char* name;
-    int age;
-} ;
-typedef struct _tag_student Student;//C语言只是利用typedef把一个标签变成一个类型，
-                            //只是当做一个类型来用，而C语言并不认为Student是一个类型
-</code></pre>
-<h3 id="c中的struct">C++中的struct</h3>
-<pre><code class="language-c++">struct Student//直接就是一个全新的类型
-{
-    const char* name;
-    int age;
-};
-</code></pre>
-<h2 id="int-f与int-fvoid的区别">int f()与int f(void)的区别</h2>
-<h2 id="类型">类型</h2>
-<ul>
-<li>C++中<font color = blue>所有的标识符都必须显示的声明类型</font></li>
-<li>C语言中的<font color = red>默认类型<font color = green>在C++中</font>是不合法的</font></li>
-</ul>
-<pre><code class="language-c">f(i)
-{
-    printf(&quot;i = %d\n&quot;,i);
-}
-
-g()
-{
-    return 5;
-}
-//函数f的返回值和参数分别是什么类型？函数在没有给出返回值时，默认类型为int
-//函数g可以接受多少个参数？任意多的参数
-</code></pre>
-<p>思考题：int f() 与 int f(void)有什么区别？<br>
-解答：他们有没有区别看什么编译器</p>
-<ul>
-<li>如果是C语言编译器，那么<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">f()</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mclose">)</span></span></span></span>就是接受任意多的参数，并且返回值是int类型的函数，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mi>v</mi><mi>o</mi><mi>i</mi><mi>d</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">f(void)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">o</span><span class="mord mathdefault">i</span><span class="mord mathdefault">d</span><span class="mclose">)</span></span></span></span>是不接收参数并且返回值是int类型的函数</li>
-<li>如果是C++编译器，那它们两个就没什么区别</li>
-</ul>
-<h3 id="在c语言中">在C语言中</h3>
-<ul>
-<li><font color = blue>int</font> f() 表示<font color = blue>返回值</font>为<font color = blue>int</font>类型，<font color = 888888>接受任意参数的函数</font></li>
-<li>f(<font color = blue>void</font>)表示返回值为<font color = blue>int</font>的<font color = purple>无参函数</font></li>
-</ul>
-<h3 id="在c中">在C++中</h3>
-<ul>
-<li><font color = blue>int</font> f() 和 <font color = blue>int</font> f(<font color = blue>void</font>)具有<font color = 979700>相同的意义</font>，表示返回值为<font color = blue>int</font>的无参函数</li>
-</ul>
-<h2 id="小结">小结</h2>
-<ul>
-<li>C++更<font color = blue>强调实用性</font>，可以在<font color = cd0000>任意地方声明变量</font></li>
-<li>C++中的<font color = blue>register</font>只是一个兼容的作用，C++兼容C语言只是为了兼容C语言，因为C++有自己的优化方式，他不需要register这个关键字来指示优化</li>
-<li>C++编译器能够<font color = ff00ff>更好的进行优化</font></li>
-<li>C++中<font color = 71c671>任意的标识符都必须显示的指明类型</font></li>
 </ul>
 ]]></content>
     </entry>

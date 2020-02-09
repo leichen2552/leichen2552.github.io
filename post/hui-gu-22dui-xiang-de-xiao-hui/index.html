@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
 <title>
@@ -56,6 +57,7 @@
                     
                         
 </head>
+
 <body>
     <div class="wrapper">
         <header>
@@ -182,27 +184,327 @@
 </script>
         <div class="main">
             <div class="container">
-                <div class="post-wrap archive">
-                    
-                    
-                    <h3>
-                        2020
-                    </h3>
-                    
-                    
+                <article class="post-wrap">
+                    <header class="post-header">
+                        <h1 class="post-title">
+                            回顾（22）：对象的销毁
+                        </h1>
+                        
+                        <!--en-->
+                        <div class="post-meta en">
+                            Author:
+                            <a itemprop="author" rel="author" href="/">
+                                ChenLei's Blog
+                            </a>
+                            <span class="post-time">
+                                Date: <a href="#">2020-02-09</a>
+                            </span>
+                            <span class="post-readtime">Reading Time:<a
+                                    href="#">3.6
+                                    mins</a></span>
+                            <span class="post-words">words:<a href="#">781</a></span>
+                            
+                            <span class="post-category">
+                                Category:
+                                
+                                <a href="https://leichen2552.github.io/tag/dTVQPvwPR">C++</a>
+                                
+                            </span>
+                            
+                            Views:
+                            <span data-hk-page="current"> - </span>
+                            
+                        </div>
+                        
+                        </header>
+                        <div class="post-content">
+                            <h1 id="对象的销毁">对象的销毁</h1>
+<ul>
+<li>生活中的对象都是被初始化之后才上市的</li>
+<li>生活中的对象被销毁前会做一些清理工作</li>
+</ul>
+<pre><code>问题：C++中如何清理需要销毁的对象？
+</code></pre>
+<h2 id="添加public的free函数">添加public的free函数</h2>
+<ul>
+<li>一般而言，需要销毁的对象都应该被清理</li>
+<li>解决方案：
+<ul>
+<li>为每个类都提供一个public的free函数</li>
+<li>对象不需要时立即调用free函数进行清理</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">class Test
+{
+    int* p;
+public:
+    Test() {p = new int}
+    void free() {delete p;}
+}
+</code></pre>
+<h3 id="存在的问题">存在的问题</h3>
+<ul>
+<li>free只是一个普通的函数，必须显示调用</li>
+<li>对象销毁没有做处理，很可能造成资源泄露</li>
+</ul>
+<pre><code>想法：C++编译器能否自动调用某个特殊函数进行对象的清理？
+</code></pre>
+<h2 id="析构函数">析构函数</h2>
+<ul>
+<li>C++的类中可以定义个特殊的清理函数
+<ul>
+<li>这个特殊的清理函数叫做析构函数</li>
+<li>析构函数的功能与构造函数相反</li>
+</ul>
+</li>
+<li>定义：~ClassName()
+<ul>
+<li>析构函数没有参数也没有返回值类型，直接推出这个函数不能被<strong>重载</strong></li>
+<li>析构函数在对象销毁时自动被调用</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">class Test
+{
+    int i;
+public:
+    Test(int v) 
+    {
+        i = v;
+        printf(&quot;Test(): i = %d\n&quot;,i);
+    }
+    ~Test()
+    {
+        printf(&quot;~Test(): i = %d\n&quot;,i);
+    }
+}
 
-                    <article class="archive-item">
-                        <a class="archive-item-link" href="https://leichen2552.github.io/post/esp8266-ru-men-ti-yan">
-                            ESP8266入门体验
-                        </a>
-                        <span class="archive-item-date">2020-01-06 </span>
-                    </article>
-                    
-                    
-                    
-                </div>
+int main()
+{
+    Test t(1);
+
+    Test* p = new Test(2);
+
+    delete p;
+
+    return 0;
+}
+</code></pre>
+<h2 id="修改之前的数组类">修改之前的数组类</h2>
+<h3 id="inrarrayh">InrArray.h</h3>
+<pre><code class="language-c++">#ifndef INTARRAY_H
+#define INTARRAY_H
+
+class IntArray{
+private:
+	int m_length;
+	int* m_pointer;
+public:
+	IntArray(int len);
+	IntArray(const IntArray&amp; ob);
+	int length();
+	bool get(int index, int&amp; value);
+	bool set(int index, int value);	
+	~IntArray();
+};
+</code></pre>
+<p>#endif</p>
+<h3 id="intarraycpp">IntArray.cpp</h3>
+<pre><code class="language-c++">#include &quot;IntArray.h&quot;
+#include &lt;iostream&gt;
+using namespace std;//命名空间声明在此
+
+IntArray::IntArray(int len)
+{
+	m_pointer = new int[len];
+	
+	for(int i = 0;i &lt; len; i++)
+	{
+		m_pointer[i] = 0;
+	}
+	
+	m_length = len;	
+}
+
+IntArray::IntArray(const IntArray&amp; ob)
+{
+	m_length = ob.m_length;
+	m_pointer = new int[ob.m_length];
+	
+	for(int i = 0;i &lt; ob.m_length;i++)
+	{
+		m_pointer[i] = ob.m_pointer[i]; 	
+	}		
+}
+
+int IntArray::length()
+{
+	return m_length;
+}
+
+bool IntArray::get(int index, int&amp; value)
+{
+	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
+	
+	if(ret)
+	{
+		value = m_pointer[index];
+	}
+	
+	return ret;
+}
+
+bool IntArray::set(int index, int value)
+{
+	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
+	
+	if(ret)
+	{
+ 		m_pointer[index] = value;
+	}
+	
+	return ret;
+}
+
+IntArray::~IntArray()
+{
+	cout &lt;&lt; &quot;~IntArray()&quot; &lt;&lt; endl;//在数组类实现细节的代码中加入输入输出，
+                                  //必须要有命名空间的声明
+	delete[] m_pointer;
+}
+</code></pre>
+<h3 id="mainc">main.c</h3>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &quot;IntArray.h&quot;
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+	IntArray a(5);
+	
+	for(int i=0; i&lt;a.length(); i++)
+	{
+		a.set(i,i+1);	
+	}
+	
+	for(int i=0; i&lt;a.length(); i++)
+	{
+		int value = 0;
+		if(a.get(i,value))
+		{
+			cout &lt;&lt; &quot;a[&quot;&lt;&lt; i&lt;&lt; &quot;]= &quot; &lt;&lt;value &lt;&lt; endl;
+		}
+	}
+	
+	IntArray b = a;
+	
+	for(int i=0; i&lt;b.length(); i++)
+	{
+		int value = 0;
+		if(b.get(i,value))
+		{
+			cout &lt;&lt; &quot;b[&quot;&lt;&lt; i&lt;&lt; &quot;]= &quot; &lt;&lt;value &lt;&lt; endl;
+		}
+	}
+	return 0;
+}
+</code></pre>
+<ul>
+<li>析构函数的定义准则
+<ul>
+<li>当类中自定义了构造函数并且构造函数中使用了系统资源（如：内存申请，文件打开，等），需要自定义析构函数</li>
+</ul>
+</li>
+</ul>
+<h1 id="小结">小结</h1>
+<ul>
+<li>析构函数是对象销毁时进行清理的特殊函数</li>
+<li>析构函数在对象销毁时自动被调用</li>
+<li>析构函数是对象释放系统资源的保障，意义非常重要，可以让我们编写的软件能更加稳定！</li>
+</ul>
+
             </div>
+            <div class="post-toc">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E9%94%80%E6%AF%81">对象的销毁</a>
+<ul>
+<li><a href="#%E6%B7%BB%E5%8A%A0public%E7%9A%84free%E5%87%BD%E6%95%B0">添加public的free函数</a>
+<ul>
+<li><a href="#%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98">存在的问题</a></li>
+</ul>
+</li>
+<li><a href="#%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0">析构函数</a></li>
+<li><a href="#%E4%BF%AE%E6%94%B9%E4%B9%8B%E5%89%8D%E7%9A%84%E6%95%B0%E7%BB%84%E7%B1%BB">修改之前的数组类</a>
+<ul>
+<li><a href="#inrarrayh">InrArray.h</a></li>
+<li><a href="#intarraycpp">IntArray.cpp</a></li>
+<li><a href="#mainc">main.c</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+
+            </div>
+            
+            
+            <!--en-->
+            <section class="post-copyright en">
+                <p class="copyright-item">
+                    <span>Author:</span>
+                    <span>ChenLei's Blog</span>
+                </p>
+
+                <p class="copyright-item">
+                    <span>Permalink:</span>
+                    <span><a href="https://leichen2552.github.io/post/hui-gu-22dui-xiang-de-xiao-hui">https://leichen2552.github.io/post/hui-gu-22dui-xiang-de-xiao-hui</a></span>
+                </p>
+
+                <p class="copyright-item">
+                    <span>License:</span>
+                    <span>MIT License</span>
+                </p>
+            </section>
+            
+                                        
+            
+            <!--en-->
+            <section class="post-tags en">
+                <div>
+                    <span>Tag(s):</span>
+                    <span class="tag">
+                        
+                        
+                        <a href="https://leichen2552.github.io/tag/dTVQPvwPR"># C++</a>
+                        
+                        
+                    </span>
+                </div>
+                <div>
+                    <a href="javascript:window.history.back();">back</a>
+                    <span>&dot;</span>
+                    <a href="#">home</a>
+                </div>
+            </section>
+            
+                                                        <!---->
+                                                        <section class="post-nav">
+                                                            
+            
+            <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-21dui-xiang-gou-zao-shun-xu">
+                回顾（21）：对象构造顺序
+            </a>
+            
+            </section>
+            </article>
         </div>
+        
+    </div>
+    </div>
+    </div>
     </div>
     
         <footer id="footer" class="footer">
@@ -313,4 +615,8 @@
                     
     </div>
 </body>
+<script>
+    scroll();
+</script>
+
 </html>
