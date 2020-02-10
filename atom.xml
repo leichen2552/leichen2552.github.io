@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-02-09T04:16:24.752Z</updated>
+    <updated>2020-02-10T09:19:49.328Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,230 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[回顾（23）：神秘的临时对象]]></title>
+        <id>https://leichen2552.github.io/post/hui-gu-23shen-mi-de-lin-shi-dui-xiang</id>
+        <link href="https://leichen2552.github.io/post/hui-gu-23shen-mi-de-lin-shi-dui-xiang">
+        </link>
+        <updated>2020-02-10T08:09:45.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="神秘的临时对象">神秘的临时对象</h1>
+<h2 id="问题">问题</h2>
+<pre><code class="language-c++">class Test
+{
+private :
+    int mi;
+public :
+    Test(int v)
+    {
+        mi = v;
+    }
+    Test()
+    {
+        Test(0);
+    }
+    void print()
+    {
+        printf(&quot;mi = %d\n&quot;, mi);
+    }
+};
+
+int main()
+{
+    Test t;
+
+    t.print();
+
+    return 0;
+}
+</code></pre>
+<ul>
+<li>程序意图
+<ul>
+<li>在Test()中以0作为参数调用Test(int i)</li>
+<li>将成员变量mi的初始值设置为0</li>
+</ul>
+</li>
+<li>运行结果
+<ul>
+<li>成员变量mi的值为随机值</li>
+</ul>
+</li>
+</ul>
+<pre><code>究竟什么地方出了问题？
+</code></pre>
+<h2 id="思考">思考</h2>
+<ul>
+<li>构造函数是一个特殊的函数
+<ul>
+<li>是否可以直接调用？这个是可以的，之前初始化一个数组的时候就是手工调用构造函数</li>
+<li>是否可以在构造函数中调用构造函数？</li>
+<li>直接调用构造函数的行为是什么？</li>
+</ul>
+</li>
+</ul>
+<h2 id="答案">答案</h2>
+<ul>
+<li>直接调用构造函数将产生一个临时对象</li>
+<li>临时对象的生命周期只有一条语句的时间</li>
+<li>临时对象的作用域只在一条语句当中</li>
+<li>临时对象是C++中值得警惕的灰色地带</li>
+</ul>
+<pre><code class="language-c++">//上面的代码中
+Test()
+{
+    Test(0);//这条语句产生了一个临时对象
+}
+</code></pre>
+<pre><code class="language-c++">//上面有问题的代码需要这样改：提供一个init()函数
+class Test
+{
+private :
+    int mi;
+
+    void init(int i)
+    {
+        mi = i;
+    }
+public :
+    Test(int v)
+    {
+        init(v);
+    }
+    Test()
+    {
+        init(0);
+    }
+    void print()
+    {
+        printf(&quot;mi = %d\n&quot;, mi);
+    }
+};
+
+int main()
+{
+    Test t;
+
+    t.print();
+
+    return 0;
+}
+</code></pre>
+<h2 id="练习">练习</h2>
+<pre><code class="language-c++">class Test
+{
+private :
+    int mi;
+
+    void init(int i)
+    {
+        mi = i;
+    }
+public :
+    Test(int v)
+    {
+        cout &lt;&lt; &quot;Test(int v)&quot; &lt;&lt; endl;
+        init(v);
+    }
+    Test()
+    {
+        cout &lt;&lt; &quot;Test()&quot; &lt;&lt; endl;
+        init(0);
+    }
+    void print()
+    {
+
+        printf(&quot;mi = %d\n&quot;, mi);
+    }
+    ~Test()
+    {
+        cout &lt;&lt; &quot;~Test()&quot; &lt;&lt; endl;
+        init(0);
+    }
+};
+
+int main()
+{
+    Test();//临时对象
+    Test(10);//临时对象
+
+    Test().print();//临时对象的print()
+    Test(10).print();//临时对象的print()
+
+    return 0;
+}
+</code></pre>
+<p>打印结果：<br>
+Test()<br>
+~Test()<br>
+Test(int v)<br>
+~Test()</p>
+<p>Test()<br>
+mi = 0;<br>
+~Test()<br>
+Test(int v)<br>
+mi = 10;<br>
+~Test()</p>
+<ul>
+<li>现在的C++编译器会减少临时对象的产生，C++继承了C语言的高效，所以该杜绝临时对象的地方就会杜绝</li>
+</ul>
+<pre><code class="language-c++">#include &lt;stdio.h&gt;
+
+class Test
+{
+    int mi;
+public:
+    Test(int i)
+    {
+        printf(&quot;Test(int i) : %d\n&quot;, i);
+        mi = i;
+    }
+    Test(const Test&amp; t)
+    {
+        printf(&quot;Test(const Test&amp; t) : %d\n&quot;, t.mi);
+        mi = t.mi;
+    }
+    Test()
+    {
+        printf(&quot;Test()\n&quot;);
+        mi = 0;
+    }
+    int print()
+    {
+        printf(&quot;mi = %d\n&quot;, mi);
+    }
+    ~Test()
+    {
+        printf(&quot;~Test()\n&quot;);
+    }
+};
+
+Test func()
+{
+    return Test(20);
+}
+
+int main()
+{
+    Test t = Test(10); // ==&gt; Test t = 10（这也是推荐写法）;
+                       //本来应该是拷贝构造函数出现临时对象，
+                       //但是当代的C++编译器会尽力避开临时对象的产生
+    Test tt = func();  // ==&gt; Test tt = Test(20); ==&gt; Test tt = 20;
+    
+    t.print();
+    tt.print();
+    
+    return 0;
+}
+</code></pre>
+<h1 id="小结">小结</h1>
+<ul>
+<li>直接调用构造函数将产生一个临时对象。在C语言中出现bug的原因就是野指针，而在C++中的bug就是临时对象</li>
+<li>临时对象是性能的瓶颈，也是bug的来源之一</li>
+<li>现代C++编译器会尽力避开临时对象</li>
+<li>实际工程开发需要人为的避开临时对象</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[回顾（22）：对象的销毁]]></title>
         <id>https://leichen2552.github.io/post/hui-gu-22dui-xiang-de-xiao-hui</id>
@@ -3039,73 +3263,6 @@ int b = 2;
 <li>C++中的三目运算符可作为左值使用</li>
 <li>C++中的引用可以看做是变量的别名来使用</li>
 <li>三目运算符的可能返回都是变量时，返回的是引用</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（3）：进化后的const分析]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-3jin-hua-hou-de-const-fen-xi</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-3jin-hua-hou-de-const-fen-xi">
-        </link>
-        <updated>2020-01-13T07:53:45.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#%E8%BF%9B%E5%8C%96%E5%90%8E%E7%9A%84const%E5%88%86%E6%9E%90">进化后的const分析</a>
-<ul>
-<li><a href="#c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84const">C语言中的const</a></li>
-<li><a href="#c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84const-2">C++语言中的const</a></li>
-<li><a href="#c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84const%E5%8F%98%E9%87%8F">C语言中的const变量</a></li>
-<li><a href="#c%E4%B8%AD%E7%9A%84const%E5%8F%98%E9%87%8F">C++中的const变量</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
-</ul>
-</p>
-<h1 id="进化后的const分析">进化后的const分析</h1>
-<h2 id="c语言中的const">C语言中的const</h2>
-<ul>
-<li><font  face = "Courier New" color = blue size = 4><strong>const</strong></font>修饰的变量是只读的，本质还是变量</li>
-<li><font  face = "Courier New" color = blue size = 4><strong>const</strong></font>修饰的局部变量在栈上分配空间</li>
-<li><font  face = "Courier New" color = blue size = 4><strong>const</strong></font>修饰的全局变量在只读存储器分配空间</li>
-<li><font  face = "Courier New" color = blue size = 4><strong>const</strong></font>只在编译器有用，在运行期无用</li>
-<li><font  face = "Courier New" color = blue size = 4><strong>const</strong></font>修饰的变量不是真正的常量，它只告诉编译器该变量不能出现在赋值符号的左边</li>
-<li>C语言中的<font  face = "Courier New" color = blue size = 4><strong>const</strong></font>使得变量具有只读属性</li>
-<li><font  face = "Courier New" color = blue size = 4><strong>const</strong></font>将具有全局生命周期的变量存储于只读存储区</li>
-<li><font  face = "Courier New" color = blue size = 4><strong>const</strong></font>不能定义真正意义上面的常量！</li>
-</ul>
-<p><font color = ff0000>C语言上定义<strong>真正意义上的常量</strong>只能用<font color = 007f00 size = 5><strong>枚举</strong></font></font></p>
-<h2 id="c语言中的const-2">C++语言中的const</h2>
-<ul>
-<li>C++在C的基础上对<font  face = "Courier New" color = blue size = 4><strong>const</strong></font>进行了进化处理
-<ul>
-<li>当碰见<font  face = "Courier New" color = blue size = 4><strong>const</strong></font>声明时在符号表中放入常量</li>
-<li>编译过程中若发现使用常量则直接以符号表中的值替换</li>
-<li>编译过程中若发现下述情况则给对应的常量分配存储空间
-<ol>
-<li>对<font  face = "Courier New" color = blue size = 4><strong>const</strong></font>常量使用了extern</li>
-<li>对<font  face = "Courier New" color = blue size = 4><strong>const</strong></font>常量使用&amp;操作符<br>
-C++编译器虽然可能为<font  face = "Courier New" color = blue size = 4><strong>const</strong></font>分配空间，但不会使用其存储空间的值</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="c语言中的const变量">C语言中的const变量</h2>
-<ul>
-<li>C语言中的<font  face = "Courier New" color = blue size = 4><strong>const</strong></font>变量是<font color = 007fff size = 3>只读<font color = green size = 4>变量</font></font>，本质仍然是变量，会分配存储空间</li>
-</ul>
-<h2 id="c中的const变量">C++中的const变量</h2>
-<ul>
-<li>可能会分配存储空间。当<font  face = "Courier New" color = blue size = 4><strong>const</strong></font>常量为全局，并且需要其他文件中使用。当使用 &amp; 操作符对const常量取地址</li>
-<li>C++中的<font  face = "Courier New" color = blue size = 4><strong>const</strong></font>常量类似于宏定义。const int c = 5;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≈</mo></mrow><annotation encoding="application/x-tex">\approx</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.48312em;vertical-align:0em;"></span><span class="mrel">≈</span></span></span></span>#define   c   5</li>
-<li>C++中的<font  face = "Courier New" color = blue size = 4><strong>const</strong></font>常量在与宏定义不同。<font  face = "Courier New" color = blue size = 4><strong>const</strong></font>常量是由编译器处理，编译器对<font  face = "Courier New" color = blue size = 4><strong>const</strong></font>常量进行类型检查和作用域检查</li>
-<li>宏定义由预处理器处理，单纯的文本替换</li>
-</ul>
-<h1 id="小结">小结</h1>
-<ul>
-<li>与C语言不同，C++中的<font  face = "Courier New" color = blue size = 4><strong>const</strong></font><font color = 7f0000>不是只读变量</font>，而C语言中const只带了只读属性，本质上还是一个变量。</li>
-<li>C++中的<font  face = "Courier New" color = blue size = 4><strong>const</strong></font>是一个<font color = purple><strong>真正意义上的常量</strong></font></li>
-<li>C++编译器<font size = 4><strong>可能</strong></font>会为<font  face = "Courier New" color = blue size = 4><strong>const</strong></font>常量分配空间</li>
-<li>C++<font color = green>完全兼容</font>C语言<font  face = "Courier New" color = blue size = 4><strong>const</strong></font>常量的<font color = green>语法特性</font></li>
 </ul>
 ]]></content>
     </entry>
