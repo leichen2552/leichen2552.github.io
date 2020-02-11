@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
 <title>
@@ -56,6 +57,7 @@
                     
                         
 </head>
+
 <body>
     <div class="wrapper">
         <header>
@@ -182,27 +184,366 @@
 </script>
         <div class="main">
             <div class="container">
-                <div class="post-wrap archive">
-                    
-                    
-                    <h3>
-                        2020
-                    </h3>
-                    
-                    
+                <article class="post-wrap">
+                    <header class="post-header">
+                        <h1 class="post-title">
+                            回顾（24）：经典问题解析二
+                        </h1>
+                        
+                        <!--en-->
+                        <div class="post-meta en">
+                            Author:
+                            <a itemprop="author" rel="author" href="/">
+                                ChenLei's Blog
+                            </a>
+                            <span class="post-time">
+                                Date: <a href="#">2020-02-11</a>
+                            </span>
+                            <span class="post-readtime">Reading Time:<a
+                                    href="#">6.4
+                                    mins</a></span>
+                            <span class="post-words">words:<a href="#">1535</a></span>
+                            
+                            <span class="post-category">
+                                Category:
+                                
+                                <a href="https://leichen2552.github.io/tag/dTVQPvwPR">C++</a>
+                                
+                            </span>
+                            
+                            Views:
+                            <span data-hk-page="current"> - </span>
+                            
+                        </div>
+                        
+                        </header>
+                        <div class="post-content">
+                            <p><ul class="markdownIt-TOC">
+<li><a href="#%E5%85%B3%E4%BA%8E%E6%9E%90%E6%9E%84%E7%9A%84%E7%96%91%E9%97%AE">关于析构的疑问</a></li>
+<li><a href="#%E5%85%B3%E4%BA%8Econst%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%96%91%E9%97%AE">关于const对象的疑问</a></li>
+<li><a href="#%E5%85%B3%E4%BA%8E%E7%B1%BB%E6%88%90%E5%91%98%E7%9A%84%E7%96%91%E9%97%AE">关于类成员的疑问</a></li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</p>
+<h1 id="关于析构的疑问">关于析构的疑问</h1>
+<ul>
+<li>单个对象创建时构造函数的调用顺序
+<ol>
+<li>调用父类的构造过程（后续课程中会讲解）</li>
+<li>调用成员变量的构造函数（调用顺序和声明顺序相同）</li>
+<li>调用类自身的构造函数</li>
+</ol>
+</li>
+</ul>
+<pre><code>析构函数与对应构造函数的调用顺序相反
+</code></pre>
+<ul>
+<li>多个对象析构时
+<ul>
+<li>析构顺序与构造顺序相反</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
 
-                    <article class="archive-item">
-                        <a class="archive-item-link" href="https://leichen2552.github.io/post/rtos_from_zero_to_one">
-                            从0到1写RTOS
-                        </a>
-                        <span class="archive-item-date">2020-01-05 </span>
-                    </article>
-                    
-                    
-                    
-                </div>
+using namespace std;
+
+class Member
+{
+private:
+	const char* ms;
+public:
+	Member(const char* s)
+	{
+		cout &lt;&lt; &quot;Member(const char* s): &quot; &lt;&lt; s &lt;&lt; endl;
+		ms = s;
+	}
+	~Member()
+	{
+		cout &lt;&lt; &quot;~Member(): &quot; &lt;&lt; ms &lt;&lt; endl;
+	}
+			
+};
+
+class Test
+{
+private:
+	Member mA;
+	Member mB;
+public:
+	Test():mA(&quot;mA&quot;),mB(&quot;mB&quot;)
+	{
+		cout &lt;&lt; &quot;Test()&quot; &lt;&lt; endl;	
+	}		
+	~Test()
+	{
+		cout &lt;&lt; &quot;~Test()&quot; &lt;&lt; endl;
+	}
+};
+
+Member gA(&quot;gA&quot;);
+
+int main(int argc, char *argv[])
+{
+	Test t;
+		
+	return 0;
+}
+</code></pre>
+<pre><code>打印结果：
+Member(const char* s): gA
+Member(const char* s): mA
+Member(const char* s): mB
+Test()
+~Test()
+~Member(): mB
+~Member(): mA
+~Member(): gA
+果然，析构顺序与构造顺序相反
+</code></pre>
+<ul>
+<li>对于栈对象和全局对象，类似于入栈与出栈的顺序，最后构造的对象最先被析构</li>
+<li>堆对象的析构发生在使用delete的时候，与delete的使用顺序相关</li>
+</ul>
+<h1 id="关于const对象的疑问">关于const对象的疑问</h1>
+<pre><code>const关键字能否修饰类的对象？
+如果可以，有什么特性？
+</code></pre>
+<ul>
+<li>
+<p>const关键字能够修饰对象</p>
+</li>
+<li>
+<p>const修饰的对象为只读对象</p>
+</li>
+<li>
+<p>只读对象的成员变量不允许被改变</p>
+</li>
+<li>
+<p>只读对象是编译阶段的概念，运行时无效，但还可以被改变的</p>
+</li>
+<li>
+<p>C++中的const函数</p>
+<ul>
+<li>const对象只能调用const的成员函数</li>
+<li>const成员函数中只能调用const成员函数</li>
+<li>const成员函数中不能直接改写成员变量的值</li>
+</ul>
+</li>
+<li>
+<p>const成员函数的定义：在函数之后加const</p>
+</li>
+</ul>
+<pre><code class="language-c++">    Type ClassName::function(Type p) const
+</code></pre>
+<p>类中的函数声明与实际函数声明中必须带const关键字</p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Test
+{
+private:
+	int mi;
+public:
+	int mj;
+	Test(int i);
+	Test(const Test&amp; t);
+	int getMI()const;	//const对象只能调用const的成员函数	
+};
+
+Test::Test(int i)
+{
+	mi = i;
+}
+
+Test::Test(const Test&amp; t)//这个t是const引用，使的这个t具有只读属性，
+                         //所以t必须访问const成员函数
+{
+	mi = t.getMI();
+}
+
+int Test::getMI()const//const对象只能调用const的成员函数
+{
+    //mi = 2;// error: assignment of data-member `Test::mi' in read-only structure
+    //const成员函数中不能直接改写成员变量的值
+	return mi;
+}
+
+int main(int argc, char *argv[])
+{
+	const Test t(1);//const对象只能调用const的成员函数
+	
+	//t.mj = 1000;//error: assignment of data-member `Test::mj' in read-only structure
+	
+	cout &lt;&lt; &quot;t.getMI() = &quot; &lt;&lt; t.getMI() &lt;&lt; endl;
+	//error: passing `const Test' as `this' argument of `int Test::getMI()' discards qualifiers
+	return 0;
+}
+</code></pre>
+<h1 id="关于类成员的疑问">关于类成员的疑问</h1>
+<pre><code>成员函数和成员变量都是隶属于具体对象的吗？
+</code></pre>
+<ul>
+<li>从面向对象的角度
+<ul>
+<li>对象由属性（成员变量）和方法（成员函数）构成，每个对象都拥有自己的一套成员变量，但是所有的对象共享一套成员函数</li>
+</ul>
+</li>
+<li>从程序运行的角度
+<ul>
+<li>对象由数据和函数构成
+<ul>
+<li>数据只可能可以位于栈、堆和全局数据区</li>
+<li>函数只能位于代码段。代码段是只读的，在程序运行的时候是不能被改变的。程序被编译好之后，对象可以被动态地创建和动态地删除，对数据而言，栈数据、堆数据也可以被创建或者删除。对于代码段来说，是不能随意添加或者删除的。由于程序的特性，天生的决定成员函数不是每个对象都有一套的，所以只有每个对象共享一套成员函数。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>疑问：既然所有对象都共享一套成员函数，那成员函数是怎么知道是哪个对象调用的呢？
+</code></pre>
+<p>答案：既然是成员函数，肯定不同于普通的全局函数，主要区别在于成员函数里面有一个你看不见的但是隐藏了的参数，这个参数是一个指针，并且这个指针有名字：this，this指针指代当前调用这个函数的对象</p>
+<ul>
+<li>结论
+<ul>
+<li>每个对象拥有自己独立的属性（成员变量）</li>
+<li>所有对象共享类的方法（成员函数）</li>
+<li>方法能够直接访问对象的属性</li>
+<li>方法中隐藏参数 this用于指代当前对象</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Test
+{
+private:
+	int mi;
+public:
+	int mj;
+	Test(int i);
+	Test(const Test&amp; t);
+	int getMI();
+	int print();		
+};
+
+Test::Test(int i)
+{
+	mi = i;
+}
+
+Test::Test(const Test&amp; t)
+{
+	mi = t.mi;
+}
+
+int Test::getMI()
+{
+
+	return mi;
+}
+
+int Test::print()//this指代当前调用这个函数的对象的地址 
+{
+	cout &lt;&lt; &quot;this = &quot; &lt;&lt; this &lt;&lt; endl;
+}
+
+int main(int argc, char *argv[])
+{
+	Test t1(1);
+	Test t2(2);
+	Test t3(3);	
+	
+	cout &lt;&lt; &quot;t1.getMI() = &quot; &lt;&lt; t1.getMI() &lt;&lt; endl;
+	cout &lt;&lt; &quot;&amp;t1 = &quot; &lt;&lt; &amp;t1 &lt;&lt; endl;//t1对象地址
+	t1.print();//this指针指代当前指向的对象的地址，就是t1的地址
+	cout &lt;&lt; &quot;t2.getMI() = &quot; &lt;&lt; t2.getMI() &lt;&lt; endl;
+	cout &lt;&lt; &quot;&amp;t2 = &quot; &lt;&lt; &amp;t2 &lt;&lt; endl;//t2对象地址
+	t2.print();//this指针指代当前指向的对象的地址，就是t2的地址
+	cout &lt;&lt; &quot;t3.getMI() = &quot; &lt;&lt; t3.getMI() &lt;&lt; endl;
+	cout &lt;&lt; &quot;&amp;t2 = &quot; &lt;&lt; &amp;t2 &lt;&lt; endl;//t3对象地址
+	t3.print();	//this指针指代当前指向的对象的地址，就是t3的地址
+	return 0;
+}
+</code></pre>
+<h1 id="小结">小结</h1>
+<ul>
+<li>对象的析构顺序和构造顺序相反</li>
+<li>const关键字能够修饰对象，得到只读对象</li>
+<li>只读对象只能调用const成员函数</li>
+<li>所有对象共享类的成员函数</li>
+<li>同一套成员函数怎么分辨不同的对象呢，有一个特殊的参数，这个特殊的参数指向当前调用成员函数的对象，隐藏的this指针用于指向当前对象</li>
+</ul>
+
             </div>
+            <div class="post-toc">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E5%85%B3%E4%BA%8E%E6%9E%90%E6%9E%84%E7%9A%84%E7%96%91%E9%97%AE">关于析构的疑问</a></li>
+<li><a href="#%E5%85%B3%E4%BA%8Econst%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%96%91%E9%97%AE">关于const对象的疑问</a></li>
+<li><a href="#%E5%85%B3%E4%BA%8E%E7%B1%BB%E6%88%90%E5%91%98%E7%9A%84%E7%96%91%E9%97%AE">关于类成员的疑问</a></li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+
+            </div>
+            
+            
+            <!--en-->
+            <section class="post-copyright en">
+                <p class="copyright-item">
+                    <span>Author:</span>
+                    <span>ChenLei's Blog</span>
+                </p>
+
+                <p class="copyright-item">
+                    <span>Permalink:</span>
+                    <span><a href="https://leichen2552.github.io/post/hui-gu-24jing-dian-wen-ti-jie-xi-er">https://leichen2552.github.io/post/hui-gu-24jing-dian-wen-ti-jie-xi-er</a></span>
+                </p>
+
+                <p class="copyright-item">
+                    <span>License:</span>
+                    <span>MIT License</span>
+                </p>
+            </section>
+            
+                                        
+            
+            <!--en-->
+            <section class="post-tags en">
+                <div>
+                    <span>Tag(s):</span>
+                    <span class="tag">
+                        
+                        
+                        <a href="https://leichen2552.github.io/tag/dTVQPvwPR"># C++</a>
+                        
+                        
+                    </span>
+                </div>
+                <div>
+                    <a href="javascript:window.history.back();">back</a>
+                    <span>&dot;</span>
+                    <a href="#">home</a>
+                </div>
+            </section>
+            
+                                                        <!---->
+                                                        <section class="post-nav">
+                                                            
+            
+            <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-23shen-mi-de-lin-shi-dui-xiang">
+                回顾（23）：神秘的临时对象
+            </a>
+            
+            </section>
+            </article>
         </div>
+        
+    </div>
+    </div>
+    </div>
     </div>
     
         <footer id="footer" class="footer">
@@ -313,4 +654,8 @@
                     
     </div>
 </body>
+<script>
+    scroll();
+</script>
+
 </html>
