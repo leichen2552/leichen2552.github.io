@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-02-11T09:28:29.553Z</updated>
+    <updated>2020-02-12T08:58:33.658Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,409 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[回顾（25）：类的静态成员函数]]></title>
+        <id>https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-han-shu</id>
+        <link href="https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-han-shu">
+        </link>
+        <updated>2020-02-12T06:20:55.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E6%9C%AA%E5%AE%8C%E6%88%90%E7%9A%84%E9%9C%80%E6%B1%82">未完成的需求</a>
+<ul>
+<li><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%B8%80">解决方案一</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90">问题分析</a></li>
+<li><a href="#%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0">静态成员函数</a></li>
+<li><a href="#%E6%9C%80%E7%BB%88%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">最终解决方案</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</p>
+<h1 id="未完成的需求">未完成的需求</h1>
+<p>先来看看上篇博客里面客户的三个需求：</p>
+<pre><code># 新的需求：小实例
+1. 统计在程序期间某个类的对象数目【完成】
+2. 保证程序的安全性（不能使用全局变量）【完成】
+3. 随时获取当前对象的数目【未完成】
+</code></pre>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Test
+{
+private:
+	static int mCount;
+public:
+	Test()
+	{
+		mCount++;	
+	} 
+	~Test()
+	{
+		mCount--;
+	}		
+	int getCount()
+	{
+		return mCount;
+	}
+};
+
+int Test::mCount = 0;
+
+int main(int argc, char *argv[])
+{
+
+	return 0;
+}
+</code></pre>
+<pre><code>问题：如果这个程序里面没有任何的对象，那么在主函数里面应该返回0个对象
+</code></pre>
+<h2 id="解决方案一">解决方案一</h2>
+<pre><code class="language-c++">class Test
+{
+private:--&gt;改成public
+	static int mCount;
+public:
+}
+</code></pre>
+<pre><code>但是这样又会面临一个问题：这个static int mCount变量就可以在外部任意地方改动
+</code></pre>
+<pre><code class="language-c++">//比如：改成1000表示在程序中会有1000个对象吗？
+int main(int argc, char *argv[])
+{
+	cout &lt;&lt; &quot;Test :: mCount = &quot; &lt;&lt; Test::mCount &lt;&lt; endl;
+	Test::mCount = 1000;
+	cout &lt;&lt; &quot;Test :: mCount = &quot; &lt;&lt; Test::mCount &lt;&lt; endl;
+	return 0;
+}
+</code></pre>
+<pre><code>所以这种解决方案失败！这样的代码安全性拿不出手，也拿不出手！
+</code></pre>
+<h2 id="问题分析">问题分析</h2>
+<ul>
+<li>不依赖对象就可以访问静态成员变量</li>
+<li>必须保证静态成员变量的安全性，像上面那种把属性改成public的方式太暴力</li>
+<li>方便快捷的获取静态成员变量的值</li>
+</ul>
+<h2 id="静态成员函数">静态成员函数</h2>
+<ul>
+<li>
+<p>在C++中课以定义静态成员函数</p>
+<ul>
+<li>静态成员函数是类中特殊的成员函数</li>
+<li>静态成员函数属于整个类所有</li>
+<li>可以通过类名直接访问共有静态成员函数</li>
+<li>可以通过对象名访问共有静态成员函数</li>
+</ul>
+</li>
+<li>
+<p>静态成员函数的定义</p>
+<ul>
+<li>直接通过static关键字修饰成员函数</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">class Test
+{
+public :
+    static void Func1() {}
+    static int Func2() {}
+}
+
+int Test::Func2()
+{
+    return 0;
+}
+</code></pre>
+<ul>
+<li>
+<p>静态成员函数不能访问<strong>普通成员变量</strong></p>
+</li>
+<li>
+<p><font color = Purple size = 5><strong>静态成员函数</strong></font> <font size = 4><strong>VS</strong></font> <font color = Green size = 5><strong>普通成员函数</strong></font></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><font color = Purple size = 4>静态成员函数</font></th>
+<th><font color = Green size = 4>普通成员函数</font></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>所有对象共享</td>
+<td><font color = Blue size = 3><strong>Yes</strong></font></td>
+<td><font color = Blue size = 3><strong>Yes</strong></font></td>
+</tr>
+<tr>
+<td>隐含this指针</td>
+<td><font color = Red size = 3><strong>No</strong></font></td>
+<td><font color = Blue size = 3><strong>Yes</strong></font></td>
+</tr>
+<tr>
+<td>访问普通成员变量（函数）</td>
+<td><font color = Red size = 3><strong>No</strong></font></td>
+<td><font color = Blue size = 3><strong>Yes</strong></font></td>
+</tr>
+<tr>
+<td>访问静态成员变量（函数）</td>
+<td><font color = Blue size = 3><strong>Yes</strong></font></td>
+<td><font color = Blue size = 3><strong>Yes</strong></font></td>
+</tr>
+<tr>
+<td>通过类名直接调用</td>
+<td><font color = Blue size = 3><strong>Yes</strong></font></td>
+<td><font color = Red size = 3><strong>No</strong></font></td>
+</tr>
+<tr>
+<td>通过对象名直接调用</td>
+<td><font color = Blue size = 3><strong>Yes</strong></font></td>
+<td><font color = Blue size = 3><strong>Yes</strong></font></td>
+</tr>
+</tbody>
+</table>
+<h2 id="最终解决方案">最终解决方案</h2>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Test
+{
+private:
+	static int mCount;
+public:
+	Test()
+	{
+		mCount++;	
+	} 
+	~Test()
+	{
+		mCount--;
+	}		
+	static int getCount()
+	{
+		return mCount;
+	}
+};
+
+int Test::mCount = 0;
+
+Test gTest;
+
+int main(int argc, char *argv[])
+{
+	cout &lt;&lt; &quot;Test :: mCount = &quot; &lt;&lt; Test::getCount() &lt;&lt; endl;
+	
+	Test t;
+	cout &lt;&lt; &quot;Test :: mCount = &quot; &lt;&lt; Test::getCount() &lt;&lt; endl;
+	
+	Test* p = new Test();
+	cout &lt;&lt; &quot;Test :: mCount = &quot; &lt;&lt; Test::getCount() &lt;&lt; endl;
+	
+	delete p;
+	
+	cout &lt;&lt; &quot;Test :: mCount = &quot; &lt;&lt; Test::getCount() &lt;&lt; endl;
+	
+	return 0;
+}
+</code></pre>
+<h1 id="小结">小结</h1>
+<ul>
+<li>静态成员函数是类中特殊的成员函数</li>
+<li>静态成员函数没有隐藏的this指针</li>
+<li>静态成员函数可以通过类名直接访问</li>
+<li>静态成员函数只能访问静态成员变量与静态成员函数，也正是利用了这个特性，完成了客户的需求</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[回顾（25）：类的静态成员变量]]></title>
+        <id>https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-bian-liang</id>
+        <link href="https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-bian-liang">
+        </link>
+        <updated>2020-02-12T03:25:13.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="成员变量回顾">成员变量回顾</h1>
+<ul>
+<li>通过对象名都能够访问public成员变量</li>
+<li>每个对象的成员变量都是专属的</li>
+<li>成员变量不能在对象之间共享</li>
+</ul>
+<h1 id="新的需求小实例">新的需求：小实例</h1>
+<ul>
+<li>统计在程序期间某个类的对象数目</li>
+<li>保证程序的安全性（不能使用全局变量）</li>
+<li>随时获取当前对象的数目</li>
+</ul>
+<h2 id="尝试第一种方案">尝试第一种方案</h2>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Test
+{
+private:
+	int mCount;
+public:
+	Test():mCount(0)
+	{
+		mCount++;	
+	} 
+	~Test()
+	{
+		mCount--;
+	}		
+	int getCount()
+	{
+		return mCount;
+	}
+};
+
+Test gTest;
+
+int main(int argc, char *argv[])
+{
+	Test t1;
+	Test t2;
+	
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t1.getCount() &lt;&lt; endl;
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t2.getCount() &lt;&lt; endl;
+	
+	return 0;
+}
+//结果是三个1，因为成员变量是每个对象私有一套的
+</code></pre>
+<h2 id="尝试第二种方案">尝试第二种方案</h2>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int gCount;
+
+class Test
+{
+private:
+	int mCount;
+public:
+	Test():mCount(0)
+	{
+		gCount++;	
+	} 
+	~Test()
+	{
+		gCount--;
+	}		
+	int getCount()
+	{
+		return gCount;
+	}
+};
+
+Test gTest;
+
+int main(int argc, char *argv[])
+{
+	Test t1;
+	Test t2;
+	
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t1.getCount() &lt;&lt; endl;
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t2.getCount() &lt;&lt; endl;
+	
+	return 0;
+}
+//打印结果三个3，但是用的是全局变量，
+//在当代的软件设计当中是不能使用全局变量的，因为在任何地方都能访问全局变量
+//所以不能使用全局变量
+</code></pre>
+<h1 id="静态成员变量">静态成员变量</h1>
+<ul>
+<li>在C++中课以定义静态成员变量
+<ul>
+<li>静态成员变量属于整个类所有，是属于整个类</li>
+<li>静态成员变量的生命期不依赖任何对象，就是程序的运行周期</li>
+<li>可以<strong>通过类名直接访问</strong>共有静态成员变量</li>
+<li><em>所有对象共享类的静态成员变量</em></li>
+<li>可以<strong>通过对象名访问</strong>共有静态成员变量</li>
+</ul>
+</li>
+<li>静态成员变量的特性
+<ul>
+<li>在定义时直接通过static关键字修饰</li>
+<li>静态成员变量需要在类外单独分配空间</li>
+<li>静态成员变量在程序内部位于全局数据区</li>
+</ul>
+</li>
+<li>语法规则：</li>
+</ul>
+<pre><code class="language-c++">Type ClassName::VarName = value;
+</code></pre>
+<h2 id="尝试第三种方案">尝试第三种方案</h2>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Test
+{
+private:
+	static int mCount;
+public:
+	Test()
+	{
+		mCount++;	
+	} 
+	~Test()
+	{
+		mCount--;
+	}		
+	int getCount()
+	{
+		return mCount;
+	}
+};
+
+//如果不加这句，编译器就会报链接器的错误
+int Test::mCount = 0;//这是在类的外部单独定义这个静态成员变量并初始化为0
+//
+
+Test gTest;
+
+int main(int argc, char *argv[])
+{
+	Test t1;
+	Test t2;
+	
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t1.getCount() &lt;&lt; endl;
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t2.getCount() &lt;&lt; endl;
+
+	Test* pt = new Test();
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; pt-&gt;getCount() &lt;&lt; endl;
+	delete pt;
+	
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;	
+	return 0;
+}
+//[Error] E:\User\exercise_Cpp\25jingtaichengyuan\main.cpp:(.text$_ZN4TestD1Ev[Test::~Test()]+0x5): undefined reference to `Test::mCount'
+//[Error] E:\User\exercise_Cpp\25jingtaichengyuan\main.cpp:(.text$_ZN4Test8getCountEv[Test::getCount()]+0x4): undefined reference to `Test::mCount'
+//[Error] E:\User\exercise_Cpp\25jingtaichengyuan\main.cpp:(.text$_ZN4TestC1Ev[Test::Test()]+0x5): undefined reference to `Test::mCount'
+//[Error] collect2: ld returned 1 exit status
+//这是链接器找不到static int mCount的内存空间，
+//需要在类的外部单独定义，以便于分配空间
+</code></pre>
+<h1 id="小结">小结</h1>
+<ul>
+<li>类中可以通过static关键字定义静态成员变量</li>
+<li>静态成员变量隶属于类所有，需要在外部进行分配空间</li>
+<li>每一个对象都可以访问静态成员变量</li>
+<li>静态成员变量在全局数据区分配空间</li>
+<li>静态成员变量的生命期为程序运行期</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[回顾（24）：经典问题解析二]]></title>
         <id>https://leichen2552.github.io/post/hui-gu-24jing-dian-wen-ti-jie-xi-er</id>
@@ -3083,254 +3486,6 @@ int main()
 <li>参数的默认值必须从右向左提供</li>
 <li>函数调用使用了默认值，则后续参数必须使用默认值</li>
 <li>C++中支持占位参数，用于兼容C语言中的不规范写法</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（6）：内联函数分析]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-6nei-lian-han-shu-fen-xi</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-6nei-lian-han-shu-fen-xi">
-        </link>
-        <updated>2020-01-31T02:11:49.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#%E5%B8%B8%E9%87%8F%E4%B8%8E%E5%AE%8F%E5%9B%9E%E9%A1%BE">常量与宏回顾</a></li>
-<li><a href="#%E9%97%AE%E9%A2%98">问题：</a>
-<ul>
-<li><a href="#%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0">内联函数</a></li>
-<li><a href="#%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0%E7%89%B9%E6%80%A7">内联函数特性</a></li>
-<li><a href="#%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0%E5%88%9D%E6%8E%A2">内联函数初探</a></li>
-<li><a href="#%E5%86%85%E8%81%94%E8%AF%B7%E6%B1%82">内联请求</a>
-<ul>
-<li><a href="#c%E4%B8%ADinline%E5%86%85%E8%81%94%E7%BC%96%E8%AF%91%E7%9A%84%E9%99%90%E5%88%B6">C++中inline内联编译的限制</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</p>
-<h1 id="常量与宏回顾">常量与宏回顾</h1>
-<ul>
-<li>C++中的const常量可以代替宏常数定义，如：<br>
-const int A = 3; <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>←</mo><mo>→</mo></mrow><annotation encoding="application/x-tex">\leftarrow\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">←</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span>#define A 3</li>
-</ul>
-<h1 id="问题">问题：</h1>
-<pre><code>C++中是否有解决方案代替宏代码片段呢？
-</code></pre>
-<h2 id="内联函数">内联函数</h2>
-<ul>
-<li>宏代码块使用会有副作用的</li>
-<li>C++中推荐使用内联函数代替宏代码片段</li>
-<li>C++中使用inline关键字声明内联函数</li>
-<li>内联函数声明时inline关键字必须和函数定义结合在一起，否则编译器会直接忽略内敛请求，这只是一种请求，编译器也可以拒绝</li>
-</ul>
-<pre><code class="language-c++">inline int func(int a, int b)
-{
-    return a &lt; b ? a : b
-}
-</code></pre>
-<h2 id="内联函数特性">内联函数特性</h2>
-<ul>
-<li>C++编译器可以将一个函数进行内敛编译</li>
-<li>被C++编译器内联编译的函数叫做内联函数</li>
-<li>C++编译器直接将函数体插入函数调用的地方</li>
-<li>内联函数没有普通函数调用时的额外开销（压栈、跳转、返回）</li>
-<li><strong>C++编译器不一定满足函数的内敛请求</strong></li>
-</ul>
-<h2 id="内联函数初探">内联函数初探</h2>
-<pre><code class="language-c++">#include &lt;stdio.h&gt;
-
-#define     FUNC(a,b)   ((a) &lt; (b) ? (a) : (b))
-
-inline int func(int a, int b)
-{
-    return a &lt; b ? a :b 
-}
-
-int main()
-{
-    int a = 1;
-    int b = 3;
-    int c = FUNC(++a, b);
-
-    printf(&quot;a = %d\n&quot;, a); 
-    printf(&quot;b = %d\n&quot;, b); 
-    printf(&quot;c = %d\n&quot;, c);
-
-    return 0; 
-}
-//如果调用FUNC(a, b)，打印3, 3, 3
-//如果调用func(a, b)，   打印2, 3, 3
-</code></pre>
-<ul>
-<li>内联函数具有普通函数的特征（参数检查，返回类型）</li>
-<li>函数的内联请求可能被编译器拒绝</li>
-<li>函数被内联编译后，函数体直接扩展到调用的地方</li>
-<li>宏代码片段由预处理处理，进行简单的文本替换，没有任何编译过程，因此可能出现副作用</li>
-</ul>
-<h2 id="内联请求">内联请求</h2>
-<ul>
-<li>现代C++编译器能够进行编译优化，一些函数即使没有inline声明，也可能被内联编译</li>
-<li>一些现代C++编译器提供了扩展语法，能够对函数进行强制内联，如：</li>
-</ul>
-<pre><code>    g++：__attribute__((always_inline))属性
-    MSVC：__forceinline
-</code></pre>
-<h3 id="c中inline内联编译的限制">C++中inline内联编译的限制</h3>
-<ul>
-<li>不能存在任何形式的循环语句</li>
-<li>不能存在过多的条件判断语句</li>
-<li>函数体不能过于庞大</li>
-<li>不能对函数进行取址操作</li>
-<li>函数内联声明必须在调用语句之前</li>
-</ul>
-<p>#小结<br>
-<strong>内联函数的提出是为了替代宏代码块的，原因是高效</strong></p>
-<ul>
-<li>C++中可以通过inline声明内联函数</li>
-<li>编译器直接将内联函数体扩展到函数调用的地方</li>
-<li>inline只是一种请求，编译器不一定允许这种请求</li>
-<li>内联函数省去了函数调用时的压栈、跳转和返回的开销</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（5）：引用本质分析]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-5yin-yong-ben-zhi-fen-xi</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-5yin-yong-ben-zhi-fen-xi">
-        </link>
-        <updated>2020-01-30T01:49:37.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="c中的引用">C++中的引用</h1>
-<h2 id="引用的意义">引用的意义</h2>
-<ul>
-<li>引用作为变量别名而存在，因此在一些场合可以代替指针</li>
-<li>引用相对于指针来说具有更好的可读性和实用性</li>
-</ul>
-<h3 id="exampleswap函数的实现对比">Example：Swap函数的实现对比</h3>
-<pre><code class="language-c++">void Swap(int&amp; a, int&amp; b)
-{
-    int t = a;
-    a = b;
-    b = t;
-}
-
-void Swap(int* a, int* b)
-{
-    int t = *a;
-    *a = *b;
-    *b = t;
-}
-</code></pre>
-<p>这两种就好像手动挡的车与自动挡的车，自动挡的车好开，这就好比是引用</p>
-<p>注意：</p>
-<ul>
-<li>函数的引用形参不需要进行初始化，它的初始化发生在函数调用的时候</li>
-</ul>
-<h2 id="特殊的引用">特殊的引用</h2>
-<h3 id="const引用">const引用</h3>
-<ul>
-<li>在C++中可以声明const引用</li>
-<li>语法：const Type&amp; name = var;</li>
-<li>const 引用让变量拥有只读属性</li>
-</ul>
-<pre><code class="language-c++">int a = 4;
-const int&amp; b = a;
-int* p = (int*)&amp;b;
-
-b = 5;              // Error，只读变量
-*p = 5;             //OK，修改变量 a 的值
-</code></pre>
-<ul>
-<li>现在已经知道引用是另一个变量的别名，因此一个引用绝对不可能是常量值的别名。换句话说，就是不能定义一个引用然后用常量值来初始化，这里的常量是字面常量，因为从概念上来说是不可行的。但是有一个例外，就是const引用，我么可以用字面常量来对一个const引用初始化，编译器这个时候就会真真正正产生一个只读变量。</li>
-</ul>
-<pre><code class="language-c++">const int&amp; b = 1;   //ok
-int* p = (int*)&amp;b;
-
-b = 5;                  //Error，只读变量
-
-*p = 5;                 //OK，修改变量 b 的值
-</code></pre>
-<ul>
-<li>当使用常量对const引用进行初始化时，C++编译器会为这个常量分配空间，并将引用名作为这段空间的别名</li>
-<li>结论：使用常量对const引用初始化后将生成一个只读变量</li>
-</ul>
-<h2 id="引用有自己的存储空间吗">引用有自己的存储空间吗</h2>
-<p>小测试：</p>
-<pre><code class="language-c++">#include &lt;stdio.h&gt;
-struct TRef
-{
-    char&amp; r;
-};
-
-int main()
-{
-    char c = 'c';
-    char&amp; rc = c;
-
-    TRef ref = {c};
-
-    printf(&quot;sizeof(char&amp;) = %d\n&quot;,sizeof(char&amp;));   //1
-    printf(&quot;sizeof(rc) = %d\n&quot;,sizeof(rc));                 //1
-
-    printf(&quot;sizeof(TRef) = %d\n&quot;,sizeof(TRef));         //4
-    printf(&quot;sizeof(ref.r) = %d\n&quot;,sizeof(ref.r));           //1
-
-    return 0;
-}
-</code></pre>
-<h2 id="引用的本质">引用的本质</h2>
-<h3 id="引用在c内部实现是一个指针常量">引用在C++内部实现是一个指针常量</h3>
-<p>Type&amp; name      <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>←</mo><mo>→</mo></mrow><annotation encoding="application/x-tex">\leftarrow \rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">←</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span>        Type* const name</p>
-<pre><code class="language-c++">void f(int&amp; a)              void f(int* const a)
-{                           {
-    a = 5;                      *a = 5
-}                           }
-</code></pre>
-<p>注意：</p>
-<ul>
-<li>C++编译器在编译过程中用指针常量作为引用的内部实现，因此引用所占的空间大小与指针相同</li>
-<li>从使用的角度，引用只是一个别名，C++为了实用性而隐藏了引用的存储空间这一细节</li>
-</ul>
-<h2 id="引用的意义-2">引用的意义</h2>
-<ul>
-<li>C++中的引用旨在大多数情况下代替指针</li>
-<li>功能性：可以满足多数需要使用指针的场合</li>
-<li>安全性：可以避开由于指针操作不当而带来的内存错误</li>
-<li>操作性：简单易用，又不失功能强大</li>
-</ul>
-<h2 id="实例解读">实例解读</h2>
-<ol>
-<li>不能返回局部变量的引用</li>
-</ol>
-<pre><code class="language-c++">int&amp; demo()     //int* const
-{
-    int d = 0;
-
-    printf(&quot;demo : d = %d\n&quot;, d);
-
-    return d;       //return &amp;d，返回一个局部变量的地址就是有问题
-} 
-</code></pre>
-<ol start="2">
-<li>可以返回在全局存储区内变量的引用</li>
-</ol>
-<pre><code class="language-c++">int&amp; func()     //int* const
-{
-   static int s = 0;
-
-   printf(&quot;func : s = %d\n&quot;, s);
-
-   return s;   //return &amp;s，静态的局部变量的存储空间是一个全局的存储区，
-               //所以说它的空间不会以为函数调用而摧毁，由于引用的本质是指针，
-               //所以返回一个全局存储区中的地址是完全可以的
-} 
-</code></pre>
-<p>#小结</p>
-<ul>
-<li>引用作为别名而存在旨在代替指针</li>
-<li>const引用可以使得变量具有只读属性</li>
-<li>引用在一起内部使用<strong>指针常量实现</strong></li>
-<li>引用的最终本质为指针</li>
-<li>引用尽可能的避开内存错误</li>
 </ul>
 ]]></content>
     </entry>

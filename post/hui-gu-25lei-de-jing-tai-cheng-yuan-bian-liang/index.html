@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
 <title>
@@ -56,6 +57,7 @@
                     
                         
 </head>
+
 <body>
     <div class="wrapper">
         <header>
@@ -182,67 +184,297 @@
 </script>
         <div class="main">
             <div class="container">
-                <div class="post-wrap archive">
-                    
-                    
-                    <h3>
-                        2020
-                    </h3>
-                    
-                    
+                <article class="post-wrap">
+                    <header class="post-header">
+                        <h1 class="post-title">
+                            回顾（25）：类的静态成员变量
+                        </h1>
+                        
+                        <!--en-->
+                        <div class="post-meta en">
+                            Author:
+                            <a itemprop="author" rel="author" href="/">
+                                ChenLei's Blog
+                            </a>
+                            <span class="post-time">
+                                Date: <a href="#">2020-02-12</a>
+                            </span>
+                            <span class="post-readtime">Reading Time:<a
+                                    href="#">4.0
+                                    mins</a></span>
+                            <span class="post-words">words:<a href="#">884</a></span>
+                            
+                            <span class="post-category">
+                                Category:
+                                
+                                <a href="https://leichen2552.github.io/tag/dTVQPvwPR">C++</a>
+                                
+                            </span>
+                            
+                            Views:
+                            <span data-hk-page="current"> - </span>
+                            
+                        </div>
+                        
+                        </header>
+                        <div class="post-content">
+                            <h1 id="成员变量回顾">成员变量回顾</h1>
+<ul>
+<li>通过对象名都能够访问public成员变量</li>
+<li>每个对象的成员变量都是专属的</li>
+<li>成员变量不能在对象之间共享</li>
+</ul>
+<h1 id="新的需求小实例">新的需求：小实例</h1>
+<ul>
+<li>统计在程序期间某个类的对象数目</li>
+<li>保证程序的安全性（不能使用全局变量）</li>
+<li>随时获取当前对象的数目</li>
+</ul>
+<h2 id="尝试第一种方案">尝试第一种方案</h2>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
 
-                    <article class="archive-item">
-                        <a class="archive-item-link" href="https://leichen2552.github.io/post/hui-gu-6nei-lian-han-shu-fen-xi">
-                            回顾（6）：内联函数分析
-                        </a>
-                        <span class="archive-item-date">2020-01-31 </span>
-                    </article>
-                    
-                    
-                    
+class Test
+{
+private:
+	int mCount;
+public:
+	Test():mCount(0)
+	{
+		mCount++;	
+	} 
+	~Test()
+	{
+		mCount--;
+	}		
+	int getCount()
+	{
+		return mCount;
+	}
+};
 
-                    <article class="archive-item">
-                        <a class="archive-item-link" href="https://leichen2552.github.io/post/hui-gu-5yin-yong-ben-zhi-fen-xi">
-                            回顾（5）：引用本质分析
-                        </a>
-                        <span class="archive-item-date">2020-01-30 </span>
-                    </article>
-                    
-                    
-                    
+Test gTest;
 
-                    <article class="archive-item">
-                        <a class="archive-item-link" href="https://leichen2552.github.io/post/hui-gu-3jin-hua-hou-de-const-fen-xi">
-                            回顾（3）：进化后的const分析
-                        </a>
-                        <span class="archive-item-date">2020-01-13 </span>
-                    </article>
-                    
-                    
-                    
+int main(int argc, char *argv[])
+{
+	Test t1;
+	Test t2;
+	
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t1.getCount() &lt;&lt; endl;
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t2.getCount() &lt;&lt; endl;
+	
+	return 0;
+}
+//结果是三个1，因为成员变量是每个对象私有一套的
+</code></pre>
+<h2 id="尝试第二种方案">尝试第二种方案</h2>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
 
-                    <article class="archive-item">
-                        <a class="archive-item-link" href="https://leichen2552.github.io/post/hui-gu-2">
-                            回顾（2）：C到C++的升级
-                        </a>
-                        <span class="archive-item-date">2020-01-12 </span>
-                    </article>
-                    
-                    
-                    
+int gCount;
 
-                    <article class="archive-item">
-                        <a class="archive-item-link" href="https://leichen2552.github.io/post/xue-xi-cde-yi-yi">
-                            回顾（1）：学习C++的意义
-                        </a>
-                        <span class="archive-item-date">2020-01-11 </span>
-                    </article>
-                    
-                    
-                    
-                </div>
+class Test
+{
+private:
+	int mCount;
+public:
+	Test():mCount(0)
+	{
+		gCount++;	
+	} 
+	~Test()
+	{
+		gCount--;
+	}		
+	int getCount()
+	{
+		return gCount;
+	}
+};
+
+Test gTest;
+
+int main(int argc, char *argv[])
+{
+	Test t1;
+	Test t2;
+	
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t1.getCount() &lt;&lt; endl;
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t2.getCount() &lt;&lt; endl;
+	
+	return 0;
+}
+//打印结果三个3，但是用的是全局变量，
+//在当代的软件设计当中是不能使用全局变量的，因为在任何地方都能访问全局变量
+//所以不能使用全局变量
+</code></pre>
+<h1 id="静态成员变量">静态成员变量</h1>
+<ul>
+<li>在C++中课以定义静态成员变量
+<ul>
+<li>静态成员变量属于整个类所有，是属于整个类</li>
+<li>静态成员变量的生命期不依赖任何对象，就是程序的运行周期</li>
+<li>可以<strong>通过类名直接访问</strong>共有静态成员变量</li>
+<li><em>所有对象共享类的静态成员变量</em></li>
+<li>可以<strong>通过对象名访问</strong>共有静态成员变量</li>
+</ul>
+</li>
+<li>静态成员变量的特性
+<ul>
+<li>在定义时直接通过static关键字修饰</li>
+<li>静态成员变量需要在类外单独分配空间</li>
+<li>静态成员变量在程序内部位于全局数据区</li>
+</ul>
+</li>
+<li>语法规则：</li>
+</ul>
+<pre><code class="language-c++">Type ClassName::VarName = value;
+</code></pre>
+<h2 id="尝试第三种方案">尝试第三种方案</h2>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Test
+{
+private:
+	static int mCount;
+public:
+	Test()
+	{
+		mCount++;	
+	} 
+	~Test()
+	{
+		mCount--;
+	}		
+	int getCount()
+	{
+		return mCount;
+	}
+};
+
+//如果不加这句，编译器就会报链接器的错误
+int Test::mCount = 0;//这是在类的外部单独定义这个静态成员变量并初始化为0
+//
+
+Test gTest;
+
+int main(int argc, char *argv[])
+{
+	Test t1;
+	Test t2;
+	
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t1.getCount() &lt;&lt; endl;
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t2.getCount() &lt;&lt; endl;
+
+	Test* pt = new Test();
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; pt-&gt;getCount() &lt;&lt; endl;
+	delete pt;
+	
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;	
+	return 0;
+}
+//[Error] E:\User\exercise_Cpp\25jingtaichengyuan\main.cpp:(.text$_ZN4TestD1Ev[Test::~Test()]+0x5): undefined reference to `Test::mCount'
+//[Error] E:\User\exercise_Cpp\25jingtaichengyuan\main.cpp:(.text$_ZN4Test8getCountEv[Test::getCount()]+0x4): undefined reference to `Test::mCount'
+//[Error] E:\User\exercise_Cpp\25jingtaichengyuan\main.cpp:(.text$_ZN4TestC1Ev[Test::Test()]+0x5): undefined reference to `Test::mCount'
+//[Error] collect2: ld returned 1 exit status
+//这是链接器找不到static int mCount的内存空间，
+//需要在类的外部单独定义，以便于分配空间
+</code></pre>
+<h1 id="小结">小结</h1>
+<ul>
+<li>类中可以通过static关键字定义静态成员变量</li>
+<li>静态成员变量隶属于类所有，需要在外部进行分配空间</li>
+<li>每一个对象都可以访问静态成员变量</li>
+<li>静态成员变量在全局数据区分配空间</li>
+<li>静态成员变量的生命期为程序运行期</li>
+</ul>
+
             </div>
+            <div class="post-toc">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%9B%9E%E9%A1%BE">成员变量回顾</a></li>
+<li><a href="#%E6%96%B0%E7%9A%84%E9%9C%80%E6%B1%82%E5%B0%8F%E5%AE%9E%E4%BE%8B">新的需求：小实例</a>
+<ul>
+<li><a href="#%E5%B0%9D%E8%AF%95%E7%AC%AC%E4%B8%80%E7%A7%8D%E6%96%B9%E6%A1%88">尝试第一种方案</a></li>
+<li><a href="#%E5%B0%9D%E8%AF%95%E7%AC%AC%E4%BA%8C%E7%A7%8D%E6%96%B9%E6%A1%88">尝试第二种方案</a></li>
+</ul>
+</li>
+<li><a href="#%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F">静态成员变量</a>
+<ul>
+<li><a href="#%E5%B0%9D%E8%AF%95%E7%AC%AC%E4%B8%89%E7%A7%8D%E6%96%B9%E6%A1%88">尝试第三种方案</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+
+            </div>
+            
+            
+            <!--en-->
+            <section class="post-copyright en">
+                <p class="copyright-item">
+                    <span>Author:</span>
+                    <span>ChenLei's Blog</span>
+                </p>
+
+                <p class="copyright-item">
+                    <span>Permalink:</span>
+                    <span><a href="https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-bian-liang">https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-bian-liang</a></span>
+                </p>
+
+                <p class="copyright-item">
+                    <span>License:</span>
+                    <span>MIT License</span>
+                </p>
+            </section>
+            
+                                        
+            
+            <!--en-->
+            <section class="post-tags en">
+                <div>
+                    <span>Tag(s):</span>
+                    <span class="tag">
+                        
+                        
+                        <a href="https://leichen2552.github.io/tag/dTVQPvwPR"># C++</a>
+                        
+                        
+                    </span>
+                </div>
+                <div>
+                    <a href="javascript:window.history.back();">back</a>
+                    <span>&dot;</span>
+                    <a href="#">home</a>
+                </div>
+            </section>
+            
+                                                        <!---->
+                                                        <section class="post-nav">
+                                                            
+            <a class="prev" rel="prev" href="https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-han-shu">
+                回顾（25）：类的静态成员函数
+            </a>
+            
+            
+            <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-24jing-dian-wen-ti-jie-xi-er">
+                回顾（24）：经典问题解析二
+            </a>
+            
+            </section>
+            </article>
         </div>
+        
+    </div>
+    </div>
+    </div>
     </div>
     
         <footer id="footer" class="footer">
@@ -353,4 +585,8 @@
                     
     </div>
 </body>
+<script>
+    scroll();
+</script>
+
 </html>
