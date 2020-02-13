@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="utf-8" />
@@ -56,38 +56,10 @@
                     </script>
                     
                         
-    <script src="//cdn.jsdelivr.net/gh/tangkaichuan/gridea-search/lib/fuse.js"></script>
-    <script src="//cdn.jsdelivr.net/gh/tangkaichuan/gridea-search/lib/ejs.min.js"></script>
-    <script src="//cdn.jsdelivr.net/gh/tangkaichuan/gridea-search/lib/gridea-search.min.js"></script>
-    <script src="//cdn.jsdelivr.net/gh/tangkaichuan/gridea-search/example/assets/media/gridea-search/result-template.ejs" type="text/ejs"></script>
-    <style>
-            .main_ {
-                display: flex;
-                flex-direction: column;
-                width: 100%;
-                height: 90vh;
-            }
-            
-            .result-box {
-                margin-top: 50px;
-                display: flex;
-                border-radius: 5px;
-                -webkit-box-sizing: border-box;
-                -moz-box-sizing: border-box;
-                box-sizing: border-box;
-                margin-left: auto;
-                margin-right: auto;
-            }
-        </style>
 </head>
 
 <body>
-    <style>
-        .searched-keyword {
-            background-color: green;
-        }
-    </style>
-    <div class="main_">
+    <div class="wrapper">
         <header>
     <nav class="navbar">
         <div class="container">
@@ -210,15 +182,465 @@
 
     }
 </script>
-            <div class="result-box">
-                <div id="gridea-search-result">
-                    <p class="searching">搜索中......</p>
-                    <p class="no-result" style="display:none">未搜索到相关文章</p>
-                </div>
-            </div>
-    </div>
-</body>
+        <div class="main">
+            <div class="container">
+                <article class="post-wrap">
+                    <header class="post-header">
+                        <h1 class="post-title">
+                            回顾（27）：二阶构造模式
+                        </h1>
+                        
+                        <!--en-->
+                        <div class="post-meta en">
+                            Author:
+                            <a itemprop="author" rel="author" href="/">
+                                ChenLei's Blog
+                            </a>
+                            <span class="post-time">
+                                Date: <a href="#">2020-02-13</a>
+                            </span>
+                            <span class="post-readtime">Reading Time:<a
+                                    href="#">5.5
+                                    mins</a></span>
+                            <span class="post-words">words:<a href="#">1226</a></span>
+                            
+                            <span class="post-category">
+                                Category:
+                                
+                                <a href="https://leichen2552.github.io/tag/dTVQPvwPR">C++</a>
+                                
+                            </span>
+                            
+                            Views:
+                            <span data-hk-page="current"> - </span>
+                            
+                        </div>
+                        
+                        </header>
+                        <div class="post-content">
+                            <p><ul class="markdownIt-TOC">
+<li><a href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%9A%84%E5%9B%9E%E9%A1%BE">构造函数的回顾</a>
+<ul>
+<li><a href="#%E5%85%B3%E4%BA%8E%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">关于构造函数</a></li>
+<li><a href="#%E5%8D%8A%E6%88%90%E5%93%81%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%A6%82%E5%BF%B5">半成品对象的概念</a></li>
+<li><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C%E9%98%B6%E6%9E%84%E9%80%A0">解决方案：二阶构造</a>
+<ul>
+<li><a href="#%E5%AE%9E%E4%BE%8B%E5%B1%95%E7%A4%BA%E4%BA%8C%E9%98%B6%E6%9E%84%E9%80%A0">实例展示二阶构造</a></li>
+<li><a href="#%E5%86%8D%E6%AC%A1%E4%BF%AE%E6%94%B9%E6%95%B0%E7%BB%84%E7%B1%BB">再次修改数组类</a>
+<ul>
+<li><a href="#intarrayh">IntArray.h</a></li>
+<li><a href="#intarraycpp">IntArray.cpp</a></li>
+<li><a href="#maincpp">main.cpp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</p>
+<h1 id="构造函数的回顾">构造函数的回顾</h1>
+<h2 id="关于构造函数">关于构造函数</h2>
+<ul>
+<li>类的构造函数用于对象的初始化</li>
+<li>构造函数与类同名并且没有返回值</li>
+<li>构造函数在对象定时自动被调用</li>
+</ul>
+<pre><code>问题：
+1. 如何判断构造函数的执行结果？就目前来说是没有办法来捕捉这个执行结果!
+2. 在构造函数中执行return语句会发生什么？
+3. 构造函数执行结束是否意味着对象构造成功？
+</code></pre>
+<ul>
+<li>构造函数
+<ul>
+<li>只提供自动初始化成员变量的机会</li>
+<li>不能保证初始化逻辑一定成功</li>
+<li>执行return语句后构造函数立即结束</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
 
+class Test
+{
+private:
+	int mi;
+	int mj;
+	
+	bool mstatus;//强行让构造函数有个返回值，来判断构造函数是否构造成功 
+public:
+	Test(int i, int j):mstatus(false)
+	{
+		return;
+		mi = i;
+		mj = j;
+		
+		mstatus = true;
+	}
+	int getI()
+	{
+		return mi;
+	}	
+	int getJ()
+	{
+		return mj;
+	}
+	int status()
+	{
+		return mstatus;
+	}
+};
+
+int main(int argc, char *argv[])
+{
+	Test t1(1,2);
+	if(t1.status())
+	{
+		cout &lt;&lt; &quot;t1.mi = &quot; &lt;&lt; t1.getI() &lt;&lt; endl;
+		cout &lt;&lt; &quot;t1.mj = &quot; &lt;&lt; t1.getJ() &lt;&lt; endl;
+	}
+
+	return 0;
+}
+</code></pre>
+<p><font size = 4><strong>构造函数</strong>能决定的<font color = red size = 5><strong>只是对象的初始状态</strong></font>，<font color = blue size = 5><strong>而不是对象的诞生</strong>！</font></font></p>
+<h2 id="半成品对象的概念">半成品对象的概念</h2>
+<ul>
+<li>初始化操作不能按照预期完成而得到的对象</li>
+<li>半成品对象是合法的C++对象，也是Bug的重要来源</li>
+</ul>
+<h2 id="解决方案二阶构造">解决方案：二阶构造</h2>
+<ul>
+<li>工程开中的构造过程可分为
+<ul>
+<li>资源无关的初始化操作
+<ul>
+<li>不可能出现异常情况的操作</li>
+</ul>
+</li>
+<li>需要使用系统资源的操作
+<ul>
+<li>可能出现异常情况，如：内存申请，访问文件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io//post-images/1581582529088.png" alt="" width="600" height="600" loading="lazy"></figure>
+<pre><code class="language-c++">class TwoPhaseCons
+{
+private:
+    TwoPhaseCons()
+    {   //这个构造函数放在了private里面，就不能在外界被调用，
+        //不能够直接地通过类名来定义变量
+
+        //第一阶段构造函数，与资源无关的初始化操作
+    }
+    bool construct()
+    {
+        //第二阶段构造函数，与资源相关的初始化操作
+        return true;
+    }
+public:
+    static TwoPhaseCons* NewInstance();//静态的对象创建函数，返回一个对象指针，
+                                       //就是真正意义上的创建函数，用于创建对象
+};
+
+TwoPhaseCons* TwoPhaseCons::NewInstance()
+{
+    TwoPhaseCons* ret = new TwoPhaseCons();
+
+    //若第二阶段构造失败，返回NULL
+    if( !(ret &amp;&amp; ret-&gt;construct()) )
+    {
+        delete ret;
+        ret = NULL;
+    }
+
+    return ret;
+}
+</code></pre>
+<h3 id="实例展示二阶构造">实例展示二阶构造</h3>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Test
+{
+private:
+	int mi;
+	int* mp;
+	
+	Test()
+	{
+		mi = 0;
+	}
+	bool construct()
+	{
+		mp = new int;
+		if(mp)
+		{
+			return true;
+		}
+		return false;
+	}
+public:
+	static Test* NewInstance();
+};
+
+Test* Test::NewInstance()
+{
+	Test* ret = new Test();
+	
+	if( !(ret &amp;&amp; ret-&gt;construct()) )
+	{
+		delete ret;
+		ret = NULL;
+	}
+	
+	return ret;
+}
+
+int main(int argc, char *argv[])
+{
+	Test* t = Test::NewInstance();//静态成员函数只能通过类名::或者对象调用 
+	
+	cout &lt;&lt; &quot;t = &quot; &lt;&lt; t &lt;&lt; endl; 
+	 
+	return 0;
+}
+</code></pre>
+<p><font color = blue size = 3>静态成员函数</font>只能通过<font color = red size = 4><strong>类名::</strong></font>或者<font color = red size = 4><strong>对象</strong></font>调用</p>
+<h3 id="再次修改数组类">再次修改数组类</h3>
+<h4 id="intarrayh">IntArray.h</h4>
+<pre><code class="language-c++">#ifndef INTARRAY_H
+#define INTARRAY_H
+
+class IntArray{
+private:
+	int m_length;
+	int* m_pointer;
+	
+	IntArray(int len);
+	//IntArray(const IntArray&amp; ob);
+	bool construct();
+public:
+	static IntArray* NewInstance(int length);
+	int length();
+	bool get(int index, int&amp; value);
+	bool set(int index, int value);	
+	~IntArray();
+};
+
+#endif
+</code></pre>
+<h4 id="intarraycpp">IntArray.cpp</h4>
+<pre><code class="language-c++">#include &quot;IntArray.h&quot;
+
+IntArray::IntArray(int len)
+{
+	m_length = len;	
+}
+
+bool IntArray::construct()
+{
+	bool ret = true;
+	
+	m_pointer = new int[m_length];
+	
+	if(m_pointer)
+	{
+		for(int i = 0;i &lt; m_length; i++)
+		{
+			m_pointer[i] = 0;
+		}
+	}
+	else
+	{
+		ret = false;
+	}
+	
+	return ret;
+}
+
+IntArray* IntArray::NewInstance(int length)
+{
+	IntArray* ret = new IntArray(length);
+	
+	if( !(ret &amp;&amp; ret-&gt;construct()) )
+	{
+		delete ret;
+		ret = NULL;
+	}
+	
+	return ret;
+}
+
+int IntArray::length()
+{
+	return m_length;
+}
+
+bool IntArray::get(int index, int&amp; value)
+{
+	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
+	
+	if(ret)
+	{
+		value = m_pointer[index];
+	}
+	
+	return ret;
+}
+
+bool IntArray::set(int index, int value)
+{
+	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
+	
+	if(ret)
+	{
+ 		m_pointer[index] = value;
+	}
+	
+	return ret;
+}
+
+IntArray::~IntArray()
+{
+	delete[] m_pointer;
+}
+
+</code></pre>
+<h4 id="maincpp">main.cpp</h4>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &quot;IntArray.h&quot;
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+	IntArray* a = IntArray::NewInstance(5);
+
+	for(int i=0; i&lt;a-&gt;length(); i++)
+	{
+		a-&gt;set(i,i+1);//这个函数返回的是bool类型值
+	}
+	cout &lt;&lt; &quot;a-&gt;length() = &quot; &lt;&lt; a-&gt;length() &lt;&lt; endl;	
+	
+	for(int i=0; i&lt;a-&gt;length(); i++)
+	{
+		int v = 0;
+		a-&gt;get(i,v);//这个函数返回的是bool类型值 
+		cout &lt;&lt; &quot;a[&quot;&lt;&lt; i &lt;&lt;&quot;] = &quot; &lt;&lt; v &lt;&lt; endl;
+	}
+	
+	delete a;
+	
+	return 0;
+}
+
+
+
+#endif
+
+</code></pre>
+<p>大多数人又要问，使用了二阶构造之后，产生的对象只能在堆空间，就不能再栈空间了。这样恰恰是最好的，这些巨大的对象，是不适用于放在栈空间的，应该放在堆空间里面。</p>
+<h1 id="小结">小结</h1>
+<ul>
+<li>构造函数只能决定对象的初始化状态</li>
+<li>构造函数中初始化操作的失败不影响对象的诞生</li>
+<li>初始化不完全的半成品对象是Bug的重要来源</li>
+<li>二阶构造是人为的将初始化过程分为两部分</li>
+<li>二阶构造能够确保创建的对象都是完整初始化的</li>
+</ul>
+
+            </div>
+            <div class="post-toc">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%9A%84%E5%9B%9E%E9%A1%BE">构造函数的回顾</a>
+<ul>
+<li><a href="#%E5%85%B3%E4%BA%8E%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">关于构造函数</a></li>
+<li><a href="#%E5%8D%8A%E6%88%90%E5%93%81%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%A6%82%E5%BF%B5">半成品对象的概念</a></li>
+<li><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C%E9%98%B6%E6%9E%84%E9%80%A0">解决方案：二阶构造</a>
+<ul>
+<li><a href="#%E5%AE%9E%E4%BE%8B%E5%B1%95%E7%A4%BA%E4%BA%8C%E9%98%B6%E6%9E%84%E9%80%A0">实例展示二阶构造</a></li>
+<li><a href="#%E5%86%8D%E6%AC%A1%E4%BF%AE%E6%94%B9%E6%95%B0%E7%BB%84%E7%B1%BB">再次修改数组类</a>
+<ul>
+<li><a href="#intarrayh">IntArray.h</a></li>
+<li><a href="#intarraycpp">IntArray.cpp</a></li>
+<li><a href="#maincpp">main.cpp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+
+            </div>
+            
+            
+            <!--en-->
+            <section class="post-copyright en">
+                <p class="copyright-item">
+                    <span>Author:</span>
+                    <span>ChenLei's Blog</span>
+                </p>
+
+                <p class="copyright-item">
+                    <span>Permalink:</span>
+                    <span><a href="https://leichen2552.github.io/post/hui-gu-27er-jie-gou-zao-mo-shi">https://leichen2552.github.io/post/hui-gu-27er-jie-gou-zao-mo-shi</a></span>
+                </p>
+
+                <p class="copyright-item">
+                    <span>License:</span>
+                    <span>MIT License</span>
+                </p>
+            </section>
+            
+                                        
+            
+            <!--en-->
+            <section class="post-tags en">
+                <div>
+                    <span>Tag(s):</span>
+                    <span class="tag">
+                        
+                        
+                        <a href="https://leichen2552.github.io/tag/dTVQPvwPR"># C++</a>
+                        
+                        
+                    </span>
+                </div>
+                <div>
+                    <a href="javascript:window.history.back();">back</a>
+                    <span>&dot;</span>
+                    <a href="#">home</a>
+                </div>
+            </section>
+            
+                                                        <!---->
+                                                        <section class="post-nav">
+                                                            
+            
+            <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-han-shu">
+                回顾（26）：类的静态成员函数
+            </a>
+            
+            </section>
+            </article>
+        </div>
+        
+    </div>
+    </div>
+    </div>
+    </div>
+    
         <footer id="footer" class="footer">
             <div class="copyright">
                 <div class="Like">
@@ -325,5 +747,10 @@
                         tpwidget("show");
                     </script>
                     
+    </div>
+</body>
+<script>
+    scroll();
+</script>
 
 </html>
