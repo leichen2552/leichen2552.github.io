@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-02-13T11:00:29.079Z</updated>
+    <updated>2020-02-14T08:56:38.380Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,208 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[回顾（28）：友元的尴尬能力]]></title>
+        <id>https://leichen2552.github.io/post/hui-gu-you-yuan-de-gan-ga-neng-li</id>
+        <link href="https://leichen2552.github.io/post/hui-gu-you-yuan-de-gan-ga-neng-li">
+        </link>
+        <updated>2020-02-14T03:41:54.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E5%8F%8B%E5%85%83%E7%9A%84%E6%A6%82%E5%BF%B5">友元的概念</a></li>
+<li><a href="#%E5%8F%8B%E5%85%83%E7%9A%84%E7%94%A8%E6%B3%95">友元的用法</a></li>
+<li><a href="#%E5%8F%8B%E5%85%83%E7%9A%84%E5%B0%B4%E5%B0%AC">友元的尴尬</a></li>
+<li><a href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">注意事项</a></li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</p>
+<h1 id="友元的概念">友元的概念</h1>
+<ul>
+<li>什么是友元
+<ul>
+<li>友元是C++中的一种关系</li>
+<li>友元关系发生在函数与类之间或者类与类之间</li>
+<li>友元关系是单项的，不能传递</li>
+</ul>
+</li>
+</ul>
+<h1 id="友元的用法">友元的用法</h1>
+<ul>
+<li>
+<p>在类中以friend关键字声明友元</p>
+</li>
+<li>
+<p>类的友元可以是其他类或者是具体函数</p>
+</li>
+<li>
+<p>友元不是类的一部分</p>
+</li>
+<li>
+<p>友元不受类中访问级别的限制</p>
+</li>
+<li>
+<p>友元可以直接访问具体类的所有成员</p>
+</li>
+<li>
+<p>在类中用friend关键字对函数或类进行声明</p>
+</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;math.h&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Point{
+private:
+	double x;
+	double y;
+public:
+	Point(double x, double y)
+	{
+		this-&gt;x = x;
+		this-&gt;y = y;
+	}
+	double getX()
+	{
+		return x;	
+	}
+	double getY()
+	{
+		return y;
+	}
+	friend double func(Point&amp; p1, Point&amp; p2);	
+    //体验了一下，main()函数也可以当做friend
+    friend int main(int argc, char *argv[]);
+};
+
+double func(Point&amp; p1, Point&amp; p2)
+{
+	double ret = 0;
+
+//在C++初期，程序员都用C语言写代码，大家特别希望能够像p1.x一样调用，
+//而不是像这样调用八次函数，效率降低。早期的程序员看到C++这样，所以就不用了。
+//并且C++自诞生就背负着一个重要的责任就是兼容C语言，所以就出现了friend关键字。	
+//	ret = (p1.getX() - p2.getX())*(p1.getX() - p2.getX()) + 
+//        (p1.getY() - p2.getY())*(p1.getY() - p2.getY());
+
+//有了friend关键字，就可以了无限制的访问类的私有成员          
+	ret = (p1.x - p2.x)*(p1.x - p2.x) + 
+          (p1.y - p2.y)*(p1.y - p2.y);
+	      
+	ret = sqrt(ret);
+	
+	return ret;		  	
+}
+
+int main(int argc, char *argv[])
+{
+	Point p1(1,2);
+	Point p2(10,20);
+	
+    //检测main()函数被friend
+    cout &lt;&lt; &quot;p1(x,y) = &quot;&lt;&lt; &quot;(&quot; &lt;&lt; p1.x&lt;&lt; &quot;,&quot;&lt;&lt; p1.y &lt;&lt;&quot;)&quot;&lt;&lt; endl;
+
+	cout &lt;&lt; &quot;p1(x,y) = &quot;&lt;&lt; &quot;(&quot; &lt;&lt; p1.getX()&lt;&lt; &quot;,&quot;&lt;&lt; p1.getY() &lt;&lt;&quot;)&quot;&lt;&lt; endl; 
+	cout &lt;&lt; &quot;p2(x,y) = &quot;&lt;&lt; &quot;(&quot; &lt;&lt; p2.getX()&lt;&lt; &quot;,&quot;&lt;&lt; p2.getY() &lt;&lt;&quot;)&quot;&lt;&lt; endl;
+	
+	cout &lt;&lt; &quot;|(p1, p2)| = &quot; &lt;&lt; func(p1,p2) &lt;&lt; endl;
+	
+	return 0;
+}
+</code></pre>
+<h1 id="友元的尴尬">友元的尴尬</h1>
+<ul>
+<li>友元是为了兼顾C语言的高效而诞生的</li>
+<li>友元的超能力<font size = 4 color = red><strong>直接破坏</strong></font>了面向对象的<font color = purple size = 3><strong>封装性</strong></font></li>
+<li>友元在实际产品中的高效是得不偿失的</li>
+<li>友元在现在软件工程中<font color = purple size = 3>已经逐渐被遗弃</font></li>
+</ul>
+<h1 id="注意事项">注意事项</h1>
+<ul>
+<li>友元关系不具备传递性</li>
+<li>类的友元可以是其他类的成员函数</li>
+<li>类的友元可以是某个完整的类
+<ul>
+<li>所有的成员函数都是友元</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class classC
+{
+private:	
+	const char* n;
+public :
+	classC(const char* n)
+	{
+		this-&gt;n = n;
+	}
+	
+	friend class classB;//B是C的友元，那么B就可以访问C的私有成员
+};
+
+class classB
+{
+private:	
+	const char* n;
+public :
+	classB(const char* n)
+	{
+		this-&gt;n = n;
+	}
+	
+	void getClassCName(classC&amp; c)
+	{
+		cout &lt;&lt; &quot;classC : &quot; &lt;&lt; c.n &lt;&lt; endl; 
+	}	
+	friend class classA;//A是B的友元，那么A就可以访问B的私有成员	
+};
+
+class classA
+{
+private:	
+	const char* n;
+public :
+	classA(const char* n)
+	{
+		this-&gt;n = n;
+	}
+	
+	void getClassBName(classB&amp; b)
+	{
+		cout &lt;&lt; &quot;classB : &quot; &lt;&lt; b.n &lt;&lt; endl; 
+	}	
+    /*那是B是C的友元，A是B的友元，那么A是C的友元吗？实验测试：不是
+	void getClassCName(classC&amp; c)
+	{
+		cout &lt;&lt; &quot;classB : &quot; &lt;&lt; c.n &lt;&lt; endl; 
+	}
+    */
+};
+
+int main(int argc, char *argv[])
+{
+	classA A(&quot;classA&quot;);
+	classC C(&quot;classC&quot;);
+	classB B(&quot;classB&quot;);
+	
+	A.getClassBName(B);
+	B.getClassCName(C);
+	return 0;
+}
+</code></pre>
+<h1 id="小结">小结</h1>
+<ul>
+<li>友元是为了兼顾C语言的高效而诞生的</li>
+<li>友元直接破坏了面向对象的封装性</li>
+<li>友元关系不具备传递性</li>
+<li>类的友元可以是其他类的成员函数</li>
+<li>类的友元课以是某个完整的类</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[回顾（27）：二阶构造模式]]></title>
         <id>https://leichen2552.github.io/post/hui-gu-27er-jie-gou-zao-mo-shi</id>
@@ -3552,172 +3754,6 @@ extern &quot;C&quot;{
 <h1 id="问题">问题</h1>
 <ul>
 <li>C中如何调用C++函数？</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（8）：函数重载分析（上）]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-8han-shu-chong-zai-fen-xi</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-8han-shu-chong-zai-fen-xi">
-        </link>
-        <updated>2020-02-02T02:56:41.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E4%B8%8A%E4%B8%8B%E6%96%87">自然语言中的上下文</a>
-<ul>
-<li><a href="#%E6%B4%97%E5%AD%97%E7%9A%84%E5%90%AB%E4%B9%89">“洗”字的含义</a></li>
-<li><a href="#%E7%BB%93%E8%AE%BA">结论</a></li>
-</ul>
-</li>
-<li><a href="#%E9%87%8D%E8%BD%BDoverload">重载（overload）</a>
-<ul>
-<li><a href="#c%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD">C++中的函数重载</a>
-<ul>
-<li><a href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD">函数重载</a></li>
-<li><a href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E6%9D%A1%E4%BB%B6">函数重载条件</a></li>
-<li><a href="#%E7%BC%96%E8%AF%91%E5%99%A8%E8%B0%83%E7%94%A8%E9%87%8D%E8%BD%BD%E5%87%BD%E6%95%B0%E7%9A%84%E5%87%86%E5%88%99">编译器调用重载函数的准则</a></li>
-<li><a href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E6%9C%AC%E8%B4%A8">函数重载本质</a></li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</p>
-<h1 id="自然语言中的上下文">自然语言中的上下文</h1>
-<h2 id="洗字的含义">“洗”字的含义</h2>
-<pre><code>洗衣服、洗脑、洗车、洗脸、洗马桶
-</code></pre>
-<h2 id="结论">结论</h2>
-<ul>
-<li>能和“洗”字搭配的词汇有很多</li>
-<li>“洗”字和不同的词汇搭配有不同的含义</li>
-</ul>
-<h1 id="重载overload">重载（overload）</h1>
-<ul>
-<li>同一个标识符在不同的上下文有不同的意义</li>
-<li>如：<br>
-“洗”字和不同的词汇搭配有不同的含义： 洗衣服、洗脑、洗车、洗脸、洗马桶。。。<br>
-“play”和不同的单词搭配后有不同的含义：play chess, play piano, play basketball, ...<br>
-思考：</li>
-</ul>
-<pre><code>重载在自然语言中随处可见的，那在程序设计中是否也有重载呢？    
-</code></pre>
-<h2 id="c中的函数重载">C++中的函数重载</h2>
-<h3 id="函数重载">函数重载</h3>
-<ul>
-<li>用同一个函数名定义不同的函数</li>
-<li>当函数名和不同参数搭配时函数的含义不同</li>
-<li>其实不止在C++中，在java、D语言、C#中，重载都是这么定义的</li>
-</ul>
-<pre><code class="language-c++">int func(int x)
-{
-    return x;
-}
-
-int func(int a, int b)
-{
-    return a + b;
-}
-
-int func(const char* s)
-{
-    return strlen(s);
-}
-</code></pre>
-<h3 id="函数重载条件">函数重载条件</h3>
-<ul>
-<li>参数个数不同</li>
-<li>参数类型不同</li>
-<li>参数顺序不同</li>
-</ul>
-<pre><code class="language-c++">int func(int a, const char* s)
-{
-    return a;
-}
-
-int func(const char* s, int a)
-{
-    return strlen(s);
-}
-//以上两个函数可以构成重载
-</code></pre>
-<p>问题：</p>
-<pre><code>当函数默认参数遇上函数重载会发生什么？
-</code></pre>
-<pre><code class="language-c++">int func(int a, int b, int c = 0)
-{
-    return a * b *c
-}
-
-int func(int a, int b)
-{
-    return a + b;
-}
-
-int main()
-{
-    int c = func(1, 2);// which one?
-    return 0;
-}
-//编译器编译出错，就是编译器抱怨了，因为编译器不知道该去匹配哪个函数，出现了二义性！！！
-//C++中有很多特性都是冲突的，所以我们要知道如何去避开这些特性冲突
-</code></pre>
-<h3 id="编译器调用重载函数的准则">编译器调用重载函数的准则</h3>
-<ul>
-<li>将所有同名函数作为候选者</li>
-<li>尝试寻找可行的候选函数
-<ol>
-<li>精确匹配实参</li>
-<li>通过默认参数能够匹配实参</li>
-<li>通过默认类型转换匹配实参</li>
-</ol>
-</li>
-<li>匹配失败
-<ol>
-<li>最终寻找到的候选函数不唯一，则出现二义性，编译失败</li>
-<li>无法匹配所有候选者，函数未定义，编译失败</li>
-</ol>
-</li>
-</ul>
-<h3 id="函数重载本质">函数重载本质</h3>
-<ul>
-<li>
-<p>重载函数在本质上是相互独立的不同函数</p>
-</li>
-<li>
-<p>重载函数的函数类型不同</p>
-</li>
-<li>
-<p>函数返回值不能作为函数重载的依据</p>
-<p><code>函数重载是由函数名和参数列表决定的，跟函数返回值没有半毛钱关系!</code></p>
-</li>
-</ul>
-<pre><code class="language-c++">int func(int a, int b, int c)
-{
-    return a * b * c;
-}
-
-int func(int a, int b)
-{
-    return a + b;
-}
-
-int main()
-{
-    printf(&quot;%p\n&quot;,(int(*)(int, int))add);
-    printf(&quot;%p\n&quot;,(int(*)(int, int, int))add);
-
-    return 0;
-}
-//打印出两个函数地址不同
-</code></pre>
-<h3 id="小结">小结</h3>
-<ul>
-<li>函数重载是C++中引入的概念</li>
-<li>函数重载用于模拟自然语言中的词汇搭配</li>
-<li>函数重载使得C++具有更加丰富的语义表达能力</li>
-<li>函数重载的本质为相互独立的不同函数</li>
-<li>C++中通过函数名和函数参数确定究竟调用那一个函数</li>
 </ul>
 ]]></content>
     </entry>
