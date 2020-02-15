@@ -190,7 +190,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                回顾（25）：类的静态成员变量
+                                回顾（29）：类中的函数重载
                             </h1>
                             
                                 <!--en-->
@@ -200,12 +200,12 @@
                                         ChenLei's Blog
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2020-02-12</a>
+                                Date: <a href="#">2020-02-15</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">4.0
+                                    href="#">4.8
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">884</a></span>
+                                    <span class="post-words">words:<a href="#">1082</a></span>
                                     
                                         <span class="post-category">
                                 Category:
@@ -221,198 +221,276 @@
                                 
                         </header>
                         <div class="post-content">
-                            <h1 id="成员变量回顾">成员变量回顾</h1>
+                            <p><ul class="markdownIt-TOC">
+<li><a href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E5%9B%9E%E9%A1%BE">函数重载回顾</a>
 <ul>
-<li>通过对象名都能够访问public成员变量</li>
-<li>每个对象的成员变量都是专属的</li>
-<li>成员变量不能在对象之间共享</li>
-</ul>
-<h1 id="新的需求小实例">新的需求：小实例</h1>
-<ul>
-<li>统计在程序期间某个类的对象数目</li>
-<li>保证程序的安全性（不能使用全局变量）</li>
-<li>随时获取当前对象的数目</li>
-</ul>
-<h2 id="尝试第一种方案">尝试第一种方案</h2>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-class Test
-{
-private:
-	int mCount;
-public:
-	Test():mCount(0)
-	{
-		mCount++;	
-	} 
-	~Test()
-	{
-		mCount--;
-	}		
-	int getCount()
-	{
-		return mCount;
-	}
-};
-
-Test gTest;
-
-int main(int argc, char *argv[])
-{
-	Test t1;
-	Test t2;
-	
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t1.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t2.getCount() &lt;&lt; endl;
-	
-	return 0;
-}
-//结果是三个1，因为成员变量是每个对象私有一套的
-</code></pre>
-<h2 id="尝试第二种方案">尝试第二种方案</h2>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-int gCount;
-
-class Test
-{
-private:
-	int mCount;
-public:
-	Test():mCount(0)
-	{
-		gCount++;	
-	} 
-	~Test()
-	{
-		gCount--;
-	}		
-	int getCount()
-	{
-		return gCount;
-	}
-};
-
-Test gTest;
-
-int main(int argc, char *argv[])
-{
-	Test t1;
-	Test t2;
-	
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t1.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t2.getCount() &lt;&lt; endl;
-	
-	return 0;
-}
-//打印结果三个3，但是用的是全局变量，
-//在当代的软件设计当中是不能使用全局变量的，因为在任何地方都能访问全局变量
-//所以不能使用全局变量
-</code></pre>
-<h1 id="静态成员变量">静态成员变量</h1>
-<ul>
-<li>在C++中课以定义静态成员变量
-<ul>
-<li>静态成员变量属于整个类所有，是属于整个类</li>
-<li>静态成员变量的生命期不依赖任何对象，就是程序的运行周期</li>
-<li>可以<strong>通过类名直接访问</strong>共有静态成员变量</li>
-<li><em>所有对象共享类的静态成员变量</em></li>
-<li>可以<strong>通过对象名访问</strong>共有静态成员变量</li>
+<li><a href="#%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E8%BF%9B%E8%A1%8C%E9%87%8D%E8%BD%BD">类中的成员函数可以进行重载</a></li>
+<li><a href="#%E5%AE%9E%E9%AA%8C%E6%B5%8B%E8%AF%95">实验测试</a></li>
 </ul>
 </li>
-<li>静态成员变量的特性
+<li><a href="#%E6%B7%B1%E5%BA%A6%E7%9A%84%E6%84%8F%E4%B9%89">深度的意义</a>
 <ul>
-<li>在定义时直接通过static关键字修饰</li>
-<li>静态成员变量需要在类外单独分配空间</li>
-<li>静态成员变量在程序内部位于全局数据区</li>
+<li><a href="#%E5%AE%9E%E4%BE%8B%E6%BC%94%E7%A4%BA">实例演示</a></li>
 </ul>
 </li>
-<li>语法规则：</li>
+<li><a href="#%E6%80%9D%E8%80%83">思考</a>
+<ul>
+<li><a href="#%E5%A4%8D%E6%95%B0%E7%B1%BB%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">复数类解决方案</a></li>
 </ul>
-<pre><code class="language-c++">Type ClassName::VarName = value;
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</p>
+<h1 id="函数重载回顾">函数重载回顾</h1>
+<ul>
+<li>函数重载的本质为互相独立的不同函数</li>
+<li>C++中通过<font color = blue size = 4><strong>函数名</strong></font>和<font color = green size = 4><strong>函数参数</strong></font>确定函数调用</li>
+<li>无法直接通过函数名得到重载函数的入口地址</li>
+<li>函数重载必然发生在同一个作用域中</li>
+</ul>
+<h2 id="类中的成员函数可以进行重载">类中的成员函数可以进行重载</h2>
+<ul>
+<li>构造函数的重载</li>
+<li>普通成员函数的重载</li>
+<li>静态成员函数的重载</li>
+</ul>
+<pre><code>问题：
+全局函数、普通成员函数以及静态成员函数之间是否可以构成重载？
 </code></pre>
-<h2 id="尝试第三种方案">尝试第三种方案</h2>
+<h2 id="实验测试">实验测试</h2>
 <pre><code class="language-c++">#include &lt;iostream&gt;
 #include &lt;string&gt;
 using namespace std;
 
+void func()
+{
+	cout &lt;&lt; &quot;std::func()&quot; &lt;&lt; endl;
+}
+void func(int i)
+{
+	cout &lt;&lt; &quot;std::func(),i = &quot; &lt;&lt; i &lt;&lt; endl;
+}
+
 class Test
 {
 private:
-	static int mCount;
+	int i;
 public:
 	Test()
 	{
-		mCount++;	
-	} 
-	~Test()
+		cout &lt;&lt; &quot;Test::Test()&quot; &lt;&lt; endl;
+	}
+	Test(int v)
 	{
-		mCount--;
-	}		
-	int getCount()
+		this-&gt;i = v;
+		cout &lt;&lt; &quot;Test::Test(int v),i = &quot; &lt;&lt; i &lt;&lt;endl;
+	}	
+	Test(const Test&amp; obj)
 	{
-		return mCount;
+		this-&gt;i = obj.i;
+		cout &lt;&lt; &quot;Test::Test(const int&amp; obj),i = &quot; &lt;&lt; i &lt;&lt;  endl;
+	}
+	
+	static void func()
+	{
+		cout &lt;&lt; &quot;Test::static void func()&quot; &lt;&lt; endl;
+	}
+	
+	void func(int i)
+	{
+		cout &lt;&lt; &quot;Test::func(),i = &quot; &lt;&lt; i &lt;&lt; endl;
 	}
 };
 
-//如果不加这句，编译器就会报链接器的错误
-int Test::mCount = 0;//这是在类的外部单独定义这个静态成员变量并初始化为0
-//
+int main(int argc, char *argv[])
+{
+	func();
+	func(2);
+	
+	cout &lt;&lt; endl;
+	
+	Test t1;
+	Test t2(2);
+	Test t3(t1);
+	
+	cout &lt;&lt; endl;
+	
+	Test::func();
+	t1.func();
+	t1.func(3);
+	
+	return 0;
+}
+</code></pre>
+<pre><code>打印结果：
+std::func()
+std::func(),i = 2
 
-Test gTest;
+Test::Test()
+Test::Test(int v),i = 2
+Test::Test(const int&amp; obj),i = 1998216124
+
+Test::static void func()
+Test::static void func()
+Test::func(),i = 3
+请按任意键继续. . .
+</code></pre>
+<ul>
+<li>
+<p>万变不离其宗</p>
+<ol>
+<li>重载函数的本质为多个不同的函数</li>
+<li><strong>函数名</strong>和<strong>参数列表</strong>是唯一的标识</li>
+<li>函数重载<strong>必须发生在同一作用域中</strong></li>
+</ol>
+</li>
+<li>
+<p>静态成员函数和普通成员函数之间可以构成重载</p>
+</li>
+<li>
+<p>全局函数和类的成员函数不能构成重载，因为命名空间不一样</p>
+</li>
+</ul>
+<h1 id="深度的意义">深度的意义</h1>
+<ul>
+<li>重载的意义：就是通过函数名大概推出函数的功能，通过函数名提示开发者这个函数时干什么用的，通过参数列表告诉开发者这个函数该怎么使用
+<ol>
+<li>通过函数名对函数功能进行提示</li>
+<li>通过参数列表对函数用法进行提示</li>
+<li>扩展系统中已经存在的函数功能，本质上虽然是提供新的函数，但是从更高层次来说，还是扩展了函数功能</li>
+</ol>
+</li>
+</ul>
+<h2 id="实例演示">实例演示</h2>
+<ul>
+<li>实现字符串拷贝的功能</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
 
 int main(int argc, char *argv[])
 {
-	Test t1;
-	Test t2;
+	const char* s = &quot;D.T.Software&quot;;
+	char buf[16] = {0};
 	
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t1.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t2.getCount() &lt;&lt; endl;
-
-	Test* pt = new Test();
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; pt-&gt;getCount() &lt;&lt; endl;
-	delete pt;
+	strcpy(buf, s);
 	
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;	
+	cout &lt;&lt; buf &lt;&lt; endl;
+	
 	return 0;
 }
-//[Error] E:\User\exercise_Cpp\25jingtaichengyuan\main.cpp:(.text$_ZN4TestD1Ev[Test::~Test()]+0x5): undefined reference to `Test::mCount'
-//[Error] E:\User\exercise_Cpp\25jingtaichengyuan\main.cpp:(.text$_ZN4Test8getCountEv[Test::getCount()]+0x4): undefined reference to `Test::mCount'
-//[Error] E:\User\exercise_Cpp\25jingtaichengyuan\main.cpp:(.text$_ZN4TestC1Ev[Test::Test()]+0x5): undefined reference to `Test::mCount'
-//[Error] collect2: ld returned 1 exit status
-//这是链接器找不到static int mCount的内存空间，
-//需要在类的外部单独定义，以便于分配空间
 </code></pre>
+<ul>
+<li>但是，如果把buf[16]换成buf[4]，像这样：</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+	const char* s = &quot;D.T.Software&quot;;
+	char buf[4] = {0};
+	
+	strcpy(buf, s);
+	
+	cout &lt;&lt; buf &lt;&lt; endl;
+	
+	return 0;
+}
+</code></pre>
+<ul>
+<li>
+<p>运行结果就会出错，在Linux平台下肯定会出内存错误</p>
+</li>
+<li>
+<p>所以，我们换一个函数strncpy</p>
+</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+	const char* s = &quot;D.T.Software&quot;;
+	char buf[4] = {0};
+	
+	strncpy(buf, s, sizeof(buf)-1);
+	
+	cout &lt;&lt; buf &lt;&lt; endl;
+	
+	return 0;
+}
+</code></pre>
+<ul>
+<li>
+<p>这样就只会复制&quot;D.T&quot;这三个字符</p>
+</li>
+<li>
+<p>如果我们用上了重载，就扩展系统中已经存在的函数功能</p>
+</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+char* strcpy(char* buf, const char* str, unsigned int n)
+{
+	return strncpy(buf, str, n);
+}
+
+int main(int argc, char *argv[])
+{
+	const char* s = &quot;D.T.Software&quot;;
+	char buf[4] = {0};
+	
+	strcpy(buf, s, sizeof(buf)-1);//对于开发者而言，调用的还是同一个函数
+	
+	cout &lt;&lt; buf &lt;&lt; endl;
+	
+	return 0;
+}
+</code></pre>
+<h1 id="思考">思考</h1>
+<ul>
+<li>
+<p>重载能够扩展系统中已经存在的函数功能！</p>
+</li>
+<li>
+<p>那么重载是否也能够扩展其他更多的功能？</p>
+</li>
+</ul>
+<h2 id="复数类解决方案">复数类解决方案</h2>
+<p><img src="https://leichen2552.github.io//post-images/1581739873099.jpg" alt="" loading="lazy"><br>
+但是复数的相加减，C++的编译器是做不到的，这个下次再说</p>
 <h1 id="小结">小结</h1>
 <ul>
-<li>类中可以通过static关键字定义静态成员变量</li>
-<li>静态成员变量隶属于类所有，需要在外部进行分配空间</li>
-<li>每一个对象都可以访问静态成员变量</li>
-<li>静态成员变量在全局数据区分配空间</li>
-<li>静态成员变量的生命期为程序运行期</li>
+<li>类的成员函数之间可以进行重载</li>
+<li>重载必须发生在同一作用域当中</li>
+<li>全局函数和成员函数不能构成重载关系</li>
+<li>重载的意义在于扩展已经存在的功能</li>
 </ul>
 
                         </div>
                         
                             <div class="post-toc">
                                 <ul class="markdownIt-TOC">
-<li><a href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%9B%9E%E9%A1%BE">成员变量回顾</a></li>
-<li><a href="#%E6%96%B0%E7%9A%84%E9%9C%80%E6%B1%82%E5%B0%8F%E5%AE%9E%E4%BE%8B">新的需求：小实例</a>
+<li><a href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E5%9B%9E%E9%A1%BE">函数重载回顾</a>
 <ul>
-<li><a href="#%E5%B0%9D%E8%AF%95%E7%AC%AC%E4%B8%80%E7%A7%8D%E6%96%B9%E6%A1%88">尝试第一种方案</a></li>
-<li><a href="#%E5%B0%9D%E8%AF%95%E7%AC%AC%E4%BA%8C%E7%A7%8D%E6%96%B9%E6%A1%88">尝试第二种方案</a></li>
+<li><a href="#%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E8%BF%9B%E8%A1%8C%E9%87%8D%E8%BD%BD">类中的成员函数可以进行重载</a></li>
+<li><a href="#%E5%AE%9E%E9%AA%8C%E6%B5%8B%E8%AF%95">实验测试</a></li>
 </ul>
 </li>
-<li><a href="#%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F">静态成员变量</a>
+<li><a href="#%E6%B7%B1%E5%BA%A6%E7%9A%84%E6%84%8F%E4%B9%89">深度的意义</a>
 <ul>
-<li><a href="#%E5%B0%9D%E8%AF%95%E7%AC%AC%E4%B8%89%E7%A7%8D%E6%96%B9%E6%A1%88">尝试第三种方案</a></li>
+<li><a href="#%E5%AE%9E%E4%BE%8B%E6%BC%94%E7%A4%BA">实例演示</a></li>
+</ul>
+</li>
+<li><a href="#%E6%80%9D%E8%80%83">思考</a>
+<ul>
+<li><a href="#%E5%A4%8D%E6%95%B0%E7%B1%BB%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">复数类解决方案</a></li>
 </ul>
 </li>
 <li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
@@ -431,7 +509,7 @@ int main(int argc, char *argv[])
 
                                             <p class="copyright-item">
                                                 <span>Permalink:</span>
-                                                <span><a href="https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-bian-liang">https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-bian-liang</a></span>
+                                                <span><a href="https://leichen2552.github.io/post/hui-gu-29lei-zhong-de-han-shu-chong-zai">https://leichen2552.github.io/post/hui-gu-29lei-zhong-de-han-shu-chong-zai</a></span>
                                             </p>
 
                                             <p class="copyright-item">
@@ -446,9 +524,9 @@ int main(int argc, char *argv[])
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-bian-liang"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-bian-liang&sharesource=qzone&title=回顾（25）：类的静态成员变量&pics=https://blog.blinkstar.cn/images/avatar.png&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-bian-liang&sharesource=weibo&title=回顾（25）：类的静态成员变量 + " - " + &pic="https://blog.blinkstar.cn/images/avatar.png "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/hui-gu-29lei-zhong-de-han-shu-chong-zai"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/hui-gu-29lei-zhong-de-han-shu-chong-zai&sharesource=qzone&title=回顾（29）：类中的函数重载&pics=https://blog.blinkstar.cn/images/avatar.png&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/hui-gu-29lei-zhong-de-han-shu-chong-zai&sharesource=weibo&title=回顾（29）：类中的函数重载 + " - " + &pic="https://blog.blinkstar.cn/images/avatar.png "><i class="fa fa-weibo "></i></a>
                                                 
                                                     <div class="reward ">
                                                         <div class="reward-button ">&yen;
@@ -483,13 +561,9 @@ int main(int argc, char *argv[])
             <!---->
             <section class="post-nav">
                 
-                    <a class="prev" rel="prev" href="https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-han-shu">
-                        回顾（26）：类的静态成员函数
-                    </a>
-                    
                         
-                            <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-24jing-dian-wen-ti-jie-xi-er">
-                                回顾（24）：经典问题解析二
+                            <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-you-yuan-de-gan-ga-neng-li">
+                                回顾（28）：友元的尴尬能力
                             </a>
                             
             </section>

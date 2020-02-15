@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-02-14T09:14:59.307Z</updated>
+    <updated>2020-02-15T04:38:00.256Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,265 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[回顾（29）：类中的函数重载]]></title>
+        <id>https://leichen2552.github.io/post/hui-gu-29lei-zhong-de-han-shu-chong-zai</id>
+        <link href="https://leichen2552.github.io/post/hui-gu-29lei-zhong-de-han-shu-chong-zai">
+        </link>
+        <updated>2020-02-15T02:37:25.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E5%9B%9E%E9%A1%BE">函数重载回顾</a>
+<ul>
+<li><a href="#%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E8%BF%9B%E8%A1%8C%E9%87%8D%E8%BD%BD">类中的成员函数可以进行重载</a></li>
+<li><a href="#%E5%AE%9E%E9%AA%8C%E6%B5%8B%E8%AF%95">实验测试</a></li>
+</ul>
+</li>
+<li><a href="#%E6%B7%B1%E5%BA%A6%E7%9A%84%E6%84%8F%E4%B9%89">深度的意义</a>
+<ul>
+<li><a href="#%E5%AE%9E%E4%BE%8B%E6%BC%94%E7%A4%BA">实例演示</a></li>
+</ul>
+</li>
+<li><a href="#%E6%80%9D%E8%80%83">思考</a>
+<ul>
+<li><a href="#%E5%A4%8D%E6%95%B0%E7%B1%BB%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">复数类解决方案</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</p>
+<h1 id="函数重载回顾">函数重载回顾</h1>
+<ul>
+<li>函数重载的本质为互相独立的不同函数</li>
+<li>C++中通过<font color = blue size = 4><strong>函数名</strong></font>和<font color = green size = 4><strong>函数参数</strong></font>确定函数调用</li>
+<li>无法直接通过函数名得到重载函数的入口地址</li>
+<li>函数重载必然发生在同一个作用域中</li>
+</ul>
+<h2 id="类中的成员函数可以进行重载">类中的成员函数可以进行重载</h2>
+<ul>
+<li>构造函数的重载</li>
+<li>普通成员函数的重载</li>
+<li>静态成员函数的重载</li>
+</ul>
+<pre><code>问题：
+全局函数、普通成员函数以及静态成员函数之间是否可以构成重载？
+</code></pre>
+<h2 id="实验测试">实验测试</h2>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+void func()
+{
+	cout &lt;&lt; &quot;std::func()&quot; &lt;&lt; endl;
+}
+void func(int i)
+{
+	cout &lt;&lt; &quot;std::func(),i = &quot; &lt;&lt; i &lt;&lt; endl;
+}
+
+class Test
+{
+private:
+	int i;
+public:
+	Test()
+	{
+		cout &lt;&lt; &quot;Test::Test()&quot; &lt;&lt; endl;
+	}
+	Test(int v)
+	{
+		this-&gt;i = v;
+		cout &lt;&lt; &quot;Test::Test(int v),i = &quot; &lt;&lt; i &lt;&lt;endl;
+	}	
+	Test(const Test&amp; obj)
+	{
+		this-&gt;i = obj.i;
+		cout &lt;&lt; &quot;Test::Test(const int&amp; obj),i = &quot; &lt;&lt; i &lt;&lt;  endl;
+	}
+	
+	static void func()
+	{
+		cout &lt;&lt; &quot;Test::static void func()&quot; &lt;&lt; endl;
+	}
+	
+	void func(int i)
+	{
+		cout &lt;&lt; &quot;Test::func(),i = &quot; &lt;&lt; i &lt;&lt; endl;
+	}
+};
+
+int main(int argc, char *argv[])
+{
+	func();
+	func(2);
+	
+	cout &lt;&lt; endl;
+	
+	Test t1;
+	Test t2(2);
+	Test t3(t1);
+	
+	cout &lt;&lt; endl;
+	
+	Test::func();
+	t1.func();
+	t1.func(3);
+	
+	return 0;
+}
+</code></pre>
+<pre><code>打印结果：
+std::func()
+std::func(),i = 2
+
+Test::Test()
+Test::Test(int v),i = 2
+Test::Test(const int&amp; obj),i = 1998216124
+
+Test::static void func()
+Test::static void func()
+Test::func(),i = 3
+请按任意键继续. . .
+</code></pre>
+<ul>
+<li>
+<p>万变不离其宗</p>
+<ol>
+<li>重载函数的本质为多个不同的函数</li>
+<li><strong>函数名</strong>和<strong>参数列表</strong>是唯一的标识</li>
+<li>函数重载<strong>必须发生在同一作用域中</strong></li>
+</ol>
+</li>
+<li>
+<p>静态成员函数和普通成员函数之间可以构成重载</p>
+</li>
+<li>
+<p>全局函数和类的成员函数不能构成重载，因为命名空间不一样</p>
+</li>
+</ul>
+<h1 id="深度的意义">深度的意义</h1>
+<ul>
+<li>重载的意义：就是通过函数名大概推出函数的功能，通过函数名提示开发者这个函数时干什么用的，通过参数列表告诉开发者这个函数该怎么使用
+<ol>
+<li>通过函数名对函数功能进行提示</li>
+<li>通过参数列表对函数用法进行提示</li>
+<li>扩展系统中已经存在的函数功能，本质上虽然是提供新的函数，但是从更高层次来说，还是扩展了函数功能</li>
+</ol>
+</li>
+</ul>
+<h2 id="实例演示">实例演示</h2>
+<ul>
+<li>实现字符串拷贝的功能</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+	const char* s = &quot;D.T.Software&quot;;
+	char buf[16] = {0};
+	
+	strcpy(buf, s);
+	
+	cout &lt;&lt; buf &lt;&lt; endl;
+	
+	return 0;
+}
+</code></pre>
+<ul>
+<li>但是，如果把buf[16]换成buf[4]，像这样：</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+	const char* s = &quot;D.T.Software&quot;;
+	char buf[4] = {0};
+	
+	strcpy(buf, s);
+	
+	cout &lt;&lt; buf &lt;&lt; endl;
+	
+	return 0;
+}
+</code></pre>
+<ul>
+<li>
+<p>运行结果就会出错，在Linux平台下肯定会出内存错误</p>
+</li>
+<li>
+<p>所以，我们换一个函数strncpy</p>
+</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+	const char* s = &quot;D.T.Software&quot;;
+	char buf[4] = {0};
+	
+	strncpy(buf, s, sizeof(buf)-1);
+	
+	cout &lt;&lt; buf &lt;&lt; endl;
+	
+	return 0;
+}
+</code></pre>
+<ul>
+<li>
+<p>这样就只会复制&quot;D.T&quot;这三个字符</p>
+</li>
+<li>
+<p>如果我们用上了重载，就扩展系统中已经存在的函数功能</p>
+</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+char* strcpy(char* buf, const char* str, unsigned int n)
+{
+	return strncpy(buf, str, n);
+}
+
+int main(int argc, char *argv[])
+{
+	const char* s = &quot;D.T.Software&quot;;
+	char buf[4] = {0};
+	
+	strcpy(buf, s, sizeof(buf)-1);//对于开发者而言，调用的还是同一个函数
+	
+	cout &lt;&lt; buf &lt;&lt; endl;
+	
+	return 0;
+}
+</code></pre>
+<h1 id="思考">思考</h1>
+<ul>
+<li>
+<p>重载能够扩展系统中已经存在的函数功能！</p>
+</li>
+<li>
+<p>那么重载是否也能够扩展其他更多的功能？</p>
+</li>
+</ul>
+<h2 id="复数类解决方案">复数类解决方案</h2>
+<p><img src="https://leichen2552.github.io//post-images/1581739873099.jpg" alt="" loading="lazy"><br>
+但是复数的相加减，C++的编译器是做不到的，这个下次再说</p>
+<h1 id="小结">小结</h1>
+<ul>
+<li>类的成员函数之间可以进行重载</li>
+<li>重载必须发生在同一作用域当中</li>
+<li>全局函数和成员函数不能构成重载关系</li>
+<li>重载的意义在于扩展已经存在的功能</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[回顾（28）：友元的尴尬能力]]></title>
         <id>https://leichen2552.github.io/post/hui-gu-you-yuan-de-gan-ga-neng-li</id>
@@ -3584,176 +3843,6 @@ int main()
 <li>C++中的动态内存分配可以同时进行初始化</li>
 <li>C++中的动态内存分配时基于类型进行的</li>
 <li>C++中命名空间概念用于解决名称冲突问题</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（9）：函数重载分析（下）]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-9han-shu-chong-zai-fen-xi-xia</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-9han-shu-chong-zai-fen-xi-xia">
-        </link>
-        <updated>2020-02-02T08:19:39.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#%E9%87%8D%E8%BD%BD%E4%B8%8E%E6%8C%87%E9%92%88">重载与指针</a>
-<ul>
-<li><a href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E9%81%87%E4%B8%8A%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88">函数重载遇上函数指针</a></li>
-<li><a href="#c%E5%92%8Cc%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8">C++和C相互调用</a>
-<ul>
-<li><a href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">注意事项</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
-</ul>
-</li>
-<li><a href="#%E9%97%AE%E9%A2%98">问题</a></li>
-</ul>
-</p>
-<h1 id="重载与指针">重载与指针</h1>
-<ul>
-<li>下面的函数指针将保存哪个函数的地址？</li>
-</ul>
-<pre><code class="language-c++">int func(int x)
-{
-    return x;
-}
-
-int func(int a, int b)
-{
-    return a +b;
-}
-
-int func(const char* s)
-{
-    return strlen(s);
-}
-
-typedef int(*PFUNC)(int a);//函数指针类型为int
-int c = 0;
-PFUNC p = func;
-c = p(1); 
-</code></pre>
-<h2 id="函数重载遇上函数指针">函数重载遇上函数指针</h2>
-<ul>
-<li>将重载函数名赋值给函数指针时
-<ol>
-<li>根据重载规则挑选与函数指针参数列表一致的候选者</li>
-<li>严格匹配候选者的函数类型与函数指针的函数类型</li>
-</ol>
-</li>
-</ul>
-<pre><code>这也体现出C++是强类型的语言
-</code></pre>
-<ul>
-<li>注意
-<ul>
-<li>函数重载必然发生在同一个作用域</li>
-<li>编译器需要用参数列表或函数类型进行函数选择</li>
-<li>无法直接通过函数名得到重载函数的入口地址</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-c++">int func(int a, int b, int c)
-{
-    return a * b * c;
-}
-
-int func(int a, int b)
-{
-    return a + b;
-}
-
-int main()
-{
-    printf(&quot;%p\n&quot;,(int(*)(int, int))add);
-    printf(&quot;%p\n&quot;,(int(*)(int, int, int))add);
-
-    //下面这两句就饿没有指定函数指针的函数类型和参数列表的类型，所以肯定会报错
-    printf(&quot;%p\n&quot;,add);
-    printf(&quot;%p\n&quot;,add);
-
-    return 0;
-}
-//打印出两个函数地址不同
-</code></pre>
-<h2 id="c和c相互调用">C++和C相互调用</h2>
-<ul>
-<li>实际工程中C++和C代码相互调用时不可避免的</li>
-<li>C++编译器能够兼容C语言的编译方式</li>
-<li>C++编译器会优先使用C++的编译的方式</li>
-<li>extern关键字能强制让C++编译器进行C方式的编译</li>
-</ul>
-<pre><code class="language-c++">extern &quot;C&quot;
-{
-    //do C-style compilation here
-}
-</code></pre>
-<ul>
-<li>__cplusplus是C++内置的标准宏定义</li>
-<li>__cplusplus的意义
-<ul>
-<li>确保C代码以统一的C方式被编译成目标文件</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-c++">#ifdef __cplusplus
-extern &quot;C&quot;{
-#endif    
-
-//C code
-
-#ifdef __cplusplus
-}
-#endif
-</code></pre>
-<h3 id="注意事项">注意事项</h3>
-<ul>
-<li>C++编译器不能以C的方式编译重载函数</li>
-<li>编译方式决定函数名被编译后的目标名
-<ul>
-<li>C++编译方式将函数名和参数列表编译成目标名</li>
-<li>C编译方式只将函数名作为目标名进行编译</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-c++">//1
-int func(int a, int b, int c)
-{
-    return a * b * c;
-}
-
-int func(int a, int b)
-{
-    return a + b;
-}
-
-//2
-extern &quot;C&quot;{
-    int func(int a, int b, int c)
-    {
-        return a * b * c;
-    }
-
-    int func(int a, int b)
-    {
-        return a + b;
-    }
-}
-</code></pre>
-<pre><code>    利用这句g++ -c test.cpp -o test.oo将上面两部分代码进行编译后
-    用 nm 命令查看test.oo中的符号表，nm test.oo
-    结果第一部分代码能编译通过，二部分代码编译报错
-    所以C++编译方式将函数名和参数列表编译成目标名，C编译方式只将函数名作为目标名进行编译
-</code></pre>
-<h2 id="小结">小结</h2>
-<ul>
-<li>函数重载是C++对C的一个重要升级</li>
-<li>函数重载通过函数参数列表区分不同的同名函数</li>
-<li>extern关键字能够实现C和C++的相互调用</li>
-<li>编译方式决定符号表中的函数名的最终目标名</li>
-</ul>
-<h1 id="问题">问题</h1>
-<ul>
-<li>C中如何调用C++函数？</li>
 </ul>
 ]]></content>
     </entry>
