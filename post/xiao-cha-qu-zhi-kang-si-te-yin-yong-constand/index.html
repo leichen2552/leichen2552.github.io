@@ -190,7 +190,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                回顾（9）：函数重载分析（下）
+                                小插曲之“康斯特引用（const&amp;）”
                             </h1>
                             
                                 <!--en-->
@@ -200,12 +200,12 @@
                                         ChenLei's Blog
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2020-02-02</a>
+                                Date: <a href="#">2020-02-16</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">3.2
+                                    href="#">3.8
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">781</a></span>
+                                    <span class="post-words">words:<a href="#">687</a></span>
                                     
                                         <span class="post-category">
                                 Category:
@@ -221,187 +221,174 @@
                                 
                         </header>
                         <div class="post-content">
-                            <p><ul class="markdownIt-TOC">
-<li><a href="#%E9%87%8D%E8%BD%BD%E4%B8%8E%E6%8C%87%E9%92%88">重载与指针</a>
-<ul>
-<li><a href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E9%81%87%E4%B8%8A%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88">函数重载遇上函数指针</a></li>
-<li><a href="#c%E5%92%8Cc%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8">C++和C相互调用</a>
-<ul>
-<li><a href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">注意事项</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
-</ul>
-</li>
-<li><a href="#%E9%97%AE%E9%A2%98">问题</a></li>
-</ul>
-</p>
-<h1 id="重载与指针">重载与指针</h1>
-<ul>
-<li>下面的函数指针将保存哪个函数的地址？</li>
-</ul>
-<pre><code class="language-c++">int func(int x)
+                            <p><br>
+先来回顾下之前最后修改的复数类代码</p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Complex
 {
-    return x;
+private:
+	int a;
+	int b;
+public:
+	Complex(int a = 0, int b = 0)
+	{
+		this-&gt;a = a;
+		this-&gt;b = b;
+	}
+	int getA()
+	{
+		return a;
+	}
+	int getB()
+	{
+		return b;
+	}
+	Complex operator +(const Complex&amp; p)/********************/
+	{
+		cout &lt;&lt; &quot;Complex operator +(Complex&amp; p2)&quot; &lt;&lt; endl;
+		Complex ret;
+		
+		ret.a = this-&gt;a + p.a;
+		ret.b = this-&gt;b + p.b;	
+		
+		return ret;
+	}
+	
+	friend Complex operator +(const Complex&amp; p1,const Complex&amp; p2);
+} ;
+
+
+Complex operator +(const Complex&amp; p1, const Complex&amp; p2)/********************/
+{
+	cout &lt;&lt; &quot;friend Complex operator +(Complex p1, Complex p2);&quot; &lt;&lt;endl;
+	Complex ret;
+	
+	ret.a = p1.a + p2.a;
+	ret.b = p1.b + p2.b;	
+	
+	return ret;
 }
 
-int func(int a, int b)
+int main(int argc, char *argv[])
 {
-    return a +b;
-}
-
-int func(const char* s)
-{
-    return strlen(s);
-}
-
-typedef int(*PFUNC)(int a);//函数指针类型为int
-int c = 0;
-PFUNC p = func;
-c = p(1); 
-</code></pre>
-<h2 id="函数重载遇上函数指针">函数重载遇上函数指针</h2>
-<ul>
-<li>将重载函数名赋值给函数指针时
-<ol>
-<li>根据重载规则挑选与函数指针参数列表一致的候选者</li>
-<li>严格匹配候选者的函数类型与函数指针的函数类型</li>
-</ol>
-</li>
-</ul>
-<pre><code>这也体现出C++是强类型的语言
-</code></pre>
-<ul>
-<li>注意
-<ul>
-<li>函数重载必然发生在同一个作用域</li>
-<li>编译器需要用参数列表或函数类型进行函数选择</li>
-<li>无法直接通过函数名得到重载函数的入口地址</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-c++">int func(int a, int b, int c)
-{
-    return a * b * c;
-}
-
-int func(int a, int b)
-{
-    return a + b;
-}
-
-int main()
-{
-    printf(&quot;%p\n&quot;,(int(*)(int, int))add);
-    printf(&quot;%p\n&quot;,(int(*)(int, int, int))add);
-
-    //下面这两句就饿没有指定函数指针的函数类型和参数列表的类型，所以肯定会报错
-    printf(&quot;%p\n&quot;,add);
-    printf(&quot;%p\n&quot;,add);
-
-    return 0;
-}
-//打印出两个函数地址不同
-</code></pre>
-<h2 id="c和c相互调用">C++和C相互调用</h2>
-<ul>
-<li>实际工程中C++和C代码相互调用时不可避免的</li>
-<li>C++编译器能够兼容C语言的编译方式</li>
-<li>C++编译器会优先使用C++的编译的方式</li>
-<li>extern关键字能强制让C++编译器进行C方式的编译</li>
-</ul>
-<pre><code class="language-c++">extern &quot;C&quot;
-{
-    //do C-style compilation here
+	Complex c1(1,2);
+	Complex c2(3,4);
+	
+	Complex c3 = c1 + c2;//编译器能自己选择用哪个函数 
+	
+	cout &lt;&lt; &quot;c3 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c3.getA() &lt;&lt; &quot;,&quot; &lt;&lt; c3.getB() &lt;&lt; &quot;)&quot; &lt;&lt; endl;	
+	return 0;
 }
 </code></pre>
-<ul>
-<li>__cplusplus是C++内置的标准宏定义</li>
-<li>__cplusplus的意义
-<ul>
-<li>确保C代码以统一的C方式被编译成目标文件</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-c++">#ifdef __cplusplus
-extern &quot;C&quot;{
-#endif    
-
-//C code
-
-#ifdef __cplusplus
-}
-#endif
+<p>关注我在代码后面加了/********************/这个标记的，拿出来看下，就是这两行</p>
+<pre><code class="language-c++">Complex operator +(const Complex&amp; p)
+Complex operator +(const Complex&amp; p1, const Complex&amp; p2)
 </code></pre>
-<h3 id="注意事项">注意事项</h3>
-<ul>
-<li>C++编译器不能以C的方式编译重载函数</li>
-<li>编译方式决定函数名被编译后的目标名
-<ul>
-<li>C++编译方式将函数名和参数列表编译成目标名</li>
-<li>C编译方式只将函数名作为目标名进行编译</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-c++">//1
-int func(int a, int b, int c)
+<p>把这两行代码里的const去掉，像这样带回源代码，发现编译器就会报错</p>
+<pre><code class="language-c++">Complex operator +(Complex&amp; p)
+Complex operator +(Complex&amp; p1, Complex&amp; p2)
+//带回源代码
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Complex
 {
-    return a * b * c;
-}
+private:
+	int a;
+	int b;
+public:
+	Complex(int a = 0, int b = 0)
+	{
+		this-&gt;a = a;
+		this-&gt;b = b;
+	}
+	int getA()
+	{
+		return a;
+	}
+	int getB()
+	{
+		return b;
+	}
+/*
+	Complex operator +(const Complex&amp; p)
+	{
+		cout &lt;&lt; &quot;Complex operator +(Complex&amp; p2)&quot; &lt;&lt; endl;
+		Complex ret;
+		
+		ret.a = this-&gt;a + p.a;
+		ret.b = this-&gt;b + p.b;	
+		
+		return ret;
+	}*/
+	
+	Complex operator +(Complex&amp; p)
+	{
+		cout &lt;&lt; &quot;Complex operator +(Complex&amp; p2)&quot; &lt;&lt; endl;
+		Complex ret;
+		
+		ret.a = this-&gt;a + p.a;
+		ret.b = this-&gt;b + p.b;	
+		
+		return ret;
+	}
+	
+	//friend Complex operator +(const Complex&amp; p1,const Complex&amp; p2);
+	friend Complex operator +(Complex&amp; p1, Complex&amp; p2);
+} ;
 
-int func(int a, int b)
+
+/*
+Complex operator +(const Complex&amp; p1, const Complex&amp; p2)
 {
-    return a + b;
+	cout &lt;&lt; &quot;friend Complex operator +(Complex p1, Complex p2);&quot; &lt;&lt;endl;
+	Complex ret;
+	
+	ret.a = p1.a + p2.a;
+	ret.b = p1.b + p2.b;	
+	
+	return ret;
+}*/
+
+Complex operator +(Complex&amp; p1, Complex&amp; p2)
+{
+	cout &lt;&lt; &quot;friend Complex operator +(Complex p1, Complex p2);&quot; &lt;&lt;endl;
+	Complex ret;
+	
+	ret.a = p1.a + p2.a;
+	ret.b = p1.b + p2.b;	
+	
+	return ret;
 }
 
-//2
-extern &quot;C&quot;{
-    int func(int a, int b, int c)
-    {
-        return a * b * c;
-    }
-
-    int func(int a, int b)
-    {
-        return a + b;
-    }
+int main(int argc, char *argv[])
+{
+	Complex c0; 
+	Complex c1(1,2);
+	Complex c2(3,4);
+	
+	Complex c3 = c1 + c2;
+	
+	cout &lt;&lt; &quot;c3 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c3.getA() &lt;&lt; &quot;,&quot; &lt;&lt; c3.getB() &lt;&lt; &quot;)&quot; &lt;&lt; endl;	
+	return 0;
 }
+//错误信息
+//[Error] ..\main.cpp:81: error: ambiguous overload for 'operator+' in 'c1 + c2'
+//[Warning] ..\main.cpp:37: note: candidates are: Complex Complex::operator+(Complex&amp;)
+//[Warning] ..\main.cpp:65: note:                 Complex operator+(Complex&amp;, Complex&amp;)
 </code></pre>
-<pre><code>    利用这句g++ -c test.cpp -o test.oo将上面两部分代码进行编译后
-    用 nm 命令查看test.oo中的符号表，nm test.oo
-    结果第一部分代码能编译通过，二部分代码编译报错
-    所以C++编译方式将函数名和参数列表编译成目标名，C编译方式只将函数名作为目标名进行编译
-</code></pre>
-<h2 id="小结">小结</h2>
-<ul>
-<li>函数重载是C++对C的一个重要升级</li>
-<li>函数重载通过函数参数列表区分不同的同名函数</li>
-<li>extern关键字能够实现C和C++的相互调用</li>
-<li>编译方式决定符号表中的函数名的最终目标名</li>
-</ul>
-<h1 id="问题">问题</h1>
-<ul>
-<li>C中如何调用C++函数？</li>
-</ul>
+<p>我在Linux平台下用g++编译器尝试，还是报一样的错误！<br>
+这个问题我还没解决，去群里问了老师，他也没给出合理的解释！</p>
+<p><font color = blue size =4>在我学C++的时候，有人说C++这门语言，连C++之父都没完全弄懂，我一开始不这样觉得，现在我懂了</font></p>
 
                         </div>
                         
                             <div class="post-toc">
-                                <ul class="markdownIt-TOC">
-<li><a href="#%E9%87%8D%E8%BD%BD%E4%B8%8E%E6%8C%87%E9%92%88">重载与指针</a>
-<ul>
-<li><a href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E9%81%87%E4%B8%8A%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88">函数重载遇上函数指针</a></li>
-<li><a href="#c%E5%92%8Cc%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8">C++和C相互调用</a>
-<ul>
-<li><a href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">注意事项</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
-</ul>
-</li>
-<li><a href="#%E9%97%AE%E9%A2%98">问题</a></li>
-</ul>
-
+                                
                             </div>
                             
                                 
@@ -415,7 +402,7 @@ extern &quot;C&quot;{
 
                                             <p class="copyright-item">
                                                 <span>Permalink:</span>
-                                                <span><a href="https://leichen2552.github.io/post/hui-gu-9han-shu-chong-zai-fen-xi-xia">https://leichen2552.github.io/post/hui-gu-9han-shu-chong-zai-fen-xi-xia</a></span>
+                                                <span><a href="https://leichen2552.github.io/post/xiao-cha-qu-zhi-kang-si-te-yin-yong-constand">https://leichen2552.github.io/post/xiao-cha-qu-zhi-kang-si-te-yin-yong-constand</a></span>
                                             </p>
 
                                             <p class="copyright-item">
@@ -430,9 +417,9 @@ extern &quot;C&quot;{
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/hui-gu-9han-shu-chong-zai-fen-xi-xia"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/hui-gu-9han-shu-chong-zai-fen-xi-xia&sharesource=qzone&title=回顾（9）：函数重载分析（下）&pics=https://blog.blinkstar.cn/images/avatar.png&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/hui-gu-9han-shu-chong-zai-fen-xi-xia&sharesource=weibo&title=回顾（9）：函数重载分析（下） + " - " + &pic="https://blog.blinkstar.cn/images/avatar.png "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/xiao-cha-qu-zhi-kang-si-te-yin-yong-constand"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/xiao-cha-qu-zhi-kang-si-te-yin-yong-constand&sharesource=qzone&title=小插曲之“康斯特引用（const&amp;）”&pics=https://blog.blinkstar.cn/images/avatar.png&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/xiao-cha-qu-zhi-kang-si-te-yin-yong-constand&sharesource=weibo&title=小插曲之“康斯特引用（const&amp;）” + " - " + &pic="https://blog.blinkstar.cn/images/avatar.png "><i class="fa fa-weibo "></i></a>
                                                 
                                                     <div class="reward ">
                                                         <div class="reward-button ">&yen;
@@ -467,13 +454,9 @@ extern &quot;C&quot;{
             <!---->
             <section class="post-nav">
                 
-                    <a class="prev" rel="prev" href="https://leichen2552.github.io/post/hui-gu-10czhong-de-xin-cheng-yuan">
-                        回顾（10）：C++中的新成员
-                    </a>
-                    
                         
-                            <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-8han-shu-chong-zai-fen-xi">
-                                回顾（8）：函数重载分析（上）
+                            <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-30cao-zuo-fu-chong-zai-de-gai-nian">
+                                回顾（30）：操作符重载的概念
                             </a>
                             
             </section>

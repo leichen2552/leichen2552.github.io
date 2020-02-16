@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-02-16T13:42:15.264Z</updated>
+    <updated>2020-02-16T14:46:56.857Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,177 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[小插曲之“康斯特引用（const&）”]]></title>
+        <id>https://leichen2552.github.io/post/xiao-cha-qu-zhi-kang-si-te-yin-yong-constand</id>
+        <link href="https://leichen2552.github.io/post/xiao-cha-qu-zhi-kang-si-te-yin-yong-constand">
+        </link>
+        <updated>2020-02-16T13:42:30.000Z</updated>
+        <content type="html"><![CDATA[<p><br>
+先来回顾下之前最后修改的复数类代码</p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Complex
+{
+private:
+	int a;
+	int b;
+public:
+	Complex(int a = 0, int b = 0)
+	{
+		this-&gt;a = a;
+		this-&gt;b = b;
+	}
+	int getA()
+	{
+		return a;
+	}
+	int getB()
+	{
+		return b;
+	}
+	Complex operator +(const Complex&amp; p)/********************/
+	{
+		cout &lt;&lt; &quot;Complex operator +(Complex&amp; p2)&quot; &lt;&lt; endl;
+		Complex ret;
+		
+		ret.a = this-&gt;a + p.a;
+		ret.b = this-&gt;b + p.b;	
+		
+		return ret;
+	}
+	
+	friend Complex operator +(const Complex&amp; p1,const Complex&amp; p2);
+} ;
+
+
+Complex operator +(const Complex&amp; p1, const Complex&amp; p2)/********************/
+{
+	cout &lt;&lt; &quot;friend Complex operator +(Complex p1, Complex p2);&quot; &lt;&lt;endl;
+	Complex ret;
+	
+	ret.a = p1.a + p2.a;
+	ret.b = p1.b + p2.b;	
+	
+	return ret;
+}
+
+int main(int argc, char *argv[])
+{
+	Complex c1(1,2);
+	Complex c2(3,4);
+	
+	Complex c3 = c1 + c2;//编译器能自己选择用哪个函数 
+	
+	cout &lt;&lt; &quot;c3 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c3.getA() &lt;&lt; &quot;,&quot; &lt;&lt; c3.getB() &lt;&lt; &quot;)&quot; &lt;&lt; endl;	
+	return 0;
+}
+</code></pre>
+<p>关注我在代码后面加了/********************/这个标记的，拿出来看下，就是这两行</p>
+<pre><code class="language-c++">Complex operator +(const Complex&amp; p)
+Complex operator +(const Complex&amp; p1, const Complex&amp; p2)
+</code></pre>
+<p>把这两行代码里的const去掉，像这样带回源代码，发现编译器就会报错</p>
+<pre><code class="language-c++">Complex operator +(Complex&amp; p)
+Complex operator +(Complex&amp; p1, Complex&amp; p2)
+//带回源代码
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Complex
+{
+private:
+	int a;
+	int b;
+public:
+	Complex(int a = 0, int b = 0)
+	{
+		this-&gt;a = a;
+		this-&gt;b = b;
+	}
+	int getA()
+	{
+		return a;
+	}
+	int getB()
+	{
+		return b;
+	}
+/*
+	Complex operator +(const Complex&amp; p)
+	{
+		cout &lt;&lt; &quot;Complex operator +(Complex&amp; p2)&quot; &lt;&lt; endl;
+		Complex ret;
+		
+		ret.a = this-&gt;a + p.a;
+		ret.b = this-&gt;b + p.b;	
+		
+		return ret;
+	}*/
+	
+	Complex operator +(Complex&amp; p)
+	{
+		cout &lt;&lt; &quot;Complex operator +(Complex&amp; p2)&quot; &lt;&lt; endl;
+		Complex ret;
+		
+		ret.a = this-&gt;a + p.a;
+		ret.b = this-&gt;b + p.b;	
+		
+		return ret;
+	}
+	
+	//friend Complex operator +(const Complex&amp; p1,const Complex&amp; p2);
+	friend Complex operator +(Complex&amp; p1, Complex&amp; p2);
+} ;
+
+
+/*
+Complex operator +(const Complex&amp; p1, const Complex&amp; p2)
+{
+	cout &lt;&lt; &quot;friend Complex operator +(Complex p1, Complex p2);&quot; &lt;&lt;endl;
+	Complex ret;
+	
+	ret.a = p1.a + p2.a;
+	ret.b = p1.b + p2.b;	
+	
+	return ret;
+}*/
+
+Complex operator +(Complex&amp; p1, Complex&amp; p2)
+{
+	cout &lt;&lt; &quot;friend Complex operator +(Complex p1, Complex p2);&quot; &lt;&lt;endl;
+	Complex ret;
+	
+	ret.a = p1.a + p2.a;
+	ret.b = p1.b + p2.b;	
+	
+	return ret;
+}
+
+int main(int argc, char *argv[])
+{
+	Complex c0; 
+	Complex c1(1,2);
+	Complex c2(3,4);
+	
+	Complex c3 = c1 + c2;
+	
+	cout &lt;&lt; &quot;c3 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c3.getA() &lt;&lt; &quot;,&quot; &lt;&lt; c3.getB() &lt;&lt; &quot;)&quot; &lt;&lt; endl;	
+	return 0;
+}
+//错误信息
+//[Error] ..\main.cpp:81: error: ambiguous overload for 'operator+' in 'c1 + c2'
+//[Warning] ..\main.cpp:37: note: candidates are: Complex Complex::operator+(Complex&amp;)
+//[Warning] ..\main.cpp:65: note:                 Complex operator+(Complex&amp;, Complex&amp;)
+</code></pre>
+<p>我在Linux平台下用g++编译器尝试，还是报一样的错误！<br>
+这个问题我还没解决，去群里问了老师，他也没给出合理的解释！</p>
+<p><font color = blue size =4>在我学C++的时候，有人说C++这门语言，连C++之父都没完全弄懂，我一开始不这样觉得，现在我懂了</font></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[回顾（30）：操作符重载的概念]]></title>
         <id>https://leichen2552.github.io/post/hui-gu-30cao-zuo-fu-chong-zai-de-gai-nian</id>
@@ -3756,148 +3927,6 @@ int main()
 <li>const引用能够生成新的只读变量</li>
 <li>在编译器内部使用指针常量实现引用，C++中为了兼容C语言数组特性——地址之差不是所期望的，所以只能抛弃引用数组</li>
 <li>编译时不能直接确定初始值的const标识符都是只读变量</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（11）：新型的类型转换]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-11xin-xing-de-lei-xing-zhuan-huan</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-11xin-xing-de-lei-xing-zhuan-huan">
-        </link>
-        <updated>2020-02-03T08:08:18.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="强制类型转换">强制类型转换</h1>
-<h2 id="c方式的强制类型转换">C方式的强制类型转换</h2>
-<ul>
-<li>( Type ) ( Expression )</li>
-<li>Type( Expression )</li>
-</ul>
-<h2 id="c方式强制类型转换存在的问题">C方式强制类型转换存在的问题</h2>
-<ul>
-<li>过于粗暴
-<ul>
-<li>任意类型之间都可以进行转换，编译器很难判断其正确性</li>
-</ul>
-</li>
-<li>难于定位
-<ul>
-<li>在源代码中无法快速定位所有使用强制类型转换的语句</li>
-</ul>
-</li>
-</ul>
-<pre><code>强制类型在实际工程中是很难完全避免的！！！
-</code></pre>
-<h2 id="新式类型转换">新式类型转换</h2>
-<ul>
-<li>static_cast</li>
-<li>const_cast</li>
-<li>dynamic_cast</li>
-<li>reinterpret_cast</li>
-</ul>
-<h3 id="static_cast">static_cast</h3>
-<ul>
-<li>用于基本类型间的转换</li>
-<li>不能用于基本类型指针间的转换</li>
-<li>用于有继承关系类对象之间的转换和类指针之间的转换</li>
-</ul>
-<pre><code class="language-c++">void static_cast_demo()
-{
-    int i = 0x12345;
-    char c = 'c';
-    int* pi = &amp;i;
-    char* pc = &amp;c;
-    
-    c = static_cast&lt;char&gt;(i);
-    pc = static_cast&lt;char*&gt;(pi);//Error
-}
-</code></pre>
-<h3 id="const_cast">const_cast</h3>
-<ul>
-<li>用于去除变量的只读属性</li>
-<li>强制转换的目标类型必须是指针或引用</li>
-</ul>
-<pre><code class="language-c++">void const_cast_demo()
-{
-    const int&amp; j = 1;
-    int&amp; k = const_cast&lt;int&amp;&gt;(j);
-    
-    const int x = 2;
-    int&amp; y = const_cast&lt;int&amp;&gt;(x);
-    
-    int z = const_cast&lt;int&gt;(x);//Error
-    
-    k = 5;
-    
-    printf(&quot;k = %d\n&quot;, k);
-    printf(&quot;j = %d\n&quot;, j);
-    
-    y = 8;
-    
-    printf(&quot;x = %d\n&quot;, x);
-    printf(&quot;y = %d\n&quot;, y);
-    printf(&quot;&amp;x = %p\n&quot;, &amp;x);
-    printf(&quot;&amp;y = %p\n&quot;, &amp;y);
-}
-</code></pre>
-<h3 id="reinterpret_cast">reinterpret_cast</h3>
-<ul>
-<li>用于指针类型间的强制转换</li>
-<li>用于整数和指针类型间的强制转换</li>
-</ul>
-<pre><code class="language-c++">void reinterpret_cast_demo()
-{
-    int i = 0;
-    char c = 'c';
-    int* pi = &amp;i;
-    char* pc = &amp;c;
-    
-    pc = reinterpret_cast&lt;char*&gt;(pi);
-    pi = reinterpret_cast&lt;int*&gt;(pc);
-    pi = reinterpret_cast&lt;int*&gt;(i);
-    c = reinterpret_cast&lt;char&gt;(i); //Error
-}
-
-</code></pre>
-<h3 id="dynamic_cast">dynamic_cast</h3>
-<ul>
-<li>用于有继承关系的类指针间的转换</li>
-<li>用于有交叉关系的类指针间的转换</li>
-<li>具有类型检查的功能</li>
-<li>需要虚函数的支持</li>
-<li>具有类型检查的功能，如果类型转换失败的话，会被转换成<strong>空指针</strong></li>
-</ul>
-<pre><code class="language-c++">void dynamic_cast_demo()
-{
-    int i = 0;
-    int* pi = &amp;i;
-    char* pc = dynamic_cast&lt;char*&gt;(pi);//Error
-}
-
-int main()
-{
-    static_cast_demo();
-    const_cast_demo();
-    reinterpret_cast_demo();
-    dynamic_cast_demo();
-    
-    return 0;
-}
-</code></pre>
-<h1 id="小结">小结</h1>
-<ul>
-<li>C方式的强制类型转换
-<ul>
-<li>过于粗暴</li>
-<li>潜在的问题不易被发现</li>
-<li>不易在代码中定位</li>
-</ul>
-</li>
-<li>新式类型转换以C++关键字的方式出现
-<ul>
-<li>编译器能够帮助检查潜在的问题</li>
-<li>非常方便的在代码中定位</li>
-<li>支持动态类型识别（dynamic_cast）</li>
-</ul>
-</li>
 </ul>
 ]]></content>
     </entry>
