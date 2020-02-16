@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-02-15T04:38:00.256Z</updated>
+    <updated>2020-02-16T13:42:15.264Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,201 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[回顾（30）：操作符重载的概念]]></title>
+        <id>https://leichen2552.github.io/post/hui-gu-30cao-zuo-fu-chong-zai-de-gai-nian</id>
+        <link href="https://leichen2552.github.io/post/hui-gu-30cao-zuo-fu-chong-zai-de-gai-nian">
+        </link>
+        <updated>2020-02-16T08:00:17.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E5%A4%8D%E6%95%B0%E7%9A%84%E9%97%AE%E9%A2%98">复数的问题</a>
+<ul>
+<li><a href="#%E6%80%9D%E8%80%83">思考</a></li>
+</ul>
+</li>
+<li><a href="#%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD">操作符重载</a>
+<ul>
+<li><a href="#%E5%A4%8D%E6%95%B0%E7%B1%BB%E4%BB%A3%E7%A0%81%E4%BF%AE%E6%94%B9">复数类代码修改</a></li>
+<li><a href="#%E5%A4%8D%E6%95%B0%E7%B1%BB%E5%86%8D%E6%AC%A1%E4%BF%AE%E6%94%B9">复数类再次修改</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</p>
+<h1 id="复数的问题">复数的问题</h1>
+<p>上节课复数的类问题，重载最重要的意义之一就是可以拓展系统当中的功能<br>
+<img src="https://leichen2552.github.io//post-images/1581842743648.jpg" alt="" loading="lazy"><br>
+但是面对这个复数的加法，编译器肯定不知道怎么办，所以结合前面的友元等一些知识，利用函数显示加法来实现这一功能</p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Complex
+{
+private:
+	int a;
+	int b;
+public:
+	Complex()
+	{
+		a = 0;
+		b = 0;
+	}
+	Complex(int a, int b)
+	{
+		this-&gt;a = a;
+		this-&gt;b = b;
+	}
+	int getA()
+	{
+		return a;
+	}
+	int getB()
+	{
+		return b;
+	}
+	
+	friend Complex add(const Complex&amp; p1, const Complex&amp; p2);
+} ;
+
+Complex add(Complex p1, Complex p2)
+{
+	Complex ret;
+	
+	ret.a = p1.a + p2.a;
+	ret.b = p1.a + p2.b;	
+	
+	return ret;
+}
+
+int main(int argc, char *argv[])
+{
+	Complex c1(1,2);
+	Complex c2(3,4);
+	
+	Complex c3 = add(c1,c2);
+	
+	cout &lt;&lt; &quot;c3 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c3.getA() &lt;&lt; &quot;,&quot; &lt;&lt; c3.getB() &lt;&lt; &quot;)&quot; &lt;&lt; endl;	
+	return 0;
+}
+</code></pre>
+<p>这个确实实现了这个功能，但是c3 = add(c1,c2)这种表现形式不好看，而且利用友元也大大破坏了类的封装性。所以总的来看，这样的解决方案也不是最好的解决方案。</p>
+<h2 id="思考">思考</h2>
+<p>Add函数可以解决Complex对象相加的问题，但是Complex是现实世界中确实存在的复数，并且复数在数学中地位和普通的实数相同，<font color = blue size = 4>那有没有办法让 <font color=red size = 5><strong>+</strong></font> 这个操作符也支持复数相加呢？</font></p>
+<h1 id="操作符重载">操作符重载</h1>
+<ul>
+<li>C++中能重载操作符的功能</li>
+<li>操作符重载以函数的方式进行</li>
+<li>本质：
+<ul>
+<li>用特殊形式的函数扩展操作符的功能，意思就是写一个函数，这个函数认为是＋操作符进行的动作</li>
+</ul>
+</li>
+<li>通过operator关键字可以定义特殊的函数</li>
+<li>operator的本质是通过函数重载操作符</li>
+<li>语法：</li>
+</ul>
+<pre><code class="language-c++">Type operator Sign(const Type p1, const Type p2)
+{
+    Type ret;
+
+    return ret;
+}
+</code></pre>
+<p><font color = brown size = 4><em>Sign</em></font>为系统中<font color = red>预定义的操作符</font>，如：+，-，*，/，等</p>
+<h2 id="复数类代码修改">复数类代码修改</h2>
+<pre><code class="language-c++">friend Complex add(const Complex&amp; p1, const Complex&amp; p2); 
+//改成
+friend Complex operator +(Complex p1, Complex p2);
+
+Complex add(Complex p1, Complex p2)
+//改成
+Complex operator +(Complex p1, Complex p2);
+
+Complex c3 = add(c1,c2);
+//先修改成
+Complex c3 = operator +(c1,c2);
+//再修改成
+Complex c3 = c1 + c2;//改成这样就十分完美了，就相当于编译器知道这是复数类相加了
+</code></pre>
+<ul>
+<li>但是这种解决方案依然使用了友元</li>
+</ul>
+<h2 id="复数类再次修改">复数类再次修改</h2>
+<ul>
+<li>使用类成员函数来代替全局函数，既保持了类的封装性，又不使用友元</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Complex
+{
+private:
+	int a;
+	int b;
+public:
+	Complex(int a = 0, int b = 0)
+	{
+		this-&gt;a = a;
+		this-&gt;b = b;
+	}
+	int getA()
+	{
+		return a;
+	}
+	int getB()
+	{
+		return b;
+	}
+	Complex operator +(const Complex&amp; p)
+	{
+		cout &lt;&lt; &quot;Complex operator +(Complex&amp; p2)&quot; &lt;&lt; endl;
+		Complex ret;
+		
+		ret.a = this-&gt;a + p.a;
+		ret.b = this-&gt;b + p.b;	
+		
+		return ret;
+	}
+	
+	friend Complex operator +(const Complex&amp; p1,const Complex&amp; p2);
+} ;
+
+
+Complex operator +(const Complex&amp; p1, const Complex&amp; p2)
+{
+	cout &lt;&lt; &quot;friend Complex operator +(Complex p1, Complex p2);&quot; &lt;&lt;endl;
+	Complex ret;
+	
+	ret.a = p1.a + p2.a;
+	ret.b = p1.b + p2.b;	
+	
+	return ret;
+}
+
+int main(int argc, char *argv[])
+{
+	Complex c1(1,2);
+	Complex c2(3,4);
+	
+	Complex c3 = c1 + c2;//编译器能自己选择用哪个函数 
+	
+	cout &lt;&lt; &quot;c3 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c3.getA() &lt;&lt; &quot;,&quot; &lt;&lt; c3.getB() &lt;&lt; &quot;)&quot; &lt;&lt; endl;	
+	return 0;
+}
+</code></pre>
+<p>这部分代码在从编译器上复制到这篇博客上时，发生了一些小插曲，小插曲在下篇博客里面写。</p>
+<h1 id="小结">小结</h1>
+<ul>
+<li>操作符重载是C++的最强大的特性之一</li>
+<li>操作符重载的本质是通过函数拓展操作符的功能</li>
+<li>operator关键字是实现操作符重载的关键，用operator实现特殊的函数</li>
+<li>操作符重载遵循相同的函数重载规则</li>
+<li>全局函数和成员函数都可以实现对操作符的重载</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[回顾（29）：类中的函数重载]]></title>
         <id>https://leichen2552.github.io/post/hui-gu-29lei-zhong-de-han-shu-chong-zai</id>
@@ -3703,146 +3898,6 @@ int main()
 <li>支持动态类型识别（dynamic_cast）</li>
 </ul>
 </li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（10）：C++中的新成员]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-10czhong-de-xin-cheng-yuan</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-10czhong-de-xin-cheng-yuan">
-        </link>
-        <updated>2020-02-03T01:01:48.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="动态内存分配">动态内存分配</h1>
-<h2 id="c中的动态内存分配">C++中的动态内存分配</h2>
-<ul>
-<li>C++中通过new关键字进行动态内存申请</li>
-<li>C++中的动态内存申请是基于类型进行的</li>
-<li>delete关键字用于内存释放</li>
-</ul>
-<pre><code class="language-c++">//变量申请
-Type* pointer = new Type;
-//......
-delete pointer;
-
-//数组申请
-Type* pointer = new Type[N];
-//......
-delete[] pointer;
-</code></pre>
-<pre><code>怎么申请的就怎么释放！有没有[]要注意！！！
-</code></pre>
-<pre><code class="language-c++">int p = new int;
-
-p = new int[10];//这句动态内存申请，并不是表示p指向的是40个字节的一片内存空间
-                //这样说的话，面试官会不给你过
-                //因为动态内存分配时，分配的可能会比你申请的空间要大
-                //应该这样说，p指向的内存空间至少40个字节
-</code></pre>
-<h2 id="new关键字与malloc函数的区别">new关键字与malloc函数的区别</h2>
-<ul>
-<li>new关键字是C++的一部分
-<ul>
-<li>malloc是由C库提供的函数</li>
-</ul>
-</li>
-<li>new以具体类型为单位进行内存分配
-<ul>
-<li>malloc以字节为单位进行内存分配</li>
-</ul>
-</li>
-<li>new在申请单个类型变量时可进行初始化
-<ul>
-<li>malloc不具备内存初始化的特性</li>
-</ul>
-</li>
-</ul>
-<h2 id="new关键字的初始化">new关键字的初始化</h2>
-<pre><code class="language-c++">int* pi = new int(1);
-float* pf = new float(2.0f);
-char* pc = new char('c');
-</code></pre>
-<h1 id="c中的命名空间">C++中的命名空间</h1>
-<h2 id="在c语言中只有一个全局作用域">在C语言中只有一个全局作用域</h2>
-<ul>
-<li>C语言所有的全局标识符共享同一个作用域</li>
-<li>标识符之间可能发生冲突</li>
-</ul>
-<h2 id="c中提出了命名空间的概念">C++中提出了命名空间的概念</h2>
-<ul>
-<li>命名空间将全局作用域分成不同部分</li>
-<li>不同命名空间中的标识符可以同名而不会发生冲突</li>
-<li>命名空间可以相互嵌套</li>
-<li>全局作用域也叫做默认命名空间</li>
-</ul>
-<h3 id="c命名空间的定义">C++命名空间的定义</h3>
-<pre><code class="language-c++">namespace Name
-{
-    namespace Internal
-    {
-        /*  */
-    }
-    /**/
-}
-</code></pre>
-<h3 id="c命名空间的使用">C++命名空间的使用</h3>
-<ul>
-<li>使用整个命名空间：</li>
-</ul>
-<pre><code class="language-c++">using namespace name;
-</code></pre>
-<ul>
-<li>使用命名空间中的变量：</li>
-</ul>
-<pre><code class="language-c++">using name::varible;
-</code></pre>
-<ul>
-<li>使用默认命名空间中的变量：</li>
-</ul>
-<pre><code class="language-c++">::varible
-</code></pre>
-<pre><code class="language-c++">#include &lt;stdio.h&gt;
-
-namespace First
-{
-    int i = 0;
-}
-
-namespace Second
-{
-    int i =1;
-
-    namespace Internal
-    {
-        struct P
-        {
-            int x;
-            int y;
-        };
-    }
-}
-
-int main()
-{
-    using namespace First;
-    using Second::Internal::P;
-
-    printf(&quot;First::i = %d\n&quot;, i);
-    printf(&quot;Second::i = %d\n&quot;, Second::i);
-
-    P p = {2, 3};
-
-    printf(&quot;p.x = %d\n&quot;, p.x);
-    printf(&quot;p.y = %d\n&quot;, p.y);
-
-    return 0;
-}
-</code></pre>
-<h1 id="小结">小结</h1>
-<ul>
-<li>C++中内置的动态内存分配的专用关键字</li>
-<li>C++中的动态内存分配可以同时进行初始化</li>
-<li>C++中的动态内存分配时基于类型进行的</li>
-<li>C++中命名空间概念用于解决名称冲突问题</li>
 </ul>
 ]]></content>
     </entry>
