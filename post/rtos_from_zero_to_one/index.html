@@ -98,7 +98,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1581942160539" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1581942280443" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -117,7 +117,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1581942160539" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1581942280443" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -226,7 +226,7 @@
 <ul>
 <li><a href="#%E5%8D%95%E4%BB%BB%E5%8A%A1%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%BC%8A%E7%AB%AF">单任务系统的弊端</a></li>
 <li><a href="#%E5%BC%95%E5%85%A5rtos">引入RTOS</a></li>
-<li><a href="#cortex-m3%E5%86%85%E6%A0%B8pendsv%E6%9C%BA%E5%88%B6">Cortex-M3内核PendSV机制</a></li>
+<li><a href="#cortex-m3%E5%86%85%E6%A0%B8%E6%9C%BA%E5%88%B6">Cortex-M3内核机制</a></li>
 <li><a href="#rtos%E4%B8%AD%E7%9A%84%E4%BB%BB%E5%8A%A1">RTOS中的任务</a>
 <ul>
 <li><a href="#%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%AE%9A%E4%B9%89">任务的定义</a></li>
@@ -310,7 +310,7 @@ void main()
 做硬件开发的人应该知道，为了提高实时性，可以使用定时器中断，把实时性需求很高的函数放入定时器中断服务函数里面，这样就能看成是function3()在与主循环中的函数在并行运行。但是硬件资源有限，可移植性也不高。这时就需要介绍实时性操作系统（RTOS）。</p>
 <h2 id="引入rtos">引入RTOS</h2>
 <p>因为单任务系统的弊端，就需要多任务系统（以下称RTOS）来解决这些弊端。RTOS就像孙悟空的分身术，把一个自己变成十个，让这十个自己去完成不同的任务，但是我们的硬件内核Cortex-M3没有分身术，不能变出来十个，但是我们可以通过一些手段，让Cortex-M3看起来像是虚拟出来另外九个，并发地处理不同的任务。其实这里的并发处理任务不是说同一时刻执行不同的任务，而是每个任务的执行时间间隔非常短，看起来像是同一时间执行了很多任务。这里就出现一个大问题，什么时刻执行什么任务，什么任务先执行，什么任务后执行，这个功能在RTOS里面叫做调度器——合理地进行每个任务的调度。</p>
-<h2 id="cortex-m3内核pendsv机制">Cortex-M3内核PendSV机制</h2>
+<h2 id="cortex-m3内核机制">Cortex-M3内核机制</h2>
 <p>这个调度就是合理地切换任务，Cortex-M3内核提供了一种机制用来切换前后任务——PendSV异常。<br>
 PendSV 的典型使用场合是在上下文切换时（在不同任务之间切换）。例如，一个系统中有两个就绪的任务，上下文切换被触发的场合可以是：</p>
 <ol>
@@ -675,7 +675,7 @@ int main()
 <ul>
 <li><a href="#%E5%8D%95%E4%BB%BB%E5%8A%A1%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%BC%8A%E7%AB%AF">单任务系统的弊端</a></li>
 <li><a href="#%E5%BC%95%E5%85%A5rtos">引入RTOS</a></li>
-<li><a href="#cortex-m3%E5%86%85%E6%A0%B8pendsv%E6%9C%BA%E5%88%B6">Cortex-M3内核PendSV机制</a></li>
+<li><a href="#cortex-m3%E5%86%85%E6%A0%B8%E6%9C%BA%E5%88%B6">Cortex-M3内核机制</a></li>
 <li><a href="#rtos%E4%B8%AD%E7%9A%84%E4%BB%BB%E5%8A%A1">RTOS中的任务</a>
 <ul>
 <li><a href="#%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%AE%9A%E4%B9%89">任务的定义</a></li>
@@ -855,7 +855,7 @@ int main()
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1581942160539);
+                    newDate.setTime(1581942280443);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
