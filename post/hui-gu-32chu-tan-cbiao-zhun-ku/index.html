@@ -190,7 +190,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                回顾（10）：C++中的新成员
+                                回顾（32）：初探C++标准库
                             </h1>
                             
                                 <!--en-->
@@ -200,12 +200,12 @@
                                         ChenLei's Blog
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2020-02-03</a>
+                                Date: <a href="#">2020-02-17</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">2.5
+                                    href="#">3.7
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">622</a></span>
+                                    <span class="post-words">words:<a href="#">779</a></span>
                                     
                                         <span class="post-category">
                                 Category:
@@ -221,161 +221,197 @@
                                 
                         </header>
                         <div class="post-content">
-                            <h1 id="动态内存分配">动态内存分配</h1>
-<h2 id="c中的动态内存分配">C++中的动态内存分配</h2>
-<ul>
-<li>C++中通过new关键字进行动态内存申请</li>
-<li>C++中的动态内存申请是基于类型进行的</li>
-<li>delete关键字用于内存释放</li>
-</ul>
-<pre><code class="language-c++">//变量申请
-Type* pointer = new Type;
-//......
-delete pointer;
-
-//数组申请
-Type* pointer = new Type[N];
-//......
-delete[] pointer;
+                            <h1 id="有趣的重载">有趣的重载</h1>
+<p>操作符&lt;&lt;的原生意义是按位左移，例如：1 &lt;&lt; 2</p>
+<pre><code>意义是把 1 按位左移 2 位
+0001 &lt;&lt; 2   --&gt;     0100 
 </code></pre>
-<pre><code>怎么申请的就怎么释放！有没有[]要注意！！！
-</code></pre>
-<pre><code class="language-c++">int p = new int;
-
-p = new int[10];//这句动态内存申请，并不是表示p指向的是40个字节的一片内存空间
-                //这样说的话，面试官会不给你过
-                //因为动态内存分配时，分配的可能会比你申请的空间要大
-                //应该这样说，p指向的内存空间至少40个字节
-</code></pre>
-<h2 id="new关键字与malloc函数的区别">new关键字与malloc函数的区别</h2>
-<ul>
-<li>new关键字是C++的一部分
-<ul>
-<li>malloc是由C库提供的函数</li>
-</ul>
-</li>
-<li>new以具体类型为单位进行内存分配
-<ul>
-<li>malloc以字节为单位进行内存分配</li>
-</ul>
-</li>
-<li>new在申请单个类型变量时可进行初始化
-<ul>
-<li>malloc不具备内存初始化的特性</li>
-</ul>
-</li>
-</ul>
-<h2 id="new关键字的初始化">new关键字的初始化</h2>
-<pre><code class="language-c++">int* pi = new int(1);
-float* pf = new float(2.0f);
-char* pc = new char('c');
-</code></pre>
-<h1 id="c中的命名空间">C++中的命名空间</h1>
-<h2 id="在c语言中只有一个全局作用域">在C语言中只有一个全局作用域</h2>
-<ul>
-<li>C语言所有的全局标识符共享同一个作用域</li>
-<li>标识符之间可能发生冲突</li>
-</ul>
-<h2 id="c中提出了命名空间的概念">C++中提出了命名空间的概念</h2>
-<ul>
-<li>命名空间将全局作用域分成不同部分</li>
-<li>不同命名空间中的标识符可以同名而不会发生冲突</li>
-<li>命名空间可以相互嵌套</li>
-<li>全局作用域也叫做默认命名空间</li>
-</ul>
-<h3 id="c命名空间的定义">C++命名空间的定义</h3>
-<pre><code class="language-c++">namespace Name
-{
-    namespace Internal
-    {
-        /*  */
-    }
-    /**/
-}
-</code></pre>
-<h3 id="c命名空间的使用">C++命名空间的使用</h3>
-<ul>
-<li>使用整个命名空间：</li>
-</ul>
-<pre><code class="language-c++">using namespace name;
-</code></pre>
-<ul>
-<li>使用命名空间中的变量：</li>
-</ul>
-<pre><code class="language-c++">using name::varible;
-</code></pre>
-<ul>
-<li>使用默认命名空间中的变量：</li>
-</ul>
-<pre><code class="language-c++">::varible
-</code></pre>
+<p>重载左移操作符，将变量或者常量左移到一个对象中</p>
 <pre><code class="language-c++">#include &lt;stdio.h&gt;
 
-namespace First
+class Console
 {
-    int i = 0;
-}
+public :
+	void operator &lt;&lt; (int i)
+	{
+		printf(&quot;%d&quot;,i);
+	}
+	void operator &lt;&lt; (char c)
+	{
+		printf(&quot;%c&quot;,c);
+	}		
+};
 
-namespace Second
+Console cout;
+
+int main(int argc, char *argv[])
 {
-    int i =1;
-
-    namespace Internal
-    {
-        struct P
-        {
-            int x;
-            int y;
-        };
-    }
-}
-
-int main()
-{
-    using namespace First;
-    using Second::Internal::P;
-
-    printf(&quot;First::i = %d\n&quot;, i);
-    printf(&quot;Second::i = %d\n&quot;, Second::i);
-
-    P p = {2, 3};
-
-    printf(&quot;p.x = %d\n&quot;, p.x);
-    printf(&quot;p.y = %d\n&quot;, p.y);
-
-    return 0;
+	cout &lt;&lt; 1;
+	cout &lt;&lt; '\n';
+	
+	//cout &lt;&lt; 1 &lt;&lt; '\n';//像这样连续左移就不支持，所以采用这样
+	return 0;
 }
 </code></pre>
+<p>采用返回当前对象的方式支持连续左移</p>
+<pre><code class="language-c++">#include &lt;stdio.h&gt;
+
+class Console
+{
+public :
+	Console&amp; operator &lt;&lt; (int i)
+	{
+		printf(&quot;%d&quot;,i);
+		return *this;
+	}
+	Console&amp; operator &lt;&lt; (char c)
+	{
+		printf(&quot;%c&quot;,c);
+		return *this;
+	}		
+};
+
+Console cout;
+
+int main(int argc, char *argv[])
+{
+	cout &lt;&lt; 1 &lt;&lt; '\n';
+	return 0;
+}
+</code></pre>
+<p>但是生平最讨厌输入换行符'\n'，加入const char endl = '\n'</p>
+<pre><code class="language-c++">#include &lt;stdio.h&gt;
+
+const char endl = '\n';
+
+class Console
+{
+public :
+	Console&amp; operator &lt;&lt; (int i)
+	{
+		printf(&quot;%d&quot;,i);
+		return *this;
+	}
+	Console&amp; operator &lt;&lt; (char c)
+	{
+		printf(&quot;%c&quot;,c);
+		return *this;
+	}	
+	Console&amp; operator &lt;&lt; (const char* s)
+	{
+		printf(&quot;%s&quot;,s);
+		return *this;
+	}
+	Console&amp; operator &lt;&lt; (double d)
+	{
+		printf(&quot;%f&quot;,d);
+		return *this;
+	}	
+};
+
+Console cout;
+
+int main(int argc, char *argv[])
+{
+	double a = 0.777;
+	
+	cout &lt;&lt; 1 &lt;&lt; endl;
+	cout &lt;&lt; &quot;112233, &quot; &lt;&lt; a &lt;&lt;endl;
+	return 0;
+}
+</code></pre>
+<p><font color = blue size = 4>但是重复造轮子并不是一件有创造性的事，</font><br>
+<font color = blue size = 4>站在巨人的肩膀上解决问题会更加有效！</font></p>
+<h1 id="c标准库">c++标准库</h1>
+<ul>
+<li>
+<p>C++标准库不是C++语言的一部分，是那些做编译器的厂商在开发编译器的时候添加的，就是你做编译器，就要提供标准库</p>
+<ul>
+<li>C++标准库是由类库和函数库组成的集合</li>
+<li>C++标准库中定义的类和对象都位于std命名空间中</li>
+<li>C++标准库的头文件都不带.h后缀，这是因为C++自诞生以来就背负的沉重使命就是兼容C语言</li>
+<li>C++标准库涵盖了C库的功能</li>
+</ul>
+</li>
+<li>
+<p>C++编译环境组成<br>
+<img src="https://leichen2552.github.io//post-images/1581929564115.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>C++标准库预定义了多数常用的数据结构<br>
+<img src="https://leichen2552.github.io//post-images/1581929709852.png" alt="" loading="lazy"></p>
+</li>
+</ul>
+<pre><code class="language-c++">#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;cstdlib&gt;
+#include &lt;cmath&gt;
+
+//使用的是标准库，所以要打开这个命名空间
+using namespace std; 
+
+
+int main(int argc, char *argv[])
+{
+	printf(&quot;Hello world&quot;);
+	
+	char* p = (char*)malloc(16);
+	
+	strcpy(p, &quot;I love you&quot;);
+	
+	free(p);
+	 
+	return 0;
+}
+
+</code></pre>
+<ul>
+<li>使用cout和cin<br>
+<img src="https://leichen2552.github.io//post-images/1581930295253.png" alt="" loading="lazy"></li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+//使用的是标准库，所以要打开这个命名空间
+using namespace std; 
+
+
+int main(int argc, char *argv[])
+{
+	cout &lt;&lt; &quot;Hello world！&quot; &lt;&lt;endl;
+	double a = 0;
+	double b = 0;
+	
+	cout &lt;&lt; &quot;Input a: &quot;;
+	cin &gt;&gt; a;
+	
+	cout &lt;&lt; &quot;Input b: &quot;;
+	cin &gt;&gt; b;
+	
+	double c = sqrt(a*a + b*b);
+	
+	cout &lt;&lt; &quot;c = &quot; &lt;&lt; c &lt;&lt; endl; 
+	return 0;
+}
+</code></pre>
+<p>打印结果：<br>
+Hello world!<br>
+Input a: 3<br>
+Input a: 4<br>
+c = 5</p>
 <h1 id="小结">小结</h1>
 <ul>
-<li>C++中内置的动态内存分配的专用关键字</li>
-<li>C++中的动态内存分配可以同时进行初始化</li>
-<li>C++中的动态内存分配时基于类型进行的</li>
-<li>C++中命名空间概念用于解决名称冲突问题</li>
+<li>C++标准库是由类库和函数库组成的集合</li>
+<li>C++标准库包含经典算法和数据结构的实现</li>
+<li>C++标准库涵盖了C库的功能</li>
+<li>C++标准库中的所有类库和函数都位于<font color = blue size = 5><strong>std</strong></font>这个命名空间当中</li>
 </ul>
 
                         </div>
                         
                             <div class="post-toc">
                                 <ul class="markdownIt-TOC">
-<li><a href="#%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D">动态内存分配</a>
-<ul>
-<li><a href="#c%E4%B8%AD%E7%9A%84%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D">C++中的动态内存分配</a></li>
-<li><a href="#new%E5%85%B3%E9%94%AE%E5%AD%97%E4%B8%8Emalloc%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB">new关键字与malloc函数的区别</a></li>
-<li><a href="#new%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96">new关键字的初始化</a></li>
-</ul>
-</li>
-<li><a href="#c%E4%B8%AD%E7%9A%84%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4">C++中的命名空间</a>
-<ul>
-<li><a href="#%E5%9C%A8c%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8F%AA%E6%9C%89%E4%B8%80%E4%B8%AA%E5%85%A8%E5%B1%80%E4%BD%9C%E7%94%A8%E5%9F%9F">在C语言中只有一个全局作用域</a></li>
-<li><a href="#c%E4%B8%AD%E6%8F%90%E5%87%BA%E4%BA%86%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E7%9A%84%E6%A6%82%E5%BF%B5">C++中提出了命名空间的概念</a>
-<ul>
-<li><a href="#c%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E7%9A%84%E5%AE%9A%E4%B9%89">C++命名空间的定义</a></li>
-<li><a href="#c%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E7%9A%84%E4%BD%BF%E7%94%A8">C++命名空间的使用</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><a href="#%E6%9C%89%E8%B6%A3%E7%9A%84%E9%87%8D%E8%BD%BD">有趣的重载</a></li>
+<li><a href="#c%E6%A0%87%E5%87%86%E5%BA%93">c++标准库</a></li>
 <li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
 </ul>
 
@@ -392,7 +428,7 @@ int main()
 
                                             <p class="copyright-item">
                                                 <span>Permalink:</span>
-                                                <span><a href="https://leichen2552.github.io/post/hui-gu-10czhong-de-xin-cheng-yuan">https://leichen2552.github.io/post/hui-gu-10czhong-de-xin-cheng-yuan</a></span>
+                                                <span><a href="https://leichen2552.github.io/post/hui-gu-32chu-tan-cbiao-zhun-ku">https://leichen2552.github.io/post/hui-gu-32chu-tan-cbiao-zhun-ku</a></span>
                                             </p>
 
                                             <p class="copyright-item">
@@ -407,9 +443,9 @@ int main()
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/hui-gu-10czhong-de-xin-cheng-yuan"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/hui-gu-10czhong-de-xin-cheng-yuan&sharesource=qzone&title=回顾（10）：C++中的新成员&pics=https://blog.blinkstar.cn/images/avatar.png&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/hui-gu-10czhong-de-xin-cheng-yuan&sharesource=weibo&title=回顾（10）：C++中的新成员 + " - " + &pic="https://blog.blinkstar.cn/images/avatar.png "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/hui-gu-32chu-tan-cbiao-zhun-ku"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/hui-gu-32chu-tan-cbiao-zhun-ku&sharesource=qzone&title=回顾（32）：初探C++标准库&pics=https://blog.blinkstar.cn/images/avatar.png&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/hui-gu-32chu-tan-cbiao-zhun-ku&sharesource=weibo&title=回顾（32）：初探C++标准库 + " - " + &pic="https://blog.blinkstar.cn/images/avatar.png "><i class="fa fa-weibo "></i></a>
                                                 
                                                     <div class="reward ">
                                                         <div class="reward-button ">&yen;
@@ -444,13 +480,9 @@ int main()
             <!---->
             <section class="post-nav">
                 
-                    <a class="prev" rel="prev" href="https://leichen2552.github.io/post/hui-gu-11xin-xing-de-lei-xing-zhuan-huan">
-                        回顾（11）：新型的类型转换
-                    </a>
-                    
                         
-                            <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-9han-shu-chong-zai-fen-xi-xia">
-                                回顾（9）：函数重载分析（下）
+                            <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-31wan-shan-de-fu-shu-lei">
+                                回顾（31）：完善的复数类
                             </a>
                             
             </section>
