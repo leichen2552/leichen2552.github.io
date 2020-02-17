@@ -98,7 +98,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1581931571187" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1581942160539" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -117,7 +117,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1581931571187" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1581942160539" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -200,9 +200,9 @@
                                 Date: <a href="#">2020-01-05</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">19.8
+                                    href="#">19.7
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">5286</a></span>
+                                    <span class="post-words">words:<a href="#">5272</a></span>
                                     
                                         <span class="post-category">
                                 Category:
@@ -233,12 +233,12 @@
 <li><a href="#%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%A0%88">任务的栈</a></li>
 <li><a href="#%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%88%87%E6%8D%A2">任务的切换</a>
 <ul>
-<li><a href="#tinyosh%E6%96%87%E4%BB%B6">&quot;tinyOS.h&quot;文件</a></li>
-<li><a href="#switchc%E6%96%87%E4%BB%B6">&quot;switch.c&quot;文件</a></li>
-<li><a href="#mainc%E6%96%87%E4%BB%B6">&quot;main.c&quot;文件</a></li>
+<li><a href="#tinyosh">&quot;tinyOS.h&quot;</a></li>
+<li><a href="#switchc">&quot;switch.c&quot;</a></li>
+<li><a href="#mainc">&quot;main.c&quot;</a></li>
 </ul>
 </li>
-<li><a href="#%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%88%87%E6%8D%A2%E6%9C%BA%E5%88%B6">任务的切换机制</a></li>
+<li><a href="#%E4%BB%BB%E5%8A%A1%E5%88%87%E6%8D%A2%E6%9C%BA%E5%88%B6">任务切换机制</a></li>
 </ul>
 </li>
 <li><a href="#%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%88%87%E6%8D%A2">实现两个任务的切换</a></li>
@@ -403,7 +403,7 @@ void taskEntry(void* param)
     }
 </code></pre>
 <p>在这里有了这部分切换代码，就可以实现在两个任务的切换了，先上代码，再来讲解。</p>
-<h4 id="tinyosh文件">&quot;tinyOS.h&quot;文件</h4>
+<h4 id="tinyosh">&quot;tinyOS.h&quot;</h4>
 <pre><code class="language-c">#ifndef __TINYOS_H_
 #define __TINYOS_H_
 
@@ -431,7 +431,7 @@ void tTaskSwitch(void);
 
 #endif
 </code></pre>
-<h4 id="switchc文件">&quot;switch.c&quot;文件</h4>
+<h4 id="switchc">&quot;switch.c&quot;</h4>
 <pre><code class="language-c">#include &quot;tinyOS.h&quot;
 #include &quot;ARMCM3.h&quot;
 
@@ -514,7 +514,7 @@ void tTaskSwitch()
 }
 
 </code></pre>
-<h4 id="mainc文件">&quot;main.c&quot;文件</h4>
+<h4 id="mainc">&quot;main.c&quot;</h4>
 <pre><code class="language-c">#include &quot;tinyOS.h&quot;
 
 tTask* currentTask;
@@ -633,7 +633,7 @@ int main()
 </code></pre>
 <p>这里的代码算补写的，先写到这，明天继续！！！</p>
 <p>之前上面提到任务切换由PendSV异常来触发，但是PendSV由谁来触发？</p>
-<h3 id="任务的切换机制">任务的切换机制</h3>
+<h3 id="任务切换机制">任务切换机制</h3>
 <p>这里有两种触发方式，事件触发和时间触发。这里举个例子，一个医院有十个病人，每个病人配有一个护工，还有一个主治医生，如果病人出现小问题，如果护工能解决就不需要去叫主治医生来解决，如果护工不能解决就需要去求助主治医生。事件触发就是护工不能解决来求助主治医生，时间触发就是主治医生每隔一个小时就是查看每个病人。试想一下，如果同时三个护工同时来找主治医生，主治医生必然一个接着一个，但是这三个病人必须立马手术，不进行手术就会死亡，所以这时主治医生就分身乏术。所以事件触发相比时间触发来说，没有时间触发高效。那么PendSV异常的触发就用Cortex-M3内核自带的SysTick定时器，我们选择10ms触发一次。</p>
 <p>SysTick的配置：</p>
 <pre><code class="language-c">void tSetSysTickPeriod(uint32_t ms) //配置定时间隔
@@ -682,12 +682,12 @@ int main()
 <li><a href="#%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%A0%88">任务的栈</a></li>
 <li><a href="#%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%88%87%E6%8D%A2">任务的切换</a>
 <ul>
-<li><a href="#tinyosh%E6%96%87%E4%BB%B6">&quot;tinyOS.h&quot;文件</a></li>
-<li><a href="#switchc%E6%96%87%E4%BB%B6">&quot;switch.c&quot;文件</a></li>
-<li><a href="#mainc%E6%96%87%E4%BB%B6">&quot;main.c&quot;文件</a></li>
+<li><a href="#tinyosh">&quot;tinyOS.h&quot;</a></li>
+<li><a href="#switchc">&quot;switch.c&quot;</a></li>
+<li><a href="#mainc">&quot;main.c&quot;</a></li>
 </ul>
 </li>
-<li><a href="#%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%88%87%E6%8D%A2%E6%9C%BA%E5%88%B6">任务的切换机制</a></li>
+<li><a href="#%E4%BB%BB%E5%8A%A1%E5%88%87%E6%8D%A2%E6%9C%BA%E5%88%B6">任务切换机制</a></li>
 </ul>
 </li>
 <li><a href="#%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%88%87%E6%8D%A2">实现两个任务的切换</a></li>
@@ -855,7 +855,7 @@ int main()
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1581931571187);
+                    newDate.setTime(1581942160539);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
