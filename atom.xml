@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-02-16T14:46:56.857Z</updated>
+    <updated>2020-02-17T08:08:16.399Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,219 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[回顾（31）：完善的复数类]]></title>
+        <id>https://leichen2552.github.io/post/hui-gu-31wan-shan-de-fu-shu-lei</id>
+        <link href="https://leichen2552.github.io/post/hui-gu-31wan-shan-de-fu-shu-lei">
+        </link>
+        <updated>2020-02-17T06:40:59.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E5%AE%8C%E5%96%84%E7%9A%84%E5%A4%8D%E6%95%B0%E7%B1%BB">完善的复数类</a>
+<ul>
+<li><a href="#%E5%AE%8C%E5%96%84%E7%9A%84%E5%A4%8D%E6%95%B0%E7%B1%BB%E4%BB%A3%E7%A0%81">完善的复数类代码</a>
+<ul>
+<li><a href="#complexh">Complex.h</a></li>
+<li><a href="#complexcpp">Complex.cpp</a></li>
+<li><a href="#maincpp">main.cpp</a></li>
+</ul>
+</li>
+<li><a href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">注意事项</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</p>
+<h1 id="完善的复数类">完善的复数类</h1>
+<p>复试地位在数学里是很高的</p>
+<ul>
+<li>
+<p>复数类应该具有的操作</p>
+<ul>
+<li>运算：+，-，*，/</li>
+<li>比较：== !=</li>
+<li>赋值：=</li>
+<li>求模：modulus</li>
+</ul>
+</li>
+<li>
+<p>利用操作符重载</p>
+<ul>
+<li>统一复数与实数的运算方式</li>
+<li>统一于实数的比较方式</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">Complex operator + (const Cpmplex&amp; c);
+Complex operator - (const Cpmplex&amp; c);
+Complex operator * (const Cpmplex&amp; c);
+Complex operator / (const Cpmplex&amp; c);
+
+bool operator == (const Cpmplex&amp; c);
+bool operator != (const Cpmplex&amp; c);
+
+Complex&amp; operator = (const Cpmplex&amp; c);
+</code></pre>
+<h2 id="完善的复数类代码">完善的复数类代码</h2>
+<h3 id="complexh">Complex.h</h3>
+<pre><code class="language-c++">#ifndef _COMPLEX_H_
+#define _COMPLEX_H_
+
+class Complex
+{
+private:
+	double a;
+	double b;
+public:
+	Complex(double a = 0, double b = 0);//函数声明时确定默认值，在cpp文件中实现时就不
+                                        //需要声明默认值
+	double getA();
+	double getB();
+	double getModulus();
+	
+	Complex operator + (const Complex&amp; p);	
+	Complex operator - (const Complex&amp; p);	
+	Complex operator * (const Complex&amp; p);	
+	Complex operator / (const Complex&amp; p);	
+	
+	bool operator == (const Complex&amp; p);	
+	bool operator != (const Complex&amp; p);	
+	
+	Complex&amp; operator = (const Complex&amp; p);	
+};
+
+#endif 
+</code></pre>
+<h3 id="complexcpp">Complex.cpp</h3>
+<pre><code class="language-c++">#include &quot;Complex.h&quot;
+#include &quot;math.h&quot; 
+
+Complex::Complex(double a, double b)//在声明时声明默认值，实现这个函数时就不需要了 
+{
+	this-&gt;a = a;
+	this-&gt;b = b;
+}
+
+double Complex::getA()
+{
+	return a;
+}
+
+double Complex::getB()
+{
+	return b;
+}
+
+double Complex::getModulus()
+{
+	return sqrt(a*a + b*b);
+}	
+	
+Complex Complex::operator + (const Complex&amp; p)
+{
+	double na = this-&gt;a + p.a;
+	double nb = this-&gt;b + p.b;
+	Complex ret(na, nb);
+	
+	return ret;
+} 
+
+Complex Complex::operator - (const Complex&amp; p)
+{
+	double na = this-&gt;a - p.a;
+	double nb = this-&gt;b - p.b;
+	Complex ret(na, nb);
+	
+	return ret;
+}	
+
+Complex Complex::operator * (const Complex&amp; p)
+{
+	double na = this-&gt;a * p.a - this-&gt;b * p.b;
+	double nb = this-&gt;a * p.b + this-&gt;b * p.a;
+	Complex ret(na, nb);
+	
+	return ret;
+}	
+
+Complex Complex::operator / (const Complex&amp; p)
+{
+	double cm = p.a * p.a + p.b * p.b;
+	double na = (this-&gt;a * p.a + this-&gt;b * p.b) / cm;
+	double nb = (this-&gt;b * p.a - this-&gt;a * p.b) / cm;
+	Complex ret(na, nb);
+	
+	return ret;
+}	
+	
+bool Complex::operator == (const Complex&amp; p)
+{
+	return ((this-&gt;a == p.a) &amp;&amp; (this-&gt;b == p.b));
+}
+
+bool Complex::operator != (const Complex&amp; p)
+{
+	//这个实现方法非常巧妙，只需要他们相等的对立面
+	return !(*this == p); 
+}	
+	
+Complex&amp; Complex::operator = (const Complex&amp; p)
+{
+	if(this != &amp;p)
+	{
+		this-&gt;a = p.a;
+		this-&gt;b = p.b;		
+	}
+	return *this;
+}
+</code></pre>
+<h3 id="maincpp">main.cpp</h3>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &quot;Complex.h&quot;
+
+using namespace std;
+int main(int argc, char *argv[])
+{
+	Complex c1(1,2);
+	Complex c2(3,6);
+	
+	Complex c3 = c2 - c1;
+	cout &lt;&lt; &quot;c3 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c3.getA() &lt;&lt; &quot;, &quot; &lt;&lt; c3.getB() &lt;&lt; &quot;)&quot; &lt;&lt;endl;
+	
+	Complex c4 = c1 * c3;
+	cout &lt;&lt; &quot;c4 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c4.getA() &lt;&lt; &quot;, &quot; &lt;&lt; c4.getB() &lt;&lt; &quot;)&quot; &lt;&lt;endl;
+	
+	Complex c5 = c2 / c1;
+	cout &lt;&lt; &quot;c5 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c5.getA() &lt;&lt; &quot;, &quot; &lt;&lt; c5.getB() &lt;&lt; &quot;)&quot; &lt;&lt;endl;
+	
+	Complex c6(2,4);
+	cout &lt;&lt; &quot;c3 == c6 : &quot; &lt;&lt; (c3 == c6) &lt;&lt; endl;//这个(c3 == c6)是一定要加括号，
+            //因为 &lt;&lt; 比 == 优先级高，但是复数类中又没有重载&lt;&lt;操作符，所以会报错
+	cout &lt;&lt; &quot;c3 == c4 : &quot; &lt;&lt; (c3 != c4) &lt;&lt; endl;
+	
+	(c3 = c2) = c1;
+	cout &lt;&lt; &quot;c1 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c1.getA() &lt;&lt; &quot;, &quot; &lt;&lt; c1.getB() &lt;&lt; &quot;)&quot; &lt;&lt;endl;
+	cout &lt;&lt; &quot;c2 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c2.getA() &lt;&lt; &quot;, &quot; &lt;&lt; c2.getB() &lt;&lt; &quot;)&quot; &lt;&lt;endl;
+	cout &lt;&lt; &quot;c3 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c3.getA() &lt;&lt; &quot;, &quot; &lt;&lt; c3.getB() &lt;&lt; &quot;)&quot; &lt;&lt;endl;
+	return 0;
+}
+</code></pre>
+<h2 id="注意事项">注意事项</h2>
+<ul>
+<li>C++规定<font color = 740000>赋值操作符</font><strong>（=）</strong><font color = purple><font color = blue size = 5><strong>只能</strong></font>重载为成员函数</font></li>
+<li>操作符重载<font color = red>不能改变</font>原操作符的<font color = bf0000>优先级</font></li>
+<li>操作符重载<font color = red>不能改变</font>操作数的个数</li>
+<li>操作符重载<font color = red>不能改变</font>操作符的<font color = green size = 4><strong>原有语义</strong></font></li>
+</ul>
+<h1 id="小结">小结</h1>
+<ul>
+<li>复数的概念可以通过自定义类实现</li>
+<li>复数中的运算操作可以通过操作符重载实现</li>
+<li>赋值操作符只能通过成员函数实现，是不能通过全局函数的</li>
+<li>操作符重载的本质为函数定义</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[小插曲之“康斯特引用（const&）”]]></title>
         <id>https://leichen2552.github.io/post/xiao-cha-qu-zhi-kang-si-te-yin-yong-constand</id>
@@ -3764,169 +3977,6 @@ int main()
 <li>类和对象均来源于日常生活中</li>
 <li>每个类可以有很多对象</li>
 <li>每个对象必然属于某个类</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（12）：经典问题解析一]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-12jing-dian-wen-ti-jie-xi-yi</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-12jing-dian-wen-ti-jie-xi-yi">
-        </link>
-        <updated>2020-02-04T02:25:56.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="const">const</h1>
-<ul>
-<li>什么时候是只读变量？</li>
-<li>什么时候是常量？</li>
-</ul>
-<h2 id="const常量的判别标准">const常量的判别标准</h2>
-<ul>
-<li>只有用字面量初始化的const常量才会进入符号表</li>
-<li>使用其他变量初始化的const常量仍然是只读变量</li>
-<li>被volatile修饰的const常量不会进入符号表，volatile修饰的就是易变的，是可能发生变化，可能会在外部被改变，所以通过volatile去访问这个变量就会去访问这个变量的内存。所以const修饰只是当前文件下的这个变量是只读属性</li>
-</ul>
-<p><code>在编译期间不能直接确定初始值的const标识符，都被作为只读变量</code></p>
-<h2 id="关于const的提问">关于const的提问</h2>
-<ul>
-<li>const引用的类型与初始化变量的类型
-<ul>
-<li>相同：初始化变量成为只读变量</li>
-<li>不同：生成一个新的只读变量</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-c++">#include &lt;stdio.h&gt;
-
-int main()
-{
-    const int x = 2;
-    const int&amp; rx = x;
-    int&amp; nrx = const_cast&lt;int&amp;&gt;(rx);
-
-    nrx = 5;
-
-    printf(&quot;x = %d\n&quot;,x);
-    printf(&quot;rx = %d\n&quot;,rx);
-    printf(&quot;nrx = %d\n&quot;,nrx);
-    printf(&quot;&amp;x = %d\n&quot;,&amp;x);
-    printf(&quot;&amp;rx = %d\n&quot;,&amp;rx);
-    printf(&quot;&amp;nrx = %d\n&quot;,&amp;nrx);
-    
-    volatile const int y = 2;
-    int* p = const_cast&lt;int*&gt;(&amp;y)
-
-    *p = 6;
-
-    printf(&quot;y = %d\n&quot;,y);
-    printf(&quot;p = %p\n&quot;,p);
-
-    const int z = y;
-
-    p = const_cast&lt;int*&gt;(&amp;z);
-
-    *p = 7;
-
-    printf(&quot;z= %d\n&quot;, z);
-    printf(&quot;p = %p\n&quot;, p);
-
-    char c = 'c';
-    char&amp; rc = c;
-    const int&amp; trc = c;//这已经是一个新的只读变量了
-
-    rc = 'a';
-
-    printf(&quot;c= %d\n&quot;, c);       //a
-    printf(&quot;rc = %p\n&quot;, rc);    //a
-
-    printf(&quot;trc = %p\n&quot;, trc);  //c
-    //const引用的类型与初始化变量的类型不同，会生成一个新的只读变量
-
-    return 0;
-}
-</code></pre>
-<h2 id="引用和指针有什么关系">引用和指针有什么关系</h2>
-<ul>
-<li>如何理解引用的本质就是指针常量
-<ul>
-<li>指针就是一个变量
-<ul>
-<li>值为一个内存地址，不需要初始化，可以保存不同的地址</li>
-<li>通过指针访问对应内存地址中的值</li>
-<li>指针可以被const修饰成为常量或者只读变量</li>
-</ul>
-</li>
-<li>引用只是一个变量的新名字
-<ul>
-<li>对引用的操作（赋值，取地址等）都会传递到代表的变量上</li>
-<li>const引用使其代表的变量具有只读属性</li>
-<li>引用必须在定义时初始化，之后无法代表其他变量</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>从不同的角度来看
-<ul>
-<li>从使用C++语言角度的角度来看
-<ul>
-<li>引用于指针没有任何的关系</li>
-<li>引用是变量的新名字，操作引用就是操作对应的变量</li>
-</ul>
-</li>
-<li>从C++编译器的角度来看
-<ul>
-<li>为了支持新概念“引用”必须要一个有效的解决方案</li>
-<li>在编译器内部，使用指针常量来实现引用</li>
-<li>因此“引用”在定义时必须初始化</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>在工程项目开发中
-<ul>
-<li>当进行C++编程时，直接站在使用的角度看待引用，与指针毫无关系，引用就是变量的别名</li>
-<li>当对C++代码进行调试分析时，一些特殊情况，可以考虑站在C++编译器的角度看待引用</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-c++">#include &lt;stdio.h&gt;
-
-int a = 1;
-
-struct SV
-{
-    int&amp; x;
-    int&amp; y;
-    int&amp; z;
-};
-
-int main()
-{
-    int b = 2;
-    int* pc = new int(3);
-    SV sv = {a, b, *pc};
-    int&amp; array[] = {a, b, *pc}; // &amp;array[1] - &amp;array[0] = ?  Expected ==&gt; 4
-    /*
-    C语言中的数组在内存中是依次顺序排放的。
-    当然在C++中，也是需要兼容C语言中的这个特性，但是唯有引用数组就破坏了这个特性。
-    比如上面的， &amp;array[1] - &amp;array[0]是不为4的，可以利用结构体SV查看x、y、z的地址。
-    所以说，C++中不支持引用数组！！！
-    */
-    printf(&quot;&amp;sv.x = %p\n&quot;, &amp;sv.x);
-    printf(&quot;&amp;sv.y = %p\n&quot;, &amp;sv.y);
-    printf(&quot;&amp;sv.z = %p\n&quot;, &amp;sv.z);
-    
-    delete pc;
-    
-    return 0;
-}
-</code></pre>
-<p><font  face = "Courier New" color = blue size = 5><strong>所以说，C++中不支持引用数组！</strong></font></p>
-<h1 id="小结">小结</h1>
-<ul>
-<li>指针是一个变量</li>
-<li>引用就是一个变量的新名字</li>
-<li>const引用能够生成新的只读变量</li>
-<li>在编译器内部使用指针常量实现引用，C++中为了兼容C语言数组特性——地址之差不是所期望的，所以只能抛弃引用数组</li>
-<li>编译时不能直接确定初始值的const标识符都是只读变量</li>
 </ul>
 ]]></content>
     </entry>

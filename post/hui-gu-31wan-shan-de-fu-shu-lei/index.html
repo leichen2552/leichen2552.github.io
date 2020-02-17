@@ -190,7 +190,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                回顾（5）：引用本质分析
+                                回顾（31）：完善的复数类
                             </h1>
                             
                                 <!--en-->
@@ -200,12 +200,12 @@
                                         ChenLei's Blog
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2020-01-30</a>
+                                Date: <a href="#">2020-02-17</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">3.8
+                                    href="#">5.0
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">957</a></span>
+                                    <span class="post-words">words:<a href="#">962</a></span>
                                     
                                         <span class="post-category">
                                 Category:
@@ -221,166 +221,229 @@
                                 
                         </header>
                         <div class="post-content">
-                            <h1 id="c中的引用">C++中的引用</h1>
-<h2 id="引用的意义">引用的意义</h2>
+                            <p><ul class="markdownIt-TOC">
+<li><a href="#%E5%AE%8C%E5%96%84%E7%9A%84%E5%A4%8D%E6%95%B0%E7%B1%BB">完善的复数类</a>
 <ul>
-<li>引用作为变量别名而存在，因此在一些场合可以代替指针</li>
-<li>引用相对于指针来说具有更好的可读性和实用性</li>
+<li><a href="#%E5%AE%8C%E5%96%84%E7%9A%84%E5%A4%8D%E6%95%B0%E7%B1%BB%E4%BB%A3%E7%A0%81">完善的复数类代码</a>
+<ul>
+<li><a href="#complexh">Complex.h</a></li>
+<li><a href="#complexcpp">Complex.cpp</a></li>
+<li><a href="#maincpp">main.cpp</a></li>
 </ul>
-<h3 id="exampleswap函数的实现对比">Example：Swap函数的实现对比</h3>
-<pre><code class="language-c++">void Swap(int&amp; a, int&amp; b)
-{
-    int t = a;
-    a = b;
-    b = t;
-}
+</li>
+<li><a href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">注意事项</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</p>
+<h1 id="完善的复数类">完善的复数类</h1>
+<p>复试地位在数学里是很高的</p>
+<ul>
+<li>
+<p>复数类应该具有的操作</p>
+<ul>
+<li>运算：+，-，*，/</li>
+<li>比较：== !=</li>
+<li>赋值：=</li>
+<li>求模：modulus</li>
+</ul>
+</li>
+<li>
+<p>利用操作符重载</p>
+<ul>
+<li>统一复数与实数的运算方式</li>
+<li>统一于实数的比较方式</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">Complex operator + (const Cpmplex&amp; c);
+Complex operator - (const Cpmplex&amp; c);
+Complex operator * (const Cpmplex&amp; c);
+Complex operator / (const Cpmplex&amp; c);
 
-void Swap(int* a, int* b)
-{
-    int t = *a;
-    *a = *b;
-    *b = t;
-}
+bool operator == (const Cpmplex&amp; c);
+bool operator != (const Cpmplex&amp; c);
+
+Complex&amp; operator = (const Cpmplex&amp; c);
 </code></pre>
-<p>这两种就好像手动挡的车与自动挡的车，自动挡的车好开，这就好比是引用</p>
-<p>注意：</p>
-<ul>
-<li>函数的引用形参不需要进行初始化，它的初始化发生在函数调用的时候</li>
-</ul>
-<h2 id="特殊的引用">特殊的引用</h2>
-<h3 id="const引用">const引用</h3>
-<ul>
-<li>在C++中可以声明const引用</li>
-<li>语法：const Type&amp; name = var;</li>
-<li>const 引用让变量拥有只读属性</li>
-</ul>
-<pre><code class="language-c++">int a = 4;
-const int&amp; b = a;
-int* p = (int*)&amp;b;
+<h2 id="完善的复数类代码">完善的复数类代码</h2>
+<h3 id="complexh">Complex.h</h3>
+<pre><code class="language-c++">#ifndef _COMPLEX_H_
+#define _COMPLEX_H_
 
-b = 5;              // Error，只读变量
-*p = 5;             //OK，修改变量 a 的值
-</code></pre>
-<ul>
-<li>现在已经知道引用是另一个变量的别名，因此一个引用绝对不可能是常量值的别名。换句话说，就是不能定义一个引用然后用常量值来初始化，这里的常量是字面常量，因为从概念上来说是不可行的。但是有一个例外，就是const引用，我么可以用字面常量来对一个const引用初始化，编译器这个时候就会真真正正产生一个只读变量。</li>
-</ul>
-<pre><code class="language-c++">const int&amp; b = 1;   //ok
-int* p = (int*)&amp;b;
-
-b = 5;                  //Error，只读变量
-
-*p = 5;                 //OK，修改变量 b 的值
-</code></pre>
-<ul>
-<li>当使用常量对const引用进行初始化时，C++编译器会为这个常量分配空间，并将引用名作为这段空间的别名</li>
-<li>结论：使用常量对const引用初始化后将生成一个只读变量</li>
-</ul>
-<h2 id="引用有自己的存储空间吗">引用有自己的存储空间吗</h2>
-<p>小测试：</p>
-<pre><code class="language-c++">#include &lt;stdio.h&gt;
-struct TRef
+class Complex
 {
-    char&amp; r;
+private:
+	double a;
+	double b;
+public:
+	Complex(double a = 0, double b = 0);//函数声明时确定默认值，在cpp文件中实现时就不
+                                        //需要声明默认值
+	double getA();
+	double getB();
+	double getModulus();
+	
+	Complex operator + (const Complex&amp; p);	
+	Complex operator - (const Complex&amp; p);	
+	Complex operator * (const Complex&amp; p);	
+	Complex operator / (const Complex&amp; p);	
+	
+	bool operator == (const Complex&amp; p);	
+	bool operator != (const Complex&amp; p);	
+	
+	Complex&amp; operator = (const Complex&amp; p);	
 };
 
-int main()
+#endif 
+</code></pre>
+<h3 id="complexcpp">Complex.cpp</h3>
+<pre><code class="language-c++">#include &quot;Complex.h&quot;
+#include &quot;math.h&quot; 
+
+Complex::Complex(double a, double b)//在声明时声明默认值，实现这个函数时就不需要了 
 {
-    char c = 'c';
-    char&amp; rc = c;
+	this-&gt;a = a;
+	this-&gt;b = b;
+}
 
-    TRef ref = {c};
+double Complex::getA()
+{
+	return a;
+}
 
-    printf(&quot;sizeof(char&amp;) = %d\n&quot;,sizeof(char&amp;));   //1
-    printf(&quot;sizeof(rc) = %d\n&quot;,sizeof(rc));                 //1
+double Complex::getB()
+{
+	return b;
+}
 
-    printf(&quot;sizeof(TRef) = %d\n&quot;,sizeof(TRef));         //4
-    printf(&quot;sizeof(ref.r) = %d\n&quot;,sizeof(ref.r));           //1
+double Complex::getModulus()
+{
+	return sqrt(a*a + b*b);
+}	
+	
+Complex Complex::operator + (const Complex&amp; p)
+{
+	double na = this-&gt;a + p.a;
+	double nb = this-&gt;b + p.b;
+	Complex ret(na, nb);
+	
+	return ret;
+} 
 
-    return 0;
+Complex Complex::operator - (const Complex&amp; p)
+{
+	double na = this-&gt;a - p.a;
+	double nb = this-&gt;b - p.b;
+	Complex ret(na, nb);
+	
+	return ret;
+}	
+
+Complex Complex::operator * (const Complex&amp; p)
+{
+	double na = this-&gt;a * p.a - this-&gt;b * p.b;
+	double nb = this-&gt;a * p.b + this-&gt;b * p.a;
+	Complex ret(na, nb);
+	
+	return ret;
+}	
+
+Complex Complex::operator / (const Complex&amp; p)
+{
+	double cm = p.a * p.a + p.b * p.b;
+	double na = (this-&gt;a * p.a + this-&gt;b * p.b) / cm;
+	double nb = (this-&gt;b * p.a - this-&gt;a * p.b) / cm;
+	Complex ret(na, nb);
+	
+	return ret;
+}	
+	
+bool Complex::operator == (const Complex&amp; p)
+{
+	return ((this-&gt;a == p.a) &amp;&amp; (this-&gt;b == p.b));
+}
+
+bool Complex::operator != (const Complex&amp; p)
+{
+	//这个实现方法非常巧妙，只需要他们相等的对立面
+	return !(*this == p); 
+}	
+	
+Complex&amp; Complex::operator = (const Complex&amp; p)
+{
+	if(this != &amp;p)
+	{
+		this-&gt;a = p.a;
+		this-&gt;b = p.b;		
+	}
+	return *this;
 }
 </code></pre>
-<h2 id="引用的本质">引用的本质</h2>
-<h3 id="引用在c内部实现是一个指针常量">引用在C++内部实现是一个指针常量</h3>
-<p>Type&amp; name      <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>←</mo><mo>→</mo></mrow><annotation encoding="application/x-tex">\leftarrow \rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">←</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span>        Type* const name</p>
-<pre><code class="language-c++">void f(int&amp; a)              void f(int* const a)
-{                           {
-    a = 5;                      *a = 5
-}                           }
-</code></pre>
-<p>注意：</p>
-<ul>
-<li>C++编译器在编译过程中用指针常量作为引用的内部实现，因此引用所占的空间大小与指针相同</li>
-<li>从使用的角度，引用只是一个别名，C++为了实用性而隐藏了引用的存储空间这一细节</li>
-</ul>
-<h2 id="引用的意义-2">引用的意义</h2>
-<ul>
-<li>C++中的引用旨在大多数情况下代替指针</li>
-<li>功能性：可以满足多数需要使用指针的场合</li>
-<li>安全性：可以避开由于指针操作不当而带来的内存错误</li>
-<li>操作性：简单易用，又不失功能强大</li>
-</ul>
-<h2 id="实例解读">实例解读</h2>
-<ol>
-<li>不能返回局部变量的引用</li>
-</ol>
-<pre><code class="language-c++">int&amp; demo()     //int* const
+<h3 id="maincpp">main.cpp</h3>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &quot;Complex.h&quot;
+
+using namespace std;
+int main(int argc, char *argv[])
 {
-    int d = 0;
-
-    printf(&quot;demo : d = %d\n&quot;, d);
-
-    return d;       //return &amp;d，返回一个局部变量的地址就是有问题
-} 
+	Complex c1(1,2);
+	Complex c2(3,6);
+	
+	Complex c3 = c2 - c1;
+	cout &lt;&lt; &quot;c3 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c3.getA() &lt;&lt; &quot;, &quot; &lt;&lt; c3.getB() &lt;&lt; &quot;)&quot; &lt;&lt;endl;
+	
+	Complex c4 = c1 * c3;
+	cout &lt;&lt; &quot;c4 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c4.getA() &lt;&lt; &quot;, &quot; &lt;&lt; c4.getB() &lt;&lt; &quot;)&quot; &lt;&lt;endl;
+	
+	Complex c5 = c2 / c1;
+	cout &lt;&lt; &quot;c5 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c5.getA() &lt;&lt; &quot;, &quot; &lt;&lt; c5.getB() &lt;&lt; &quot;)&quot; &lt;&lt;endl;
+	
+	Complex c6(2,4);
+	cout &lt;&lt; &quot;c3 == c6 : &quot; &lt;&lt; (c3 == c6) &lt;&lt; endl;//这个(c3 == c6)是一定要加括号，
+            //因为 &lt;&lt; 比 == 优先级高，但是复数类中又没有重载&lt;&lt;操作符，所以会报错
+	cout &lt;&lt; &quot;c3 == c4 : &quot; &lt;&lt; (c3 != c4) &lt;&lt; endl;
+	
+	(c3 = c2) = c1;
+	cout &lt;&lt; &quot;c1 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c1.getA() &lt;&lt; &quot;, &quot; &lt;&lt; c1.getB() &lt;&lt; &quot;)&quot; &lt;&lt;endl;
+	cout &lt;&lt; &quot;c2 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c2.getA() &lt;&lt; &quot;, &quot; &lt;&lt; c2.getB() &lt;&lt; &quot;)&quot; &lt;&lt;endl;
+	cout &lt;&lt; &quot;c3 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c3.getA() &lt;&lt; &quot;, &quot; &lt;&lt; c3.getB() &lt;&lt; &quot;)&quot; &lt;&lt;endl;
+	return 0;
+}
 </code></pre>
-<ol start="2">
-<li>可以返回在全局存储区内变量的引用</li>
-</ol>
-<pre><code class="language-c++">int&amp; func()     //int* const
-{
-   static int s = 0;
-
-   printf(&quot;func : s = %d\n&quot;, s);
-
-   return s;   //return &amp;s，静态的局部变量的存储空间是一个全局的存储区，
-               //所以说它的空间不会以为函数调用而摧毁，由于引用的本质是指针，
-               //所以返回一个全局存储区中的地址是完全可以的
-} 
-</code></pre>
-<p>#小结</p>
+<h2 id="注意事项">注意事项</h2>
 <ul>
-<li>引用作为别名而存在旨在代替指针</li>
-<li>const引用可以使得变量具有只读属性</li>
-<li>引用在一起内部使用<strong>指针常量实现</strong></li>
-<li>引用的最终本质为指针</li>
-<li>引用尽可能的避开内存错误</li>
+<li>C++规定<font color = 740000>赋值操作符</font><strong>（=）</strong><font color = purple><font color = blue size = 5><strong>只能</strong></font>重载为成员函数</font></li>
+<li>操作符重载<font color = red>不能改变</font>原操作符的<font color = bf0000>优先级</font></li>
+<li>操作符重载<font color = red>不能改变</font>操作数的个数</li>
+<li>操作符重载<font color = red>不能改变</font>操作符的<font color = green size = 4><strong>原有语义</strong></font></li>
+</ul>
+<h1 id="小结">小结</h1>
+<ul>
+<li>复数的概念可以通过自定义类实现</li>
+<li>复数中的运算操作可以通过操作符重载实现</li>
+<li>赋值操作符只能通过成员函数实现，是不能通过全局函数的</li>
+<li>操作符重载的本质为函数定义</li>
 </ul>
 
                         </div>
                         
                             <div class="post-toc">
                                 <ul class="markdownIt-TOC">
-<li><a href="#c%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8">C++中的引用</a>
+<li><a href="#%E5%AE%8C%E5%96%84%E7%9A%84%E5%A4%8D%E6%95%B0%E7%B1%BB">完善的复数类</a>
 <ul>
-<li><a href="#%E5%BC%95%E7%94%A8%E7%9A%84%E6%84%8F%E4%B9%89">引用的意义</a>
+<li><a href="#%E5%AE%8C%E5%96%84%E7%9A%84%E5%A4%8D%E6%95%B0%E7%B1%BB%E4%BB%A3%E7%A0%81">完善的复数类代码</a>
 <ul>
-<li><a href="#exampleswap%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%AF%B9%E6%AF%94">Example：Swap函数的实现对比</a></li>
+<li><a href="#complexh">Complex.h</a></li>
+<li><a href="#complexcpp">Complex.cpp</a></li>
+<li><a href="#maincpp">main.cpp</a></li>
 </ul>
 </li>
-<li><a href="#%E7%89%B9%E6%AE%8A%E7%9A%84%E5%BC%95%E7%94%A8">特殊的引用</a>
-<ul>
-<li><a href="#const%E5%BC%95%E7%94%A8">const引用</a></li>
+<li><a href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">注意事项</a></li>
 </ul>
 </li>
-<li><a href="#%E5%BC%95%E7%94%A8%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E5%90%97">引用有自己的存储空间吗</a></li>
-<li><a href="#%E5%BC%95%E7%94%A8%E7%9A%84%E6%9C%AC%E8%B4%A8">引用的本质</a>
-<ul>
-<li><a href="#%E5%BC%95%E7%94%A8%E5%9C%A8c%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E6%98%AF%E4%B8%80%E4%B8%AA%E6%8C%87%E9%92%88%E5%B8%B8%E9%87%8F">引用在C++内部实现是一个指针常量</a></li>
-</ul>
-</li>
-<li><a href="#%E5%BC%95%E7%94%A8%E7%9A%84%E6%84%8F%E4%B9%89-2">引用的意义</a></li>
-<li><a href="#%E5%AE%9E%E4%BE%8B%E8%A7%A3%E8%AF%BB">实例解读</a></li>
-</ul>
-</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
 </ul>
 
                             </div>
@@ -396,7 +459,7 @@ int main()
 
                                             <p class="copyright-item">
                                                 <span>Permalink:</span>
-                                                <span><a href="https://leichen2552.github.io/post/hui-gu-5yin-yong-ben-zhi-fen-xi">https://leichen2552.github.io/post/hui-gu-5yin-yong-ben-zhi-fen-xi</a></span>
+                                                <span><a href="https://leichen2552.github.io/post/hui-gu-31wan-shan-de-fu-shu-lei">https://leichen2552.github.io/post/hui-gu-31wan-shan-de-fu-shu-lei</a></span>
                                             </p>
 
                                             <p class="copyright-item">
@@ -411,9 +474,9 @@ int main()
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/hui-gu-5yin-yong-ben-zhi-fen-xi"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/hui-gu-5yin-yong-ben-zhi-fen-xi&sharesource=qzone&title=回顾（5）：引用本质分析&pics=https://blog.blinkstar.cn/images/avatar.png&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/hui-gu-5yin-yong-ben-zhi-fen-xi&sharesource=weibo&title=回顾（5）：引用本质分析 + " - " + &pic="https://blog.blinkstar.cn/images/avatar.png "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/hui-gu-31wan-shan-de-fu-shu-lei"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/hui-gu-31wan-shan-de-fu-shu-lei&sharesource=qzone&title=回顾（31）：完善的复数类&pics=https://blog.blinkstar.cn/images/avatar.png&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/hui-gu-31wan-shan-de-fu-shu-lei&sharesource=weibo&title=回顾（31）：完善的复数类 + " - " + &pic="https://blog.blinkstar.cn/images/avatar.png "><i class="fa fa-weibo "></i></a>
                                                 
                                                     <div class="reward ">
                                                         <div class="reward-button ">&yen;
@@ -448,13 +511,9 @@ int main()
             <!---->
             <section class="post-nav">
                 
-                    <a class="prev" rel="prev" href="https://leichen2552.github.io/post/hui-gu-6nei-lian-han-shu-fen-xi">
-                        回顾（6）：内联函数分析
-                    </a>
-                    
                         
-                            <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-4bu-er-lei-xing-he-yin-yong">
-                                回顾（4）：布尔类型和引用
+                            <a class="next" rel="next" href="https://leichen2552.github.io/post/xiao-cha-qu-zhi-kang-si-te-yin-yong-constand">
+                                小插曲之“康斯特引用（const&amp;）”
                             </a>
                             
             </section>
