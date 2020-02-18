@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-02-18T12:52:20.788Z</updated>
+    <updated>2020-02-18T13:56:11.055Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -16,13 +16,30 @@
         <link href="https://leichen2552.github.io/post/hui-gu-33czhong-de-zi-fu-chuan-lei">
         </link>
         <updated>2020-02-18T08:41:59.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="历史遗留问题">历史遗留问题</h1>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E5%8E%86%E5%8F%B2%E9%81%97%E7%95%99%E9%97%AE%E9%A2%98">历史遗留问题</a>
+<ul>
+<li><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">解决方案</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A0%87%E5%87%86%E5%BA%93%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB">标准库中的字符串类</a>
+<ul>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C">字符串基本操作</a></li>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8E%E6%95%B0%E5%AD%97%E7%9A%84%E8%BD%AC%E6%8D%A2">字符串与数字的转换</a></li>
+</ul>
+</li>
+<li><a href="#%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%86%E6%9E%90">面试题分析</a></li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8D%E8%BD%AC">字符串反转</a></li>
+</ul>
+</p>
+<h1 id="历史遗留问题">历史遗留问题</h1>
 <ul>
 <li>C语言不支持真正意义上的字符串</li>
 <li>C语言用字符数组和一组函数实现字符串操作</li>
 <li>C语言不支持自定义类型，因此无法获得字符串类型</li>
 </ul>
-<p>#解决方案</p>
+<h2 id="解决方案">解决方案</h2>
 <ul>
 <li>从C到C++的进化引入了自定义类型</li>
 <li>在C++中可以通过类完成字符串类型的定义</li>
@@ -34,7 +51,7 @@ C++中的原生类型系统是否包含字符串类型？
 <h2 id="字符串基本操作">字符串基本操作</h2>
 <ul>
 <li>C++语言<font color = blue>直接支持</font>C语言的所有概念</li>
-<li>因为C++的沉重使命就是兼容C语言，所以C++语言中<font color = red>没有原生的字符串类型</font></li>
+<li>因为C++自诞生以来的沉重使命就是兼容C语言，所以C++语言中<font color = red>没有原生的字符串类型</font></li>
 <li>C++标准库提供了string类型
 <ul>
 <li>string直接支持<font color = purple>字符串连接</font></li>
@@ -99,6 +116,17 @@ int main(int argc, char *argv[])
 	return 0;
 }
 </code></pre>
+<p>打印结果：</p>
+<pre><code>C#
+C++
+D.T.Software
+Hello World
+Java
+Python
+TypeScript
+
+C#;C++;D.T.Software;Hello World;Java;Python;TypeScript;
+</code></pre>
 <h2 id="字符串与数字的转换">字符串与数字的转换</h2>
 <ul>
 <li>标准库中提供了相关的类对字符串和数字进行转换</li>
@@ -131,10 +159,11 @@ using namespace std;
 //采用直接调用构造函数的方法形成临时对象，生命周期只有这一行语句的时间 
 #define TO_NUMBER(s, n) (istringstream(s) &gt;&gt; n)
 
-//这一行里的(ostringstream&amp;)强制类型转换，如果没有的话，编译器会报错，因为如果没有的话，返回的就不是一个ostringstream类型
+//这一行里的(ostringstream&amp;)强制类型转换，
+//如果没有的话，编译器会报错，因为如果没有的话，返回的就不是一个ostringstream类型
 #define TO_STRING(n) (((ostringstream&amp;)(ostringstream() &lt;&lt; n)).str())
 
-
+//函数模板支持多种类型
 template &lt;typename T&gt;
 string to_string(T n)
 {
@@ -143,7 +172,7 @@ string to_string(T n)
 	return oss.str();	
 }
 
-
+//函数模板支持多种类型
 template &lt;typename T&gt;
 bool to_number(const string&amp; s, T&amp; n)
 {
@@ -159,33 +188,126 @@ int main(int argc, char *argv[])
 	double m = 0;
 	if(TO_NUMBER(&quot;123.789&quot;, m)) 
 	{
-		cout &lt;&lt; m &lt;&lt;endl;
+		cout &lt;&lt; &quot;m = &quot;&lt;&lt; m &lt;&lt;endl;
 	}
+	cout &lt;&lt; endl;
 /***************************************************/
 	
 //采用函数模板 
 /***************************************************/
 	int n = 0;
-	cout &lt;&lt; to_number&lt;int&gt;(&quot;123456&quot;,n) &lt;&lt; endl;		
-	cout &lt;&lt; n &lt;&lt; endl;
+	cout &lt;&lt; &quot;to_number&lt;int&gt;(&quot; &lt;&lt; &quot;123456,n) = &quot; &lt;&lt; to_number&lt;int&gt;(&quot;123456&quot;,n) &lt;&lt; endl;		
+	cout &lt;&lt;  &quot;n = &quot; &lt;&lt; n &lt;&lt; endl;
+	cout &lt;&lt; endl;
 	
 	float f = 0;
-	cout &lt;&lt; to_number&lt;float&gt;(&quot;123.456&quot;,f) &lt;&lt; endl;		
-	cout &lt;&lt; f &lt;&lt; endl;
+	cout &lt;&lt; &quot;to_number&lt;float&gt;(&quot; &lt;&lt; &quot;123.456,f) =&quot; &lt;&lt; to_number&lt;float&gt;(&quot;123.456&quot;,f) &lt;&lt; endl;		
+	cout &lt;&lt;  &quot;f = &quot; &lt;&lt; f &lt;&lt; endl;
+	cout &lt;&lt; endl;
 	
 	double d = 0;
-	cout &lt;&lt; to_number&lt;double&gt;(&quot;123.4789&quot;,d) &lt;&lt; endl;		
-	cout &lt;&lt; d &lt;&lt; endl;
+	cout &lt;&lt; &quot;to_number&lt;double&gt;(&quot; &lt;&lt; &quot;123.4789,d)&quot;&lt;&lt; to_number&lt;double&gt;(&quot;123.4789&quot;,d) &lt;&lt; endl;		
+	cout &lt;&lt; &quot;d = &quot; &lt;&lt; d &lt;&lt; endl;
+	cout &lt;&lt; endl;
 /***************************************************/
 
-	string s = TO_STRING(12345);
+	string s1 = TO_STRING(12345);
+	string s2 = to_string(12345);
 	
-	cout &lt;&lt;  s &lt;&lt; endl; 
-
+	cout &lt;&lt; &quot;s1 = &quot; &lt;&lt; s1 &lt;&lt; endl; 
+	cout &lt;&lt; &quot;s2 = &quot; &lt;&lt; s2 &lt;&lt; endl; 
+	
 	return 0;
 }
-
 </code></pre>
+<p>打印结果：</p>
+<pre><code>m = 123.789
+
+to_number&lt;int&gt;(123456,n) = 1
+n = 123456
+
+to_number&lt;float&gt;(123.456,f) =1
+f = 123.456
+
+to_number&lt;double&gt;(123.4789,d)1
+d = 123.479
+
+s1 = 12345
+s2 = 12345
+</code></pre>
+<h1 id="面试题分析">面试题分析</h1>
+<p>abcdefg <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> efgabcd，需要循环右移三位</p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;sstream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+string operator &gt;&gt; (const string&amp; s, unsigned int n)
+{
+	string ret;
+	unsigned int pos = 0;
+	
+	//abc ==&gt; 1 cab
+	//abc ==&gt; 4 cab
+	n = n % s.length();//先取余
+	pos = s.length() - n;//再取位置
+	
+	ret = s.substr(pos);//提取位置之后的字串
+	
+	ret = ret + s.substr(0,pos);//再把ret加上从0到pos的字串
+	
+	//abcdefg ==&gt; 8
+	//sbcdefg ==&gt; 1
+	//8 % 7 == &gt; 1
+	//7-1 = 6
+	//abcdef g
+	//ret ==&gt; g
+	//ret = g + abcdef
+	//ret = gabcdef 
+	
+	return ret;
+}
+
+int main(int argc, char *argv[])
+{
+	string r = &quot;abcdefg&quot;;
+	
+	string s = r &gt;&gt; 3;
+	
+	cout &lt;&lt; s &lt;&lt; endl;
+	return 0;
+}
+</code></pre>
+<p>打印结果：</p>
+<pre><code>r = abcdefg
+s = efgabcd
+</code></pre>
+<h1 id="小结">小结</h1>
+<ul>
+<li>应用开发中大多数的情况都在进行字符串处理</li>
+<li>C++中<font color = red>没有直接支持</font>原生的字符串类型</li>
+<li>标准库中通过<font color = blue size = 4> <strong>string</strong> </font>类支持字符串的概念</li>
+<li>string类支持<strong>字符串</strong>和<strong>数字</strong>的相互转换</li>
+<li>string类的应用使得问题的求解变得简单</li>
+</ul>
+<h1 id="字符串反转">字符串反转</h1>
+<ul>
+<li>要求：
+<ul>
+<li>使用string类完成</li>
+</ul>
+</li>
+<li>示例：
+<ul>
+<li>&quot;we;tonight;you&quot; <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> &quot;ew;thginot;uoy&quot;</li>
+</ul>
+</li>
+<li>提示：
+<ul>
+<li>string类中提供了成员函数可以查找目标字符的位置</li>
+</ul>
+</li>
+</ul>
 ]]></content>
     </entry>
     <entry>
