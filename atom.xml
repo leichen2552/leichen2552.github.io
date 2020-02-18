@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-02-17T14:22:51.681Z</updated>
+    <updated>2020-02-18T12:52:20.788Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,184 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[回顾（33）：C++中的字符串类]]></title>
+        <id>https://leichen2552.github.io/post/hui-gu-33czhong-de-zi-fu-chuan-lei</id>
+        <link href="https://leichen2552.github.io/post/hui-gu-33czhong-de-zi-fu-chuan-lei">
+        </link>
+        <updated>2020-02-18T08:41:59.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="历史遗留问题">历史遗留问题</h1>
+<ul>
+<li>C语言不支持真正意义上的字符串</li>
+<li>C语言用字符数组和一组函数实现字符串操作</li>
+<li>C语言不支持自定义类型，因此无法获得字符串类型</li>
+</ul>
+<p>#解决方案</p>
+<ul>
+<li>从C到C++的进化引入了自定义类型</li>
+<li>在C++中可以通过类完成字符串类型的定义</li>
+</ul>
+<pre><code>问题：
+C++中的原生类型系统是否包含字符串类型？
+</code></pre>
+<h1 id="标准库中的字符串类">标准库中的字符串类</h1>
+<h2 id="字符串基本操作">字符串基本操作</h2>
+<ul>
+<li>C++语言<font color = blue>直接支持</font>C语言的所有概念</li>
+<li>因为C++的沉重使命就是兼容C语言，所以C++语言中<font color = red>没有原生的字符串类型</font></li>
+<li>C++标准库提供了string类型
+<ul>
+<li>string直接支持<font color = purple>字符串连接</font></li>
+<li>string直接支持<font color = ff8c00>字符串比较大小</font></li>
+<li>string直接支持<font color = ff6eb4>字符串查找和提取</font></li>
+<li>string直接支持<font color = f4a460>字符串的插入和替换</font></li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+void string_sort(string a[], int len)
+{
+	for(int i=0; i&lt;len; i++)
+	{
+		for(int j=i; j&lt;len; j++)
+		{
+			if(a[i] &gt; a[j])//标准库里重载了 &gt; 这个操作符
+			{
+				swap(a[i], a[j]);
+			}
+		}
+	}	
+}
+
+string string_add(string a[], int len)
+{
+	string ret = &quot;&quot;;
+	
+	for(int i=0; i&lt;len; i++)
+	{
+		ret = ret + a[i] + &quot;;&quot;;//标准库里重载了 + 这个操作符
+	}
+	
+	return ret;	
+}
+
+int main(int argc, char *argv[])
+{
+	string sa[7] = 
+	{
+        &quot;Hello World&quot;,
+        &quot;D.T.Software&quot;,
+        &quot;C#&quot;,
+        &quot;Java&quot;,
+        &quot;C++&quot;,
+        &quot;Python&quot;,
+        &quot;TypeScript&quot;
+	};
+	
+	string_sort(sa,7);
+	
+	for(int i=0; i&lt;7; i++)
+	{
+		cout &lt;&lt; sa[i] &lt;&lt; endl;	
+	}
+	cout &lt;&lt; endl;
+	cout &lt;&lt; string_add(sa, 7) &lt;&lt; endl;
+	
+	return 0;
+}
+</code></pre>
+<h2 id="字符串与数字的转换">字符串与数字的转换</h2>
+<ul>
+<li>标准库中提供了相关的类对字符串和数字进行转换</li>
+<li>字符串流泪（sstream）用于string的转换
+<ul>
+<li><code>&lt;sstream&gt;</code> - 相关头文件</li>
+<li><code>istringstream</code>- 字符串输入流</li>
+<li><code>ostringstream</code> - 字符串输出流</li>
+</ul>
+</li>
+<li>使用方法
+<ul>
+<li>string <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> 数字<pre><code class="language-c++">istringstream iss(&quot;123.45&quot;);
+ double num;
+ iss &gt;&gt; num;
+</code></pre>
+</li>
+<li>数字 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> string<pre><code class="language-c++">ostringstream oss;
+ oss &lt;&lt;543.21;
+ string s = oss.str();
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;sstream&gt;
+#include &lt;string&gt;
+using namespace std;
+//采用直接调用构造函数的方法形成临时对象，生命周期只有这一行语句的时间 
+#define TO_NUMBER(s, n) (istringstream(s) &gt;&gt; n)
+
+//这一行里的(ostringstream&amp;)强制类型转换，如果没有的话，编译器会报错，因为如果没有的话，返回的就不是一个ostringstream类型
+#define TO_STRING(n) (((ostringstream&amp;)(ostringstream() &lt;&lt; n)).str())
+
+
+template &lt;typename T&gt;
+string to_string(T n)
+{
+	ostringstream oss;
+	oss &lt;&lt; n;
+	return oss.str();	
+}
+
+
+template &lt;typename T&gt;
+bool to_number(const string&amp; s, T&amp; n)
+{
+	istringstream iss(s);
+
+	return iss &gt;&gt; n;
+} 
+
+int main(int argc, char *argv[])
+{
+//采用函数模板 
+/***************************************************/	
+	double m = 0;
+	if(TO_NUMBER(&quot;123.789&quot;, m)) 
+	{
+		cout &lt;&lt; m &lt;&lt;endl;
+	}
+/***************************************************/
+	
+//采用函数模板 
+/***************************************************/
+	int n = 0;
+	cout &lt;&lt; to_number&lt;int&gt;(&quot;123456&quot;,n) &lt;&lt; endl;		
+	cout &lt;&lt; n &lt;&lt; endl;
+	
+	float f = 0;
+	cout &lt;&lt; to_number&lt;float&gt;(&quot;123.456&quot;,f) &lt;&lt; endl;		
+	cout &lt;&lt; f &lt;&lt; endl;
+	
+	double d = 0;
+	cout &lt;&lt; to_number&lt;double&gt;(&quot;123.4789&quot;,d) &lt;&lt; endl;		
+	cout &lt;&lt; d &lt;&lt; endl;
+/***************************************************/
+
+	string s = TO_STRING(12345);
+	
+	cout &lt;&lt;  s &lt;&lt; endl; 
+
+	return 0;
+}
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[回顾（32）：初探C++标准库]]></title>
         <id>https://leichen2552.github.io/post/hui-gu-32chu-tan-cbiao-zhun-ku</id>
@@ -4048,72 +4226,6 @@ int main()
 <li>C++中通过定义类成员的访问级别实现封装机制</li>
 <li>public成员可以在类的背部和外界访问和调用</li>
 <li>private成员只能在类的内部被访问和调用</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（14）：进阶面对对象（下）]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-14jin-jie-mian-dui-dui-xiang-xia</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-14jin-jie-mian-dui-dui-xiang-xia">
-        </link>
-        <updated>2020-02-05T08:20:26.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#%E7%B1%BB%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB">类之间的关系</a></li>
-<li><a href="#%E7%B1%BB%E7%9A%84%E8%A1%A8%E7%A4%BA%E6%B3%95">类的表示法</a>
-<ul>
-<li><a href="#%E5%A6%82%E4%BD%95%E8%AE%A9%E7%BC%96%E8%AF%91%E5%99%A8%E8%AF%BB%E6%87%82%E8%BF%99%E4%BA%9B%E7%B1%BB%E7%9A%84%E8%A1%A8%E7%A4%BA%E6%B3%95">如何让编译器读懂这些类的表示法</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
-</ul>
-</p>
-<h1 id="类之间的关系">类之间的关系</h1>
-<ul>
-<li>
-<p>继承</p>
-<ul>
-<li>从已存在细分出来的类和原类之间有继承关系</li>
-<li>继承的类（子类）拥有原类（父类）的所有属性和行为</li>
-</ul>
-</li>
-<li>
-<p>组合</p>
-<ul>
-<li>一些类的存在必须依赖于其他的类，这种关系叫组合</li>
-<li>组合的类在某一个局部上有其他的类组成</li>
-</ul>
-</li>
-<li>
-<p>继承：惠普电脑、苹果电脑继承了电脑的所有属性</p>
-</li>
-<li>
-<p>组合：电脑这个类需要硬盘、内存、主板、CPU这些类组合起来</p>
-</li>
-</ul>
-<h1 id="类的表示法">类的表示法</h1>
-<h2 id="如何让编译器读懂这些类的表示法">如何让编译器读懂这些类的表示法</h2>
-<ul>
-<li>类的表示法<br>
-<img src="https://leichen2552.github.io//post-images/1580911863301.png" alt="" loading="lazy"></li>
-<li>类的表示法-改进1<br>
-<img src="https://leichen2552.github.io//post-images/1580911870890.png" alt="" loading="lazy"></li>
-<li>类的表示法-改进2<br>
-<img src="https://leichen2552.github.io//post-images/1580911881299.png" alt="" loading="lazy"></li>
-<li>类的表示法-改进3<br>
-<img src="https://leichen2552.github.io//post-images/1580911885439.png" alt="" loading="lazy"></li>
-<li>类的表示法-改进4<br>
-<img src="https://leichen2552.github.io//post-images/1580911900662.png" alt="" loading="lazy"></li>
-<li>类的表示法-改进5<br>
-<img src="https://leichen2552.github.io//post-images/1580911905917.png" alt="" loading="lazy"></li>
-</ul>
-<p>貌似大功告成，好像看着编译器可以识别了！</p>
-<h1 id="小结">小结</h1>
-<ul>
-<li>类之间课已存在继承关系或者组合关系</li>
-<li>继承关系中子类拥有父类的一切属性和行为</li>
-<li>组合关系是类之间整体和部分的关系</li>
-<li>类及类之间的关系可以有不同的表示法</li>
-<li>编译器对类的表示法有具体的要求</li>
 </ul>
 ]]></content>
     </entry>
