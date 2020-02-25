@@ -187,7 +187,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                回顾（34）：数组操作符的重载
+                                回顾（35）：函数对象分析
                             </h1>
                             
                                 <!--en-->
@@ -197,12 +197,12 @@
                                         ChenLei's Blog
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2020-02-23</a>
+                                Date: <a href="#">2020-02-25</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">6.1
+                                    href="#">1.2
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">1239</a></span>
+                                    <span class="post-words">words:<a href="#">321</a></span>
                                     
                                         <span class="post-category">
                                 Category:
@@ -219,357 +219,85 @@
                         </header>
                         <div class="post-content">
                             <p><ul class="markdownIt-TOC">
-<li><a href="#%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E9%87%8D%E8%BD%BD">数组操作符的重载</a>
+<li><a href="#%E5%AE%A2%E6%88%B7%E9%9C%80%E6%B1%82">客户需求</a></li>
+<li><a href="#%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98">存在的问题</a></li>
+<li><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">解决方案</a>
 <ul>
-<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7">字符串类的兼容性</a></li>
-<li><a href="#%E9%87%8D%E8%BD%BD%E6%95%B0%E7%BB%84%E8%AE%BF%E9%97%AE%E6%93%8D%E4%BD%9C%E7%AC%A6">重载数组访问操作符</a></li>
-<li><a href="#%E5%86%8D%E6%AC%A1%E5%8D%87%E7%BA%A7%E6%95%B0%E7%BB%84%E7%B1%BB">再次升级数组类</a>
-<ul>
-<li><a href="#intarrayh">IntArray.h</a></li>
-<li><a href="#intarraycpp">IntArray.cpp</a></li>
-<li><a href="#maincpp">main.cpp</a></li>
+<li><a href="#%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1">函数对象</a></li>
+<li><a href="#%E9%87%8D%E8%BD%BD%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%93%8D%E4%BD%9C%E7%AC%A6">重载函数调用操作符（( )）</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
 </ul>
 </p>
-<h1 id="数组操作符的重载">数组操作符的重载</h1>
-<pre><code>问题：
-string类对象还具备C方式字符串的灵活性吗？还能访问单个字符吗？意思就是通过[]访问单个字符
-</code></pre>
-<h2 id="字符串类的兼容性">字符串类的兼容性</h2>
+<h1 id="客户需求">客户需求</h1>
 <ul>
-<li>string类最大限度的考虑了C字符串的兼容性</li>
-<li>可以按照使用C字符串的方式使用string对象</li>
+<li>函数可以获得斐波那契数列每项的值</li>
+<li>每调用一次返回一个值</li>
+<li>函数可根据需要重复使用</li>
 </ul>
 <pre><code class="language-c++">#include &lt;iostream&gt;
 #include &lt;string&gt;
 using namespace std;
+
+int fib()
+{
+	static int a0 = 0;
+	static int a1 = 1;//使用静态局部变量，可以使数据返回时不被摧毁，从而避免使用全局变量 
+	
+	int ret = a1;
+	
+	a1 = a0 + a1;
+	a0 = ret;
+	
+	return ret;
+} 
 
 int main(int argc, char *argv[])
 {
-	string s = &quot;abcdefg1234&quot;;
-	int n = 0;
-	
-	for(int i=0;i&lt;s.length(); i++)
+	for(int i=0; i&lt;10; i++)
 	{
-		if(isdigit(s[i]))
-		{
-			n++;
-		}	
-	} 
-	
-	cout &lt;&lt; n &lt;&lt; endl;
+		cout &lt;&lt; fib() &lt;&lt; endl;
+	}
 	
 	return 0;
 }
-//编译通过，说明string支持这种访问
 </code></pre>
-<pre><code>问题：
-类的对象怎么能和数组操作符[]在一起使用呢？
-</code></pre>
-<h2 id="重载数组访问操作符">重载数组访问操作符</h2>
+<h1 id="存在的问题">存在的问题</h1>
 <ul>
-<li>被忽略的事实
+<li>函数一旦开始就无法重来
 <ul>
-<li>数组访问操作符是C/C++中内置操作符</li>
-<li>数组访问操作符的原生意义是<font color = ff00ff size = 4>数组访问</font>和<font color = ff00ff size = 4>指针运算</font></li>
+<li>静态局部变量处于函数内部，外界无法改变</li>
+<li>函数为全局函数，是唯一的，无法多次独立使用</li>
+<li>无法指定某个具体的数列项作为初始值</li>
 </ul>
 </li>
-<li>变换公式<br>
-<font color = red size = 4>a[n]</font> <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>←</mo><mo>→</mo></mrow><annotation encoding="application/x-tex">\leftarrow \rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">←</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span><font color = red size = 4> * (a + n)</font><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>←</mo><mo>→</mo></mrow><annotation encoding="application/x-tex">\leftarrow \rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">←</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> <font color = red size = 4>*(n + a) </font><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>←</mo><mo>→</mo></mrow><annotation encoding="application/x-tex">\leftarrow \rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">←</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> <font color = red size = 4>n[a]</font></li>
 </ul>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-
-using namespace std;
-
-int main()
-{
-    int a[5] = {0};
-    
-    for(int i=0; i&lt;5; i++)
-    {
-        a[i] = i;
-    }
-    
-    for(int i=0; i&lt;5; i++)
-    {
-        cout &lt;&lt; *(a + i) &lt;&lt; endl;    // cout &lt;&lt; a[i] &lt;&lt; endl;
-    }
-    
-    cout &lt;&lt; endl;
-    
-    for(int i=0; i&lt;5; i++)
-    {
-        i[a] = i + 10;    // a[i] = i + 10;
-    }
-    
-    for(int i=0; i&lt;5; i++)
-    {
-        cout &lt;&lt; *(i + a) &lt;&lt; endl;  // cout &lt;&lt; a[i] &lt;&lt; endl;
-    }
-    
-    return 0;
-}
-</code></pre>
+<h1 id="解决方案">解决方案</h1>
+<h2 id="函数对象">函数对象</h2>
 <ul>
-<li>数组访问操作符（[ ]）：重载一个操作符不能违背它的原生语义
+<li>使用具体的类对象取代函数</li>
+<li>该类的对象具备函数调用的行为</li>
+<li>构造函数指定具体数列项的起始位置</li>
+<li>多个对象相互独立的求解数列项</li>
+</ul>
+<h2 id="重载函数调用操作符">重载函数调用操作符（( )）</h2>
 <ul>
 <li>只能通过类的成员函数重载</li>
-<li>重载函数能且仅能使用一个参数</li>
 <li>可以定义不同参数的多个重载函数</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-class Test
-{
-	int a[5];
-public:
-	int&amp; operator [] (int i)
-	{
-		return a[i];//通过特殊的技术返回一个函数的返回值，如果真的想返回这个数组里面的值，就该使用引用 
-	}	
-	int&amp; operator [] (const string&amp; s)
-	{
-		if(s == &quot;1st&quot;)
-		{
-			return a[0];
-		}
-		if(s == &quot;2nd&quot;)
-		{
-			return a[1];
-		}
-		if(s == &quot;3rd&quot;)
-		{
-			return a[2];
-		}
-		if(s == &quot;4th&quot;)
-		{
-			return a[3];
-		}
-		if(s == &quot;5th&quot;)
-		{
-			return a[4];
-		}
-	}
-	
-	int lenrth()
-	{
-		return 5;
-	}
-};
-
-
-int main(int argc, char *argv[])
-{
-	Test t;
-	
-	for(int i=0; i&lt;t.lenrth(); i++)
-	{
-		t.operator[](i) = i; //在重载函数的返回值不是引用的时候，把一个值赋给函数的返回值，绝对的不合法 
-		t[i] = i;
-	}
-	
-	for(int i=0; i&lt;t.lenrth(); i++)
-	{
-		cout &lt;&lt; t[i] &lt;&lt; endl;
-	}
-	
-	cout &lt;&lt;t[&quot;1st&quot;]&lt;&lt;endl;
-	cout &lt;&lt;t[&quot;2nd&quot;]&lt;&lt;endl;
-	cout &lt;&lt;t[&quot;3rd&quot;]&lt;&lt;endl;
-	cout &lt;&lt;t[&quot;4th&quot;]&lt;&lt;endl;
-	cout &lt;&lt;t[&quot;5th&quot;]&lt;&lt;endl;//通过字符串来访问数组，在c#、D语言中，如果看到这个不要觉得惊奇 
-	
-	return 0;
-}
-
-//测试成功，编译器没有报错
-</code></pre>
-<h2 id="再次升级数组类">再次升级数组类</h2>
-<h3 id="intarrayh">IntArray.h</h3>
-<pre><code class="language-c++">#ifndef INTARRAY_H
-#define INTARRAY_H
-
-class IntArray{
-private:
-	int m_length;
-	int* m_pointer;
-	
-	IntArray(int len);
-	//IntArray(const IntArray&amp; ob);
-	bool construct();
-public:
-	static IntArray* NewInstance(int length);
-	int length();
-	bool get(int index, int&amp; value);
-	bool set(int index, int value);	
-	int&amp; operator [](int index);
-	IntArray&amp; self(); //返回自身，从而减少使用指针
-	~IntArray();
-};
-
-#endif
-</code></pre>
-<h3 id="intarraycpp">IntArray.cpp</h3>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &quot;IntArray.h&quot;
-
-IntArray::IntArray(int len)
-{
-	m_length = len;	
-}
-
-bool IntArray::construct()
-{
-	bool ret = true;
-	
-	m_pointer = new int[m_length];
-	
-	if(m_pointer)
-	{
-		for(int i = 0;i &lt; m_length; i++)
-		{
-			m_pointer[i] = 0;
-		}
-	}
-	else
-	{
-		ret = false;
-	}
-	
-	return ret;
-}
-
-IntArray* IntArray::NewInstance(int length)
-{
-	IntArray* ret = new IntArray(length);
-	
-	if( !(ret &amp;&amp; ret-&gt;construct()) )
-	{
-		delete ret;
-		ret = NULL;
-	}
-	
-	return ret;
-}
-
-int IntArray::length()
-{
-	return m_length;
-}
-
-bool IntArray::get(int index, int&amp; value)
-{
-	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
-	
-	if(ret)
-	{
-		value = m_pointer[index];
-	}
-	
-	return ret;
-}
-
-bool IntArray::set(int index, int value)
-{
-	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
-	
-	if(ret)
-	{
- 		m_pointer[index] = value;
-	}
-	
-	return ret;
-}
-
-int&amp; IntArray::operator [](int index)
-{
-	return m_pointer[index];
-}
-
-IntArray&amp; IntArray::self()
-{
-	return *this;
-}
-
-IntArray::~IntArray()
-{
-	delete[] m_pointer;
-}
-</code></pre>
-<h3 id="maincpp">main.cpp</h3>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &quot;IntArray.h&quot;
-
-using namespace std;
-
-int main(int argc, char *argv[])
-{
-	IntArray* a = IntArray::NewInstance(5);//但是即使这样 
-	cout &lt;&lt; &quot;a-&gt;length() = &quot; &lt;&lt; a-&gt;length() &lt;&lt; endl;
-	
-	if(a != NULL)//在堆空间中创建的对象，我们给他娶个别名 
-	{
-		IntArray&amp; array = a-&gt;self();
-		
-		array[0] = 1;
-		
-		
-		for(int i=0; i&lt;array.length(); i++)
-		{
-			cout &lt;&lt; &quot;array[&quot;&lt;&lt; i &lt;&lt;&quot;] = &quot; &lt;&lt; array[i] &lt;&lt; endl;
-		}
-		
-		//再次总结对于这句IntArray* a = IntArray::NewInstance(5);
-		//但是即使这样，还是出现了指针，在后面会有智能指针的技术来改善
-	}
-/*
-	(*a)[0] = 1;//但是这样子访问看着很别扭，在C++开发中，尽可能的不使用指针*，所以我们再提供一个self()成员函数来返回自身 
-	
-	for(int i=0; i&lt;a-&gt;length(); i++)
-	{
-		cout &lt;&lt; &quot;a[&quot;&lt;&lt; i &lt;&lt;&quot;] = &quot; &lt;&lt; (*a)[i] &lt;&lt; endl;
-	}*/
-	
-	delete a;
-	
-	return 0;
-}
-</code></pre>
-<h1 id="小结">小结</h1>
-<ul>
-<li>string类<font color = blue size = 4>最大程度的兼容</font>了C字符串的用法</li>
-<li>数组访问福的重载能够<font color = purple size = 4>使得对象模拟数组的行为</font></li>
-<li>只能通过<font color = ff4500 size = 4>类的成员函数重载数组访问符</font></li>
-<li>重载函数<font color = ff00ff size = 4>能且仅能</font>使用一个参数</li>
 </ul>
 
                         </div>
                         
                             <div class="post-toc">
                                 <ul class="markdownIt-TOC">
-<li><a href="#%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E9%87%8D%E8%BD%BD">数组操作符的重载</a>
+<li><a href="#%E5%AE%A2%E6%88%B7%E9%9C%80%E6%B1%82">客户需求</a></li>
+<li><a href="#%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98">存在的问题</a></li>
+<li><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">解决方案</a>
 <ul>
-<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7">字符串类的兼容性</a></li>
-<li><a href="#%E9%87%8D%E8%BD%BD%E6%95%B0%E7%BB%84%E8%AE%BF%E9%97%AE%E6%93%8D%E4%BD%9C%E7%AC%A6">重载数组访问操作符</a></li>
-<li><a href="#%E5%86%8D%E6%AC%A1%E5%8D%87%E7%BA%A7%E6%95%B0%E7%BB%84%E7%B1%BB">再次升级数组类</a>
-<ul>
-<li><a href="#intarrayh">IntArray.h</a></li>
-<li><a href="#intarraycpp">IntArray.cpp</a></li>
-<li><a href="#maincpp">main.cpp</a></li>
+<li><a href="#%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1">函数对象</a></li>
+<li><a href="#%E9%87%8D%E8%BD%BD%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%93%8D%E4%BD%9C%E7%AC%A6">重载函数调用操作符（( )）</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
 </ul>
 
                             </div>
@@ -585,7 +313,7 @@ int main(int argc, char *argv[])
 
                                             <p class="copyright-item">
                                                 <span>Permalink:</span>
-                                                <span><a href="https://leichen2552.github.io/post/hui-gu-34shu-zu-cao-zuo-fu-de-chong-zai">https://leichen2552.github.io/post/hui-gu-34shu-zu-cao-zuo-fu-de-chong-zai</a></span>
+                                                <span><a href="https://leichen2552.github.io/post/hui-gu-35han-shu-dui-xiang-fen-xi">https://leichen2552.github.io/post/hui-gu-35han-shu-dui-xiang-fen-xi</a></span>
                                             </p>
 
                                             <p class="copyright-item">
@@ -600,9 +328,9 @@ int main(int argc, char *argv[])
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/hui-gu-34shu-zu-cao-zuo-fu-de-chong-zai"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/hui-gu-34shu-zu-cao-zuo-fu-de-chong-zai&sharesource=qzone&title=回顾（34）：数组操作符的重载&pics=https://blog.blinkstar.cn/images/avatar.png&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/hui-gu-34shu-zu-cao-zuo-fu-de-chong-zai&sharesource=weibo&title=回顾（34）：数组操作符的重载 + " - " + &pic="https://blog.blinkstar.cn/images/avatar.png "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/hui-gu-35han-shu-dui-xiang-fen-xi"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/hui-gu-35han-shu-dui-xiang-fen-xi&sharesource=qzone&title=回顾（35）：函数对象分析&pics=https://blog.blinkstar.cn/images/avatar.png&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/hui-gu-35han-shu-dui-xiang-fen-xi&sharesource=weibo&title=回顾（35）：函数对象分析 + " - " + &pic="https://blog.blinkstar.cn/images/avatar.png "><i class="fa fa-weibo "></i></a>
                                                 
                                                     <div class="reward ">
                                                         <div class="reward-button ">&yen;
@@ -637,13 +365,13 @@ int main(int argc, char *argv[])
             <!---->
             <section class="post-nav">
                 
-                    <a class="prev" rel="prev" href="https://leichen2552.github.io/post/zhi-neng-xin-xi-chu-li-gai-lun">
-                        智能信息处理概论
+                    <a class="prev" rel="prev" href="https://leichen2552.github.io/post/hui-gu-35han-shu-dui-xiang-fen-xi-chong-zai-han-shu-diao-yong-cao-zuo-fu">
+                        回顾（35）：函数对象分析——重载函数调用操作符（）
                     </a>
                     
                         
-                            <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-33czhong-de-zi-fu-chuan-lei">
-                                回顾（33）：C++中的字符串类
+                            <a class="next" rel="next" href="https://leichen2552.github.io/post/zhi-neng-xin-xi-chu-li-gai-lun">
+                                智能信息处理概论
                             </a>
                             
             </section>
