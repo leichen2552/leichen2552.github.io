@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-02-25T09:10:07.167Z</updated>
+    <updated>2020-02-25T09:13:16.035Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -148,81 +148,6 @@ int main(int argc, char *argv[])
 <li>函数调用操作符智能通过<font color = blue size = 4>类的成员函数重载</font></li>
 <li>函数调用操作符可以定义不同参数的<font color = ff3030 size = 4>多个重载函数</font></li>
 <li>函数对象在工程中<font color = ff00ff size = 4>取代函数指针</font></li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（35）：函数对象分析]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-35han-shu-dui-xiang-fen-xi</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-35han-shu-dui-xiang-fen-xi">
-        </link>
-        <updated>2020-02-25T08:11:25.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#%E5%AE%A2%E6%88%B7%E9%9C%80%E6%B1%82">客户需求</a></li>
-<li><a href="#%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98">存在的问题</a></li>
-<li><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">解决方案</a>
-<ul>
-<li><a href="#%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1">函数对象</a></li>
-<li><a href="#%E9%87%8D%E8%BD%BD%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%93%8D%E4%BD%9C%E7%AC%A6">重载函数调用操作符（( )）</a></li>
-</ul>
-</li>
-</ul>
-</p>
-<h1 id="客户需求">客户需求</h1>
-<ul>
-<li>函数可以获得斐波那契数列每项的值</li>
-<li>每调用一次返回一个值</li>
-<li>函数可根据需要重复使用</li>
-</ul>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-int fib()
-{
-	static int a0 = 0;
-	static int a1 = 1;//使用静态局部变量，可以使数据返回时不被摧毁，从而避免使用全局变量 
-	
-	int ret = a1;
-	
-	a1 = a0 + a1;
-	a0 = ret;
-	
-	return ret;
-} 
-
-int main(int argc, char *argv[])
-{
-	for(int i=0; i&lt;10; i++)
-	{
-		cout &lt;&lt; fib() &lt;&lt; endl;
-	}
-	
-	return 0;
-}
-</code></pre>
-<h1 id="存在的问题">存在的问题</h1>
-<ul>
-<li>函数一旦开始就无法重来
-<ul>
-<li>静态局部变量处于函数内部，外界无法改变</li>
-<li>函数为全局函数，是唯一的，无法多次独立使用</li>
-<li>无法指定某个具体的数列项作为初始值</li>
-</ul>
-</li>
-</ul>
-<h1 id="解决方案">解决方案</h1>
-<h2 id="函数对象">函数对象</h2>
-<ul>
-<li>使用具体的类对象取代函数</li>
-<li>该类的对象具备函数调用的行为</li>
-<li>构造函数指定具体数列项的起始位置</li>
-<li>多个对象相互独立的求解数列项</li>
-</ul>
-<h2 id="重载函数调用操作符">重载函数调用操作符（( )）</h2>
-<ul>
-<li>只能通过类的成员函数重载</li>
-<li>可以定义不同参数的多个重载函数</li>
 </ul>
 ]]></content>
     </entry>
@@ -4277,6 +4202,264 @@ int main(int argc, char *argv[])
 <li>深拷贝使得对象的逻辑状态相同，如果使用了系统资源，就必须手动提供深拷贝函数</li>
 </ul>
 </li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[回顾（18）：对象的构造（中）]]></title>
+        <id>https://leichen2552.github.io/post/hui-gu-18dui-xiang-de-gou-zao-zhong</id>
+        <link href="https://leichen2552.github.io/post/hui-gu-18dui-xiang-de-gou-zao-zhong">
+        </link>
+        <updated>2020-02-07T06:10:50.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">构造函数</a>
+<ul>
+<li><a href="#%E5%8F%8B%E6%83%85%E6%8F%90%E9%86%92">友情提醒</a></li>
+<li><a href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%9A%84%E8%B0%83%E7%94%A8">构造函数的调用</a></li>
+<li><a href="#%E5%B0%8F%E5%AE%9E%E4%BE%8B">小实例</a>
+<ul>
+<li><a href="#intarrayh">IntArray.h</a></li>
+<li><a href="#intarraycpp">IntArray.cpp</a></li>
+<li><a href="#maincpp">main.cpp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</p>
+<h1 id="构造函数">构造函数</h1>
+<ul>
+<li>带有参数的构造函数
+<ul>
+<li>构造函数可以根据需要定义参数</li>
+<li>一个类中可以存在多个重载的构造函数</li>
+<li>构造函数的重载遵循C++重载的规则</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">class Test
+{
+private:
+    int i;
+    int j;
+public:
+    Test() 
+    {
+    }
+    Test(int v) 
+    {//use v to initialize member
+    }    
+};
+</code></pre>
+<h2 id="友情提醒">友情提醒</h2>
+<ul>
+<li>对象定义和对象声明时不同的
+<ul>
+<li>对象定义：申请对象的空间并调用构造函数</li>
+<li>对象声明：告诉编译器存在这样一个对象</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">Test t;//定义对象并调用构造函数
+
+int main()
+{
+    extern Test t;//告诉编译器存在名为 t 的 Test 对象
+
+    return 0;
+}
+</code></pre>
+<p>构造函数的自动调用</p>
+<pre><code class="language-c++">class Test
+{
+public:
+    Test() 
+    {
+        printf(&quot;Test()&quot;);
+    }
+    Test(int v) 
+    {//use v to initialize member
+        printf(&quot;Test(int v)，v = %d\n&quot;,v);
+    }    
+};
+
+int main()
+{
+    Test t;          //调用Test()
+    Test t1(1);      //调用Test(int v)
+    Test t2 = 1;     //调用Test(int v)
+
+    t = t2;//赋值
+
+    //啰嗦几句！
+    int i = 1;//这个叫定义并且初始化
+
+    int j;//这个初始化赋值是随机的
+    j = 2;//这个叫做赋值
+
+    int z(100);//这样子的初始化也合法
+    printf(&quot;z = %d\n&quot;, z);
+
+    return 0;
+}    
+
+</code></pre>
+<p><strong>赋值和初始化是不相同！！！</strong></p>
+<h2 id="构造函数的调用">构造函数的调用</h2>
+<ul>
+<li>一般情况下，构造函数在对象定义时被自动调用</li>
+<li>一些特殊情况下，需要手工调用构造函数</li>
+</ul>
+<pre><code>如何创建一个对象数组？
+</code></pre>
+<pre><code class="language-c++">class Test
+{
+private:
+    int m_value;
+public:
+    Test() 
+    {
+        printf(&quot;Test()&quot;);
+
+        m_value = 0;
+    }
+    Test(int v) 
+    {//use v to initialize member
+        printf(&quot;Test(int v)，v = %d\n&quot;,v);
+
+        m_value = v;
+    }    
+};
+
+int main()
+{
+    Test ta[3] = {Test(), Test(1), Test(2)};//手工调用构造函数，
+                                            //对数组中的每一个元素初始化
+
+    for(int i = 0; i&lt;3; i++)
+    {
+        printf(&quot;ta[%d].getValue() = %d\n&quot;, i, ta[i].getValue());        
+    }
+    //从打印结果也能清晰的看出初始化时的调用函数情况
+
+    Test t = Test(100);//手工调用构造函数进行初始化
+    printf(&quot;t.getValue() = %d\n&quot;, t.getValue()); 
+} 
+</code></pre>
+<h2 id="小实例">小实例</h2>
+<ul>
+<li>需求：开发一个数组类解决原生数组地安全性问题
+<ul>
+<li>提供函数获取数组长度</li>
+<li>提供函数获取数组元素</li>
+<li>提供函数设置数组元素</li>
+</ul>
+</li>
+</ul>
+<h3 id="intarrayh">IntArray.h</h3>
+<pre><code class="language-c++">#ifndef INTARRAY_H
+#define INTARRAY_H
+
+class IntArray{
+private:
+	int m_length;
+	int* m_pointer;
+public:
+	IntArray(int len);
+	int length();
+	bool get(int index, int&amp; value);
+	bool set(int index, int value);	
+    void free();
+};//类的创建一定要加分号！！！
+
+#endif
+</code></pre>
+<h3 id="intarraycpp">IntArray.cpp</h3>
+<pre><code class="language-c++">#include &quot;IntArray.h&quot;
+
+IntArray::IntArray(int len)
+{
+	m_pointer = new int[len];
+	
+	for(int i = 0;i &lt; len; i++)
+	{
+		m_pointer[i] = 0;
+	}
+	
+	m_length = len;	
+}
+
+int IntArray::length()
+{
+	return m_length;
+}
+
+bool IntArray::get(int index, int&amp; value)
+{
+	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
+	
+	if(ret)
+	{
+		value = m_pointer[index];
+	}
+	
+	return ret;
+}
+
+bool IntArray::set(int index, int value)
+{
+	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
+	
+	if(ret)
+	{
+ 		m_pointer[index] = value;
+	}
+	
+	return ret;
+}
+
+void IntArray::free()
+{
+	delete[] m_pointer;
+}
+</code></pre>
+<h3 id="maincpp">main.cpp</h3>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &quot;IntArray.h&quot;
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+	IntArray a(5);
+	
+	for(int i=0; i&lt;a.length(); i++)
+	{
+		a.set(i,i+1);	
+	}
+	
+	for(int i=0; i&lt;a.length(); i++)
+	{
+		int value = 0;
+		if(a.get(i,value))
+		{
+			cout &lt;&lt; &quot;a[&quot;&lt;&lt; i&lt;&lt; &quot;]= &quot; &lt;&lt;value &lt;&lt; endl;
+		}
+	}
+	
+	a.free();
+	return 0;
+}
+</code></pre>
+<p>其实这个类并不完善，以后会慢慢完善的</p>
+<h1 id="小结">小结</h1>
+<ul>
+<li>构造哈数可以根据需要定义参数</li>
+<li>构造函数之间可以存在重载关系</li>
+<li>构造函数遵循C++中重载函数规则</li>
+<li>对象定义时会触发构造函数的调用</li>
+<li>在一些情况下可以手动调用构造函数</li>
 </ul>
 ]]></content>
     </entry>
