@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-02-28T07:32:39.427Z</updated>
+    <updated>2020-02-28T07:33:03.940Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,64 +10,6 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
-    <entry>
-        <title type="html"><![CDATA[转载：通信简史-5G通信为什么快于4G？]]></title>
-        <id>https://leichen2552.github.io/post/5g-tong-xin-wei-shi-me-kuai-yu-4g/</id>
-        <link href="https://leichen2552.github.io/post/5g-tong-xin-wei-shi-me-kuai-yu-4g/">
-        </link>
-        <updated>2020-02-28T05:01:31.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="通信的历史">通信的历史</h1>
-<p>我也搜集了多方资料，才把通信的前世今生给搞清楚。<br>
-在说5G为什么比4G快之前，我想把1G到4G说清楚。</p>
-<p>我们先从1G说起。世界上最早的民用移动通信电话是由摩托罗拉公司发明的。</p>
-<p>当然了，设备要能通信还需要让他恩都遵守一套大家都认可的信息编码规范，这就是通信标准这就如同发电报有标准的电报码一样。没有标准，彼此就没法沟通，是鸡同鸭讲。</p>
-<p>通信的标准中有两部分最重要，一个是对信息的发送和接收的描述，比如打电话时大家的电话号码；二是对信息编码的方式，比如文字就是对信息的一种编码。</p>
-<p>好的信息编码能保证信息的传输率尽可能高，接近信道的容量。在移动通信的发展过程中，每隔十多年，就会出现新一代的通信标准。当然，谁掌握了标准，谁就掌握了行业的制高点。</p>
-<h2 id="1g与2g">1G与2G</h2>
-<p>在早期的移动通信中，标准是以摩托罗拉为主制定的，我们后来称之为1G。进入到上个世纪80年代，诺基亚等公司就开始研制新一代的移动通信设备，并且提出新的移动通信标准，它们在1991年开始投入使用，为了区分，我们称之为2G。</p>
-<p>那么1G和2G有什么区别呢？从技术上讲，1G是模拟电路的，2G是数字电路的。从外观上看，2G的手机比1G小很多，更省电，而且收发短信方便。</p>
-<p>为什么2G的手机小？因为数字电路可以把更多的数字芯片集成起来，用一个专用芯片就取代了过去上百个芯片。而在摩尔定律的影响下，这种技术进步的叠加效应更明显，就越做越小。</p>
-<p>于是2G取代1G就成为了历史的必然，诺基亚是那个时代的领航者。如果我们沿用《科技史纲60讲》中衡量技术进步的标尺来衡量，从1G到2G，单位能量处理信息的能力提高了百倍。</p>
-<p>接下来从2G到3G又发生了什么呢？我们大家可能都知道，2G的手机只能打电话发短信，上网很困难。3G的通信标准将信息的传输率提高了一个数量级，这是一个飞跃，它使得移动互联网得以实现，从此手机打电话的功能降到了次要的位置，而数据通信，也就是上网，成为了主要功能。</p>
-<p>但是，从1G到3G都存在一个大问题，那就是上网用的移动通信的网络和原有打电话用的通信网络虽然能够彼此融合，但是却彼此独立。</p>
-<p>今天的人回过头来看这件事会觉得有点荒唐，但是如果我们了解了当时移动通信和以AT&amp;T为代表的传统电信公司是多么地水火不容，就不难理解这一点了。</p>
-<p>这就使得独立的移动网络就无法受益于网络技术的快速进步。2G和3G时代用手机打一个电话实际上经过的物理路径很长。其中的原理细节，请看下图2G、3G时代移动通信网络的原理示意图。<br>
-<img src="https://leichen2552.github.io//post-images/1582874273999.jpg" alt="" loading="lazy"><br>
-<font size = 2>一方面基站和基站之间的通信效率并不高，使得上网速度快不起来；另一方面，由于在2G时代为了适合当时移动通信的特点，手机端到端的通信要经过好几级的转发。手机信号送到基站后，要经过基带单元（BBU）、无线网络控制器（RNC），才能到核心网，然后再从核心网到RNC、BBU，最后送到基站，基站再与接收者通信。</font></p>
-<p>因此，由于3G的系统是半吊子的，虽然标称的网速很高，但是实际网速并不快。于是4G很快出现了。</p>
-<p>4G有什么革命性的进步呢？有人说是网速快。但这是结果，不是原因。4G一方面使用了扁平的网络结构，减少了端到端通信时信息转发的次数，同时增加了基站之间光纤的带宽。</p>
-<p>更重要的是，它同时利用了互联网和电信网络的技术进步，这两种技术的融合才使得4G的速度比3G快很多。你可以认为，到了4G，电信的网络已经统一了，但是它和互联网还没有完全统一，你先记住这个事实。</p>
-<p>虽然在4G时代从理论上讲移动通信的网速可以变得很快，你今天能够想到的所有应用都是够快的。但是，如果很多人同时上网，它不仅不够快，甚至连不进去。</p>
-<p>2018年的杭州开全国计算机大会，参会者近万，在会场上无论是4G还是Wi-Fi都不大管用，你如果拍一张照片想在朋友圈中分享，那么能否分享成功，全靠运气。这一方面是因为总的网速不够快，另一方面是很多人要同时和基站通信，基站成为了瓶颈。</p>
-<p>比如一个基站覆盖半径一公里的范围（基站之间的距离通常在2～3公里），通常这方圆一公里范围内的人不会同时上网，因此分给每个上网的人的带宽是够用的，但是当大家都要发照片时，总的传输率超过了信道的总的带宽，根据香农第二定律，出错率是100%，于是大家都传递不了信息了。</p>
-<p>公平地讲，4G对于我们目前的上网需求绝大部分时候是足够了，但是在未来我们有很多智能设备，它们也要同时上网，就会出现像前面说的那种“会场拥堵”的问题。</p>
-<p>那么怎么解决这个问题呢？有人会想到继续增加带宽。这是一种自然而然，颇为合理的想法。虽然在4G的基础上增加2～3倍的带宽并非难事，但如果想增加1～2个数量级就办不到了。</p>
-<p>那一方面要求基站的功率增加很多，这在城市里完全不可行，因为基站周围会因为电磁波辐射太强而变得很不安全。另一方面，要想增加带宽，就要增加通信的频率范围，无线通信的频率无法向下扩展，只能向上扩展，也就是让无线电波的频率增加。</p>
-<p>我们知道无线电波的频率越高，它绕过障碍物的能力就越差，比如说它高到可见光的频率时，你随便用张纸，用块布就能挡住它。因此在城市里高楼会严重影响通信。</p>
-<p>那么怎么办呢？最简单的办法就是在提高通信频率的同时，把基站建得非常密，这样在你的附近就有基站，它不会被建筑物所阻拦。</p>
-<p>基于上述想法，5G的概念就被提出来了。5G是如何进行无线通信的呢？如果我们说4G是一公里的范围建一个基站，负责这方圆一公里范围内的手机和基站的通信，那么5G则是在百米的范围内建基站（今天的方案是基站距离平均在200～300米左右），负责半径为一百多米范围内的通信。</p>
-<p>手机和基站的距离缩短，会带来三个好处。</p>
-<ul>
-<li>首先是建筑物干扰的问题得到解决，这是显而易见的。</li>
-<li>其次是更少的人分享带宽。我们假定方圆一公里范围里的人口是1万人，那么方圆百米范围内就会下降到100人。这样每个人能够分到的带宽就可以增加两个数量级。</li>
-<li>最后，由于基站的通信范围可以从1公里减少到100米，功率可以降低两个数量级，这样，在基站周围电磁波辐射也会大大降低，我们生活的环境反而变得安全了。</li>
-</ul>
-<p>当5G的基站密集到两三百米甚至不到一百米一个的时候，我们家里是否还需要安装Wi-Fi呢？或许不需要了，Wi-Fi或许会消失，或者会退居次要的地位。这样，就将互联网和通信网络融合成一个网络了，这无疑将是一次通信的革命。</p>
-<p>接下来我们总结一下从1G到5G的革命性变化。<br>
-1G的诞生。<br>
-从1G到2G，是从模拟电路到数字电路，由于采用了专用集成电路，单位能量传输和处理信息的能力提高了两个数量级。<br>
-从2G到3G，实现了从语音通信到数据通信的飞跃。<br>
-从3G到4G，实现了移动通信网络和传统电信网络的融合，将云计算等互联网技术用于了移动通信，使得不同区域之间的流量能够动态平衡，大大地提高了带宽的使用率。<br>
-从4G到5G，可以实现移动互联网和有线的互联网的彻底融合。当然，万物互联才会成为可能。需要指出的是，由于网络基站的密度非常高，每一个基站的功率非常小，因此单位能耗传递信息的效率会进一步大幅度提高。</p>
-<p>最后我们看看未来会是什么样子。我们做什么事情是顺应技术发展的趋势，做什么则是逆流而动？</p>
-<p>首先，如果基站的距离缩短到200～300米，单位面积的基站密度比4G就要增加100倍，这是一个巨大的国家级的基础架构建设，因此从事基础架构建设的企业都是受益者。你或许已经听到这样的消息，5G的传闻一出，制造电线杆子企业的股票已经开始疯涨了。</p>
-<p>其次，任何致力于将各种网络融合的努力都是顺势而为，任何试图搭建一个独立的，单纯基于无线技术的努力都是逆流而动。几个月前，一些国家决策部门的领导问我，以现在的技术再开发类似于铱星的通信系统，是否可行？我说完全没有必要，因为那是逆流而动。从1G到5G，将各种网络融合是一个大趋势。</p>
-<p>再次，由于网速极大地提高，很多需要高速互联网的应用可以开展起来了，包括IoT，这个题目我们明天会仔细讲。</p>
-<p>最后，让我们一同来思考一个问题。有了5G，光纤通信是否还需要？答案是，不仅需要，而且还要大幅度提高。</p>
-<p>我们不妨从相反的角度思考这个问题，就很容易得到答案。假如没有光纤，只有移动网络，那么基站和基站之间的通讯就不得不用移动网络实现，这就要占据很大的带宽，就会影响我们每一个人和基站的通信。</p>
-<p>因此光纤依然是必要的，不仅必要，而且要增加，因为我们和基站通信的速率增加了，又有很多IoT的设备连进来，总的通信量就增加了。从这里我们还可以得出一个结论，从事光纤通讯产业的人，将是5G的获益者。</p>
-]]></content>
-    </entry>
     <entry>
         <title type="html"><![CDATA[转载：通信简史-5G通信为什么快于4G？]]></title>
         <id>https://leichen2552.github.io/post/zhuan-zai-tong-xin-jian-shi-5g-tong-xin-wei-shi-me-kuai-yu-4g/</id>
@@ -4035,6 +3977,308 @@ public:
 <li>类中可以定义const成员变量</li>
 <li>const成员变量必须在初始化列表中指定初值</li>
 <li>const成员变量为只读变量，依然可以通过指针来修改</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[回顾（19）：对象的构造（下）]]></title>
+        <id>https://leichen2552.github.io/post/hui-gu-19dui-xiang-de-gou-zao-xia/</id>
+        <link href="https://leichen2552.github.io/post/hui-gu-19dui-xiang-de-gou-zao-xia/">
+        </link>
+        <updated>2020-02-07T07:56:13.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E7%89%B9%E6%AE%8A%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">特殊的构造函数</a>
+<ul>
+<li><a href="#%E6%97%A0%E5%8F%82%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">无参构造函数</a></li>
+<li><a href="#%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">拷贝构造函数</a></li>
+<li><a href="#%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%9A%84%E6%84%8F%E4%B9%89">拷贝构造函数的意义</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E9%9C%80%E8%A6%81%E6%B7%B1%E6%8B%B7%E8%B4%9D">什么时候需要深拷贝</a></li>
+<li><a href="#%E6%95%B0%E7%BB%84%E7%B1%BB%E6%94%B9%E8%BF%9B">数组类改进</a>
+<ul>
+<li><a href="#intarrayh">IntArray.h</a></li>
+<li><a href="#intarraycpp">IntArray.cpp</a></li>
+<li><a href="#maincpp">main.cpp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</p>
+<h1 id="特殊的构造函数">特殊的构造函数</h1>
+<h2 id="无参构造函数">无参构造函数</h2>
+<ul>
+<li>没有参数的构造函数
+<ul>
+<li>当类中没有定义构造函数，编译器默认提供一个无参构造函数，并且其函数体为空</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">#include &lt;stdio.h&gt;
+class Test
+{
+private:
+    int i;
+    int j;
+public:
+    int getI(){ return i;}
+    int getJ(){ return j;}
+    //编译器为什么能编译器通过。
+    //我们没有定义任何的构造函数时，编译器就提供了默认的无参构造函数
+    /*
+    Test()
+    {}
+    */
+
+    //类中并没有手工构造函数，就提供一个默认的拷贝构造函数，
+    //但是如果只有一个手工拷贝构造函数，编译器就不会提供默认的无参构造函数
+    //但是编译会出错，还需要一个手工无参构造函数
+      /*
+    Test(const Test&amp; t)
+    {
+        i = t.i;
+        j = t.j;
+    }
+    */
+};    
+
+int main()
+{
+    Test t1;
+    Test t2 = t1;
+
+    cout &lt;&lt; &quot;t1.i = &quot; &lt;&lt; t1.i &lt;&lt; &quot;t1.j&quot; &lt;&lt; t1.j;
+    cout &lt;&lt; &quot;t2.i = &quot; &lt;&lt; t2.i &lt;&lt; &quot;t2.j&quot; &lt;&lt; t2.j;
+
+    return 0;
+}
+</code></pre>
+<h2 id="拷贝构造函数">拷贝构造函数</h2>
+<ul>
+<li>参数为const class_name&amp; 的构造函数
+<ul>
+<li>当类中没有定义拷贝构造函数，编译器默认提供一个拷贝构造函数，简单的进行成员变量的值的赋值</li>
+</ul>
+</li>
+</ul>
+<h2 id="拷贝构造函数的意义">拷贝构造函数的意义</h2>
+<ul>
+<li>
+<p>兼容C语言的初始化方式</p>
+</li>
+<li>
+<p>初始化行为能够符合预期的逻辑</p>
+</li>
+<li>
+<p>浅拷贝</p>
+<ul>
+<li>拷贝后对象的物理状态相同</li>
+</ul>
+</li>
+<li>
+<p>深拷贝</p>
+<ul>
+<li>拷贝后对象的逻辑状态相同</li>
+</ul>
+</li>
+</ul>
+<p><strong>编译器提供的拷贝构造函数只进行浅拷贝</strong></p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+#include &lt;stdio.h&gt;
+class Test
+{
+private:
+    int i;
+    int j;
+    int* p; 
+public:
+    int getI(){ return i;}
+    int getJ(){ return j;}
+    int* getP(){return p;}
+    Test(int v)
+    {
+        i = 1;
+        j = 2;
+        p = new int;
+
+        *p = v;
+    }
+    Test(const Test&amp; t)
+    {
+        i = t.i;
+        j = t.j;
+        p = new int;
+
+        *p = *t.p;
+    }   
+    void free()
+    {
+        delete p;
+    }
+};    //类的创建一定要加分号
+
+int main()
+{
+    Test t1(3);
+    Test t2 = t1;
+
+    cout &lt;&lt; &quot;t1.i = &quot; &lt;&lt; t1.getI() &lt;&lt; &quot;,t1.j =&quot; &lt;&lt; t1.getJ() &lt;&lt; &quot;,t1.p = &quot;&lt;&lt; t1.getP() &lt;&lt; &quot;,*t1.p = &quot;&lt;&lt; *t1.getP() &lt;&lt; endl;
+    cout &lt;&lt; &quot;t2.i = &quot; &lt;&lt; t2.getI() &lt;&lt; &quot;,t2.j =&quot; &lt;&lt; t2.getJ() &lt;&lt; &quot;,t2.p = &quot;&lt;&lt; t2.getP() &lt;&lt; &quot;,*t2.p = &quot;&lt;&lt; *t2.getP() &lt;&lt; endl;
+
+    t1.free();
+    t2.free();
+   
+    return 0;
+}
+</code></pre>
+<p><strong>这两个指针指向了一个内存空间，并且被释放了两次，采用浅拷贝编译器会报错，如图所示</strong><br>
+<img src="https://leichen2552.github.io//post-images/1581067898285.png" alt="" loading="lazy"></p>
+<h3 id="什么时候需要深拷贝">什么时候需要深拷贝</h3>
+<ul>
+<li>对象中有成员指代了系统中的资源
+<ul>
+<li>成员指向了动态内存空间</li>
+<li>成员打开了外存中的文件</li>
+<li>成员使用了系统中的网络端口</li>
+</ul>
+</li>
+</ul>
+<h3 id="数组类改进">数组类改进</h3>
+<p>因为上一节课的数组类中有对堆空间的申请，所以需要添加深拷贝构造函数</p>
+<h4 id="intarrayh">IntArray.h</h4>
+<pre><code class="language-c++">#ifndef INTARRAY_H
+#define INTARRAY_H
+
+class IntArray{
+private:
+	int m_length;
+	int* m_pointer;
+public:
+	IntArray(int len);
+	int length();
+	bool get(int index, int&amp; value);
+	bool set(int index, int value);	
+    IntArray(const IntArray&amp; ob);
+    void free();
+};//类的创建一定要加分号！！！
+
+#endif
+</code></pre>
+<h4 id="intarraycpp">IntArray.cpp</h4>
+<pre><code class="language-c++">#include &quot;IntArray.h&quot;
+
+IntArray::IntArray(int len)
+{
+	m_pointer = new int[len];
+	
+	for(int i = 0;i &lt; len; i++)
+	{
+		m_pointer[i] = 0;
+	}
+	
+	m_length = len;	
+}
+
+IntArray::IntArray(const IntArray&amp; ob)
+{
+	m_length = ob.m_length;
+	m_pointer = new int[ob.m_length];
+	
+	for(int i = 0;i &lt; ob.m_length;i++)
+	{
+		m_pointer[i] = ob.m_pointer[i]; 	
+	}		
+}
+
+int IntArray::length()
+{
+	return m_length;
+}
+
+bool IntArray::get(int index, int&amp; value)
+{
+	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
+	
+	if(ret)
+	{
+		value = m_pointer[index];
+	}
+	
+	return ret;
+}
+
+bool IntArray::set(int index, int value)
+{
+	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
+	
+	if(ret)
+	{
+ 		m_pointer[index] = value;
+	}
+	
+	return ret;
+}
+
+void IntArray::free()
+{
+	delete[] m_pointer;
+}
+</code></pre>
+<h4 id="maincpp">main.cpp</h4>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &quot;IntArray.h&quot;
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+	IntArray a(5);
+	
+	for(int i=0; i&lt;a.length(); i++)
+	{
+		a.set(i,i+1);	
+	}
+	
+	for(int i=0; i&lt;a.length(); i++)
+	{
+		int value = 0;
+		if(a.get(i,value))
+		{
+			cout &lt;&lt; &quot;a[&quot;&lt;&lt; i&lt;&lt; &quot;]= &quot; &lt;&lt;value &lt;&lt; endl;
+		}
+	}
+	
+	IntArray b = a;
+	
+	for(int i=0; i&lt;b.length(); i++)
+	{
+		int value = 0;
+		if(b.get(i,value))
+		{
+			cout &lt;&lt; &quot;b[&quot;&lt;&lt; i&lt;&lt; &quot;]= &quot; &lt;&lt;value &lt;&lt; endl;
+		}
+	}
+	a.free();
+	b.free();
+	return 0;
+}
+</code></pre>
+<h1 id="小结">小结</h1>
+<ul>
+<li>C++编译器会默认提供构造函数</li>
+<li>无参构造函数用于定义对象的默认初始状态，编译器发现没有任何的构造函数时，才会提供无参构造函数</li>
+<li>拷贝构造函数在创建对象时拷贝对象的状态</li>
+<li>对象的拷贝有深拷贝和浅拷贝两种方式
+<ul>
+<li>浅拷贝使得对象的物理状态相同</li>
+<li>深拷贝使得对象的逻辑状态相同，如果使用了系统资源，就必须手动提供深拷贝函数</li>
+</ul>
+</li>
 </ul>
 ]]></content>
     </entry>
