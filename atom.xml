@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-03-01T08:15:13.545Z</updated>
+    <updated>2020-03-02T14:20:00.609Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,108 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[模糊信息处理技术]]></title>
+        <id>https://leichen2552.github.io/post/mo-hu-xin-xi-chu-li-ji-zhu/</id>
+        <link href="https://leichen2552.github.io/post/mo-hu-xin-xi-chu-li-ji-zhu/">
+        </link>
+        <updated>2020-03-02T04:10:19.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E9%9B%86%E5%90%88">集合</a>
+<ul>
+<li><a href="#%E9%9B%86%E5%90%88%E7%9A%84%E6%A6%82%E5%BF%B5">集合的概念</a></li>
+<li><a href="#%E9%9B%86%E5%90%88%E7%9A%84%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0%E8%A1%A8%E7%A4%BA">集合的特征函数表示</a></li>
+<li><a href="#%E9%9B%86%E5%90%88%E7%9A%84%E7%9B%B4%E7%A7%AF">集合的直积</a></li>
+<li><a href="#%E5%85%B3%E7%B3%BB%E7%9F%A9%E9%98%B5">关系矩阵</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A8%A1%E7%B3%8A%E9%9B%86-mathop-a-limits_sim">模糊集 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mo><mi>A</mi></mo><mo>∼</mo></msub></mrow><annotation encoding="application/x-tex">\mathop{ A }\limits_{\sim}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.38333em;vertical-align:-0.791665em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.591665em;"><span style="top:-2.308335em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">∼</span></span></span></span><span style="top:-2.908335em;"><span class="pstrut" style="height:3em;"></span><span><span class="mop mathdefault">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.791665em;"><span></span></span></span></span></span></span></span></span></a>
+<ul>
+<li><a href="#%E6%A8%A1%E7%B3%8A%E9%9B%86%E4%BE%8B%E5%AD%90">模糊集例子</a></li>
+<li><a href="#%E6%A8%A1%E7%B3%8A%E9%9B%86%E7%9A%84%E8%A1%A8%E7%A4%BA">模糊集的表示</a>
+<ul>
+<li><a href="#%E5%8A%A0%E6%B3%95%E8%A1%A8%E7%A4%BA">加法表示</a></li>
+<li><a href="#%E5%90%91%E9%87%8F%E8%A1%A8%E7%A4%BA">向量表示</a></li>
+<li><a href="#%E9%9A%B6%E5%B1%9E%E5%BA%A6%E5%87%BD%E6%95%B0mu_mathop-a-limits_simx%E8%A1%A8%E7%A4%BA">隶属度函数<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>μ</mi><msub><mo><mi>A</mi></mo><mo>∼</mo></msub></msub><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mu_{\mathop{ A }\limits_{\sim}}(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.4919655em;vertical-align:-0.7419655em;"></span><span class="mord"><span class="mord mathdefault">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.26416549999999994em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mop op-limits mtight"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.591665em;"><span style="top:-1.997335em;margin-left:0em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mrel mtight">∼</span></span></span></span><span style="top:-2.6083350000000003em;"><span class="pstrut" style="height:2.7em;"></span><span><span class="mop mathdefault mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.845665em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7419655em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span>表示</a>
+<ul>
+<li><a href="#%E9%9A%B6%E5%B1%9E%E5%87%BD%E6%95%B0%E7%9A%84%E7%A1%AE%E5%AE%9A">隶属函数的确定</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</p>
+<h1 id="集合">集合</h1>
+<h2 id="集合的概念">集合的概念</h2>
+<ul>
+<li>定义：给定论域<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span></span></span></span>和给定某一性质<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span></span></span></span>具有性质P的元素所组成的总体叫做集合，简称为集。</li>
+<li>如果<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>是集合<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span>的元素，就是说<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>属于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span>，写成<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>∈</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">x\in A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span>；反之，如果<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>不是集合A的元素，就说<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>不属于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span>，表示<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mi mathvariant="normal">∉</mi><mi>A</mi></mrow><annotation encoding="application/x-tex">x \notin A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"><span class="mord"><span class="mrel">∈</span></span><span class="mord"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.75em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="llap"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="inner"><span class="mord"><span class="mord">/</span><span class="mspace" style="margin-right:0.05555555555555555em;"></span></span></span><span class="fix"></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.25em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span>。</li>
+</ul>
+<h2 id="集合的特征函数表示">集合的特征函数表示</h2>
+<p>对于给定的论域<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>U</mi></mrow><annotation encoding="application/x-tex">U</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">U</span></span></span></span>，任意集合<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>⊆</mo><mi>U</mi></mrow><annotation encoding="application/x-tex">A\subseteq U</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊆</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">U</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>∈</mo><mi>U</mi></mrow><annotation encoding="application/x-tex">x\in U</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">U</span></span></span></span>，则有：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>μ</mi><mi>A</mi></msub><mo>(</mo><mi>x</mi><mo>)</mo><mo>=</mo><mrow><mo fence="true">{</mo><mtable><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mn>1</mn><mo separator="true">,</mo><mi>x</mi><mo>∈</mo><mi>A</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mn>0</mn><mo separator="true">,</mo><mi>x</mi><mi mathvariant="normal">∉</mi><mi>A</mi></mrow></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">\mu_A(x)=\begin{cases}
+1,x \in A\\
+0,x \notin A\\
+\end{cases}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.0000299999999998em;vertical-align:-1.25003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size4">{</span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">A</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"><span class="mord"><span class="mrel">∈</span></span><span class="mord"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.75em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="llap"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="inner"><span class="mord"><span class="mord">/</span><span class="mspace" style="margin-right:0.05555555555555555em;"></span></span></span><span class="fix"></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.25em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>μ</mi><mi>A</mi></msub><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mu_A(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span>成为集合A的特征函数，可见特征函数的值是一个只能取两个数的集合<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>{</mo><mn>0</mn><mi mathvariant="normal">，</mi><mn>1</mn><mo>}</mo></mrow><annotation encoding="application/x-tex">\{0，1\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord">0</span><span class="mord cjk_fallback">，</span><span class="mord">1</span><span class="mclose">}</span></span></span></span>。<br>
+所以，用函数来刻画某一个集合，那么集合之间的运算可以转化成函数之间的运算。</p>
+<h2 id="集合的直积">集合的直积</h2>
+<p>有两个集合<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span>，从<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span>中取一个元素<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>，从<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span>中取一个元素<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span>，把他们搭配起来组成一个序偶<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(x , y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span>，所有序偶的全体组成一个新的集合，这个集合叫做集合A和集合B的直积<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>×</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A\times B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span>，表示成：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>×</mo><mi>B</mi><mo>=</mo><mo>{</mo><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>)</mo><mo>∣</mo><mi>x</mi><mo>∈</mo><mi>A</mi><mo separator="true">,</mo><mi>y</mi><mo>∈</mo><mi>B</mi><mo>}</mo></mrow><annotation encoding="application/x-tex">A\times B = \{ ( x , y ) \mid x\in A, y\in B \}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">A</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mclose">}</span></span></span></span></span></p>
+<p>序偶和顺序有关，即<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>)</mo><mi mathvariant="normal">≠</mi><mo>(</mo><mi>y</mi><mo separator="true">,</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(x , y) \ne (y , x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"><span class="mrel"><span class="mord"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="inner"><span class="mrel"></span></span><span class="fix"></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span></span><span class="mrel">=</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span>，所以直积<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>×</mo><mi>B</mi><mi mathvariant="normal">≠</mi><mi>B</mi><mo>×</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">A\times B \ne B\times A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"><span class="mrel"><span class="mord"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="inner"><span class="mrel"></span></span><span class="fix"></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span></span><span class="mrel">=</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span><br>
+直积也叫乘积、叉积或笛卡尔积，有直积就可以描绘<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>维立方体。</p>
+<h2 id="关系矩阵">关系矩阵</h2>
+<p>用矩阵来描述两个集合之间的关系</p>
+<h1 id="模糊集-mathop-a-limits_sim">模糊集 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mo><mi>A</mi></mo><mo>∼</mo></msub></mrow><annotation encoding="application/x-tex">\mathop{ A }\limits_{\sim}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.38333em;vertical-align:-0.791665em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.591665em;"><span style="top:-2.308335em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">∼</span></span></span></span><span style="top:-2.908335em;"><span class="pstrut" style="height:3em;"></span><span><span class="mop mathdefault">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.791665em;"><span></span></span></span></span></span></span></span></span></h1>
+<p>定义：给定论域<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>U</mi></mrow><annotation encoding="application/x-tex">U</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">U</span></span></span></span>，对于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">∀</mi><mi>x</mi><mo>∈</mo><mi>U</mi></mrow><annotation encoding="application/x-tex">\forall x\in U</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord">∀</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">U</span></span></span></span>都指定的一个值，将序对（偶）集</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><munder><mo><mi>A</mi></mo><mo>∼</mo></munder><mo>=</mo><mo>(</mo><msub><mi>μ</mi><munder><mo><mi>A</mi></mo><mo>∼</mo></munder></msub><mo>(</mo><mi>x</mi><mo>)</mo><mo>∣</mo><mi>x</mi><mo>)</mo><mo separator="true">,</mo><mi mathvariant="normal">∀</mi><mi>x</mi><mo>∈</mo><mi>U</mi><mo separator="true">,</mo><msub><mi>μ</mi><munder><mo><mi>A</mi></mo><mo>∼</mo></munder></msub><mo>(</mo><mi>x</mi><mo>)</mo><mo>∈</mo><mo>[</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">\mathop{ A }\limits_{\sim} = ( \mu_{\mathop{ A }\limits_{\sim}}(x) \mid x ) , \forall x \in U , \mu_{\mathop{ A }\limits_{\sim}}(x) \in [0 , 1]
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.38333em;vertical-align:-0.791665em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.591665em;"><span style="top:-2.308335em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">∼</span></span></span></span><span style="top:-2.908335em;"><span class="pstrut" style="height:3em;"></span><span><span class="mop mathdefault">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.791665em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.4919655em;vertical-align:-0.7419655em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.26416549999999994em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mop op-limits mtight"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.591665em;"><span style="top:-1.997335em;margin-left:0em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mrel mtight">∼</span></span></span></span><span style="top:-2.6083350000000003em;"><span class="pstrut" style="height:2.7em;"></span><span><span class="mop mathdefault mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.845665em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7419655em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∀</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.4919655em;vertical-align:-0.7419655em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">U</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.26416549999999994em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mop op-limits mtight"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.591665em;"><span style="top:-1.997335em;margin-left:0em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mrel mtight">∼</span></span></span></span><span style="top:-2.6083350000000003em;"><span class="pstrut" style="height:2.7em;"></span><span><span class="mop mathdefault mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.845665em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7419655em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span></span></p>
+<p>定义为论域<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>U</mi></mrow><annotation encoding="application/x-tex">U</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">U</span></span></span></span>上的一个模糊子集，简称模糊集，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∼</mo></mrow><annotation encoding="application/x-tex">{\sim}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mord"><span class="mrel">∼</span></span></span></span></span>波浪号表示该集合为模糊集。<br>
+根据以上定义，模糊集合实质是论域<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>U</mi></mrow><annotation encoding="application/x-tex">U</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">U</span></span></span></span>到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[0 , 1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>闭区间的一个映射。</p>
+<h2 id="模糊集例子">模糊集例子</h2>
+<p>比如：年轻是20岁以下；中年是四五十岁；老年是七八十岁。<br>
+所谓模糊集，就是任何一个元素属于这个集合的程度是需要用一个隶属度函数来刻画的，就是由隶属度函数来描绘这个元素属于这个集合的程度大小</p>
+<p>##模糊性与随机性</p>
+<ul>
+<li>模糊性总是伴随着复杂性而出现</li>
+<li>复杂性意味着因素的多样性、关联的多样性</li>
+<li>随机性：事件是否发生的因果规律被破坏二造成的一种不确定性</li>
+<li>模糊性：事物本身性态和属性的不确定性</li>
+</ul>
+<p>从信息观点看：随机性只设计信息的量。模糊性关系到信息的意义、信息的定性问题。<br>
+模糊性是一种比随机性更深刻的不确定性。但是用随机、用概率的方式来解决模糊的问题是做不到的。</p>
+<h2 id="模糊集的表示">模糊集的表示</h2>
+<h3 id="加法表示">加法表示</h3>
+<ul>
+<li>也并不是加法，就以一个集合。</li>
+</ul>
+<h3 id="向量表示">向量表示</h3>
+<ul>
+<li>用大括号集合表示，但是要表示出0。</li>
+</ul>
+<h3 id="隶属度函数mu_mathop-a-limits_simx表示">隶属度函数<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>μ</mi><msub><mo><mi>A</mi></mo><mo>∼</mo></msub></msub><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mu_{\mathop{ A }\limits_{\sim}}(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.4919655em;vertical-align:-0.7419655em;"></span><span class="mord"><span class="mord mathdefault">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.26416549999999994em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mop op-limits mtight"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.591665em;"><span style="top:-1.997335em;margin-left:0em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mrel mtight">∼</span></span></span></span><span style="top:-2.6083350000000003em;"><span class="pstrut" style="height:2.7em;"></span><span><span class="mop mathdefault mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.845665em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7419655em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span>表示</h3>
+<h4 id="隶属函数的确定">隶属函数的确定</h4>
+<ul>
+<li>Fuzzy统计法</li>
+</ul>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>μ</mi><mo>(</mo></msub><msub><mi>x</mi><mi>ϕ</mi></msub><mo>)</mo><mo>=</mo><munder><mi>lim</mi><mo>⁡</mo><mrow><mi>x</mi><mo>→</mo><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></munder><mfrac><mrow><msub><mi>x</mi><mi>ϕ</mi></msub><mo>∈</mo><msup><mi>A</mi><mo>∗</mo></msup><mi mathvariant="normal">的</mi><mi mathvariant="normal">次</mi><mi mathvariant="normal">数</mi></mrow><mi>n</mi></mfrac></mrow><annotation encoding="application/x-tex">\mu_(x_{\phi}) = {\lim_{x \to +\infty}}{\frac{x_{\phi} \in A^*的次数}{n}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1052em;vertical-align:-0.3551999999999999em;"></span><span class="mord"><span class="mord mathdefault">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mopen mtight">(</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">ϕ</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.124027em;vertical-align:-0.758331em;"></span><span class="mord"><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-2.1em;margin-left:0em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">x</span><span class="mrel mtight">→</span><span class="mord mtight">+</span><span class="mord mtight">∞</span></span></span></span><span style="top:-2.7em;"><span class="pstrut" style="height:2.7em;"></span><span><span class="mop">lim</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.758331em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.365696em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">n</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">ϕ</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord mathdefault">A</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.688696em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">次</span><span class="mord cjk_fallback">数</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></span></p>
+<p>其中<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>为总得试验次数，只要充分大就可以了，随着<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>的增大，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>μ</mi><mo>(</mo></msub><msub><mi>x</mi><mi>ϕ</mi></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">\mu_(x_{\phi})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1052em;vertical-align:-0.3551999999999999em;"></span><span class="mord"><span class="mord mathdefault">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mopen mtight">(</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">ϕ</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>就会趋向一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[0 , 1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>闭区间的数，即隶属度。隶属函数绝不是概率，只是用概率这个解析式来表示。</p>
+<ul>
+<li>几种常见的隶属函数形式，一些专家在某些领域研究的隶属度规则
+<ul>
+<li>正态形<br>
+<img src="https://leichen2552.github.io//post-images/1583158778787.png" alt="" loading="lazy"></li>
+<li>斜坡形<br>
+<img src="https://leichen2552.github.io//post-images/1583158677786.jpg" alt="" loading="lazy"></li>
+</ul>
+</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[转载：通信简史-5G通信为什么快于4G？]]></title>
         <id>https://leichen2552.github.io/post/zhuan-zai-tong-xin-jian-shi-5g-tong-xin-wei-shi-me-kuai-yu-4g/</id>
@@ -3977,308 +4079,6 @@ public:
 <li>类中可以定义const成员变量</li>
 <li>const成员变量必须在初始化列表中指定初值</li>
 <li>const成员变量为只读变量，依然可以通过指针来修改</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（19）：对象的构造（下）]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-19dui-xiang-de-gou-zao-xia/</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-19dui-xiang-de-gou-zao-xia/">
-        </link>
-        <updated>2020-02-07T07:56:13.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#%E7%89%B9%E6%AE%8A%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">特殊的构造函数</a>
-<ul>
-<li><a href="#%E6%97%A0%E5%8F%82%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">无参构造函数</a></li>
-<li><a href="#%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">拷贝构造函数</a></li>
-<li><a href="#%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%9A%84%E6%84%8F%E4%B9%89">拷贝构造函数的意义</a>
-<ul>
-<li><a href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E9%9C%80%E8%A6%81%E6%B7%B1%E6%8B%B7%E8%B4%9D">什么时候需要深拷贝</a></li>
-<li><a href="#%E6%95%B0%E7%BB%84%E7%B1%BB%E6%94%B9%E8%BF%9B">数组类改进</a>
-<ul>
-<li><a href="#intarrayh">IntArray.h</a></li>
-<li><a href="#intarraycpp">IntArray.cpp</a></li>
-<li><a href="#maincpp">main.cpp</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
-</ul>
-</p>
-<h1 id="特殊的构造函数">特殊的构造函数</h1>
-<h2 id="无参构造函数">无参构造函数</h2>
-<ul>
-<li>没有参数的构造函数
-<ul>
-<li>当类中没有定义构造函数，编译器默认提供一个无参构造函数，并且其函数体为空</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-c++">#include &lt;stdio.h&gt;
-class Test
-{
-private:
-    int i;
-    int j;
-public:
-    int getI(){ return i;}
-    int getJ(){ return j;}
-    //编译器为什么能编译器通过。
-    //我们没有定义任何的构造函数时，编译器就提供了默认的无参构造函数
-    /*
-    Test()
-    {}
-    */
-
-    //类中并没有手工构造函数，就提供一个默认的拷贝构造函数，
-    //但是如果只有一个手工拷贝构造函数，编译器就不会提供默认的无参构造函数
-    //但是编译会出错，还需要一个手工无参构造函数
-      /*
-    Test(const Test&amp; t)
-    {
-        i = t.i;
-        j = t.j;
-    }
-    */
-};    
-
-int main()
-{
-    Test t1;
-    Test t2 = t1;
-
-    cout &lt;&lt; &quot;t1.i = &quot; &lt;&lt; t1.i &lt;&lt; &quot;t1.j&quot; &lt;&lt; t1.j;
-    cout &lt;&lt; &quot;t2.i = &quot; &lt;&lt; t2.i &lt;&lt; &quot;t2.j&quot; &lt;&lt; t2.j;
-
-    return 0;
-}
-</code></pre>
-<h2 id="拷贝构造函数">拷贝构造函数</h2>
-<ul>
-<li>参数为const class_name&amp; 的构造函数
-<ul>
-<li>当类中没有定义拷贝构造函数，编译器默认提供一个拷贝构造函数，简单的进行成员变量的值的赋值</li>
-</ul>
-</li>
-</ul>
-<h2 id="拷贝构造函数的意义">拷贝构造函数的意义</h2>
-<ul>
-<li>
-<p>兼容C语言的初始化方式</p>
-</li>
-<li>
-<p>初始化行为能够符合预期的逻辑</p>
-</li>
-<li>
-<p>浅拷贝</p>
-<ul>
-<li>拷贝后对象的物理状态相同</li>
-</ul>
-</li>
-<li>
-<p>深拷贝</p>
-<ul>
-<li>拷贝后对象的逻辑状态相同</li>
-</ul>
-</li>
-</ul>
-<p><strong>编译器提供的拷贝构造函数只进行浅拷贝</strong></p>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-#include &lt;stdio.h&gt;
-class Test
-{
-private:
-    int i;
-    int j;
-    int* p; 
-public:
-    int getI(){ return i;}
-    int getJ(){ return j;}
-    int* getP(){return p;}
-    Test(int v)
-    {
-        i = 1;
-        j = 2;
-        p = new int;
-
-        *p = v;
-    }
-    Test(const Test&amp; t)
-    {
-        i = t.i;
-        j = t.j;
-        p = new int;
-
-        *p = *t.p;
-    }   
-    void free()
-    {
-        delete p;
-    }
-};    //类的创建一定要加分号
-
-int main()
-{
-    Test t1(3);
-    Test t2 = t1;
-
-    cout &lt;&lt; &quot;t1.i = &quot; &lt;&lt; t1.getI() &lt;&lt; &quot;,t1.j =&quot; &lt;&lt; t1.getJ() &lt;&lt; &quot;,t1.p = &quot;&lt;&lt; t1.getP() &lt;&lt; &quot;,*t1.p = &quot;&lt;&lt; *t1.getP() &lt;&lt; endl;
-    cout &lt;&lt; &quot;t2.i = &quot; &lt;&lt; t2.getI() &lt;&lt; &quot;,t2.j =&quot; &lt;&lt; t2.getJ() &lt;&lt; &quot;,t2.p = &quot;&lt;&lt; t2.getP() &lt;&lt; &quot;,*t2.p = &quot;&lt;&lt; *t2.getP() &lt;&lt; endl;
-
-    t1.free();
-    t2.free();
-   
-    return 0;
-}
-</code></pre>
-<p><strong>这两个指针指向了一个内存空间，并且被释放了两次，采用浅拷贝编译器会报错，如图所示</strong><br>
-<img src="https://leichen2552.github.io//post-images/1581067898285.png" alt="" loading="lazy"></p>
-<h3 id="什么时候需要深拷贝">什么时候需要深拷贝</h3>
-<ul>
-<li>对象中有成员指代了系统中的资源
-<ul>
-<li>成员指向了动态内存空间</li>
-<li>成员打开了外存中的文件</li>
-<li>成员使用了系统中的网络端口</li>
-</ul>
-</li>
-</ul>
-<h3 id="数组类改进">数组类改进</h3>
-<p>因为上一节课的数组类中有对堆空间的申请，所以需要添加深拷贝构造函数</p>
-<h4 id="intarrayh">IntArray.h</h4>
-<pre><code class="language-c++">#ifndef INTARRAY_H
-#define INTARRAY_H
-
-class IntArray{
-private:
-	int m_length;
-	int* m_pointer;
-public:
-	IntArray(int len);
-	int length();
-	bool get(int index, int&amp; value);
-	bool set(int index, int value);	
-    IntArray(const IntArray&amp; ob);
-    void free();
-};//类的创建一定要加分号！！！
-
-#endif
-</code></pre>
-<h4 id="intarraycpp">IntArray.cpp</h4>
-<pre><code class="language-c++">#include &quot;IntArray.h&quot;
-
-IntArray::IntArray(int len)
-{
-	m_pointer = new int[len];
-	
-	for(int i = 0;i &lt; len; i++)
-	{
-		m_pointer[i] = 0;
-	}
-	
-	m_length = len;	
-}
-
-IntArray::IntArray(const IntArray&amp; ob)
-{
-	m_length = ob.m_length;
-	m_pointer = new int[ob.m_length];
-	
-	for(int i = 0;i &lt; ob.m_length;i++)
-	{
-		m_pointer[i] = ob.m_pointer[i]; 	
-	}		
-}
-
-int IntArray::length()
-{
-	return m_length;
-}
-
-bool IntArray::get(int index, int&amp; value)
-{
-	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
-	
-	if(ret)
-	{
-		value = m_pointer[index];
-	}
-	
-	return ret;
-}
-
-bool IntArray::set(int index, int value)
-{
-	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
-	
-	if(ret)
-	{
- 		m_pointer[index] = value;
-	}
-	
-	return ret;
-}
-
-void IntArray::free()
-{
-	delete[] m_pointer;
-}
-</code></pre>
-<h4 id="maincpp">main.cpp</h4>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &quot;IntArray.h&quot;
-
-using namespace std;
-
-int main(int argc, char *argv[])
-{
-	IntArray a(5);
-	
-	for(int i=0; i&lt;a.length(); i++)
-	{
-		a.set(i,i+1);	
-	}
-	
-	for(int i=0; i&lt;a.length(); i++)
-	{
-		int value = 0;
-		if(a.get(i,value))
-		{
-			cout &lt;&lt; &quot;a[&quot;&lt;&lt; i&lt;&lt; &quot;]= &quot; &lt;&lt;value &lt;&lt; endl;
-		}
-	}
-	
-	IntArray b = a;
-	
-	for(int i=0; i&lt;b.length(); i++)
-	{
-		int value = 0;
-		if(b.get(i,value))
-		{
-			cout &lt;&lt; &quot;b[&quot;&lt;&lt; i&lt;&lt; &quot;]= &quot; &lt;&lt;value &lt;&lt; endl;
-		}
-	}
-	a.free();
-	b.free();
-	return 0;
-}
-</code></pre>
-<h1 id="小结">小结</h1>
-<ul>
-<li>C++编译器会默认提供构造函数</li>
-<li>无参构造函数用于定义对象的默认初始状态，编译器发现没有任何的构造函数时，才会提供无参构造函数</li>
-<li>拷贝构造函数在创建对象时拷贝对象的状态</li>
-<li>对象的拷贝有深拷贝和浅拷贝两种方式
-<ul>
-<li>浅拷贝使得对象的物理状态相同</li>
-<li>深拷贝使得对象的逻辑状态相同，如果使用了系统资源，就必须手动提供深拷贝函数</li>
-</ul>
-</li>
 </ul>
 ]]></content>
     </entry>
