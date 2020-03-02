@@ -184,232 +184,35 @@
 </script>
             <div class="main">
                 <div class="container">
-                    <article class="post-wrap">
-                        <header class="post-header">
-                            <h1 class="post-title">
-                                回顾（21）：对象构造顺序
-                            </h1>
-                            
-                                <!--en-->
-                                <div class="post-meta en">
-                                    Author:
-                                    <a itemprop="author" rel="author" href="/">
-                                        ChenLei's Blog
-                                    </a>
-                                    <span class="post-time">
-                                Date: <a href="#">2020-02-09</a>
-                            </span>
-                                    <span class="post-readtime">Reading Time:<a
-                                    href="#">1.4
-                                    mins</a></span>
-                                    <span class="post-words">words:<a href="#">339</a></span>
-                                    
-                                        <span class="post-category">
-                                Category:
-                                
-                                <a href="https://leichen2552.github.io/tag/dTVQPvwPR/">C++</a>
-                                
-                            </span>
-                                        
-                                            Views:
-                                            <span data-hk-page="current"> - </span>
-                                            
-                                </div>
-                                
-                        </header>
-                        <div class="post-content">
-                            <h1 id="对象的构造顺序">对象的构造顺序</h1>
-<pre><code>C++中的类可以定义多个对象，那么对象构造的顺序是怎样的？
-</code></pre>
-<h2 id="对于局部对象">对于局部对象</h2>
-<ul>
-<li>当程序执行流到达对象的定义语句时进行构造</li>
-</ul>
-<pre><code class="language-c++">class Test
-{
-private:
-    int mi;
-public:
-    Test()
-    {
-        mi = i;
-        printf(&quot;Test(int i): %d\n&quot;, mi);
-    }   
-    Test()
-    {
-        mi = obj.mi;
-        printf(&quot;Test(const Test&amp; obj): %d\n&quot;, mi);
-    } 
-};
-
-int main
-{
-    int i = 0;
-    Test a1 = i;
-
-    while(i&lt;3)
-    {
-        Test a2 = ++i;
-    }
-
-    if(i &lt; 4)
-    {
-        Test a = a1;
-    }
-    else
-    {
-        Test a(100);
-    }
-
-    return 0;
-}
-
-</code></pre>
-<h2 id="对于堆对象">对于堆对象</h2>
-<ul>
-<li>当程序执行流到达new语句时创建对象</li>
-<li>使用new创建对象将自动触发构造函数的调用</li>
-</ul>
-<pre><code class="language-c++">int main
-{
-    int i = 0;
-    Test* a1 = new Test(i);
-
-    while(++i&lt;10)
-    {
-        if(i % 2)
-            new Test(i);
-    }
-
-    if(i &lt; 4)
-    {
-        new Test(*a1);
-    }
-    else
-    {
-        new Test a(100);
-    }
-
-    return 0;
-}
-</code></pre>
-<h2 id="对于全局对象">对于全局对象</h2>
-<ul>
-<li>全局对象的构造顺序是不确定的
-<ul>
-<li>全局对象的构造顺序是不确定的
-<ul>
-<li>全局对象的构造顺序是不确定的</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>不同的编译器使用不同的规则确定构造顺序</li>
-</ul>
-<h1 id="小结">小结</h1>
-<ul>
-<li>局部对象的构造顺序依赖于程序的执行流，goto语句会破坏程序的执行流</li>
-<li>堆对象的构造顺序依赖于new的使用顺序</li>
-<li>全局对象的构造顺序是不确定的，也是日常工程开发bug的主要来源之一</li>
-</ul>
-
-                        </div>
+                    <div class="post-wrap archive">
                         
-                            <div class="post-toc">
-                                <ul class="markdownIt-TOC">
-<li><a href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%9E%84%E9%80%A0%E9%A1%BA%E5%BA%8F">对象的构造顺序</a>
-<ul>
-<li><a href="#%E5%AF%B9%E4%BA%8E%E5%B1%80%E9%83%A8%E5%AF%B9%E8%B1%A1">对于局部对象</a></li>
-<li><a href="#%E5%AF%B9%E4%BA%8E%E5%A0%86%E5%AF%B9%E8%B1%A1">对于堆对象</a></li>
-<li><a href="#%E5%AF%B9%E4%BA%8E%E5%85%A8%E5%B1%80%E5%AF%B9%E8%B1%A1">对于全局对象</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
-</ul>
-
-                            </div>
                             
+                                <h3>
+                                    2020
+                                </h3>
                                 
                                     
-                                        <!--en-->
-                                        <section class="post-copyright en">
-                                            <p class="copyright-item">
-                                                <span>Author:</span>
-                                                <span>ChenLei's Blog</span>
-                                            </p>
 
-                                            <p class="copyright-item">
-                                                <span>Permalink:</span>
-                                                <span><a href="https://leichen2552.github.io/post/hui-gu-21dui-xiang-gou-zao-shun-xu/">https://leichen2552.github.io/post/hui-gu-21dui-xiang-gou-zao-shun-xu/</a></span>
-                                            </p>
-
-                                            <p class="copyright-item">
-                                                <span>License:</span>
-                                                <span>MIT License</span>
-                                            </p>
-                                        </section>
+                                        <article class="archive-item">
+                                            <a class="archive-item-link" href="https://leichen2552.github.io/post/zhuan-zai-tong-xin-jian-shi-5g-tong-xin-wei-shi-me-kuai-yu-4g/">
+                                                转载：通信简史-5G通信为什么快于4G？
+                                            </a>
+                                            <span class="archive-item-date">2020-02-28 </span>
+                                        </article>
                                         
+                                            
                                                 
-                                                    
-                                                        <!-- Share-->
-                                                        <span style="margin-right:15px">
-                                                    <i class="post-share"></i>
-                                                    <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/hui-gu-21dui-xiang-gou-zao-shun-xu/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/hui-gu-21dui-xiang-gou-zao-shun-xu/&sharesource=qzone&title=回顾（21）：对象构造顺序&pics=https://blog.blinkstar.cn/images/avatar.png&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/hui-gu-21dui-xiang-gou-zao-shun-xu/&sharesource=weibo&title=回顾（21）：对象构造顺序 + " - " + &pic="https://blog.blinkstar.cn/images/avatar.png "><i class="fa fa-weibo "></i></a>
+                    </div>
+                    <div class="pagination-container">
+                        
                                                 
-                                                    <div class="reward ">
-                                                        <div class="reward-button ">&yen;
-                                                            <span class="reward-code "> 
-                                                                <span class="alipay-code "> <img class="alipay-img " alt = "support " src="https://leichen2552.github.io/alipay.jpg"><b>Alipay</b> </span>
-                                                        <span class="wechat-code "> <img alt ="support " class="wechat-img " src="https://leichen2552.github.io/wechat.jpg"><b>Wechat</b> </span> </span>
+                                                        
+                                                                
+                    </div>
                 </div>
             </div>
-            
-                </span>
-                <!--en-->
-                <section class="post-tags en ">
-                    <div>
-                        <span>Tag(s):</span>
-                        <span class="tag ">
-                        
-                        
-                        <a href="https://leichen2552.github.io/tag/dTVQPvwPR/">#
-                                                C++
-                                                    </a>
-                                                    
-                                                        
-                                                            </span>
-                    </div>
-                    <div>
-                        <a href="javascript:window.history.back();">back</a>
-                        <span>&dot;</span>
-                        <a href="#">home</a>
-                    </div>
-                </section>
-                
-            <!---->
-            <section class="post-nav">
-                
-                    <a class="prev" rel="prev" href="https://leichen2552.github.io/post/hui-gu-22dui-xiang-de-xiao-hui/">
-                        回顾（22）：对象的销毁
-                    </a>
-                    
-                        
-                            <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-20chu-shi-hua-lie-biao-de-shi-yong/">
-                                回顾（20）：初始化列表的使用
-                            </a>
-                            
-            </section>
-            </article>
-            </div>
-            
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            
+    </div>
+    
         <footer id="footer" class="footer">
             <div class="copyright">
                 
@@ -516,10 +319,7 @@ int main
                         tpwidget("show");
                     </script>
                     
-                                                </div>
+        </div>
 </body>
-<script>
-    scroll();
-</script>
 
 </html>
