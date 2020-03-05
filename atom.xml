@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-03-02T14:56:18.586Z</updated>
+    <updated>2020-03-05T07:18:14.240Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,144 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[科学FPGA开发流程]]></title>
+        <id>https://leichen2552.github.io/post/ke-xue-fpga-kai-fa-liu-cheng/</id>
+        <link href="https://leichen2552.github.io/post/ke-xue-fpga-kai-fa-liu-cheng/">
+        </link>
+        <updated>2020-03-03T10:46:33.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E7%A7%91%E5%AD%A6fpga%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B">科学FPGA开发流程</a>
+<ul>
+<li><a href="#%E4%BA%8C%E9%80%89%E4%B8%80%E5%A4%9A%E8%B7%AF%E5%99%A8">二选一多路器</a>
+<ul>
+<li><a href="#%E8%AE%BE%E8%AE%A1%E5%AE%9A%E4%B9%89">设计定义</a></li>
+<li><a href="#%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99">代码编写</a>
+<ul>
+<li><a href="#led_testv">led_test.v</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BB%BF%E7%9C%9F%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99">仿真代码编写</a>
+<ul>
+<li><a href="#led_test_tbv">led_test_tb.v</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%BC%80%E5%A7%8B%E4%BB%BF%E7%9C%9F">开始仿真</a>
+<ul>
+<li><a href="#%E4%BB%BF%E7%9C%9F%E7%BB%93%E6%9E%9C">仿真结果</a></li>
+</ul>
+</li>
+<li><a href="#%E5%88%86%E9%85%8D%E7%AE%A1%E8%84%9A">分配管脚</a></li>
+<li><a href="#%E4%B8%8B%E8%BD%BD%E7%A8%8B%E5%BA%8F">下载程序</a></li>
+</ul>
+</li>
+</ul>
+</p>
+<h1 id="科学fpga开发流程">科学FPGA开发流程</h1>
+<ol>
+<li>设计定义</li>
+<li>设计输入</li>
+<li>分析和综合</li>
+<li>功能仿真（modelsim-altera）</li>
+<li>布局布线</li>
+<li>时序仿真（modelsim-altera）</li>
+<li>IO分配以及配置文件的生成</li>
+<li>配置（烧写FPGA）</li>
+<li>在线调试</li>
+</ol>
+<h2 id="二选一多路器">二选一多路器</h2>
+<h3 id="设计定义">设计定义</h3>
+<p>两个输入IO，a、b。可以是高电平，也可以是低电平<br>
+输入按键按下时，LED灯与a端口报纸一致<br>
+输入按键释放时，LED灯与b端口报纸一致</p>
+<h3 id="代码编写">代码编写</h3>
+<h4 id="led_testv">led_test.v</h4>
+<pre><code class="language-Verilog">module led_test(a, b, key_in, led_out);//模块名 工程名（端口名）
+	
+	//input a, b;//这样也行，就是输入端口a,b
+	input a;//输入端口a
+	input b;//输入端口b
+	
+	input key_in;//按键输入，也叫做选择信号，实现输入通道的选择
+	
+	output led_out;//led控制输出端口
+	
+	//当key_in == 0，led_out = a;
+	assign led_out = (key_in == 0)? a : b;//assign是连续赋值语句
+	
+endmodule
+</code></pre>
+<h3 id="仿真代码编写">仿真代码编写</h3>
+<h4 id="led_test_tbv">led_test_tb.v</h4>
+<pre><code class="language-Verilog">`timescale 1ns/1ps//定义延时和仿真精度
+
+//#100.1//这个就是延时100纳秒.仿真精度
+
+//testbench文件是一种仿真手段
+
+module led_test_tb;//这是一个基于led_test这个工程的testbench文件
+	
+//激励信号定义，对应连接到待测试模块的输入端口	
+	reg signal_a;
+	reg signal_b;
+	reg signal_c;
+
+//待检测信号定义，对应连接到待测试模块的输出端口	
+	wire led;
+
+//例化待测试模块	
+	led_test led_test0(
+		.a(signal_a),//接线
+		.b(signal_b),//接线
+		.key_in(signal_c),//接线
+		.led_out(led)//接线
+	);
+	
+//产生激励	
+	initial begin
+		signal_a = 0;signal_b = 0;signal_c = 0;
+		#100;//延时100纳秒
+		signal_a = 0;signal_b = 0;signal_c = 1;
+		#100;
+		signal_a = 0;signal_b = 1;signal_c = 0;
+		#100;
+		signal_a = 0;signal_b = 1;signal_c = 1;
+		#100;
+		signal_a = 1;signal_b = 0;signal_c = 0;
+		#100;
+		signal_a = 1;signal_b = 0;signal_c = 1;
+		#100;
+		signal_a = 1;signal_b = 1;signal_c = 0;
+		#100;
+		signal_a = 1;signal_b = 1;signal_c = 1;
+		#200;
+		$stop;//系统函数停止仿真
+	end	
+endmodule
+</code></pre>
+<p>然后点击编译Start Analysis and Synthesis</p>
+<h2 id="开始仿真">开始仿真</h2>
+<p>点击Tools<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span>Run EDA Simulation Tool<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span>EDA RTL Simulation<br>
+如果出来下面这幅图，就说明你没有安装ModelSim-Altera，去安装就可以了<br>
+<img src="https://leichen2552.github.io//post-images/1583389087279.jpg" alt="" loading="lazy"><br>
+然后设置Tools<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span>Options<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span>EDA Tool Options<br>
+<img src="https://leichen2552.github.io//post-images/1583389680297.jpg" alt="" loading="lazy"><br>
+在ModelSim-Altera那儿设置路径。</p>
+<p>这中间还有个门级电路仿真，条件更苛刻，会出现延时，以后再说！</p>
+<h3 id="仿真结果">仿真结果</h3>
+<p><img src="https://leichen2552.github.io//post-images/1583390005256.jpg" alt="" loading="lazy"><br>
+这个仿真结果跟之前分析的一样。</p>
+<h2 id="分配管脚">分配管脚</h2>
+<p>点击Assignmengs<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span>Pin Planner<br>
+<img src="https://leichen2552.github.io//post-images/1583390552457.jpg" alt="" loading="lazy"></p>
+<h2 id="下载程序">下载程序</h2>
+<p>点击Tools<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span>Programmer<br>
+<img src="https://leichen2552.github.io//post-images/1583392519646.jpg" alt="" loading="lazy"><br>
+这就OK，然后在板子上看现象就行</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[模糊信息处理技术]]></title>
         <id>https://leichen2552.github.io/post/mo-hu-xin-xi-chu-li-ji-zhu/</id>
@@ -3930,156 +4068,6 @@ int main
 <li>局部对象的构造顺序依赖于程序的执行流，goto语句会破坏程序的执行流</li>
 <li>堆对象的构造顺序依赖于new的使用顺序</li>
 <li>全局对象的构造顺序是不确定的，也是日常工程开发bug的主要来源之一</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（20）：初始化列表的使用]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-20chu-shi-hua-lie-biao-de-shi-yong/</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-20chu-shi-hua-lie-biao-de-shi-yong/">
-        </link>
-        <updated>2020-02-08T08:12:46.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#%E9%97%AE%E9%A2%98">问题</a></li>
-<li><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8">初始化列表</a>
-<ul>
-<li><a href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">注意事项</a></li>
-<li><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E8%B5%8B%E5%80%BC%E4%B8%8D%E5%90%8C">初始化和赋值不同</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
-</ul>
-</p>
-<h1 id="问题">问题</h1>
-<pre><code>问题：类中能否定义const成员变量？
-</code></pre>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-using namespace std;
-
-class Test
-{
-private:
-	const int ci;
-public:  
-	Test()
-	{
-		ci = 10;
-	}  
-	int getI() 
-	{
-		return ci;
-	}
-};
-
-int main(int argc, char *argv[])
-{
-	
-	Test t;
-    return 0;
-}
-//如果没有构造函数，编译器会报错，因为t中存在没有初始化的const成员变量
-//如果有构造函数对ci进行初始化，编译器会报错，只读变量是不能出现在赋值符号的左边
-</code></pre>
-<h1 id="初始化列表">初始化列表</h1>
-<ul>
-<li>C++中提供了初始化列表对成员变量进行初始化</li>
-<li>语法规则</li>
-</ul>
-<pre><code class="language-c++">className::className():m1(v1),m2(v1,v2),m3(v3)
-{
-    //some other initialize operation
-}
-</code></pre>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-class Test
-{
-private:
-	const int ci;
-public:  
-	Test():ci(10)
-	{
-
-	}  
-	int getI() 
-	{
-		return ci;
-	}
-};
-
-int main(int argc, char *argv[])
-{
-	
-	Test t;
-	cout &lt;&lt; &quot;t.getI() = &quot;&lt;&lt; t.getI() &lt;&lt;endl;
-    return 0;
-}
-
-//这个const变量是只读变量，依然是可以通过指针来修改值
-Test():ci(10)
-{
-    int* p = const_cast&lt;int*&gt;(&amp;ci);
-    *p = 5;
-}  
-</code></pre>
-<h2 id="注意事项">注意事项</h2>
-<ul>
-<li>成员的初始化顺序与成员的声明顺序相同</li>
-<li>成员的初始化顺序与初始化列表的位置无关</li>
-<li>初始化列表先于构造函数的函数体执行</li>
-</ul>
-<pre><code class="language-c++">#include &lt;stdio.h&gt;
-
-class Value
-{
-private:
-    int mi;
-public:
-    Value(int i)
-    {
-        printf(&quot;i = %d\n&quot;, i);
-        mi = i;
-    }
-    int getI()
-    {
-        return mi;
-    }
-};
-
-class Test
-{
-private:
-    Value m2;
-    Value m3;
-    Value m1;
-public:
-    Test() : m1(1), m2(2), m3(3)//成员的初始化顺序与成员的声明顺序相同,2,1,3
-    {
-        printf(&quot;Test::Test()\n&quot;);
-    }
-};
-</code></pre>
-<ul>
-<li>类中的const成员会被分配空间</li>
-<li>类中的const成员的本质是只读变量</li>
-<li>类中的const成员只能在初始化列表中指定初始值</li>
-</ul>
-<pre><code>编译器无法得到const成员的初始值，因为无法进入符号表成为真正意义上的常量
-</code></pre>
-<h2 id="初始化和赋值不同">初始化和赋值不同</h2>
-<ul>
-<li>初始化：对正在创建的对象进行初值设置</li>
-<li>赋值：对已经存在的对象进行值设置</li>
-</ul>
-<h1 id="小结">小结</h1>
-<ul>
-<li>类中可以使用初始化列表对成员进行初始化</li>
-<li>初始化列表先于构造函数体执行</li>
-<li>类中可以定义const成员变量</li>
-<li>const成员变量必须在初始化列表中指定初值</li>
-<li>const成员变量为只读变量，依然可以通过指针来修改</li>
 </ul>
 ]]></content>
     </entry>
