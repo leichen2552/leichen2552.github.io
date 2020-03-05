@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-03-05T07:18:14.240Z</updated>
+    <updated>2020-03-05T12:48:34.872Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,119 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[FPGA语法简单介绍]]></title>
+        <id>https://leichen2552.github.io/post/fpga-yu-fa-jian-dan-jie-shao/</id>
+        <link href="https://leichen2552.github.io/post/fpga-yu-fa-jian-dan-jie-shao/">
+        </link>
+        <updated>2020-03-05T07:22:55.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="verilog文件基本结构">Verilog文件基本结构</h1>
+<pre><code>/*****第一种定义*****/
+模块声明 模块名(端口列表)
+module mux2(a, b, sel, out, io);
+//端口属性定义
+    input [7:0]a;//定义位宽
+    input [7:0]b;
+    input sel;//sel = 0时，out = a;要么out = b;
+    output [7:0]out;
+    inout io;
+
+    /*一般组合逻辑的信号由wire定义，时序逻辑的信号由reg来定义*/
+    //定义内部信号
+    wire oe;//线网型
+    reg oo;
+
+    /*连续赋值语句*/
+    assign out = ( sel == 0 ) ? a : b;
+    assign out = !sel ? a : b ;
+    assign out = sel ? a : b;
+
+    /*三态门控制*/
+    assign = oe = sel;
+    assign io = oe ? out[0] : 1'bz;
+
+    /*Verilog HDL取位操作*/  
+    //1、取某一位的数据用作数据源
+    wire [2:0]m;
+    assign m = out[5:3];
+
+    //循环右移
+    reg [7:0]shift_a;
+    always@(posedge clk)
+        shift_a &lt;= {shift_a[0], shift_a[7:1]};
+
+    //移位寄存器
+    reg [7:0]shift_a;
+    wire data;
+    always@(posedge clk)
+        shift_a &lt;= {shift_a[6:0], data};
+
+    //移位寄存器
+    reg [7:0]shift_a;
+    wire data;
+    always@(posedge clk)
+        shift_a &lt;= {data，shift_a[7:1]};
+    
+    wire [3:0]x;
+    wire [3:0]y;
+    wire [7:0]z;
+    wire [31:0]x;
+    //拼接
+    assign z = {x, y};
+
+    assign n = {y, 7{x}};//下面同这种拓宽7倍的x
+    assign n = {y, x, x, x, x, x, x, x};
+
+
+    assign n = {y, 7{1'b1};//7倍的一个比特宽度的1
+
+    //数据表示
+    assign x = 4'b1001; //x是4个比特宽度的二进制1001
+    assign x = 4'd9;    //x是4个比特宽度的十进制9
+    assign x = 4'h9;    //x是4个比特宽度的十六进制9
+
+    assign x = 4'hc;
+    assign n = 32'h1234_5678;
+    assign n = 8'b1101_0011;
+
+    /***运算***/
+    /*加（+）、减（-）、乘（*）、除（/）,加减乘都能用，但是除法不行，对于时效性不高的，除法可以用剪发代替，但是对于时效性高的*/
+
+    //逻辑运算
+    //与或非
+    //逻辑与（&amp;&amp;），逻辑或（||），逻辑非（！）
+    a = 4'b1011; b = 4'b0000
+    wire c;
+    c = a &amp;&amp; b; = 0//逻辑只有真跟假
+
+    //按位与，按位或，按位取反
+    a = 4'b1011; b = 4'b0110;
+    wire [3:0]c;
+    wire [3:0]d;
+    wire [3:0]e;
+    c = a&amp;b; = 4'b0010
+    d = a | b; = 4'b1111
+    e = ~b;    = 4'b1101
+
+endmodule
+
+/*****第二种定义*****/
+module mux2 {
+//端口属性定义
+    input [7:0]a,
+    input [7:0]b,
+    input sel,
+    output [7.0]out,
+    inout io//最后一个不加逗号
+}
+endmodule
+
+
+module mux4();
+endmodule
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[科学FPGA开发流程]]></title>
         <id>https://leichen2552.github.io/post/ke-xue-fpga-kai-fa-liu-cheng/</id>
@@ -3966,108 +4079,6 @@ int main(int argc, char *argv[])
 <li>析构函数是对象销毁时进行清理的特殊函数</li>
 <li>析构函数在对象销毁时自动被调用</li>
 <li>析构函数是对象释放系统资源的保障，意义非常重要，可以让我们编写的软件能更加稳定！</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（21）：对象构造顺序]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-21dui-xiang-gou-zao-shun-xu/</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-21dui-xiang-gou-zao-shun-xu/">
-        </link>
-        <updated>2020-02-09T02:21:14.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="对象的构造顺序">对象的构造顺序</h1>
-<pre><code>C++中的类可以定义多个对象，那么对象构造的顺序是怎样的？
-</code></pre>
-<h2 id="对于局部对象">对于局部对象</h2>
-<ul>
-<li>当程序执行流到达对象的定义语句时进行构造</li>
-</ul>
-<pre><code class="language-c++">class Test
-{
-private:
-    int mi;
-public:
-    Test()
-    {
-        mi = i;
-        printf(&quot;Test(int i): %d\n&quot;, mi);
-    }   
-    Test()
-    {
-        mi = obj.mi;
-        printf(&quot;Test(const Test&amp; obj): %d\n&quot;, mi);
-    } 
-};
-
-int main
-{
-    int i = 0;
-    Test a1 = i;
-
-    while(i&lt;3)
-    {
-        Test a2 = ++i;
-    }
-
-    if(i &lt; 4)
-    {
-        Test a = a1;
-    }
-    else
-    {
-        Test a(100);
-    }
-
-    return 0;
-}
-
-</code></pre>
-<h2 id="对于堆对象">对于堆对象</h2>
-<ul>
-<li>当程序执行流到达new语句时创建对象</li>
-<li>使用new创建对象将自动触发构造函数的调用</li>
-</ul>
-<pre><code class="language-c++">int main
-{
-    int i = 0;
-    Test* a1 = new Test(i);
-
-    while(++i&lt;10)
-    {
-        if(i % 2)
-            new Test(i);
-    }
-
-    if(i &lt; 4)
-    {
-        new Test(*a1);
-    }
-    else
-    {
-        new Test a(100);
-    }
-
-    return 0;
-}
-</code></pre>
-<h2 id="对于全局对象">对于全局对象</h2>
-<ul>
-<li>全局对象的构造顺序是不确定的
-<ul>
-<li>全局对象的构造顺序是不确定的
-<ul>
-<li>全局对象的构造顺序是不确定的</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>不同的编译器使用不同的规则确定构造顺序</li>
-</ul>
-<h1 id="小结">小结</h1>
-<ul>
-<li>局部对象的构造顺序依赖于程序的执行流，goto语句会破坏程序的执行流</li>
-<li>堆对象的构造顺序依赖于new的使用顺序</li>
-<li>全局对象的构造顺序是不确定的，也是日常工程开发bug的主要来源之一</li>
 </ul>
 ]]></content>
     </entry>

@@ -187,7 +187,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                回顾（14）：进阶面对对象（下）
+                                FPGA语法简单介绍
                             </h1>
                             
                                 <!--en-->
@@ -197,20 +197,13 @@
                                         ChenLei's Blog
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2020-02-05</a>
+                                Date: <a href="#">2020-03-05</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">1.1
+                                    href="#">2.5
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">330</a></span>
+                                    <span class="post-words">words:<a href="#">519</a></span>
                                     
-                                        <span class="post-category">
-                                Category:
-                                
-                                <a href="https://leichen2552.github.io/tag/dTVQPvwPR/">C++</a>
-                                
-                            </span>
-                                        
                                             Views:
                                             <span data-hk-page="current"> - </span>
                                             
@@ -218,76 +211,117 @@
                                 
                         </header>
                         <div class="post-content">
-                            <p><ul class="markdownIt-TOC">
-<li><a href="#%E7%B1%BB%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB">类之间的关系</a></li>
-<li><a href="#%E7%B1%BB%E7%9A%84%E8%A1%A8%E7%A4%BA%E6%B3%95">类的表示法</a>
-<ul>
-<li><a href="#%E5%A6%82%E4%BD%95%E8%AE%A9%E7%BC%96%E8%AF%91%E5%99%A8%E8%AF%BB%E6%87%82%E8%BF%99%E4%BA%9B%E7%B1%BB%E7%9A%84%E8%A1%A8%E7%A4%BA%E6%B3%95">如何让编译器读懂这些类的表示法</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
-</ul>
-</p>
-<h1 id="类之间的关系">类之间的关系</h1>
-<ul>
-<li>
-<p>继承</p>
-<ul>
-<li>从已存在细分出来的类和原类之间有继承关系</li>
-<li>继承的类（子类）拥有原类（父类）的所有属性和行为</li>
-</ul>
-</li>
-<li>
-<p>组合</p>
-<ul>
-<li>一些类的存在必须依赖于其他的类，这种关系叫组合</li>
-<li>组合的类在某一个局部上有其他的类组成</li>
-</ul>
-</li>
-<li>
-<p>继承：惠普电脑、苹果电脑继承了电脑的所有属性</p>
-</li>
-<li>
-<p>组合：电脑这个类需要硬盘、内存、主板、CPU这些类组合起来</p>
-</li>
-</ul>
-<h1 id="类的表示法">类的表示法</h1>
-<h2 id="如何让编译器读懂这些类的表示法">如何让编译器读懂这些类的表示法</h2>
-<ul>
-<li>类的表示法<br>
-<img src="https://leichen2552.github.io//post-images/1580911863301.png" alt="" loading="lazy"></li>
-<li>类的表示法-改进1<br>
-<img src="https://leichen2552.github.io//post-images/1580911870890.png" alt="" loading="lazy"></li>
-<li>类的表示法-改进2<br>
-<img src="https://leichen2552.github.io//post-images/1580911881299.png" alt="" loading="lazy"></li>
-<li>类的表示法-改进3<br>
-<img src="https://leichen2552.github.io//post-images/1580911885439.png" alt="" loading="lazy"></li>
-<li>类的表示法-改进4<br>
-<img src="https://leichen2552.github.io//post-images/1580911900662.png" alt="" loading="lazy"></li>
-<li>类的表示法-改进5<br>
-<img src="https://leichen2552.github.io//post-images/1580911905917.png" alt="" loading="lazy"></li>
-</ul>
-<p>貌似大功告成，好像看着编译器可以识别了！</p>
-<h1 id="小结">小结</h1>
-<ul>
-<li>类之间课已存在继承关系或者组合关系</li>
-<li>继承关系中子类拥有父类的一切属性和行为</li>
-<li>组合关系是类之间整体和部分的关系</li>
-<li>类及类之间的关系可以有不同的表示法</li>
-<li>编译器对类的表示法有具体的要求</li>
-</ul>
+                            <h1 id="verilog文件基本结构">Verilog文件基本结构</h1>
+<pre><code>/*****第一种定义*****/
+模块声明 模块名(端口列表)
+module mux2(a, b, sel, out, io);
+//端口属性定义
+    input [7:0]a;//定义位宽
+    input [7:0]b;
+    input sel;//sel = 0时，out = a;要么out = b;
+    output [7:0]out;
+    inout io;
+
+    /*一般组合逻辑的信号由wire定义，时序逻辑的信号由reg来定义*/
+    //定义内部信号
+    wire oe;//线网型
+    reg oo;
+
+    /*连续赋值语句*/
+    assign out = ( sel == 0 ) ? a : b;
+    assign out = !sel ? a : b ;
+    assign out = sel ? a : b;
+
+    /*三态门控制*/
+    assign = oe = sel;
+    assign io = oe ? out[0] : 1'bz;
+
+    /*Verilog HDL取位操作*/  
+    //1、取某一位的数据用作数据源
+    wire [2:0]m;
+    assign m = out[5:3];
+
+    //循环右移
+    reg [7:0]shift_a;
+    always@(posedge clk)
+        shift_a &lt;= {shift_a[0], shift_a[7:1]};
+
+    //移位寄存器
+    reg [7:0]shift_a;
+    wire data;
+    always@(posedge clk)
+        shift_a &lt;= {shift_a[6:0], data};
+
+    //移位寄存器
+    reg [7:0]shift_a;
+    wire data;
+    always@(posedge clk)
+        shift_a &lt;= {data，shift_a[7:1]};
+    
+    wire [3:0]x;
+    wire [3:0]y;
+    wire [7:0]z;
+    wire [31:0]x;
+    //拼接
+    assign z = {x, y};
+
+    assign n = {y, 7{x}};//下面同这种拓宽7倍的x
+    assign n = {y, x, x, x, x, x, x, x};
+
+
+    assign n = {y, 7{1'b1};//7倍的一个比特宽度的1
+
+    //数据表示
+    assign x = 4'b1001; //x是4个比特宽度的二进制1001
+    assign x = 4'd9;    //x是4个比特宽度的十进制9
+    assign x = 4'h9;    //x是4个比特宽度的十六进制9
+
+    assign x = 4'hc;
+    assign n = 32'h1234_5678;
+    assign n = 8'b1101_0011;
+
+    /***运算***/
+    /*加（+）、减（-）、乘（*）、除（/）,加减乘都能用，但是除法不行，对于时效性不高的，除法可以用剪发代替，但是对于时效性高的*/
+
+    //逻辑运算
+    //与或非
+    //逻辑与（&amp;&amp;），逻辑或（||），逻辑非（！）
+    a = 4'b1011; b = 4'b0000
+    wire c;
+    c = a &amp;&amp; b; = 0//逻辑只有真跟假
+
+    //按位与，按位或，按位取反
+    a = 4'b1011; b = 4'b0110;
+    wire [3:0]c;
+    wire [3:0]d;
+    wire [3:0]e;
+    c = a&amp;b; = 4'b0010
+    d = a | b; = 4'b1111
+    e = ~b;    = 4'b1101
+
+endmodule
+
+/*****第二种定义*****/
+module mux2 {
+//端口属性定义
+    input [7:0]a,
+    input [7:0]b,
+    input sel,
+    output [7.0]out,
+    inout io//最后一个不加逗号
+}
+endmodule
+
+
+module mux4();
+endmodule
+</code></pre>
 
                         </div>
                         
                             <div class="post-toc">
                                 <ul class="markdownIt-TOC">
-<li><a href="#%E7%B1%BB%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB">类之间的关系</a></li>
-<li><a href="#%E7%B1%BB%E7%9A%84%E8%A1%A8%E7%A4%BA%E6%B3%95">类的表示法</a>
-<ul>
-<li><a href="#%E5%A6%82%E4%BD%95%E8%AE%A9%E7%BC%96%E8%AF%91%E5%99%A8%E8%AF%BB%E6%87%82%E8%BF%99%E4%BA%9B%E7%B1%BB%E7%9A%84%E8%A1%A8%E7%A4%BA%E6%B3%95">如何让编译器读懂这些类的表示法</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+<li><a href="#verilog%E6%96%87%E4%BB%B6%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84">Verilog文件基本结构</a></li>
 </ul>
 
                             </div>
@@ -303,7 +337,7 @@
 
                                             <p class="copyright-item">
                                                 <span>Permalink:</span>
-                                                <span><a href="https://leichen2552.github.io/post/hui-gu-14jin-jie-mian-dui-dui-xiang-xia/">https://leichen2552.github.io/post/hui-gu-14jin-jie-mian-dui-dui-xiang-xia/</a></span>
+                                                <span><a href="https://leichen2552.github.io/post/fpga-yu-fa-jian-dan-jie-shao/">https://leichen2552.github.io/post/fpga-yu-fa-jian-dan-jie-shao/</a></span>
                                             </p>
 
                                             <p class="copyright-item">
@@ -318,9 +352,9 @@
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/hui-gu-14jin-jie-mian-dui-dui-xiang-xia/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/hui-gu-14jin-jie-mian-dui-dui-xiang-xia/&sharesource=qzone&title=回顾（14）：进阶面对对象（下）&pics=https://blog.blinkstar.cn/images/avatar.png&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/hui-gu-14jin-jie-mian-dui-dui-xiang-xia/&sharesource=weibo&title=回顾（14）：进阶面对对象（下） + " - " + &pic="https://blog.blinkstar.cn/images/avatar.png "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/fpga-yu-fa-jian-dan-jie-shao/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/fpga-yu-fa-jian-dan-jie-shao/&sharesource=qzone&title=FPGA语法简单介绍&pics=https://blog.blinkstar.cn/images/avatar.png&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/fpga-yu-fa-jian-dan-jie-shao/&sharesource=weibo&title=FPGA语法简单介绍 + " - " + &pic="https://blog.blinkstar.cn/images/avatar.png "><i class="fa fa-weibo "></i></a>
                                                 
                                                     <div class="reward ">
                                                         <div class="reward-button ">&yen;
@@ -337,12 +371,6 @@
                         <span>Tag(s):</span>
                         <span class="tag ">
                         
-                        
-                        <a href="https://leichen2552.github.io/tag/dTVQPvwPR/">#
-                                                C++
-                                                    </a>
-                                                    
-                                                        
                                                             </span>
                     </div>
                     <div>
@@ -355,13 +383,9 @@
             <!---->
             <section class="post-nav">
                 
-                    <a class="prev" rel="prev" href="https://leichen2552.github.io/post/hui-gu-15lei-yu-feng-zhuang-de-gai-nian/">
-                        回顾（15）：类与封装的概念
-                    </a>
-                    
                         
-                            <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-13jin-jie-mian-xiang-dui-xiang-shang/">
-                                回顾（13）：进阶面向对象（上）
+                            <a class="next" rel="next" href="https://leichen2552.github.io/post/ke-xue-fpga-kai-fa-liu-cheng/">
+                                科学FPGA开发流程
                             </a>
                             
             </section>
