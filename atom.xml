@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-03-05T12:48:34.872Z</updated>
+    <updated>2020-03-08T08:54:49.147Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,164 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[FPGA之三八译码器的编写]]></title>
+        <id>https://leichen2552.github.io/post/fpga-zhi-san-ba-yi-ma-qi-de-bian-xie/</id>
+        <link href="https://leichen2552.github.io/post/fpga-zhi-san-ba-yi-ma-qi-de-bian-xie/">
+        </link>
+        <updated>2020-03-08T07:37:40.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E4%B8%89%E5%85%AB%E8%AF%91%E7%A0%81%E5%99%A8%E7%9C%9F%E5%80%BC%E8%A1%A8">三八译码器真值表</a></li>
+<li><a href="#%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99">代码编写</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95%E6%96%87%E4%BB%B6%E7%BC%96%E5%86%99">测试文件编写</a>
+<ul>
+<li><a href="#rtl%E4%BB%BF%E7%9C%9F">RTL仿真</a></li>
+<li><a href="#%E9%97%A8%E7%BA%A7%E4%BB%BF%E7%9C%9F">门级仿真</a></li>
+</ul>
+</li>
+</ul>
+</p>
+<h1 id="三八译码器真值表">三八译码器真值表</h1>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0000_0001</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0000_0010</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0000_0100</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0000_1000</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0001_0000</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0010_0000</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0100_0000</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1000_0000</td>
+</tr>
+</tbody>
+</table>
+<h1 id="代码编写">代码编写</h1>
+<pre><code>module Decoder3_8(a, b, c, out);
+	input a;
+	input b;
+	input c;
+	
+	output [7:0]out;//定义多位位宽的信号
+	
+	always@(a,b,c)begin
+		case({a,b,c})//用花括号位拼接
+			3'b000:out = 8'b0000_0001;//下划线是占位符，不代表任何意思
+			3'b001:out = 8'b0000_0010;
+			3'b010:out = 8'b0000_0100;
+			3'b011:out = 8'b0000_1000;
+			3'b100:out = 8'b0001_0000;
+			3'b101:out = 8'b0010_0000;
+			3'b110:out = 8'b0100_0000;
+			3'b111:out = 8'b1000_0000;
+			//default:out = 8'b1000_0000;
+		endcase	
+	end
+
+endmodule
+
+</code></pre>
+<p>编译报错：Error (10137): Verilog HDL Procedural Assignment error at Decoder3_8.v(10): object &quot;out&quot; on left-hand side of assignment must have a variable data type</p>
+<p>在always@()块中的输出信号一定要是reg型，所以<code>output [7:0]out;</code>修改成<code>output reg [7:0]out;</code></p>
+<p>/*<br>
+这样也行<br>
+output [7:0]out;<br>
+reg [7:0]out;<br>
+*/</p>
+<h1 id="测试文件编写">测试文件编写</h1>
+<pre><code>`timescale 1ns/1ps//定义 延时和仿真 精度
+
+module Decoder3_8_tb;
+	
+	reg a;//定义激励信号源
+	reg b;//定义激励信号源
+	reg c;//定义激励信号源
+	
+	wire [7:0] out;//定义观测信号源
+	
+	Decoder3_8 u1(
+		.a(a), 
+		.b(b), 
+		.c(c), 
+		.out(out)
+	);
+	
+	initial begin
+		a = 0;b = 0;c = 0;
+		#100	
+		a = 0;b = 0;c = 1;
+		#100
+		a = 0;b = 1;c = 0;
+		#100	
+		a = 0;b = 1;c = 1;
+		#100
+		a = 1;b = 0;c = 0;
+		#100	
+		a = 1;b = 0;c = 1;
+		#100
+		a = 1;b = 1;c = 0;
+		#100	
+		a = 1;b = 1;c = 1;
+		#200
+		$stop;
+	end
+
+endmodule 
+</code></pre>
+<h2 id="rtl仿真">RTL仿真</h2>
+<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io//post-images/1583657266256.png" alt="" loading="lazy"></figure>
+<h2 id="门级仿真">门级仿真</h2>
+<p><img src="https://leichen2552.github.io//post-images/1583657333533.png" alt="" loading="lazy"><br>
+为什么门级仿真会出现电平混乱？<br>
+因为现实的电子器件，电平<code>0000_0001</code> 跳转到 <code>0000_0010</code>时，有可能是<code>0000_0001</code>成<code>0000_0011</code>，然后<code>0000_0011</code>再变成<code>0000_0010</code>，器件当中会存在电平跳变的时间差，所以会有这样的现象。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[FPGA语法简单介绍]]></title>
         <id>https://leichen2552.github.io/post/fpga-yu-fa-jian-dan-jie-shao/</id>
@@ -3865,220 +4023,6 @@ int main()
 <li>临时对象是性能的瓶颈，也是bug的来源之一</li>
 <li>现代C++编译器会尽力避开临时对象</li>
 <li>实际工程开发需要人为的避开临时对象</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（22）：对象的销毁]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-22dui-xiang-de-xiao-hui/</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-22dui-xiang-de-xiao-hui/">
-        </link>
-        <updated>2020-02-09T03:01:05.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="对象的销毁">对象的销毁</h1>
-<ul>
-<li>生活中的对象都是被初始化之后才上市的</li>
-<li>生活中的对象被销毁前会做一些清理工作</li>
-</ul>
-<pre><code>问题：C++中如何清理需要销毁的对象？
-</code></pre>
-<h2 id="添加public的free函数">添加public的free函数</h2>
-<ul>
-<li>一般而言，需要销毁的对象都应该被清理</li>
-<li>解决方案：
-<ul>
-<li>为每个类都提供一个public的free函数</li>
-<li>对象不需要时立即调用free函数进行清理</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-c++">class Test
-{
-    int* p;
-public:
-    Test() {p = new int}
-    void free() {delete p;}
-}
-</code></pre>
-<h3 id="存在的问题">存在的问题</h3>
-<ul>
-<li>free只是一个普通的函数，必须显示调用</li>
-<li>对象销毁没有做处理，很可能造成资源泄露</li>
-</ul>
-<pre><code>想法：C++编译器能否自动调用某个特殊函数进行对象的清理？
-</code></pre>
-<h2 id="析构函数">析构函数</h2>
-<ul>
-<li>C++的类中可以定义个特殊的清理函数
-<ul>
-<li>这个特殊的清理函数叫做析构函数</li>
-<li>析构函数的功能与构造函数相反</li>
-</ul>
-</li>
-<li>定义：~ClassName()
-<ul>
-<li>析构函数没有参数也没有返回值类型，直接推出这个函数不能被<strong>重载</strong></li>
-<li>析构函数在对象销毁时自动被调用</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-c++">class Test
-{
-    int i;
-public:
-    Test(int v) 
-    {
-        i = v;
-        printf(&quot;Test(): i = %d\n&quot;,i);
-    }
-    ~Test()
-    {
-        printf(&quot;~Test(): i = %d\n&quot;,i);
-    }
-}
-
-int main()
-{
-    Test t(1);
-
-    Test* p = new Test(2);
-
-    delete p;
-
-    return 0;
-}
-</code></pre>
-<h2 id="修改之前的数组类">修改之前的数组类</h2>
-<h3 id="inrarrayh">InrArray.h</h3>
-<pre><code class="language-c++">#ifndef INTARRAY_H
-#define INTARRAY_H
-
-class IntArray{
-private:
-	int m_length;
-	int* m_pointer;
-public:
-	IntArray(int len);
-	IntArray(const IntArray&amp; ob);
-	int length();
-	bool get(int index, int&amp; value);
-	bool set(int index, int value);	
-	~IntArray();
-};
-</code></pre>
-<p>#endif</p>
-<h3 id="intarraycpp">IntArray.cpp</h3>
-<pre><code class="language-c++">#include &quot;IntArray.h&quot;
-#include &lt;iostream&gt;
-using namespace std;//命名空间声明在此
-
-IntArray::IntArray(int len)
-{
-	m_pointer = new int[len];
-	
-	for(int i = 0;i &lt; len; i++)
-	{
-		m_pointer[i] = 0;
-	}
-	
-	m_length = len;	
-}
-
-IntArray::IntArray(const IntArray&amp; ob)
-{
-	m_length = ob.m_length;
-	m_pointer = new int[ob.m_length];
-	
-	for(int i = 0;i &lt; ob.m_length;i++)
-	{
-		m_pointer[i] = ob.m_pointer[i]; 	
-	}		
-}
-
-int IntArray::length()
-{
-	return m_length;
-}
-
-bool IntArray::get(int index, int&amp; value)
-{
-	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
-	
-	if(ret)
-	{
-		value = m_pointer[index];
-	}
-	
-	return ret;
-}
-
-bool IntArray::set(int index, int value)
-{
-	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
-	
-	if(ret)
-	{
- 		m_pointer[index] = value;
-	}
-	
-	return ret;
-}
-
-IntArray::~IntArray()
-{
-	cout &lt;&lt; &quot;~IntArray()&quot; &lt;&lt; endl;//在数组类实现细节的代码中加入输入输出，
-                                  //必须要有命名空间的声明
-	delete[] m_pointer;
-}
-</code></pre>
-<h3 id="mainc">main.c</h3>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &quot;IntArray.h&quot;
-
-using namespace std;
-
-int main(int argc, char *argv[])
-{
-	IntArray a(5);
-	
-	for(int i=0; i&lt;a.length(); i++)
-	{
-		a.set(i,i+1);	
-	}
-	
-	for(int i=0; i&lt;a.length(); i++)
-	{
-		int value = 0;
-		if(a.get(i,value))
-		{
-			cout &lt;&lt; &quot;a[&quot;&lt;&lt; i&lt;&lt; &quot;]= &quot; &lt;&lt;value &lt;&lt; endl;
-		}
-	}
-	
-	IntArray b = a;
-	
-	for(int i=0; i&lt;b.length(); i++)
-	{
-		int value = 0;
-		if(b.get(i,value))
-		{
-			cout &lt;&lt; &quot;b[&quot;&lt;&lt; i&lt;&lt; &quot;]= &quot; &lt;&lt;value &lt;&lt; endl;
-		}
-	}
-	return 0;
-}
-</code></pre>
-<ul>
-<li>析构函数的定义准则
-<ul>
-<li>当类中自定义了构造函数并且构造函数中使用了系统资源（如：内存申请，文件打开，等），需要自定义析构函数</li>
-</ul>
-</li>
-</ul>
-<h1 id="小结">小结</h1>
-<ul>
-<li>析构函数是对象销毁时进行清理的特殊函数</li>
-<li>析构函数在对象销毁时自动被调用</li>
-<li>析构函数是对象释放系统资源的保障，意义非常重要，可以让我们编写的软件能更加稳定！</li>
 </ul>
 ]]></content>
     </entry>
