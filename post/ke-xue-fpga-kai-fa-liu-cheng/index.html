@@ -89,7 +89,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1583668573268" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1583673769917" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -108,7 +108,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1583668573268" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1583673769917" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -257,7 +257,7 @@
 输入按键释放时，LED灯与b端口报纸一致</p>
 <h3 id="代码编写">代码编写</h3>
 <h4 id="led_testv">led_test.v</h4>
-<pre><code class="language-Verilog">module led_test(a, b, key_in, led_out);//模块名 工程名（端口名）
+<pre><code class="language-c">module led_test(a, b, key_in, led_out);//模块名 工程名（端口名）
 	
 	//input a, b;//这样也行，就是输入端口a,b
 	input a;//输入端口a
@@ -274,7 +274,7 @@ endmodule
 </code></pre>
 <h3 id="仿真代码编写">仿真代码编写</h3>
 <h4 id="led_test_tbv">led_test_tb.v</h4>
-<pre><code class="language-Verilog">`timescale 1ns/1ps//定义延时和仿真精度
+<pre><code class="language-c">`timescale 1ns/1ps//定义延时和仿真精度
 
 //#100.1//这个就是延时100纳秒.仿真精度
 
@@ -401,8 +401,8 @@ endmodule
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/ke-xue-fpga-kai-fa-liu-cheng/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/ke-xue-fpga-kai-fa-liu-cheng/&sharesource=qzone&title=科学FPGA开发流程&pics=https://leichen2552.github.io//images/avatar.png?v=1583668573268&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/ke-xue-fpga-kai-fa-liu-cheng/&sharesource=weibo&title=科学FPGA开发流程 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1583668573268 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/ke-xue-fpga-kai-fa-liu-cheng/&sharesource=qzone&title=科学FPGA开发流程&pics=https://leichen2552.github.io//images/avatar.png?v=1583673769917&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/ke-xue-fpga-kai-fa-liu-cheng/&sharesource=weibo&title=科学FPGA开发流程 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1583673769917 "><i class="fa fa-weibo "></i></a>
                                                         
                                                             <div class="reward ">
                                                                 <div class="reward-button ">&yen;
@@ -519,7 +519,7 @@ endmodule
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1583668573268);
+                    newDate.setTime(1583673769917);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>

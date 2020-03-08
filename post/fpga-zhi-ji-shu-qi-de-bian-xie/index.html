@@ -178,7 +178,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                回顾（30）：操作符重载的概念
+                                FPGA之计数器的编写
                             </h1>
                             
                                 <!--en-->
@@ -188,20 +188,13 @@
                                         ChenLei's Blog
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2020-02-16</a>
+                                Date: <a href="#">2020-03-08</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">4.4
+                                    href="#">0.1
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">982</a></span>
+                                    <span class="post-words">words:<a href="#">33</a></span>
                                     
-                                        <span class="post-category">
-                                Category:
-                                
-                                <a href="https://leichen2552.github.io/tag/dTVQPvwPR/">C++</a>
-                                
-                            </span>
-                                        
                                             Views:
                                             <span data-hk-page="current"> - </span>
                                             
@@ -210,209 +203,19 @@
                         </header>
                         <div class="post-content">
                             <p><ul class="markdownIt-TOC">
-<li><a href="#%E5%A4%8D%E6%95%B0%E7%9A%84%E9%97%AE%E9%A2%98">复数的问题</a>
-<ul>
-<li><a href="#%E6%80%9D%E8%80%83">思考</a></li>
-</ul>
-</li>
-<li><a href="#%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD">操作符重载</a>
-<ul>
-<li><a href="#%E5%A4%8D%E6%95%B0%E7%B1%BB%E4%BB%A3%E7%A0%81%E4%BF%AE%E6%94%B9">复数类代码修改</a></li>
-<li><a href="#%E5%A4%8D%E6%95%B0%E7%B1%BB%E5%86%8D%E6%AC%A1%E4%BF%AE%E6%94%B9">复数类再次修改</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+<li><a href="#%E5%AE%9E%E9%AA%8C%E8%A6%81%E6%B1%82">实验要求</a></li>
 </ul>
 </p>
-<h1 id="复数的问题">复数的问题</h1>
-<p>上节课复数的类问题，重载最重要的意义之一就是可以拓展系统当中的功能<br>
-<img src="https://leichen2552.github.io//post-images/1581842743648.jpg" alt="" loading="lazy"><br>
-但是面对这个复数的加法，编译器肯定不知道怎么办，所以结合前面的友元等一些知识，利用函数显示加法来实现这一功能</p>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-class Complex
-{
-private:
-	int a;
-	int b;
-public:
-	Complex()
-	{
-		a = 0;
-		b = 0;
-	}
-	Complex(int a, int b)
-	{
-		this-&gt;a = a;
-		this-&gt;b = b;
-	}
-	int getA()
-	{
-		return a;
-	}
-	int getB()
-	{
-		return b;
-	}
-	
-	friend Complex add(const Complex&amp; p1, const Complex&amp; p2);
-} ;
-
-Complex add(Complex p1, Complex p2)
-{
-	Complex ret;
-	
-	ret.a = p1.a + p2.a;
-	ret.b = p1.a + p2.b;	
-	
-	return ret;
-}
-
-int main(int argc, char *argv[])
-{
-	Complex c1(1,2);
-	Complex c2(3,4);
-	
-	Complex c3 = add(c1,c2);
-	
-	cout &lt;&lt; &quot;c3 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c3.getA() &lt;&lt; &quot;,&quot; &lt;&lt; c3.getB() &lt;&lt; &quot;)&quot; &lt;&lt; endl;	
-	return 0;
-}
-</code></pre>
-<p>这个确实实现了这个功能，但是c3 = add(c1,c2)这种表现形式不好看，而且利用友元也大大破坏了类的封装性。所以总的来看，这样的解决方案也不是最好的解决方案。</p>
-<h2 id="思考">思考</h2>
-<p>Add函数可以解决Complex对象相加的问题，但是Complex是现实世界中确实存在的复数，并且复数在数学中地位和普通的实数相同，<font color = blue size = 4>那有没有办法让 <font color=red size = 5><strong>+</strong></font> 这个操作符也支持复数相加呢？</font></p>
-<h1 id="操作符重载">操作符重载</h1>
-<ul>
-<li>C++中能重载操作符的功能</li>
-<li>操作符重载以函数的方式进行</li>
-<li>本质：
-<ul>
-<li>用特殊形式的函数扩展操作符的功能，意思就是写一个函数，这个函数认为是＋操作符进行的动作</li>
-</ul>
-</li>
-<li>通过operator关键字可以定义特殊的函数</li>
-<li>operator的本质是通过函数重载操作符</li>
-<li>语法：</li>
-</ul>
-<pre><code class="language-c++">Type operator Sign(const Type p1, const Type p2)
-{
-    Type ret;
-
-    return ret;
-}
-</code></pre>
-<p><font color = brown size = 4><em>Sign</em></font>为系统中<font color = red>预定义的操作符</font>，如：+，-，*，/，等</p>
-<h2 id="复数类代码修改">复数类代码修改</h2>
-<pre><code class="language-c++">friend Complex add(const Complex&amp; p1, const Complex&amp; p2); 
-//改成
-friend Complex operator +(Complex p1, Complex p2);
-
-Complex add(Complex p1, Complex p2)
-//改成
-Complex operator +(Complex p1, Complex p2);
-
-Complex c3 = add(c1,c2);
-//先修改成
-Complex c3 = operator +(c1,c2);
-//再修改成
-Complex c3 = c1 + c2;//改成这样就十分完美了，就相当于编译器知道这是复数类相加了
-</code></pre>
-<ul>
-<li>但是这种解决方案依然使用了友元</li>
-</ul>
-<h2 id="复数类再次修改">复数类再次修改</h2>
-<ul>
-<li>使用类成员函数来代替全局函数，既保持了类的封装性，又不使用友元</li>
-</ul>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-class Complex
-{
-private:
-	int a;
-	int b;
-public:
-	Complex(int a = 0, int b = 0)
-	{
-		this-&gt;a = a;
-		this-&gt;b = b;
-	}
-	int getA()
-	{
-		return a;
-	}
-	int getB()
-	{
-		return b;
-	}
-	Complex operator +(const Complex&amp; p)
-	{
-		cout &lt;&lt; &quot;Complex operator +(Complex&amp; p2)&quot; &lt;&lt; endl;
-		Complex ret;
-		
-		ret.a = this-&gt;a + p.a;
-		ret.b = this-&gt;b + p.b;	
-		
-		return ret;
-	}
-	
-	friend Complex operator +(const Complex&amp; p1,const Complex&amp; p2);
-} ;
-
-
-Complex operator +(const Complex&amp; p1, const Complex&amp; p2)
-{
-	cout &lt;&lt; &quot;friend Complex operator +(Complex p1, Complex p2);&quot; &lt;&lt;endl;
-	Complex ret;
-	
-	ret.a = p1.a + p2.a;
-	ret.b = p1.b + p2.b;	
-	
-	return ret;
-}
-
-int main(int argc, char *argv[])
-{
-	Complex c1(1,2);
-	Complex c2(3,4);
-	
-	Complex c3 = c1 + c2;//编译器能自己选择用哪个函数 
-	
-	cout &lt;&lt; &quot;c3 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c3.getA() &lt;&lt; &quot;,&quot; &lt;&lt; c3.getB() &lt;&lt; &quot;)&quot; &lt;&lt; endl;	
-	return 0;
-}
-</code></pre>
-<p>这部分代码在从编译器上复制到这篇博客上时，发生了一些小插曲，小插曲在下篇博客里面写。</p>
-<h1 id="小结">小结</h1>
-<ul>
-<li>操作符重载是C++的最强大的特性之一</li>
-<li>操作符重载的本质是通过函数拓展操作符的功能</li>
-<li>operator关键字是实现操作符重载的关键，用operator实现特殊的函数</li>
-<li>操作符重载遵循相同的函数重载规则</li>
-<li>全局函数和成员函数都可以实现对操作符的重载</li>
-</ul>
+<h1 id="实验要求">实验要求</h1>
+<p>LED，每500ms，状态翻转一次<br>
+系统时钟为50M，对应周期是20ns<br>
+500ms = 500_000_000ns / 20ns = 25_000_000</p>
 
                         </div>
                         
                             <div class="post-toc">
                                 <ul class="markdownIt-TOC">
-<li><a href="#%E5%A4%8D%E6%95%B0%E7%9A%84%E9%97%AE%E9%A2%98">复数的问题</a>
-<ul>
-<li><a href="#%E6%80%9D%E8%80%83">思考</a></li>
-</ul>
-</li>
-<li><a href="#%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD">操作符重载</a>
-<ul>
-<li><a href="#%E5%A4%8D%E6%95%B0%E7%B1%BB%E4%BB%A3%E7%A0%81%E4%BF%AE%E6%94%B9">复数类代码修改</a></li>
-<li><a href="#%E5%A4%8D%E6%95%B0%E7%B1%BB%E5%86%8D%E6%AC%A1%E4%BF%AE%E6%94%B9">复数类再次修改</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+<li><a href="#%E5%AE%9E%E9%AA%8C%E8%A6%81%E6%B1%82">实验要求</a></li>
 </ul>
 
                             </div>
@@ -428,7 +231,7 @@ int main(int argc, char *argv[])
 
                                             <p class="copyright-item">
                                                 <span>Permalink:</span>
-                                                <span><a href="https://leichen2552.github.io/post/hui-gu-30cao-zuo-fu-chong-zai-de-gai-nian/">https://leichen2552.github.io/post/hui-gu-30cao-zuo-fu-chong-zai-de-gai-nian/</a></span>
+                                                <span><a href="https://leichen2552.github.io/post/fpga-zhi-ji-shu-qi-de-bian-xie/">https://leichen2552.github.io/post/fpga-zhi-ji-shu-qi-de-bian-xie/</a></span>
                                             </p>
 
                                             <p class="copyright-item">
@@ -443,9 +246,9 @@ int main(int argc, char *argv[])
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/hui-gu-30cao-zuo-fu-chong-zai-de-gai-nian/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/hui-gu-30cao-zuo-fu-chong-zai-de-gai-nian/&sharesource=qzone&title=回顾（30）：操作符重载的概念&pics=https://leichen2552.github.io//images/avatar.png?v=1583673769917&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/hui-gu-30cao-zuo-fu-chong-zai-de-gai-nian/&sharesource=weibo&title=回顾（30）：操作符重载的概念 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1583673769917 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/fpga-zhi-ji-shu-qi-de-bian-xie/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/fpga-zhi-ji-shu-qi-de-bian-xie/&sharesource=qzone&title=FPGA之计数器的编写&pics=https://leichen2552.github.io//images/avatar.png?v=1583673769917&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/fpga-zhi-ji-shu-qi-de-bian-xie/&sharesource=weibo&title=FPGA之计数器的编写 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1583673769917 "><i class="fa fa-weibo "></i></a>
                                                         
                                                             <div class="reward ">
                                                                 <div class="reward-button ">&yen;
@@ -462,12 +265,6 @@ int main(int argc, char *argv[])
                                                                         <span>Tag(s):</span>
                                                                         <span class="tag ">
                         
-                        
-                        <a href="https://leichen2552.github.io/tag/dTVQPvwPR/">#
-                                                C++
-                                                    </a>
-                                                    
-                                                        
                                                             </span>
                                                                     </div>
                                                                     <div>
@@ -480,13 +277,9 @@ int main(int argc, char *argv[])
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
-                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/xiao-cha-qu-zhi-kang-si-te-yin-yong-constand/">
-                                                                                            小插曲之“康斯特引用（const&amp;）”
-                                                                                        </a>
-                                                                                        
                                                                                             
-                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-29lei-zhong-de-han-shu-chong-zai/">
-                                                                                                    回顾（29）：类中的函数重载
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/fpga-zhi-san-ba-yi-ma-qi-de-bian-xie/">
+                                                                                                    FPGA之三八译码器的编写
                                                                                                 </a>
                                                                                                 
                                                                                 </section>

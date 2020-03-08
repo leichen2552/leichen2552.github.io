@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-03-08T11:57:27.777Z</updated>
+    <updated>2020-03-08T13:23:11.584Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,22 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[FPGA之计数器的编写]]></title>
+        <id>https://leichen2552.github.io/post/fpga-zhi-ji-shu-qi-de-bian-xie/</id>
+        <link href="https://leichen2552.github.io/post/fpga-zhi-ji-shu-qi-de-bian-xie/">
+        </link>
+        <updated>2020-03-08T12:36:49.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E5%AE%9E%E9%AA%8C%E8%A6%81%E6%B1%82">实验要求</a></li>
+</ul>
+</p>
+<h1 id="实验要求">实验要求</h1>
+<p>LED，每500ms，状态翻转一次<br>
+系统时钟为50M，对应周期是20ns<br>
+500ms = 500_000_000ns / 20ns = 25_000_000</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[FPGA之三八译码器的编写]]></title>
         <id>https://leichen2552.github.io/post/fpga-zhi-san-ba-yi-ma-qi-de-bian-xie/</id>
@@ -89,7 +105,7 @@
 </tbody>
 </table>
 <h1 id="代码编写">代码编写</h1>
-<pre><code>module Decoder3_8(a, b, c, out);
+<pre><code class="language-c">module Decoder3_8(a, b, c, out);
 	input a;
 	input b;
 	input c;
@@ -121,7 +137,7 @@ output [7:0]out;<br>
 reg [7:0]out;<br>
 */</p>
 <h1 id="测试文件编写">测试文件编写</h1>
-<pre><code>`timescale 1ns/1ps//定义 延时和仿真 精度
+<pre><code class="language-c">`timescale 1ns/1ps//定义 延时和仿真 精度
 
 module Decoder3_8_tb;
 	
@@ -175,7 +191,7 @@ endmodule
         </link>
         <updated>2020-03-05T07:22:55.000Z</updated>
         <content type="html"><![CDATA[<h1 id="verilog文件基本结构">Verilog文件基本结构</h1>
-<pre><code>/*****第一种定义*****/
+<pre><code class="language-c">/*****第一种定义*****/
 模块声明 模块名(端口列表)
 module mux2(a, b, sel, out, io);
 //端口属性定义
@@ -335,7 +351,7 @@ endmodule
 输入按键释放时，LED灯与b端口报纸一致</p>
 <h3 id="代码编写">代码编写</h3>
 <h4 id="led_testv">led_test.v</h4>
-<pre><code class="language-Verilog">module led_test(a, b, key_in, led_out);//模块名 工程名（端口名）
+<pre><code class="language-c">module led_test(a, b, key_in, led_out);//模块名 工程名（端口名）
 	
 	//input a, b;//这样也行，就是输入端口a,b
 	input a;//输入端口a
@@ -352,7 +368,7 @@ endmodule
 </code></pre>
 <h3 id="仿真代码编写">仿真代码编写</h3>
 <h4 id="led_test_tbv">led_test_tb.v</h4>
-<pre><code class="language-Verilog">`timescale 1ns/1ps//定义延时和仿真精度
+<pre><code class="language-c">`timescale 1ns/1ps//定义延时和仿真精度
 
 //#100.1//这个就是延时100纳秒.仿真精度
 
@@ -3799,230 +3815,6 @@ int main(int argc, char *argv[])
 <li>只读对象只能调用const成员函数</li>
 <li>所有对象共享类的成员函数</li>
 <li>同一套成员函数怎么分辨不同的对象呢，有一个特殊的参数，这个特殊的参数指向当前调用成员函数的对象，隐藏的this指针用于指向当前对象</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（23）：神秘的临时对象]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-23shen-mi-de-lin-shi-dui-xiang/</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-23shen-mi-de-lin-shi-dui-xiang/">
-        </link>
-        <updated>2020-02-10T08:09:45.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="神秘的临时对象">神秘的临时对象</h1>
-<h2 id="问题">问题</h2>
-<pre><code class="language-c++">class Test
-{
-private :
-    int mi;
-public :
-    Test(int v)
-    {
-        mi = v;
-    }
-    Test()
-    {
-        Test(0);
-    }
-    void print()
-    {
-        printf(&quot;mi = %d\n&quot;, mi);
-    }
-};
-
-int main()
-{
-    Test t;
-
-    t.print();
-
-    return 0;
-}
-</code></pre>
-<ul>
-<li>程序意图
-<ul>
-<li>在Test()中以0作为参数调用Test(int i)</li>
-<li>将成员变量mi的初始值设置为0</li>
-</ul>
-</li>
-<li>运行结果
-<ul>
-<li>成员变量mi的值为随机值</li>
-</ul>
-</li>
-</ul>
-<pre><code>究竟什么地方出了问题？
-</code></pre>
-<h2 id="思考">思考</h2>
-<ul>
-<li>构造函数是一个特殊的函数
-<ul>
-<li>是否可以直接调用？这个是可以的，之前初始化一个数组的时候就是手工调用构造函数</li>
-<li>是否可以在构造函数中调用构造函数？</li>
-<li>直接调用构造函数的行为是什么？</li>
-</ul>
-</li>
-</ul>
-<h2 id="答案">答案</h2>
-<ul>
-<li>直接调用构造函数将产生一个临时对象</li>
-<li>临时对象的生命周期只有一条语句的时间</li>
-<li>临时对象的作用域只在一条语句当中</li>
-<li>临时对象是C++中值得警惕的灰色地带</li>
-</ul>
-<pre><code class="language-c++">//上面的代码中
-Test()
-{
-    Test(0);//这条语句产生了一个临时对象
-}
-</code></pre>
-<pre><code class="language-c++">//上面有问题的代码需要这样改：提供一个init()函数
-class Test
-{
-private :
-    int mi;
-
-    void init(int i)
-    {
-        mi = i;
-    }
-public :
-    Test(int v)
-    {
-        init(v);
-    }
-    Test()
-    {
-        init(0);
-    }
-    void print()
-    {
-        printf(&quot;mi = %d\n&quot;, mi);
-    }
-};
-
-int main()
-{
-    Test t;
-
-    t.print();
-
-    return 0;
-}
-</code></pre>
-<h2 id="练习">练习</h2>
-<pre><code class="language-c++">class Test
-{
-private :
-    int mi;
-
-    void init(int i)
-    {
-        mi = i;
-    }
-public :
-    Test(int v)
-    {
-        cout &lt;&lt; &quot;Test(int v)&quot; &lt;&lt; endl;
-        init(v);
-    }
-    Test()
-    {
-        cout &lt;&lt; &quot;Test()&quot; &lt;&lt; endl;
-        init(0);
-    }
-    void print()
-    {
-
-        printf(&quot;mi = %d\n&quot;, mi);
-    }
-    ~Test()
-    {
-        cout &lt;&lt; &quot;~Test()&quot; &lt;&lt; endl;
-        init(0);
-    }
-};
-
-int main()
-{
-    Test();//临时对象
-    Test(10);//临时对象
-
-    Test().print();//临时对象的print()
-    Test(10).print();//临时对象的print()
-
-    return 0;
-}
-</code></pre>
-<p>打印结果：<br>
-Test()<br>
-~Test()<br>
-Test(int v)<br>
-~Test()</p>
-<p>Test()<br>
-mi = 0;<br>
-~Test()<br>
-Test(int v)<br>
-mi = 10;<br>
-~Test()</p>
-<ul>
-<li>现在的C++编译器会减少临时对象的产生，C++继承了C语言的高效，所以该杜绝临时对象的地方就会杜绝</li>
-</ul>
-<pre><code class="language-c++">#include &lt;stdio.h&gt;
-
-class Test
-{
-    int mi;
-public:
-    Test(int i)
-    {
-        printf(&quot;Test(int i) : %d\n&quot;, i);
-        mi = i;
-    }
-    Test(const Test&amp; t)
-    {
-        printf(&quot;Test(const Test&amp; t) : %d\n&quot;, t.mi);
-        mi = t.mi;
-    }
-    Test()
-    {
-        printf(&quot;Test()\n&quot;);
-        mi = 0;
-    }
-    int print()
-    {
-        printf(&quot;mi = %d\n&quot;, mi);
-    }
-    ~Test()
-    {
-        printf(&quot;~Test()\n&quot;);
-    }
-};
-
-Test func()
-{
-    return Test(20);
-}
-
-int main()
-{
-    Test t = Test(10); // ==&gt; Test t = 10（这也是推荐写法）;
-                       //本来应该是拷贝构造函数出现临时对象，
-                       //但是当代的C++编译器会尽力避开临时对象的产生
-    Test tt = func();  // ==&gt; Test tt = Test(20); ==&gt; Test tt = 20;
-    
-    t.print();
-    tt.print();
-    
-    return 0;
-}
-</code></pre>
-<h1 id="小结">小结</h1>
-<ul>
-<li>直接调用构造函数将产生一个临时对象。在C语言中出现bug的原因就是野指针，而在C++中的bug就是临时对象</li>
-<li>临时对象是性能的瓶颈，也是bug的来源之一</li>
-<li>现代C++编译器会尽力避开临时对象</li>
-<li>实际工程开发需要人为的避开临时对象</li>
 </ul>
 ]]></content>
     </entry>
