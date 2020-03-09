@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-03-09T13:42:41.066Z</updated>
+    <updated>2020-03-09T13:44:21.476Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -138,15 +138,6 @@ endmodule
 </ul>
 <p>用霍尔传感器来检测转子的位置<br>
 <img src="https://leichen2552.github.io//post-images/1583761321773.jpg" alt="" loading="lazy"></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[模糊信息处理技术（二）]]></title>
-        <id>https://leichen2552.github.io/post/mo-hu-xin-xi-chu-li-ji-zhu-yi/</id>
-        <link href="https://leichen2552.github.io/post/mo-hu-xin-xi-chu-li-ji-zhu-yi/">
-        </link>
-        <updated>2020-03-09T11:54:58.000Z</updated>
-        <content type="html"><![CDATA[<p></p>
 ]]></content>
     </entry>
     <entry>
@@ -3486,6 +3477,191 @@ int main(int argc, char *argv[])
 <li>静态成员函数没有隐藏的this指针</li>
 <li>静态成员函数可以通过类名直接访问</li>
 <li>静态成员函数只能访问静态成员变量与静态成员函数，也正是利用了这个特性，完成了客户的需求</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[回顾（25）：类的静态成员变量]]></title>
+        <id>https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-bian-liang/</id>
+        <link href="https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-bian-liang/">
+        </link>
+        <updated>2020-02-12T03:25:13.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="成员变量回顾">成员变量回顾</h1>
+<ul>
+<li>通过对象名都能够访问public成员变量</li>
+<li>每个对象的成员变量都是专属的</li>
+<li>成员变量不能在对象之间共享</li>
+</ul>
+<h1 id="新的需求小实例">新的需求：小实例</h1>
+<ul>
+<li>统计在程序期间某个类的对象数目</li>
+<li>保证程序的安全性（不能使用全局变量）</li>
+<li>随时获取当前对象的数目</li>
+</ul>
+<h2 id="尝试第一种方案">尝试第一种方案</h2>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Test
+{
+private:
+	int mCount;
+public:
+	Test():mCount(0)
+	{
+		mCount++;	
+	} 
+	~Test()
+	{
+		mCount--;
+	}		
+	int getCount()
+	{
+		return mCount;
+	}
+};
+
+Test gTest;
+
+int main(int argc, char *argv[])
+{
+	Test t1;
+	Test t2;
+	
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t1.getCount() &lt;&lt; endl;
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t2.getCount() &lt;&lt; endl;
+	
+	return 0;
+}
+//结果是三个1，因为成员变量是每个对象私有一套的
+</code></pre>
+<h2 id="尝试第二种方案">尝试第二种方案</h2>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int gCount;
+
+class Test
+{
+private:
+	int mCount;
+public:
+	Test():mCount(0)
+	{
+		gCount++;	
+	} 
+	~Test()
+	{
+		gCount--;
+	}		
+	int getCount()
+	{
+		return gCount;
+	}
+};
+
+Test gTest;
+
+int main(int argc, char *argv[])
+{
+	Test t1;
+	Test t2;
+	
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t1.getCount() &lt;&lt; endl;
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t2.getCount() &lt;&lt; endl;
+	
+	return 0;
+}
+//打印结果三个3，但是用的是全局变量，
+//在当代的软件设计当中是不能使用全局变量的，因为在任何地方都能访问全局变量
+//所以不能使用全局变量
+</code></pre>
+<h1 id="静态成员变量">静态成员变量</h1>
+<ul>
+<li>在C++中课以定义静态成员变量
+<ul>
+<li>静态成员变量属于整个类所有，是属于整个类</li>
+<li>静态成员变量的生命期不依赖任何对象，就是程序的运行周期</li>
+<li>可以<strong>通过类名直接访问</strong>共有静态成员变量</li>
+<li><em>所有对象共享类的静态成员变量</em></li>
+<li>可以<strong>通过对象名访问</strong>共有静态成员变量</li>
+</ul>
+</li>
+<li>静态成员变量的特性
+<ul>
+<li>在定义时直接通过static关键字修饰</li>
+<li>静态成员变量需要在类外单独分配空间</li>
+<li>静态成员变量在程序内部位于全局数据区</li>
+</ul>
+</li>
+<li>语法规则：</li>
+</ul>
+<pre><code class="language-c++">Type ClassName::VarName = value;
+</code></pre>
+<h2 id="尝试第三种方案">尝试第三种方案</h2>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Test
+{
+private:
+	static int mCount;
+public:
+	Test()
+	{
+		mCount++;	
+	} 
+	~Test()
+	{
+		mCount--;
+	}		
+	int getCount()
+	{
+		return mCount;
+	}
+};
+
+//如果不加这句，编译器就会报链接器的错误
+int Test::mCount = 0;//这是在类的外部单独定义这个静态成员变量并初始化为0
+//
+
+Test gTest;
+
+int main(int argc, char *argv[])
+{
+	Test t1;
+	Test t2;
+	
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t1.getCount() &lt;&lt; endl;
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t2.getCount() &lt;&lt; endl;
+
+	Test* pt = new Test();
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; pt-&gt;getCount() &lt;&lt; endl;
+	delete pt;
+	
+	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;	
+	return 0;
+}
+//[Error] E:\User\exercise_Cpp\25jingtaichengyuan\main.cpp:(.text$_ZN4TestD1Ev[Test::~Test()]+0x5): undefined reference to `Test::mCount'
+//[Error] E:\User\exercise_Cpp\25jingtaichengyuan\main.cpp:(.text$_ZN4Test8getCountEv[Test::getCount()]+0x4): undefined reference to `Test::mCount'
+//[Error] E:\User\exercise_Cpp\25jingtaichengyuan\main.cpp:(.text$_ZN4TestC1Ev[Test::Test()]+0x5): undefined reference to `Test::mCount'
+//[Error] collect2: ld returned 1 exit status
+//这是链接器找不到static int mCount的内存空间，
+//需要在类的外部单独定义，以便于分配空间
+</code></pre>
+<h1 id="小结">小结</h1>
+<ul>
+<li>类中可以通过static关键字定义静态成员变量</li>
+<li>静态成员变量隶属于类所有，需要在外部进行分配空间</li>
+<li>每一个对象都可以访问静态成员变量</li>
+<li>静态成员变量在全局数据区分配空间</li>
+<li>静态成员变量的生命期为程序运行期</li>
 </ul>
 ]]></content>
     </entry>
