@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-03-09T09:34:00.584Z</updated>
+    <updated>2020-03-09T13:42:41.066Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -102,6 +102,51 @@ endmodule
 <img src="https://leichen2552.github.io//post-images/1583744492018.png" alt="" loading="lazy"><br>
 点击<code>RTL Viewer</code>，就可以该软件根据代码生成的数字逻辑图<br>
 <img src="https://leichen2552.github.io//post-images/1583745546612.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[电机分类]]></title>
+        <id>https://leichen2552.github.io/post/dian-ji-fen-lei/</id>
+        <link href="https://leichen2552.github.io/post/dian-ji-fen-lei/">
+        </link>
+        <updated>2020-03-09T11:57:32.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="直流电机">直流电机</h1>
+<p>直流电机（direct current machine）是指能将直流电能转换成机械能（直流电动机）或将机械能转换成直流电能（直流发电机）的旋转电机。它是能实现直流电能和机械能互相转换的电机。当它作电动机运行时是直流电动机，将电能转换为机械能；作发电机运行时是直流发电机，将机械能转换为电能。</p>
+<h2 id="步进电机">步进电机</h2>
+<p>工作原理：步进电机是一种将电脉冲转化为角位移的执行机构。当步进驱动器接收到一个脉冲信号, 它就驱动步进电机按设定的方向转动一个固定的角度(称为”步距角“)，它的旋转是以固定的角度一步一步运的。可以通过控制脉冲个数来控制角位移量，从而达到准确定位的目的；同时可以通过控制脉冲频率来控制电机转动的速度和加速度,从而达到调速的目的。</p>
+<h2 id="伺服电机">伺服电机</h2>
+<p>伺服电机内部的转子是永磁铁,驱动器控制的U/N/W三相电形成电磁场,转子在此磁场的作用下转动，同时电机自带的编码器反馈信号给驱动器,驱动器根据反馈值与目标值进行比较,调整转子转动的角度。伺服电机的精度决定于编码器的精度(线数)。</p>
+<h2 id="有刷电机">有刷电机</h2>
+<p><img src="https://leichen2552.github.io//post-images/1583756480897.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1583757956370.png" alt="" loading="lazy"><br>
+有刷电机采用机械换向，磁极不动，线圈旋转。电机工作时，线圈和换向器旋转，磁钢和碳刷不转，线圈电流方向的交替变化是随电机转动的换相器和电刷来完成的。<br>
+在有刷电机中，这个过程是将各组线圈的两个电源输入端，依次排成一个环，相互之间用绝缘材料分隔，组成一个象圆柱体的东西，与电机轴连成一体，电源通过两个碳元素做成的小柱子（碳刷），在弹簧压力的作用下，从两个特定的固定位置，压在上面线圈电源输入环状圆柱上的两点，给一组线圈通电。<br>
+随着电机转动，不同时刻给不同线圈或同一个线圈的不同的两极通电，使得线圈产生磁场的N-S极与最靠近的永磁铁定子的N-S极有一个适合的角度差，磁场异性相吸、同性相斥，产生力量，推动电机转动。碳电极在线圈接线头上滑动，象刷子在物体表面刷，因此叫碳“刷”。<br>
+相互滑动，会摩擦碳刷，造成损耗，需要定期更换碳刷；碳刷与线圈接线头之间通断交替，会发生电火花，产生电磁破，干扰电子设备。</p>
+<h2 id="无刷电机">无刷电机</h2>
+<p><img src="https://leichen2552.github.io//post-images/1583760375948.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1583760380606.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1583760386303.png" alt="" loading="lazy"><br>
+转子上有NS级，有三对线圈绕在定子上，三对线圈先后通上电流再关闭，就能让外面的转子转动。</p>
+<p>但是这样的转动不圆滑，而且动率小。</p>
+<p>按下图这样，前一对线圈在前面吸引，后一对线圈在后面推动，这样就十分圆滑，且功率就提升上来。<br>
+<img src="https://leichen2552.github.io//post-images/1583761136981.png" alt="" loading="lazy"></p>
+<p>但是有两个问题：</p>
+<ul>
+<li>什么时候给线圈通电？</li>
+<li>该给哪两对线圈通电？</li>
+</ul>
+<p>用霍尔传感器来检测转子的位置<br>
+<img src="https://leichen2552.github.io//post-images/1583761321773.jpg" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[模糊信息处理技术（二）]]></title>
+        <id>https://leichen2552.github.io/post/mo-hu-xin-xi-chu-li-ji-zhu-yi/</id>
+        <link href="https://leichen2552.github.io/post/mo-hu-xin-xi-chu-li-ji-zhu-yi/">
+        </link>
+        <updated>2020-03-09T11:54:58.000Z</updated>
+        <content type="html"><![CDATA[<p></p>
 ]]></content>
     </entry>
     <entry>
@@ -514,7 +559,7 @@ endmodule
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[模糊信息处理技术]]></title>
+        <title type="html"><![CDATA[模糊信息处理技术（一）]]></title>
         <id>https://leichen2552.github.io/post/mo-hu-xin-xi-chu-li-ji-zhu/</id>
         <link href="https://leichen2552.github.io/post/mo-hu-xin-xi-chu-li-ji-zhu/">
         </link>
@@ -3441,458 +3486,6 @@ int main(int argc, char *argv[])
 <li>静态成员函数没有隐藏的this指针</li>
 <li>静态成员函数可以通过类名直接访问</li>
 <li>静态成员函数只能访问静态成员变量与静态成员函数，也正是利用了这个特性，完成了客户的需求</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（25）：类的静态成员变量]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-bian-liang/</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-bian-liang/">
-        </link>
-        <updated>2020-02-12T03:25:13.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="成员变量回顾">成员变量回顾</h1>
-<ul>
-<li>通过对象名都能够访问public成员变量</li>
-<li>每个对象的成员变量都是专属的</li>
-<li>成员变量不能在对象之间共享</li>
-</ul>
-<h1 id="新的需求小实例">新的需求：小实例</h1>
-<ul>
-<li>统计在程序期间某个类的对象数目</li>
-<li>保证程序的安全性（不能使用全局变量）</li>
-<li>随时获取当前对象的数目</li>
-</ul>
-<h2 id="尝试第一种方案">尝试第一种方案</h2>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-class Test
-{
-private:
-	int mCount;
-public:
-	Test():mCount(0)
-	{
-		mCount++;	
-	} 
-	~Test()
-	{
-		mCount--;
-	}		
-	int getCount()
-	{
-		return mCount;
-	}
-};
-
-Test gTest;
-
-int main(int argc, char *argv[])
-{
-	Test t1;
-	Test t2;
-	
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t1.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t2.getCount() &lt;&lt; endl;
-	
-	return 0;
-}
-//结果是三个1，因为成员变量是每个对象私有一套的
-</code></pre>
-<h2 id="尝试第二种方案">尝试第二种方案</h2>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-int gCount;
-
-class Test
-{
-private:
-	int mCount;
-public:
-	Test():mCount(0)
-	{
-		gCount++;	
-	} 
-	~Test()
-	{
-		gCount--;
-	}		
-	int getCount()
-	{
-		return gCount;
-	}
-};
-
-Test gTest;
-
-int main(int argc, char *argv[])
-{
-	Test t1;
-	Test t2;
-	
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t1.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t2.getCount() &lt;&lt; endl;
-	
-	return 0;
-}
-//打印结果三个3，但是用的是全局变量，
-//在当代的软件设计当中是不能使用全局变量的，因为在任何地方都能访问全局变量
-//所以不能使用全局变量
-</code></pre>
-<h1 id="静态成员变量">静态成员变量</h1>
-<ul>
-<li>在C++中课以定义静态成员变量
-<ul>
-<li>静态成员变量属于整个类所有，是属于整个类</li>
-<li>静态成员变量的生命期不依赖任何对象，就是程序的运行周期</li>
-<li>可以<strong>通过类名直接访问</strong>共有静态成员变量</li>
-<li><em>所有对象共享类的静态成员变量</em></li>
-<li>可以<strong>通过对象名访问</strong>共有静态成员变量</li>
-</ul>
-</li>
-<li>静态成员变量的特性
-<ul>
-<li>在定义时直接通过static关键字修饰</li>
-<li>静态成员变量需要在类外单独分配空间</li>
-<li>静态成员变量在程序内部位于全局数据区</li>
-</ul>
-</li>
-<li>语法规则：</li>
-</ul>
-<pre><code class="language-c++">Type ClassName::VarName = value;
-</code></pre>
-<h2 id="尝试第三种方案">尝试第三种方案</h2>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-class Test
-{
-private:
-	static int mCount;
-public:
-	Test()
-	{
-		mCount++;	
-	} 
-	~Test()
-	{
-		mCount--;
-	}		
-	int getCount()
-	{
-		return mCount;
-	}
-};
-
-//如果不加这句，编译器就会报链接器的错误
-int Test::mCount = 0;//这是在类的外部单独定义这个静态成员变量并初始化为0
-//
-
-Test gTest;
-
-int main(int argc, char *argv[])
-{
-	Test t1;
-	Test t2;
-	
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t1.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t2.getCount() &lt;&lt; endl;
-
-	Test* pt = new Test();
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; pt-&gt;getCount() &lt;&lt; endl;
-	delete pt;
-	
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;	
-	return 0;
-}
-//[Error] E:\User\exercise_Cpp\25jingtaichengyuan\main.cpp:(.text$_ZN4TestD1Ev[Test::~Test()]+0x5): undefined reference to `Test::mCount'
-//[Error] E:\User\exercise_Cpp\25jingtaichengyuan\main.cpp:(.text$_ZN4Test8getCountEv[Test::getCount()]+0x4): undefined reference to `Test::mCount'
-//[Error] E:\User\exercise_Cpp\25jingtaichengyuan\main.cpp:(.text$_ZN4TestC1Ev[Test::Test()]+0x5): undefined reference to `Test::mCount'
-//[Error] collect2: ld returned 1 exit status
-//这是链接器找不到static int mCount的内存空间，
-//需要在类的外部单独定义，以便于分配空间
-</code></pre>
-<h1 id="小结">小结</h1>
-<ul>
-<li>类中可以通过static关键字定义静态成员变量</li>
-<li>静态成员变量隶属于类所有，需要在外部进行分配空间</li>
-<li>每一个对象都可以访问静态成员变量</li>
-<li>静态成员变量在全局数据区分配空间</li>
-<li>静态成员变量的生命期为程序运行期</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（24）：经典问题解析二]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-24jing-dian-wen-ti-jie-xi-er/</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-24jing-dian-wen-ti-jie-xi-er/">
-        </link>
-        <updated>2020-02-11T07:25:22.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#%E5%85%B3%E4%BA%8E%E6%9E%90%E6%9E%84%E7%9A%84%E7%96%91%E9%97%AE">关于析构的疑问</a></li>
-<li><a href="#%E5%85%B3%E4%BA%8Econst%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%96%91%E9%97%AE">关于const对象的疑问</a></li>
-<li><a href="#%E5%85%B3%E4%BA%8E%E7%B1%BB%E6%88%90%E5%91%98%E7%9A%84%E7%96%91%E9%97%AE">关于类成员的疑问</a></li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
-</ul>
-</p>
-<h1 id="关于析构的疑问">关于析构的疑问</h1>
-<ul>
-<li>单个对象创建时构造函数的调用顺序
-<ol>
-<li>调用父类的构造过程（后续课程中会讲解）</li>
-<li>调用成员变量的构造函数（调用顺序和声明顺序相同）</li>
-<li>调用类自身的构造函数</li>
-</ol>
-</li>
-</ul>
-<pre><code>析构函数与对应构造函数的调用顺序相反
-</code></pre>
-<ul>
-<li>多个对象析构时
-<ul>
-<li>析构顺序与构造顺序相反</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-
-using namespace std;
-
-class Member
-{
-private:
-	const char* ms;
-public:
-	Member(const char* s)
-	{
-		cout &lt;&lt; &quot;Member(const char* s): &quot; &lt;&lt; s &lt;&lt; endl;
-		ms = s;
-	}
-	~Member()
-	{
-		cout &lt;&lt; &quot;~Member(): &quot; &lt;&lt; ms &lt;&lt; endl;
-	}
-			
-};
-
-class Test
-{
-private:
-	Member mA;
-	Member mB;
-public:
-	Test():mA(&quot;mA&quot;),mB(&quot;mB&quot;)
-	{
-		cout &lt;&lt; &quot;Test()&quot; &lt;&lt; endl;	
-	}		
-	~Test()
-	{
-		cout &lt;&lt; &quot;~Test()&quot; &lt;&lt; endl;
-	}
-};
-
-Member gA(&quot;gA&quot;);
-
-int main(int argc, char *argv[])
-{
-	Test t;
-		
-	return 0;
-}
-</code></pre>
-<pre><code>打印结果：
-Member(const char* s): gA
-Member(const char* s): mA
-Member(const char* s): mB
-Test()
-~Test()
-~Member(): mB
-~Member(): mA
-~Member(): gA
-果然，析构顺序与构造顺序相反
-</code></pre>
-<ul>
-<li>对于栈对象和全局对象，类似于入栈与出栈的顺序，最后构造的对象最先被析构</li>
-<li>堆对象的析构发生在使用delete的时候，与delete的使用顺序相关</li>
-</ul>
-<h1 id="关于const对象的疑问">关于const对象的疑问</h1>
-<pre><code>const关键字能否修饰类的对象？
-如果可以，有什么特性？
-</code></pre>
-<ul>
-<li>
-<p>const关键字能够修饰对象</p>
-</li>
-<li>
-<p>const修饰的对象为只读对象</p>
-</li>
-<li>
-<p>只读对象的成员变量不允许被改变</p>
-</li>
-<li>
-<p>只读对象是编译阶段的概念，运行时无效，但还可以被改变的</p>
-</li>
-<li>
-<p>C++中的const函数</p>
-<ul>
-<li>const对象只能调用const的成员函数</li>
-<li>const成员函数中只能调用const成员函数</li>
-<li>const成员函数中不能直接改写成员变量的值</li>
-</ul>
-</li>
-<li>
-<p>const成员函数的定义：在函数之后加const</p>
-</li>
-</ul>
-<pre><code class="language-c++">    Type ClassName::function(Type p) const
-</code></pre>
-<p>类中的函数声明与实际函数声明中必须带const关键字</p>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-class Test
-{
-private:
-	int mi;
-public:
-	int mj;
-	Test(int i);
-	Test(const Test&amp; t);
-	int getMI()const;	//const对象只能调用const的成员函数	
-};
-
-Test::Test(int i)
-{
-	mi = i;
-}
-
-Test::Test(const Test&amp; t)//这个t是const引用，使的这个t具有只读属性，
-                         //所以t必须访问const成员函数
-{
-	mi = t.getMI();
-}
-
-int Test::getMI()const//const对象只能调用const的成员函数
-{
-    //mi = 2;// error: assignment of data-member `Test::mi' in read-only structure
-    //const成员函数中不能直接改写成员变量的值
-	return mi;
-}
-
-int main(int argc, char *argv[])
-{
-	const Test t(1);//const对象只能调用const的成员函数
-	
-	//t.mj = 1000;//error: assignment of data-member `Test::mj' in read-only structure
-	
-	cout &lt;&lt; &quot;t.getMI() = &quot; &lt;&lt; t.getMI() &lt;&lt; endl;
-	//error: passing `const Test' as `this' argument of `int Test::getMI()' discards qualifiers
-	return 0;
-}
-</code></pre>
-<h1 id="关于类成员的疑问">关于类成员的疑问</h1>
-<pre><code>成员函数和成员变量都是隶属于具体对象的吗？
-</code></pre>
-<ul>
-<li>从面向对象的角度
-<ul>
-<li>对象由属性（成员变量）和方法（成员函数）构成，每个对象都拥有自己的一套成员变量，但是所有的对象共享一套成员函数</li>
-</ul>
-</li>
-<li>从程序运行的角度
-<ul>
-<li>对象由数据和函数构成
-<ul>
-<li>数据只可能可以位于栈、堆和全局数据区</li>
-<li>函数只能位于代码段。代码段是只读的，在程序运行的时候是不能被改变的。程序被编译好之后，对象可以被动态地创建和动态地删除，对数据而言，栈数据、堆数据也可以被创建或者删除。对于代码段来说，是不能随意添加或者删除的。由于程序的特性，天生的决定成员函数不是每个对象都有一套的，所以只有每个对象共享一套成员函数。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<pre><code>疑问：既然所有对象都共享一套成员函数，那成员函数是怎么知道是哪个对象调用的呢？
-</code></pre>
-<p>答案：既然是成员函数，肯定不同于普通的全局函数，主要区别在于成员函数里面有一个你看不见的但是隐藏了的参数，这个参数是一个指针，并且这个指针有名字：this，this指针指代当前调用这个函数的对象</p>
-<ul>
-<li>结论
-<ul>
-<li>每个对象拥有自己独立的属性（成员变量）</li>
-<li>所有对象共享类的方法（成员函数）</li>
-<li>方法能够直接访问对象的属性</li>
-<li>方法中隐藏参数 this用于指代当前对象</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-class Test
-{
-private:
-	int mi;
-public:
-	int mj;
-	Test(int i);
-	Test(const Test&amp; t);
-	int getMI();
-	int print();		
-};
-
-Test::Test(int i)
-{
-	mi = i;
-}
-
-Test::Test(const Test&amp; t)
-{
-	mi = t.mi;
-}
-
-int Test::getMI()
-{
-
-	return mi;
-}
-
-int Test::print()//this指代当前调用这个函数的对象的地址 
-{
-	cout &lt;&lt; &quot;this = &quot; &lt;&lt; this &lt;&lt; endl;
-}
-
-int main(int argc, char *argv[])
-{
-	Test t1(1);
-	Test t2(2);
-	Test t3(3);	
-	
-	cout &lt;&lt; &quot;t1.getMI() = &quot; &lt;&lt; t1.getMI() &lt;&lt; endl;
-	cout &lt;&lt; &quot;&amp;t1 = &quot; &lt;&lt; &amp;t1 &lt;&lt; endl;//t1对象地址
-	t1.print();//this指针指代当前指向的对象的地址，就是t1的地址
-	cout &lt;&lt; &quot;t2.getMI() = &quot; &lt;&lt; t2.getMI() &lt;&lt; endl;
-	cout &lt;&lt; &quot;&amp;t2 = &quot; &lt;&lt; &amp;t2 &lt;&lt; endl;//t2对象地址
-	t2.print();//this指针指代当前指向的对象的地址，就是t2的地址
-	cout &lt;&lt; &quot;t3.getMI() = &quot; &lt;&lt; t3.getMI() &lt;&lt; endl;
-	cout &lt;&lt; &quot;&amp;t2 = &quot; &lt;&lt; &amp;t2 &lt;&lt; endl;//t3对象地址
-	t3.print();	//this指针指代当前指向的对象的地址，就是t3的地址
-	return 0;
-}
-</code></pre>
-<h1 id="小结">小结</h1>
-<ul>
-<li>对象的析构顺序和构造顺序相反</li>
-<li>const关键字能够修饰对象，得到只读对象</li>
-<li>只读对象只能调用const成员函数</li>
-<li>所有对象共享类的成员函数</li>
-<li>同一套成员函数怎么分辨不同的对象呢，有一个特殊的参数，这个特殊的参数指向当前调用成员函数的对象，隐藏的this指针用于指向当前对象</li>
 </ul>
 ]]></content>
     </entry>

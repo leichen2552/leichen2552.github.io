@@ -178,7 +178,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                FPGA之三八译码器的编写
+                                电机分类
                             </h1>
                             
                                 <!--en-->
@@ -188,20 +188,13 @@
                                         ChenLei's Blog
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2020-03-08</a>
+                                Date: <a href="#">2020-03-09</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">2.3
+                                    href="#">2.9
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">460</a></span>
+                                    <span class="post-words">words:<a href="#">868</a></span>
                                     
-                                        <span class="post-category">
-                                Category:
-                                
-                                <a href="https://leichen2552.github.io/tag/_TqkTUQ4v/">FPGA</a>
-                                
-                            </span>
-                                        
                                             Views:
                                             <span data-hk-page="current"> - </span>
                                             
@@ -209,167 +202,45 @@
                                 
                         </header>
                         <div class="post-content">
-                            <p><ul class="markdownIt-TOC">
-<li><a href="#%E4%B8%89%E5%85%AB%E8%AF%91%E7%A0%81%E5%99%A8%E7%9C%9F%E5%80%BC%E8%A1%A8">三八译码器真值表</a></li>
-<li><a href="#%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99">代码编写</a></li>
-<li><a href="#%E6%B5%8B%E8%AF%95%E6%96%87%E4%BB%B6%E7%BC%96%E5%86%99">测试文件编写</a>
+                            <h1 id="直流电机">直流电机</h1>
+<p>直流电机（direct current machine）是指能将直流电能转换成机械能（直流电动机）或将机械能转换成直流电能（直流发电机）的旋转电机。它是能实现直流电能和机械能互相转换的电机。当它作电动机运行时是直流电动机，将电能转换为机械能；作发电机运行时是直流发电机，将机械能转换为电能。</p>
+<h2 id="步进电机">步进电机</h2>
+<p>工作原理：步进电机是一种将电脉冲转化为角位移的执行机构。当步进驱动器接收到一个脉冲信号, 它就驱动步进电机按设定的方向转动一个固定的角度(称为”步距角“)，它的旋转是以固定的角度一步一步运的。可以通过控制脉冲个数来控制角位移量，从而达到准确定位的目的；同时可以通过控制脉冲频率来控制电机转动的速度和加速度,从而达到调速的目的。</p>
+<h2 id="伺服电机">伺服电机</h2>
+<p>伺服电机内部的转子是永磁铁,驱动器控制的U/N/W三相电形成电磁场,转子在此磁场的作用下转动，同时电机自带的编码器反馈信号给驱动器,驱动器根据反馈值与目标值进行比较,调整转子转动的角度。伺服电机的精度决定于编码器的精度(线数)。</p>
+<h2 id="有刷电机">有刷电机</h2>
+<p><img src="https://leichen2552.github.io//post-images/1583756480897.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1583757956370.png" alt="" loading="lazy"><br>
+有刷电机采用机械换向，磁极不动，线圈旋转。电机工作时，线圈和换向器旋转，磁钢和碳刷不转，线圈电流方向的交替变化是随电机转动的换相器和电刷来完成的。<br>
+在有刷电机中，这个过程是将各组线圈的两个电源输入端，依次排成一个环，相互之间用绝缘材料分隔，组成一个象圆柱体的东西，与电机轴连成一体，电源通过两个碳元素做成的小柱子（碳刷），在弹簧压力的作用下，从两个特定的固定位置，压在上面线圈电源输入环状圆柱上的两点，给一组线圈通电。<br>
+随着电机转动，不同时刻给不同线圈或同一个线圈的不同的两极通电，使得线圈产生磁场的N-S极与最靠近的永磁铁定子的N-S极有一个适合的角度差，磁场异性相吸、同性相斥，产生力量，推动电机转动。碳电极在线圈接线头上滑动，象刷子在物体表面刷，因此叫碳“刷”。<br>
+相互滑动，会摩擦碳刷，造成损耗，需要定期更换碳刷；碳刷与线圈接线头之间通断交替，会发生电火花，产生电磁破，干扰电子设备。</p>
+<h2 id="无刷电机">无刷电机</h2>
+<p><img src="https://leichen2552.github.io//post-images/1583760375948.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1583760380606.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1583760386303.png" alt="" loading="lazy"><br>
+转子上有NS级，有三对线圈绕在定子上，三对线圈先后通上电流再关闭，就能让外面的转子转动。</p>
+<p>但是这样的转动不圆滑，而且动率小。</p>
+<p>按下图这样，前一对线圈在前面吸引，后一对线圈在后面推动，这样就十分圆滑，且功率就提升上来。<br>
+<img src="https://leichen2552.github.io//post-images/1583761136981.png" alt="" loading="lazy"></p>
+<p>但是有两个问题：</p>
 <ul>
-<li><a href="#rtl%E4%BB%BF%E7%9C%9F">RTL仿真</a></li>
-<li><a href="#%E9%97%A8%E7%BA%A7%E4%BB%BF%E7%9C%9F">门级仿真</a></li>
+<li>什么时候给线圈通电？</li>
+<li>该给哪两对线圈通电？</li>
 </ul>
-</li>
-</ul>
-</p>
-<h1 id="三八译码器真值表">三八译码器真值表</h1>
-<table>
-<thead>
-<tr>
-<th>A</th>
-<th>B</th>
-<th>C</th>
-<th>output</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0000_0001</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0000_0010</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0000_0100</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0000_1000</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0001_0000</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0010_0000</td>
-</tr>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>0100_0000</td>
-</tr>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1000_0000</td>
-</tr>
-</tbody>
-</table>
-<h1 id="代码编写">代码编写</h1>
-<pre><code class="language-c">module Decoder3_8(a, b, c, out);
-	input a;
-	input b;
-	input c;
-	
-	output [7:0]out;//定义多位位宽的信号
-	
-	always@(a,b,c)begin
-		case({a,b,c})//用花括号位拼接
-			3'b000:out = 8'b0000_0001;//下划线是占位符，不代表任何意思
-			3'b001:out = 8'b0000_0010;
-			3'b010:out = 8'b0000_0100;
-			3'b011:out = 8'b0000_1000;
-			3'b100:out = 8'b0001_0000;
-			3'b101:out = 8'b0010_0000;
-			3'b110:out = 8'b0100_0000;
-			3'b111:out = 8'b1000_0000;
-			//default:out = 8'b1000_0000;
-		endcase	
-	end
-
-endmodule
-
-</code></pre>
-<p>编译报错：Error (10137): Verilog HDL Procedural Assignment error at Decoder3_8.v(10): object &quot;out&quot; on left-hand side of assignment must have a variable data type</p>
-<p>在always@()块中的输出信号一定要是reg型，所以<code>output [7:0]out;</code>修改成<code>output reg [7:0]out;</code></p>
-<p>/*<br>
-这样也行<br>
-output [7:0]out;<br>
-reg [7:0]out;<br>
-*/</p>
-<h1 id="测试文件编写">测试文件编写</h1>
-<pre><code class="language-c">`timescale 1ns/1ps//定义 延时和仿真 精度
-
-module Decoder3_8_tb;
-	
-	reg a;//定义激励信号源
-	reg b;//定义激励信号源
-	reg c;//定义激励信号源
-	
-	wire [7:0] out;//定义观测信号源
-	
-	Decoder3_8 u1(
-		.a(a), //一定要在a之前加上点
-		.b(b), 
-		.c(c), 
-		.out(out)
-	);
-	
-	initial begin
-		a = 0;b = 0;c = 0;
-		#100;	
-		a = 0;b = 0;c = 1;
-		#100;
-		a = 0;b = 1;c = 0;
-		#100;
-		a = 0;b = 1;c = 1;
-		#100;
-		a = 1;b = 0;c = 0;
-		#100;	
-		a = 1;b = 0;c = 1;
-		#100;
-		a = 1;b = 1;c = 0;
-		#100;	
-		a = 1;b = 1;c = 1;
-		#200;
-		$stop;
-	end
-
-endmodule 
-</code></pre>
-<h2 id="rtl仿真">RTL仿真</h2>
-<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io//post-images/1583657266256.png" alt="" loading="lazy"></figure>
-<h2 id="门级仿真">门级仿真</h2>
-<p><img src="https://leichen2552.github.io//post-images/1583657333533.png" alt="" loading="lazy"><br>
-为什么门级仿真会出现电平混乱？<br>
-因为现实的电子器件，电平<code>0000_0001</code> 跳转到 <code>0000_0010</code>时，有可能是<code>0000_0001</code>成<code>0000_0011</code>，然后<code>0000_0011</code>再变成<code>0000_0010</code>，器件当中会存在电平跳变的时间差，所以会有这样的现象。</p>
+<p>用霍尔传感器来检测转子的位置<br>
+<img src="https://leichen2552.github.io//post-images/1583761321773.jpg" alt="" loading="lazy"></p>
 
                         </div>
                         
                             <div class="post-toc">
                                 <ul class="markdownIt-TOC">
-<li><a href="#%E4%B8%89%E5%85%AB%E8%AF%91%E7%A0%81%E5%99%A8%E7%9C%9F%E5%80%BC%E8%A1%A8">三八译码器真值表</a></li>
-<li><a href="#%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99">代码编写</a></li>
-<li><a href="#%E6%B5%8B%E8%AF%95%E6%96%87%E4%BB%B6%E7%BC%96%E5%86%99">测试文件编写</a>
+<li><a href="#%E7%9B%B4%E6%B5%81%E7%94%B5%E6%9C%BA">直流电机</a>
 <ul>
-<li><a href="#rtl%E4%BB%BF%E7%9C%9F">RTL仿真</a></li>
-<li><a href="#%E9%97%A8%E7%BA%A7%E4%BB%BF%E7%9C%9F">门级仿真</a></li>
+<li><a href="#%E6%AD%A5%E8%BF%9B%E7%94%B5%E6%9C%BA">步进电机</a></li>
+<li><a href="#%E4%BC%BA%E6%9C%8D%E7%94%B5%E6%9C%BA">伺服电机</a></li>
+<li><a href="#%E6%9C%89%E5%88%B7%E7%94%B5%E6%9C%BA">有刷电机</a></li>
+<li><a href="#%E6%97%A0%E5%88%B7%E7%94%B5%E6%9C%BA">无刷电机</a></li>
 </ul>
 </li>
 </ul>
@@ -387,7 +258,7 @@ endmodule
 
                                             <p class="copyright-item">
                                                 <span>Permalink:</span>
-                                                <span><a href="https://leichen2552.github.io/post/fpga-zhi-san-ba-yi-ma-qi-de-bian-xie/">https://leichen2552.github.io/post/fpga-zhi-san-ba-yi-ma-qi-de-bian-xie/</a></span>
+                                                <span><a href="https://leichen2552.github.io/post/dian-ji-fen-lei/">https://leichen2552.github.io/post/dian-ji-fen-lei/</a></span>
                                             </p>
 
                                             <p class="copyright-item">
@@ -402,9 +273,9 @@ endmodule
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/fpga-zhi-san-ba-yi-ma-qi-de-bian-xie/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/fpga-zhi-san-ba-yi-ma-qi-de-bian-xie/&sharesource=qzone&title=FPGA之三八译码器的编写&pics=https://leichen2552.github.io//images/avatar.png?v=1583761352652&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/fpga-zhi-san-ba-yi-ma-qi-de-bian-xie/&sharesource=weibo&title=FPGA之三八译码器的编写 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1583761352652 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/dian-ji-fen-lei/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/dian-ji-fen-lei/&sharesource=qzone&title=电机分类&pics=https://leichen2552.github.io//images/avatar.png?v=1583761352652&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/dian-ji-fen-lei/&sharesource=weibo&title=电机分类 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1583761352652 "><i class="fa fa-weibo "></i></a>
                                                         
                                                             <div class="reward ">
                                                                 <div class="reward-button ">&yen;
@@ -421,12 +292,6 @@ endmodule
                                                                         <span>Tag(s):</span>
                                                                         <span class="tag ">
                         
-                        
-                        <a href="https://leichen2552.github.io/tag/_TqkTUQ4v/">#
-                                                FPGA
-                                                    </a>
-                                                    
-                                                        
                                                             </span>
                                                                     </div>
                                                                     <div>
@@ -439,13 +304,13 @@ endmodule
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
-                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/mo-hu-xin-xi-chu-li-ji-zhu-yi/">
-                                                                                            模糊信息处理技术（二）
+                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/fpga-zhi-ji-shu-qi-de-bian-xie/">
+                                                                                            FPGA之计数器的编写
                                                                                         </a>
                                                                                         
                                                                                             
-                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/fpga-yu-fa-jian-dan-jie-shao/">
-                                                                                                    FPGA语法简单介绍
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/mo-hu-xin-xi-chu-li-ji-zhu-yi/">
+                                                                                                    模糊信息处理技术（二）
                                                                                                 </a>
                                                                                                 
                                                                                 </section>
