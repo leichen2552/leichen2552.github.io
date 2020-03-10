@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-03-09T13:44:21.476Z</updated>
+    <updated>2020-03-10T15:38:49.091Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,140 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[FPGA之计数器IP核的调用（超详细过程）]]></title>
+        <id>https://leichen2552.github.io/post/fpga-zhi-ji-shu-qi-ip-he-de-diao-yong/</id>
+        <link href="https://leichen2552.github.io/post/fpga-zhi-ji-shu-qi-ip-he-de-diao-yong/">
+        </link>
+        <updated>2020-03-10T05:53:59.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#lpm_counter-ip%E6%A0%B8%E4%BD%BF%E7%94%A8">LPM_counter IP核使用</a></li>
+<li><a href="#%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B">新建工程</a></li>
+<li><a href="#%E6%96%B0%E5%BB%BAlpm_counter-ip%E6%A0%B8">新建LPM_counter IP核</a>
+<ul>
+<li><a href="#%E6%8A%8A%E7%94%9F%E6%88%90%E7%9A%84ip%E6%A0%B8%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE%E4%B8%BA%E9%A1%B6%E5%B1%82%E6%96%87%E4%BB%B6">把生成的ip核文件设置为顶层文件</a></li>
+<li><a href="#%E6%96%B0%E5%BB%BAtestbench%E6%96%87%E4%BB%B6">新建testbench文件</a>
+<ul>
+<li><a href="#counter_ip_tb%E6%96%87%E4%BB%B6">counter_ip_tb文件</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BC%96%E8%AF%91%E4%B8%80%E6%AC%A1%E5%BC%80%E5%A7%8B%E5%88%86%E6%9E%90%E7%BB%BC%E5%90%88">编译一次，开始分析综合</a></li>
+<li><a href="#%E8%AE%BE%E7%BD%AEtestbench%E6%96%87%E4%BB%B6">设置TestBench文件</a></li>
+<li><a href="#%E4%BB%BF%E7%9C%9F">仿真</a></li>
+</ul>
+</li>
+</ul>
+</p>
+<h1 id="lpm_counter-ip核使用">LPM_counter IP核使用</h1>
+<p>Quartus 软件日工的LPM_counter IP核的使用</p>
+<ul>
+<li>FPGA设计方式：
+<ul>
+<li>原理图（不推荐）</li>
+<li>Verilog HDL 设计方式</li>
+<li>IP核的设计方式</li>
+</ul>
+</li>
+</ul>
+<h1 id="新建工程">新建工程</h1>
+<p><img src="https://leichen2552.github.io//post-images/1583852010421.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1583852018096.jpg" alt="" loading="lazy"></p>
+<p>这一页如果没有文件的话，可以不用管<br>
+<img src="https://leichen2552.github.io//post-images/1583852024800.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1583852030609.jpg" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1583852036541.jpg" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1583852042988.jpg" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1583852051737.png" alt="" loading="lazy"></p>
+<h1 id="新建lpm_counter-ip核">新建LPM_counter IP核</h1>
+<p><img src="https://leichen2552.github.io//post-images/1583852167865.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1583852177133.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1583852181532.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1583852186167.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1583852192772.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1583852198343.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1583852203559.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1583852209769.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1583852326713.png" alt="" loading="lazy"></p>
+<p>这就是生成的ip核文件</p>
+<h2 id="把生成的ip核文件设置为顶层文件">把生成的ip核文件设置为顶层文件</h2>
+<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io//post-images/1583852354899.png" alt="" loading="lazy"></figure>
+<h2 id="新建testbench文件">新建testbench文件</h2>
+<p><img src="https://leichen2552.github.io//post-images/1583852394249.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1583852402087.png" alt="" loading="lazy"></p>
+<h3 id="counter_ip_tb文件">counter_ip_tb文件</h3>
+<pre><code class="language-c">`timescale 1ns/1ns
+`define clock_period 20
+
+module counter_ip_tb;
+	
+	reg cin;
+	reg clk;
+	
+	wire cout;
+	wire [3:0]q;
+	
+	Counter_IP Counter_IP0(
+		.cin(cin),
+		.clock(clk),
+		.cout(cout),
+		.q(q)
+	);
+
+	initial clk = 1;
+	always #(`clock_period/2) clk = ~clk;
+	
+	initial begin
+		repeat(30)begin
+			cin = 0;
+			#(`clock_period * 5) cin = 1;
+			#(`clock_period) cin = 0;
+		end
+		
+		#(`clock_period * 200);
+		$stop;
+	end
+	
+endmodule
+</code></pre>
+<h2 id="编译一次开始分析综合">编译一次，开始分析综合</h2>
+<p><img src="https://leichen2552.github.io//post-images/1583854416464.png" alt="" loading="lazy"><br>
+分析综合没有错误，就可以进行下一步</p>
+<h2 id="设置testbench文件">设置TestBench文件</h2>
+<figure data-type="image" tabindex="2"><img src="https://leichen2552.github.io//post-images/1583854071372.png" alt="" loading="lazy"></figure>
+<ul>
+<li>
+<p>点击Simulation</p>
+</li>
+<li>
+<p>点击TestBenches<br>
+<img src="https://leichen2552.github.io//post-images/1583854079070.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>点击New<br>
+<img src="https://leichen2552.github.io//post-images/1583854085949.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>点击 Add<br>
+<img src="https://leichen2552.github.io//post-images/1583854089755.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>设置显示<br>
+<img src="https://leichen2552.github.io//post-images/1583854103857.png" alt="" loading="lazy"></p>
+</li>
+</ul>
+<h2 id="仿真">仿真</h2>
+<ul>
+<li>
+<p>进行RTL仿真<br>
+<img src="https://leichen2552.github.io//post-images/1583854549616.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>仿真波形如下，确实是16位的计数器，从0计数到15就清零<br>
+<img src="https://leichen2552.github.io//post-images/1583854556058.png" alt="" loading="lazy"></p>
+</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[FPGA之计数器的编写]]></title>
         <id>https://leichen2552.github.io/post/fpga-zhi-ji-shu-qi-de-bian-xie/</id>
@@ -138,6 +272,8 @@ endmodule
 </ul>
 <p>用霍尔传感器来检测转子的位置<br>
 <img src="https://leichen2552.github.io//post-images/1583761321773.jpg" alt="" loading="lazy"></p>
+<h1 id="电机参数">电机参数</h1>
+<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io//post-images/1583762546767.png" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
     <entry>
@@ -3477,191 +3613,6 @@ int main(int argc, char *argv[])
 <li>静态成员函数没有隐藏的this指针</li>
 <li>静态成员函数可以通过类名直接访问</li>
 <li>静态成员函数只能访问静态成员变量与静态成员函数，也正是利用了这个特性，完成了客户的需求</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（25）：类的静态成员变量]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-bian-liang/</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-bian-liang/">
-        </link>
-        <updated>2020-02-12T03:25:13.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="成员变量回顾">成员变量回顾</h1>
-<ul>
-<li>通过对象名都能够访问public成员变量</li>
-<li>每个对象的成员变量都是专属的</li>
-<li>成员变量不能在对象之间共享</li>
-</ul>
-<h1 id="新的需求小实例">新的需求：小实例</h1>
-<ul>
-<li>统计在程序期间某个类的对象数目</li>
-<li>保证程序的安全性（不能使用全局变量）</li>
-<li>随时获取当前对象的数目</li>
-</ul>
-<h2 id="尝试第一种方案">尝试第一种方案</h2>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-class Test
-{
-private:
-	int mCount;
-public:
-	Test():mCount(0)
-	{
-		mCount++;	
-	} 
-	~Test()
-	{
-		mCount--;
-	}		
-	int getCount()
-	{
-		return mCount;
-	}
-};
-
-Test gTest;
-
-int main(int argc, char *argv[])
-{
-	Test t1;
-	Test t2;
-	
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t1.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t2.getCount() &lt;&lt; endl;
-	
-	return 0;
-}
-//结果是三个1，因为成员变量是每个对象私有一套的
-</code></pre>
-<h2 id="尝试第二种方案">尝试第二种方案</h2>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-int gCount;
-
-class Test
-{
-private:
-	int mCount;
-public:
-	Test():mCount(0)
-	{
-		gCount++;	
-	} 
-	~Test()
-	{
-		gCount--;
-	}		
-	int getCount()
-	{
-		return gCount;
-	}
-};
-
-Test gTest;
-
-int main(int argc, char *argv[])
-{
-	Test t1;
-	Test t2;
-	
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t1.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t2.getCount() &lt;&lt; endl;
-	
-	return 0;
-}
-//打印结果三个3，但是用的是全局变量，
-//在当代的软件设计当中是不能使用全局变量的，因为在任何地方都能访问全局变量
-//所以不能使用全局变量
-</code></pre>
-<h1 id="静态成员变量">静态成员变量</h1>
-<ul>
-<li>在C++中课以定义静态成员变量
-<ul>
-<li>静态成员变量属于整个类所有，是属于整个类</li>
-<li>静态成员变量的生命期不依赖任何对象，就是程序的运行周期</li>
-<li>可以<strong>通过类名直接访问</strong>共有静态成员变量</li>
-<li><em>所有对象共享类的静态成员变量</em></li>
-<li>可以<strong>通过对象名访问</strong>共有静态成员变量</li>
-</ul>
-</li>
-<li>静态成员变量的特性
-<ul>
-<li>在定义时直接通过static关键字修饰</li>
-<li>静态成员变量需要在类外单独分配空间</li>
-<li>静态成员变量在程序内部位于全局数据区</li>
-</ul>
-</li>
-<li>语法规则：</li>
-</ul>
-<pre><code class="language-c++">Type ClassName::VarName = value;
-</code></pre>
-<h2 id="尝试第三种方案">尝试第三种方案</h2>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-class Test
-{
-private:
-	static int mCount;
-public:
-	Test()
-	{
-		mCount++;	
-	} 
-	~Test()
-	{
-		mCount--;
-	}		
-	int getCount()
-	{
-		return mCount;
-	}
-};
-
-//如果不加这句，编译器就会报链接器的错误
-int Test::mCount = 0;//这是在类的外部单独定义这个静态成员变量并初始化为0
-//
-
-Test gTest;
-
-int main(int argc, char *argv[])
-{
-	Test t1;
-	Test t2;
-	
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t1.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t2.getCount() &lt;&lt; endl;
-
-	Test* pt = new Test();
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; pt-&gt;getCount() &lt;&lt; endl;
-	delete pt;
-	
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;	
-	return 0;
-}
-//[Error] E:\User\exercise_Cpp\25jingtaichengyuan\main.cpp:(.text$_ZN4TestD1Ev[Test::~Test()]+0x5): undefined reference to `Test::mCount'
-//[Error] E:\User\exercise_Cpp\25jingtaichengyuan\main.cpp:(.text$_ZN4Test8getCountEv[Test::getCount()]+0x4): undefined reference to `Test::mCount'
-//[Error] E:\User\exercise_Cpp\25jingtaichengyuan\main.cpp:(.text$_ZN4TestC1Ev[Test::Test()]+0x5): undefined reference to `Test::mCount'
-//[Error] collect2: ld returned 1 exit status
-//这是链接器找不到static int mCount的内存空间，
-//需要在类的外部单独定义，以便于分配空间
-</code></pre>
-<h1 id="小结">小结</h1>
-<ul>
-<li>类中可以通过static关键字定义静态成员变量</li>
-<li>静态成员变量隶属于类所有，需要在外部进行分配空间</li>
-<li>每一个对象都可以访问静态成员变量</li>
-<li>静态成员变量在全局数据区分配空间</li>
-<li>静态成员变量的生命期为程序运行期</li>
 </ul>
 ]]></content>
     </entry>
