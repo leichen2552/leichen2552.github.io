@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-03-12T13:18:04.844Z</updated>
+    <updated>2020-03-12T13:52:48.821Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,77 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[FPGA之BCD码计数器]]></title>
+        <id>https://leichen2552.github.io/post/fpga-zhi-bcd-ma-ji-shu-qi/</id>
+        <link href="https://leichen2552.github.io/post/fpga-zhi-bcd-ma-ji-shu-qi/">
+        </link>
+        <updated>2020-03-12T13:48:49.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E4%BB%A3%E7%A0%81">代码</a></li>
+<li><a href="#%E7%94%A8%E6%97%B6%E5%BA%8F%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF%E7%9A%84%E6%B3%A2%E5%BD%A2%E9%97%AE%E9%A2%98">用时序逻辑电路的波形问题</a></li>
+<li><a href="#%E6%94%B9%E7%94%A8%E7%BB%84%E5%90%88%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%B3%A2%E5%BD%A2">改用组合逻辑电路的正确波形</a></li>
+</ul>
+</p>
+<h1 id="代码">代码</h1>
+<pre><code class="language-c">module BCD_Counter(Clk, Cin, Rst_n, Cout, q);
+
+	input Clk;			//计数基准时钟
+	input Cin;			//计数器进位输入
+	input Rst_n;		//系统复位 
+	
+	output Cout;	//计数进位输出
+	output [3:0]q;		//计数器值输出
+
+	reg [3:0]cnt;
+//执行计数过程	
+	always@(posedge Clk or negedge Rst_n)
+	if(Rst_n == 1'b0)
+		cnt &lt;= 4'd0;
+	else if(Cin == 1'b1)begin
+		if(cnt == 4'd9)
+			cnt &lt;= 4'd0;
+		else
+			cnt &lt;= cnt + 1'b1;
+	end
+	else
+		cnt &lt;= cnt;
+
+//不要在不同的always块中对同一个变量赋值
+//不要在同一个always块中同时使用阻塞赋值与非阻塞赋值		
+//时序逻辑电路always块中被赋值的变量必须是reg
+/*
+always时序逻辑电路中用 &lt;= 非阻塞赋值，在时序逻辑电路中用 = 阻塞赋值
+简单理解就是：在边沿敏感的always块中用非阻塞赋值，在电平敏感的always块中用阻塞赋值
+*/	
+/*
+always的敏感列表中包括多个电平敏感事件，也可以同时包括多个电平敏感事件，但是不能同时有电平和边沿敏感事件。
+另外，敏感列表中，同时包含一个信号的上升沿和下降沿也是不允许的，因为这两个事件可以合并成一个电平事件
+*/
+
+//产生进位输出信号
+	//这是把之前的时序逻辑电路（注释内）改成组合逻辑电路
+	assign Cout =(Cin == 1'b1 &amp;&amp; cnt == 4'd9);		
+/* 
+	always@(posedge Clk or negedge Rst_n)
+	if(Rst_n == 1'b0)
+		Cout &lt;= 1'b0;
+	else if(Cin == 1'b1 &amp;&amp; cnt == 4'd9)	
+		Cout &lt;= 1'b1;
+	else
+		Cout &lt;= 1'b0;
+*/		
+	assign q = cnt;	
+endmodule
+
+</code></pre>
+<h1 id="用时序逻辑电路的波形问题">用时序逻辑电路的波形问题</h1>
+<p>进位链的问题<br>
+<img src="https://leichen2552.github.io//post-images/1584021084132.jpg" alt="" loading="lazy"></p>
+<h1 id="改用组合逻辑电路的正确波形">改用组合逻辑电路的正确波形</h1>
+<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io//post-images/1584021113091.jpg" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[FPGA之计数器IP核的调用（超详细过程）]]></title>
         <id>https://leichen2552.github.io/post/fpga-zhi-ji-shu-qi-ip-he-de-diao-yong/</id>
@@ -3414,224 +3485,6 @@ int main(int argc, char *argv[])
 <li>初始化不完全的半成品对象是Bug的重要来源</li>
 <li>二阶构造是人为的将初始化过程分为两部分</li>
 <li>二阶构造能够确保创建的对象都是完整初始化的</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（26）：类的静态成员函数]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-han-shu/</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-han-shu/">
-        </link>
-        <updated>2020-02-12T06:20:55.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#%E6%9C%AA%E5%AE%8C%E6%88%90%E7%9A%84%E9%9C%80%E6%B1%82">未完成的需求</a>
-<ul>
-<li><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%B8%80">解决方案一</a></li>
-<li><a href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90">问题分析</a></li>
-<li><a href="#%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0">静态成员函数</a></li>
-<li><a href="#%E6%9C%80%E7%BB%88%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">最终解决方案</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
-</ul>
-</p>
-<h1 id="未完成的需求">未完成的需求</h1>
-<p>先来看看上篇博客里面客户的三个需求：</p>
-<pre><code># 新的需求：小实例
-1. 统计在程序期间某个类的对象数目【完成】
-2. 保证程序的安全性（不能使用全局变量）【完成】
-3. 随时获取当前对象的数目【未完成】
-</code></pre>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-class Test
-{
-private:
-	static int mCount;
-public:
-	Test()
-	{
-		mCount++;	
-	} 
-	~Test()
-	{
-		mCount--;
-	}		
-	int getCount()
-	{
-		return mCount;
-	}
-};
-
-int Test::mCount = 0;
-
-int main(int argc, char *argv[])
-{
-
-	return 0;
-}
-</code></pre>
-<pre><code>问题：如果这个程序里面没有任何的对象，那么在主函数里面应该返回0个对象
-</code></pre>
-<h2 id="解决方案一">解决方案一</h2>
-<pre><code class="language-c++">class Test
-{
-private:--&gt;改成public
-	static int mCount;
-public:
-}
-</code></pre>
-<pre><code>但是这样又会面临一个问题：这个static int mCount变量就可以在外部任意地方改动
-</code></pre>
-<pre><code class="language-c++">//比如：改成1000表示在程序中会有1000个对象吗？
-int main(int argc, char *argv[])
-{
-	cout &lt;&lt; &quot;Test :: mCount = &quot; &lt;&lt; Test::mCount &lt;&lt; endl;
-	Test::mCount = 1000;
-	cout &lt;&lt; &quot;Test :: mCount = &quot; &lt;&lt; Test::mCount &lt;&lt; endl;
-	return 0;
-}
-</code></pre>
-<pre><code>所以这种解决方案失败！这样的代码安全性拿不出手，也拿不出手！
-</code></pre>
-<h2 id="问题分析">问题分析</h2>
-<ul>
-<li>不依赖对象就可以访问静态成员变量</li>
-<li>必须保证静态成员变量的安全性，像上面那种把属性改成public的方式太暴力</li>
-<li>方便快捷的获取静态成员变量的值</li>
-</ul>
-<h2 id="静态成员函数">静态成员函数</h2>
-<ul>
-<li>
-<p>在C++中课以定义静态成员函数</p>
-<ul>
-<li>静态成员函数是类中特殊的成员函数</li>
-<li>静态成员函数属于整个类所有</li>
-<li>可以通过类名直接访问共有静态成员函数</li>
-<li>可以通过对象名访问共有静态成员函数</li>
-</ul>
-</li>
-<li>
-<p>静态成员函数的定义</p>
-<ul>
-<li>直接通过static关键字修饰成员函数</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-c++">class Test
-{
-public :
-    static void Func1() {}
-    static int Func2() {}
-}
-
-int Test::Func2()
-{
-    return 0;
-}
-</code></pre>
-<ul>
-<li>
-<p>静态成员函数不能访问<strong>普通成员变量</strong></p>
-</li>
-<li>
-<p><font color = Purple size = 5><strong>静态成员函数</strong></font> <font size = 4><strong>VS</strong></font> <font color = Green size = 5><strong>普通成员函数</strong></font></p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th></th>
-<th><font color = Purple size = 4>静态成员函数</font></th>
-<th><font color = Green size = 4>普通成员函数</font></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>所有对象共享</td>
-<td><font color = Blue size = 3><strong>Yes</strong></font></td>
-<td><font color = Blue size = 3><strong>Yes</strong></font></td>
-</tr>
-<tr>
-<td>隐含this指针</td>
-<td><font color = Red size = 3><strong>No</strong></font></td>
-<td><font color = Blue size = 3><strong>Yes</strong></font></td>
-</tr>
-<tr>
-<td>访问普通成员变量（函数）</td>
-<td><font color = Red size = 3><strong>No</strong></font></td>
-<td><font color = Blue size = 3><strong>Yes</strong></font></td>
-</tr>
-<tr>
-<td>访问静态成员变量（函数）</td>
-<td><font color = Blue size = 3><strong>Yes</strong></font></td>
-<td><font color = Blue size = 3><strong>Yes</strong></font></td>
-</tr>
-<tr>
-<td>通过类名直接调用</td>
-<td><font color = Blue size = 3><strong>Yes</strong></font></td>
-<td><font color = Red size = 3><strong>No</strong></font></td>
-</tr>
-<tr>
-<td>通过对象名直接调用</td>
-<td><font color = Blue size = 3><strong>Yes</strong></font></td>
-<td><font color = Blue size = 3><strong>Yes</strong></font></td>
-</tr>
-</tbody>
-</table>
-<h2 id="最终解决方案">最终解决方案</h2>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-class Test
-{
-private:
-	static int mCount;
-public:
-	Test()
-	{
-		mCount++;	
-	} 
-	~Test()
-	{
-		mCount--;
-	}		
-	static int getCount()
-	{
-		return mCount;
-	}
-};
-
-int Test::mCount = 0;
-
-Test gTest;
-
-int main(int argc, char *argv[])
-{
-	cout &lt;&lt; &quot;Test :: mCount = &quot; &lt;&lt; Test::getCount() &lt;&lt; endl;
-	
-	Test t;
-	cout &lt;&lt; &quot;Test :: mCount = &quot; &lt;&lt; Test::getCount() &lt;&lt; endl;
-	
-	Test* p = new Test();
-	cout &lt;&lt; &quot;Test :: mCount = &quot; &lt;&lt; Test::getCount() &lt;&lt; endl;
-	
-	delete p;
-	
-	cout &lt;&lt; &quot;Test :: mCount = &quot; &lt;&lt; Test::getCount() &lt;&lt; endl;
-	
-	return 0;
-}
-</code></pre>
-<h1 id="小结">小结</h1>
-<ul>
-<li>静态成员函数是类中特殊的成员函数</li>
-<li>静态成员函数没有隐藏的this指针</li>
-<li>静态成员函数可以通过类名直接访问</li>
-<li>静态成员函数只能访问静态成员变量与静态成员函数，也正是利用了这个特性，完成了客户的需求</li>
 </ul>
 ]]></content>
     </entry>
