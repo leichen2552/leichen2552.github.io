@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-03-25T14:44:00.381Z</updated>
+    <updated>2020-03-27T10:48:23.332Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,92 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[信号放大、隔离电路、滤波电路]]></title>
+        <id>https://leichen2552.github.io/post/xin-hao-fang-da-he-ge-chi-dian-lu/</id>
+        <link href="https://leichen2552.github.io/post/xin-hao-fang-da-he-ge-chi-dian-lu/">
+        </link>
+        <updated>2020-03-27T07:42:34.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="信号放大器">信号放大器</h1>
+<h2 id="电压放大器比例运算电路">电压放大器（比例运算电路）</h2>
+<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io//post-images/1585298914402.jpg" alt="" loading="lazy"></figure>
+<h3 id="虚短和虚断的概念">虚短和虚断的概念</h3>
+<ul>
+<li>由于运放的电压放大倍数很大，一般通用型运算放大器的开环电压放大倍数都在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>80</mn><mi>d</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">80 dB</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">8</span><span class="mord">0</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span>以上(1万倍)。而运放的输出电压是有限的，一般在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>10</mn><mi>V</mi><mi mathvariant="normal">～</mi><mn>14</mn><mi>V</mi></mrow><annotation encoding="application/x-tex">10 V～14 V</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord cjk_fallback">～</span><span class="mord">1</span><span class="mord">4</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span></span></span></span>。因此运放的差模输入电压不足<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi>m</mi><mi>V</mi></mrow><annotation encoding="application/x-tex">1 mV</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord mathdefault">m</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span></span></span></span>，两输入端近似等电位，相当于 “短路”。开环电压放大倍数越大，两输入端的电位越接近相等。</li>
+<li>“虚短”是指在分析运算放大器处于线性状态时，可把两输入端视为等电位，这一特性称为虚假短路，简称虚短。显然不能将两输入端真正短路。</li>
+<li>“虚断”相对于“虚短”理解起来就容易多了，他是说电流流向运放输入端几乎为零，在上图中体现在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>i</mi><mi>R</mi></msub></mrow><annotation encoding="application/x-tex">i_R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80952em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">i</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.00773em;">R</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>等于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>i</mi><mi>F</mi></msub></mrow><annotation encoding="application/x-tex">i_F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80952em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">i</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">F</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，这是由于运放输入差模电阻很大，理想运放可近似看为无穷大，如果输入差模电阻是无穷大也就是开路了，所以并没有电流流入，实际运放虽说不是无穷大，但是这个值很大，一般都在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi>M</mi><mi mathvariant="normal">Ω</mi></mrow><annotation encoding="application/x-tex">1MΩ</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord">Ω</span></span></span></span>以上，因此流向运放输入端电流很小（可以反推，如果电流为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi>m</mi><mi>A</mi></mrow><annotation encoding="application/x-tex">1mA</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord mathdefault">m</span><span class="mord mathdefault">A</span></span></span></span>，就会产生很高的输入差模电压，显然运放不能正常工作了），因此可以近似看为断路，并不是真正的断路，也就是“虚断”。</li>
+</ul>
+<h2 id="豪兰德电流源">豪兰德电流源</h2>
+<p>点过电阻之间的比值有以下关系的话，那么：<br>
+<img src="https://leichen2552.github.io//post-images/1585299070806.png" alt="" loading="lazy"></p>
+<h2 id="电荷放大器">电荷放大器</h2>
+<figure data-type="image" tabindex="2"><img src="https://leichen2552.github.io//post-images/1585299219513.png" alt="" loading="lazy"></figure>
+<h2 id="隔离放大器">隔离放大器</h2>
+<figure data-type="image" tabindex="3"><img src="https://leichen2552.github.io//post-images/1585299414067.jpg" alt="" loading="lazy"></figure>
+<h1 id="滤波电路">滤波电路</h1>
+<h2 id="有源滤波器">有源滤波器</h2>
+<p>有源滤波器带负载能力强<br>
+<img src="https://leichen2552.github.io//post-images/1585299835707.jpg" alt="" loading="lazy"></p>
+<h3 id="幅频特性及通带截止频率">幅频特性及通带截止频率</h3>
+<figure data-type="image" tabindex="4"><img src="https://leichen2552.github.io//post-images/1585299846246.png" alt="" loading="lazy"></figure>
+<h3 id="滤波器的传输函数">滤波器的传输函数</h3>
+<p><img src="https://leichen2552.github.io//post-images/1585300117558.jpg" alt="" loading="lazy"><br>
+对于二阶：</p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>a</mi><mn>1</mn></msub><mo>=</mo><mn>0</mn><mi mathvariant="normal">，</mi><msub><mi>a</mi><mn>2</mn></msub><mi mathvariant="normal">≠</mi><mn>0</mn></mrow><annotation encoding="application/x-tex">a_0,a_1 = 0，a_2 \neq 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">0</span><span class="mord cjk_fallback">，</span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"><span class="mrel"><span class="mord"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="inner"><span class="mrel"></span></span><span class="fix"></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span></span><span class="mrel">=</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，那么这就是二阶高通滤波器</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>a</mi><mn>2</mn></msub><mo>=</mo><mn>0</mn><mi mathvariant="normal">，</mi><msub><mi>a</mi><mn>0</mn></msub><mi mathvariant="normal">≠</mi><mn>0</mn></mrow><annotation encoding="application/x-tex">a_1,a_2 = 0，a_0 \neq 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">0</span><span class="mord cjk_fallback">，</span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"><span class="mrel"><span class="mord"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="inner"><span class="mrel"></span></span><span class="fix"></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span></span><span class="mrel">=</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，那么这就是二阶低通滤波器</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>a</mi><mn>2</mn></msub><mo>=</mo><mn>0</mn><mi mathvariant="normal">，</mi><msub><mi>a</mi><mn>1</mn></msub><mi mathvariant="normal">≠</mi><mn>0</mn></mrow><annotation encoding="application/x-tex">a_0,a_2 = 0，a_1 \neq 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">0</span><span class="mord cjk_fallback">，</span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"><span class="mrel"><span class="mord"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="inner"><span class="mrel"></span></span><span class="fix"></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span></span><span class="mrel">=</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，那么这就是二阶带通滤波器<br>
+Q是传输函数的品质因数，Q是指：频率在截止频率fp附近，它的幅频特性电压放大倍数这个幅值。这个值越大，电压放大倍数在通带截止频率附近的值就越大。那这个滤波器的特性就更理想一些。</li>
+</ul>
+<h3 id="滤波器设计">滤波器设计</h3>
+<h4 id="一阶滤波器-20db下降速度">一阶滤波器，-20dB下降速度</h4>
+<figure data-type="image" tabindex="5"><img src="https://leichen2552.github.io//post-images/1585300811715.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li>效果不够理想</li>
+</ul>
+<h4 id="二阶滤波器-40db下降速度">二阶滤波器，-40dB下降速度</h4>
+<p><img src="https://leichen2552.github.io//post-images/1585301080247.png" alt="" loading="lazy"><br>
+但是在曲线拐弯的地方，也就是通带到过渡带的地方，它的电压放大倍数幅度下降得比较快的地方，这时它的滤波特性还不够理想，那么就要提升他在截止频率附近的电压放大倍数。</p>
+<p>那有什么办法提升它在截止频率附近的电压放大倍数？<br>
+引入正反馈，VCVS（电压控制的电压源）用来提升它在截止频率附近的电压放大倍数<br>
+<img src="https://leichen2552.github.io//post-images/1585305092448.png" alt="" loading="lazy"></p>
+<ul>
+<li>BPF：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>R</mi><mn>1</mn></msub><mi mathvariant="normal">、</mi><msub><mi>C</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">R_1、C_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord cjk_fallback">、</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>组成低通滤波环节，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>R</mi><mn>2</mn></msub><mi mathvariant="normal">、</mi><msub><mi>C</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">R_2、C_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord cjk_fallback">、</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>组成高通滤波环节</li>
+<li>BEF：采用双T带阻网络，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi mathvariant="normal">个</mi><mi>R</mi></mrow><annotation encoding="application/x-tex">2个R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord cjk_fallback">个</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi>C</mi></mrow><annotation encoding="application/x-tex">2C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>组成组成低通滤波环节，上面的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi mathvariant="normal">个</mi><mi>C</mi></mrow><annotation encoding="application/x-tex">2个C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord cjk_fallback">个</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>和一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">R/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord">/</span><span class="mord">2</span></span></span></span>的组成高通滤波环节</li>
+</ul>
+<h3 id="低通滤波器的幅频特性曲线">低通滤波器的幅频特性曲线</h3>
+<figure data-type="image" tabindex="6"><img src="https://leichen2552.github.io//post-images/1585305822526.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[聚类算法Clustering]]></title>
+        <id>https://leichen2552.github.io/post/ju-lei-suan-fa-clustering/</id>
+        <link href="https://leichen2552.github.io/post/ju-lei-suan-fa-clustering/">
+        </link>
+        <updated>2020-03-26T09:01:45.000Z</updated>
+        <content type="html"><![CDATA[<p>对一组没有标记（代表原始数据，没有标签）的的数据，来发现这组数据的内在结构。</p>
+<p>similarity</p>
+<ul>
+<li>抽象表征</li>
+<li>自然的类，自然的数据类型</li>
+<li>找到合适有用的组</li>
+</ul>
+<h2 id="聚类算法应用">聚类算法应用</h2>
+<ul>
+<li>模式识别</li>
+<li>空间数据分析</li>
+<li>图像处理</li>
+<li>经济分析，股市分析</li>
+<li>WWW里的文本分类，文档分类</li>
+</ul>
+<h2 id="聚类分析">聚类分析</h2>
+<p>找出这些数据的相似性</p>
+<ul>
+<li>可扩展性</li>
+<li>处理不同类型的属性</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[FPGA状态机设计实例]]></title>
         <id>https://leichen2552.github.io/post/fpga-zhuang-tai-ji-she-ji-shi-li/</id>
@@ -2694,460 +2780,6 @@ int main(int argc, char *argv[])
 <p>我在Linux平台下用g++编译器尝试，还是报一样的错误！<br>
 这个问题我还没解决，去群里问了老师，他也没给出合理的解释！</p>
 <p><font color = blue size =4>在我学C++的时候，有人说C++这门语言，连C++之父都没完全弄懂，我一开始不这样觉得，现在我懂了</font></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（30）：操作符重载的概念]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-30cao-zuo-fu-chong-zai-de-gai-nian/</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-30cao-zuo-fu-chong-zai-de-gai-nian/">
-        </link>
-        <updated>2020-02-16T08:00:17.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#%E5%A4%8D%E6%95%B0%E7%9A%84%E9%97%AE%E9%A2%98">复数的问题</a>
-<ul>
-<li><a href="#%E6%80%9D%E8%80%83">思考</a></li>
-</ul>
-</li>
-<li><a href="#%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD">操作符重载</a>
-<ul>
-<li><a href="#%E5%A4%8D%E6%95%B0%E7%B1%BB%E4%BB%A3%E7%A0%81%E4%BF%AE%E6%94%B9">复数类代码修改</a></li>
-<li><a href="#%E5%A4%8D%E6%95%B0%E7%B1%BB%E5%86%8D%E6%AC%A1%E4%BF%AE%E6%94%B9">复数类再次修改</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
-</ul>
-</p>
-<h1 id="复数的问题">复数的问题</h1>
-<p>上节课复数的类问题，重载最重要的意义之一就是可以拓展系统当中的功能<br>
-<img src="https://leichen2552.github.io//post-images/1581842743648.jpg" alt="" loading="lazy"><br>
-但是面对这个复数的加法，编译器肯定不知道怎么办，所以结合前面的友元等一些知识，利用函数显示加法来实现这一功能</p>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-class Complex
-{
-private:
-	int a;
-	int b;
-public:
-	Complex()
-	{
-		a = 0;
-		b = 0;
-	}
-	Complex(int a, int b)
-	{
-		this-&gt;a = a;
-		this-&gt;b = b;
-	}
-	int getA()
-	{
-		return a;
-	}
-	int getB()
-	{
-		return b;
-	}
-	
-	friend Complex add(const Complex&amp; p1, const Complex&amp; p2);
-} ;
-
-Complex add(Complex p1, Complex p2)
-{
-	Complex ret;
-	
-	ret.a = p1.a + p2.a;
-	ret.b = p1.a + p2.b;	
-	
-	return ret;
-}
-
-int main(int argc, char *argv[])
-{
-	Complex c1(1,2);
-	Complex c2(3,4);
-	
-	Complex c3 = add(c1,c2);
-	
-	cout &lt;&lt; &quot;c3 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c3.getA() &lt;&lt; &quot;,&quot; &lt;&lt; c3.getB() &lt;&lt; &quot;)&quot; &lt;&lt; endl;	
-	return 0;
-}
-</code></pre>
-<p>这个确实实现了这个功能，但是c3 = add(c1,c2)这种表现形式不好看，而且利用友元也大大破坏了类的封装性。所以总的来看，这样的解决方案也不是最好的解决方案。</p>
-<h2 id="思考">思考</h2>
-<p>Add函数可以解决Complex对象相加的问题，但是Complex是现实世界中确实存在的复数，并且复数在数学中地位和普通的实数相同，<font color = blue size = 4>那有没有办法让 <font color=red size = 5><strong>+</strong></font> 这个操作符也支持复数相加呢？</font></p>
-<h1 id="操作符重载">操作符重载</h1>
-<ul>
-<li>C++中能重载操作符的功能</li>
-<li>操作符重载以函数的方式进行</li>
-<li>本质：
-<ul>
-<li>用特殊形式的函数扩展操作符的功能，意思就是写一个函数，这个函数认为是＋操作符进行的动作</li>
-</ul>
-</li>
-<li>通过operator关键字可以定义特殊的函数</li>
-<li>operator的本质是通过函数重载操作符</li>
-<li>语法：</li>
-</ul>
-<pre><code class="language-c++">Type operator Sign(const Type p1, const Type p2)
-{
-    Type ret;
-
-    return ret;
-}
-</code></pre>
-<p><font color = brown size = 4><em>Sign</em></font>为系统中<font color = red>预定义的操作符</font>，如：+，-，*，/，等</p>
-<h2 id="复数类代码修改">复数类代码修改</h2>
-<pre><code class="language-c++">friend Complex add(const Complex&amp; p1, const Complex&amp; p2); 
-//改成
-friend Complex operator +(Complex p1, Complex p2);
-
-Complex add(Complex p1, Complex p2)
-//改成
-Complex operator +(Complex p1, Complex p2);
-
-Complex c3 = add(c1,c2);
-//先修改成
-Complex c3 = operator +(c1,c2);
-//再修改成
-Complex c3 = c1 + c2;//改成这样就十分完美了，就相当于编译器知道这是复数类相加了
-</code></pre>
-<ul>
-<li>但是这种解决方案依然使用了友元</li>
-</ul>
-<h2 id="复数类再次修改">复数类再次修改</h2>
-<ul>
-<li>使用类成员函数来代替全局函数，既保持了类的封装性，又不使用友元</li>
-</ul>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-class Complex
-{
-private:
-	int a;
-	int b;
-public:
-	Complex(int a = 0, int b = 0)
-	{
-		this-&gt;a = a;
-		this-&gt;b = b;
-	}
-	int getA()
-	{
-		return a;
-	}
-	int getB()
-	{
-		return b;
-	}
-	Complex operator +(const Complex&amp; p)
-	{
-		cout &lt;&lt; &quot;Complex operator +(Complex&amp; p2)&quot; &lt;&lt; endl;
-		Complex ret;
-		
-		ret.a = this-&gt;a + p.a;
-		ret.b = this-&gt;b + p.b;	
-		
-		return ret;
-	}
-	
-	friend Complex operator +(const Complex&amp; p1,const Complex&amp; p2);
-} ;
-
-
-Complex operator +(const Complex&amp; p1, const Complex&amp; p2)
-{
-	cout &lt;&lt; &quot;friend Complex operator +(Complex p1, Complex p2);&quot; &lt;&lt;endl;
-	Complex ret;
-	
-	ret.a = p1.a + p2.a;
-	ret.b = p1.b + p2.b;	
-	
-	return ret;
-}
-
-int main(int argc, char *argv[])
-{
-	Complex c1(1,2);
-	Complex c2(3,4);
-	
-	Complex c3 = c1 + c2;//编译器能自己选择用哪个函数 
-	
-	cout &lt;&lt; &quot;c3 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c3.getA() &lt;&lt; &quot;,&quot; &lt;&lt; c3.getB() &lt;&lt; &quot;)&quot; &lt;&lt; endl;	
-	return 0;
-}
-</code></pre>
-<p>这部分代码在从编译器上复制到这篇博客上时，发生了一些小插曲，小插曲在下篇博客里面写。</p>
-<h1 id="小结">小结</h1>
-<ul>
-<li>操作符重载是C++的最强大的特性之一</li>
-<li>操作符重载的本质是通过函数拓展操作符的功能</li>
-<li>operator关键字是实现操作符重载的关键，用operator实现特殊的函数</li>
-<li>操作符重载遵循相同的函数重载规则</li>
-<li>全局函数和成员函数都可以实现对操作符的重载</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（29）：类中的函数重载]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-29lei-zhong-de-han-shu-chong-zai/</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-29lei-zhong-de-han-shu-chong-zai/">
-        </link>
-        <updated>2020-02-15T02:37:25.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E5%9B%9E%E9%A1%BE">函数重载回顾</a>
-<ul>
-<li><a href="#%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E8%BF%9B%E8%A1%8C%E9%87%8D%E8%BD%BD">类中的成员函数可以进行重载</a></li>
-<li><a href="#%E5%AE%9E%E9%AA%8C%E6%B5%8B%E8%AF%95">实验测试</a></li>
-</ul>
-</li>
-<li><a href="#%E6%B7%B1%E5%BA%A6%E7%9A%84%E6%84%8F%E4%B9%89">深度的意义</a>
-<ul>
-<li><a href="#%E5%AE%9E%E4%BE%8B%E6%BC%94%E7%A4%BA">实例演示</a></li>
-</ul>
-</li>
-<li><a href="#%E6%80%9D%E8%80%83">思考</a>
-<ul>
-<li><a href="#%E5%A4%8D%E6%95%B0%E7%B1%BB%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">复数类解决方案</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
-</ul>
-</p>
-<h1 id="函数重载回顾">函数重载回顾</h1>
-<ul>
-<li>函数重载的本质为互相独立的不同函数</li>
-<li>C++中通过<font color = blue size = 4><strong>函数名</strong></font>和<font color = green size = 4><strong>函数参数</strong></font>确定函数调用</li>
-<li>无法直接通过函数名得到重载函数的入口地址</li>
-<li>函数重载必然发生在同一个作用域中</li>
-</ul>
-<h2 id="类中的成员函数可以进行重载">类中的成员函数可以进行重载</h2>
-<ul>
-<li>构造函数的重载</li>
-<li>普通成员函数的重载</li>
-<li>静态成员函数的重载</li>
-</ul>
-<pre><code>问题：
-全局函数、普通成员函数以及静态成员函数之间是否可以构成重载？
-</code></pre>
-<h2 id="实验测试">实验测试</h2>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-void func()
-{
-	cout &lt;&lt; &quot;std::func()&quot; &lt;&lt; endl;
-}
-void func(int i)
-{
-	cout &lt;&lt; &quot;std::func(),i = &quot; &lt;&lt; i &lt;&lt; endl;
-}
-
-class Test
-{
-private:
-	int i;
-public:
-	Test()
-	{
-		cout &lt;&lt; &quot;Test::Test()&quot; &lt;&lt; endl;
-	}
-	Test(int v)
-	{
-		this-&gt;i = v;
-		cout &lt;&lt; &quot;Test::Test(int v),i = &quot; &lt;&lt; i &lt;&lt;endl;
-	}	
-	Test(const Test&amp; obj)
-	{
-		this-&gt;i = obj.i;
-		cout &lt;&lt; &quot;Test::Test(const int&amp; obj),i = &quot; &lt;&lt; i &lt;&lt;  endl;
-	}
-	
-	static void func()
-	{
-		cout &lt;&lt; &quot;Test::static void func()&quot; &lt;&lt; endl;
-	}
-	
-	void func(int i)
-	{
-		cout &lt;&lt; &quot;Test::func(),i = &quot; &lt;&lt; i &lt;&lt; endl;
-	}
-};
-
-int main(int argc, char *argv[])
-{
-	func();
-	func(2);
-	
-	cout &lt;&lt; endl;
-	
-	Test t1;
-	Test t2(2);
-	Test t3(t1);
-	
-	cout &lt;&lt; endl;
-	
-	Test::func();
-	t1.func();
-	t1.func(3);
-	
-	return 0;
-}
-</code></pre>
-<pre><code>打印结果：
-std::func()
-std::func(),i = 2
-
-Test::Test()
-Test::Test(int v),i = 2
-Test::Test(const int&amp; obj),i = 1998216124
-
-Test::static void func()
-Test::static void func()
-Test::func(),i = 3
-请按任意键继续. . .
-</code></pre>
-<ul>
-<li>
-<p>万变不离其宗</p>
-<ol>
-<li>重载函数的本质为多个不同的函数</li>
-<li><strong>函数名</strong>和<strong>参数列表</strong>是唯一的标识</li>
-<li>函数重载<strong>必须发生在同一作用域中</strong></li>
-</ol>
-</li>
-<li>
-<p>静态成员函数和普通成员函数之间可以构成重载</p>
-</li>
-<li>
-<p>全局函数和类的成员函数不能构成重载，因为命名空间不一样</p>
-</li>
-</ul>
-<h1 id="深度的意义">深度的意义</h1>
-<ul>
-<li>重载的意义：就是通过函数名大概推出函数的功能，通过函数名提示开发者这个函数时干什么用的，通过参数列表告诉开发者这个函数该怎么使用
-<ol>
-<li>通过函数名对函数功能进行提示</li>
-<li>通过参数列表对函数用法进行提示</li>
-<li>扩展系统中已经存在的函数功能，本质上虽然是提供新的函数，但是从更高层次来说，还是扩展了函数功能</li>
-</ol>
-</li>
-</ul>
-<h2 id="实例演示">实例演示</h2>
-<ul>
-<li>实现字符串拷贝的功能</li>
-</ul>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-int main(int argc, char *argv[])
-{
-	const char* s = &quot;D.T.Software&quot;;
-	char buf[16] = {0};
-	
-	strcpy(buf, s);
-	
-	cout &lt;&lt; buf &lt;&lt; endl;
-	
-	return 0;
-}
-</code></pre>
-<ul>
-<li>但是，如果把buf[16]换成buf[4]，像这样：</li>
-</ul>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-int main(int argc, char *argv[])
-{
-	const char* s = &quot;D.T.Software&quot;;
-	char buf[4] = {0};
-	
-	strcpy(buf, s);
-	
-	cout &lt;&lt; buf &lt;&lt; endl;
-	
-	return 0;
-}
-</code></pre>
-<ul>
-<li>
-<p>运行结果就会出错，在Linux平台下肯定会出内存错误</p>
-</li>
-<li>
-<p>所以，我们换一个函数strncpy</p>
-</li>
-</ul>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-int main(int argc, char *argv[])
-{
-	const char* s = &quot;D.T.Software&quot;;
-	char buf[4] = {0};
-	
-	strncpy(buf, s, sizeof(buf)-1);
-	
-	cout &lt;&lt; buf &lt;&lt; endl;
-	
-	return 0;
-}
-</code></pre>
-<ul>
-<li>
-<p>这样就只会复制&quot;D.T&quot;这三个字符</p>
-</li>
-<li>
-<p>如果我们用上了重载，就扩展系统中已经存在的函数功能</p>
-</li>
-</ul>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-char* strcpy(char* buf, const char* str, unsigned int n)
-{
-	return strncpy(buf, str, n);
-}
-
-int main(int argc, char *argv[])
-{
-	const char* s = &quot;D.T.Software&quot;;
-	char buf[4] = {0};
-	
-	strcpy(buf, s, sizeof(buf)-1);//对于开发者而言，调用的还是同一个函数
-	
-	cout &lt;&lt; buf &lt;&lt; endl;
-	
-	return 0;
-}
-</code></pre>
-<h1 id="思考">思考</h1>
-<ul>
-<li>
-<p>重载能够扩展系统中已经存在的函数功能！</p>
-</li>
-<li>
-<p>那么重载是否也能够扩展其他更多的功能？</p>
-</li>
-</ul>
-<h2 id="复数类解决方案">复数类解决方案</h2>
-<p><img src="https://leichen2552.github.io//post-images/1581739873099.jpg" alt="" loading="lazy"><br>
-但是复数的相加减，C++的编译器是做不到的，这个下次再说</p>
-<h1 id="小结">小结</h1>
-<ul>
-<li>类的成员函数之间可以进行重载</li>
-<li>重载必须发生在同一作用域当中</li>
-<li>全局函数和成员函数不能构成重载关系</li>
-<li>重载的意义在于扩展已经存在的功能</li>
-</ul>
 ]]></content>
     </entry>
 </feed>
