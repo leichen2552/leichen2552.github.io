@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-03-27T10:48:23.332Z</updated>
+    <updated>2020-04-15T12:55:32.029Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,36 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[运算电路]]></title>
+        <id>https://leichen2552.github.io/post/yun-suan-dian-lu/</id>
+        <link href="https://leichen2552.github.io/post/yun-suan-dian-lu/">
+        </link>
+        <updated>2020-03-27T13:30:35.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="运算类型">运算类型</h1>
+<p><font color = red>Summation(加法求和)，Subtraction(减法)</font><br>
+<font color = red>Intgration(积分)</font>，differentation(微分)<br>
+<font color = red>Logarithmic(对数)</font>，exponential(指数)<br>
+<font color = red>Multiplier(模拟乘法器)</font>：<br>
+Multiplication(乘)，division(除)<br>
+square(平方)，square root(开方)</p>
+<h2 id="加法电路">加法电路</h2>
+<ul>
+<li>两个输入端的电阻必须要满足比例系数<br>
+<img src="https://leichen2552.github.io//post-images/1585384073839.png" alt="" loading="lazy"></li>
+</ul>
+<h2 id="加法电路应用">加法电路应用</h2>
+<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io//post-images/1585384231515.png" alt="" loading="lazy"></figure>
+<h2 id="减法电路">减法电路</h2>
+<figure data-type="image" tabindex="2"><img src="https://leichen2552.github.io//post-images/1585385146193.png" alt="" loading="lazy"></figure>
+<ul>
+<li>为了提升输入电阻，可以用放大倍数为1的电压跟随器组合起来，这个输入电阻就位无穷大<br>
+<img src="https://leichen2552.github.io//post-images/1585387822424.png" alt="" loading="lazy"></li>
+<li>但是这要同时调整两个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>R</mi><mi>f</mi></msub></mrow><annotation encoding="application/x-tex">R_f</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10764em;">f</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>，所以加入了如下三个电阻<br>
+<img src="https://leichen2552.github.io//post-images/1585387381466.png" alt="" loading="lazy"></li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[信号放大、隔离电路、滤波电路]]></title>
         <id>https://leichen2552.github.io/post/xin-hao-fang-da-he-ge-chi-dian-lu/</id>
@@ -2609,177 +2639,6 @@ int main(int argc, char *argv[])
 <li>赋值操作符只能通过成员函数实现，是不能通过全局函数的</li>
 <li>操作符重载的本质为函数定义</li>
 </ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[小插曲之“康斯特引用（const&）”]]></title>
-        <id>https://leichen2552.github.io/post/xiao-cha-qu-zhi-kang-si-te-yin-yong-constand/</id>
-        <link href="https://leichen2552.github.io/post/xiao-cha-qu-zhi-kang-si-te-yin-yong-constand/">
-        </link>
-        <updated>2020-02-16T13:42:30.000Z</updated>
-        <content type="html"><![CDATA[<p><br>
-先来回顾下之前最后修改的复数类代码</p>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-class Complex
-{
-private:
-	int a;
-	int b;
-public:
-	Complex(int a = 0, int b = 0)
-	{
-		this-&gt;a = a;
-		this-&gt;b = b;
-	}
-	int getA()
-	{
-		return a;
-	}
-	int getB()
-	{
-		return b;
-	}
-	Complex operator +(const Complex&amp; p)/********************/
-	{
-		cout &lt;&lt; &quot;Complex operator +(Complex&amp; p2)&quot; &lt;&lt; endl;
-		Complex ret;
-		
-		ret.a = this-&gt;a + p.a;
-		ret.b = this-&gt;b + p.b;	
-		
-		return ret;
-	}
-	
-	friend Complex operator +(const Complex&amp; p1,const Complex&amp; p2);
-} ;
-
-
-Complex operator +(const Complex&amp; p1, const Complex&amp; p2)/********************/
-{
-	cout &lt;&lt; &quot;friend Complex operator +(Complex p1, Complex p2);&quot; &lt;&lt;endl;
-	Complex ret;
-	
-	ret.a = p1.a + p2.a;
-	ret.b = p1.b + p2.b;	
-	
-	return ret;
-}
-
-int main(int argc, char *argv[])
-{
-	Complex c1(1,2);
-	Complex c2(3,4);
-	
-	Complex c3 = c1 + c2;//编译器能自己选择用哪个函数 
-	
-	cout &lt;&lt; &quot;c3 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c3.getA() &lt;&lt; &quot;,&quot; &lt;&lt; c3.getB() &lt;&lt; &quot;)&quot; &lt;&lt; endl;	
-	return 0;
-}
-</code></pre>
-<p>关注我在代码后面加了/********************/这个标记的，拿出来看下，就是这两行</p>
-<pre><code class="language-c++">Complex operator +(const Complex&amp; p)
-Complex operator +(const Complex&amp; p1, const Complex&amp; p2)
-</code></pre>
-<p>把这两行代码里的const去掉，像这样带回源代码，发现编译器就会报错</p>
-<pre><code class="language-c++">Complex operator +(Complex&amp; p)
-Complex operator +(Complex&amp; p1, Complex&amp; p2)
-//带回源代码
-#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-class Complex
-{
-private:
-	int a;
-	int b;
-public:
-	Complex(int a = 0, int b = 0)
-	{
-		this-&gt;a = a;
-		this-&gt;b = b;
-	}
-	int getA()
-	{
-		return a;
-	}
-	int getB()
-	{
-		return b;
-	}
-/*
-	Complex operator +(const Complex&amp; p)
-	{
-		cout &lt;&lt; &quot;Complex operator +(Complex&amp; p2)&quot; &lt;&lt; endl;
-		Complex ret;
-		
-		ret.a = this-&gt;a + p.a;
-		ret.b = this-&gt;b + p.b;	
-		
-		return ret;
-	}*/
-	
-	Complex operator +(Complex&amp; p)
-	{
-		cout &lt;&lt; &quot;Complex operator +(Complex&amp; p2)&quot; &lt;&lt; endl;
-		Complex ret;
-		
-		ret.a = this-&gt;a + p.a;
-		ret.b = this-&gt;b + p.b;	
-		
-		return ret;
-	}
-	
-	//friend Complex operator +(const Complex&amp; p1,const Complex&amp; p2);
-	friend Complex operator +(Complex&amp; p1, Complex&amp; p2);
-} ;
-
-
-/*
-Complex operator +(const Complex&amp; p1, const Complex&amp; p2)
-{
-	cout &lt;&lt; &quot;friend Complex operator +(Complex p1, Complex p2);&quot; &lt;&lt;endl;
-	Complex ret;
-	
-	ret.a = p1.a + p2.a;
-	ret.b = p1.b + p2.b;	
-	
-	return ret;
-}*/
-
-Complex operator +(Complex&amp; p1, Complex&amp; p2)
-{
-	cout &lt;&lt; &quot;friend Complex operator +(Complex p1, Complex p2);&quot; &lt;&lt;endl;
-	Complex ret;
-	
-	ret.a = p1.a + p2.a;
-	ret.b = p1.b + p2.b;	
-	
-	return ret;
-}
-
-int main(int argc, char *argv[])
-{
-	Complex c0; 
-	Complex c1(1,2);
-	Complex c2(3,4);
-	
-	Complex c3 = c1 + c2;
-	
-	cout &lt;&lt; &quot;c3 = &quot; &lt;&lt; &quot;(&quot; &lt;&lt; c3.getA() &lt;&lt; &quot;,&quot; &lt;&lt; c3.getB() &lt;&lt; &quot;)&quot; &lt;&lt; endl;	
-	return 0;
-}
-//错误信息
-//[Error] ..\main.cpp:81: error: ambiguous overload for 'operator+' in 'c1 + c2'
-//[Warning] ..\main.cpp:37: note: candidates are: Complex Complex::operator+(Complex&amp;)
-//[Warning] ..\main.cpp:65: note:                 Complex operator+(Complex&amp;, Complex&amp;)
-</code></pre>
-<p>我在Linux平台下用g++编译器尝试，还是报一样的错误！<br>
-这个问题我还没解决，去群里问了老师，他也没给出合理的解释！</p>
-<p><font color = blue size =4>在我学C++的时候，有人说C++这门语言，连C++之父都没完全弄懂，我一开始不这样觉得，现在我懂了</font></p>
 ]]></content>
     </entry>
 </feed>

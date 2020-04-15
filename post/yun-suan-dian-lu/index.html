@@ -178,7 +178,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                回顾（25）：类的静态成员变量
+                                运算电路
                             </h1>
                             
                                 <!--en-->
@@ -188,20 +188,13 @@
                                         ChenLei's Blog
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2020-02-12</a>
+                                Date: <a href="#">2020-03-27</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">4.0
+                                    href="#">0.5
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">884</a></span>
+                                    <span class="post-words">words:<a href="#">133</a></span>
                                     
-                                        <span class="post-category">
-                                Category:
-                                
-                                <a href="https://leichen2552.github.io/tag/dTVQPvwPR/">C++</a>
-                                
-                            </span>
-                                        
                                             Views:
                                             <span data-hk-page="current"> - </span>
                                             
@@ -209,201 +202,40 @@
                                 
                         </header>
                         <div class="post-content">
-                            <h1 id="成员变量回顾">成员变量回顾</h1>
+                            <h1 id="运算类型">运算类型</h1>
+<p><font color = red>Summation(加法求和)，Subtraction(减法)</font><br>
+<font color = red>Intgration(积分)</font>，differentation(微分)<br>
+<font color = red>Logarithmic(对数)</font>，exponential(指数)<br>
+<font color = red>Multiplier(模拟乘法器)</font>：<br>
+Multiplication(乘)，division(除)<br>
+square(平方)，square root(开方)</p>
+<h2 id="加法电路">加法电路</h2>
 <ul>
-<li>通过对象名都能够访问public成员变量</li>
-<li>每个对象的成员变量都是专属的</li>
-<li>成员变量不能在对象之间共享</li>
+<li>两个输入端的电阻必须要满足比例系数<br>
+<img src="https://leichen2552.github.io//post-images/1585384073839.png" alt="" loading="lazy"></li>
 </ul>
-<h1 id="新的需求小实例">新的需求：小实例</h1>
+<h2 id="加法电路应用">加法电路应用</h2>
+<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io//post-images/1585384231515.png" alt="" loading="lazy"></figure>
+<h2 id="减法电路">减法电路</h2>
+<figure data-type="image" tabindex="2"><img src="https://leichen2552.github.io//post-images/1585385146193.png" alt="" loading="lazy"></figure>
 <ul>
-<li>统计在程序期间某个类的对象数目</li>
-<li>保证程序的安全性（不能使用全局变量）</li>
-<li>随时获取当前对象的数目</li>
-</ul>
-<h2 id="尝试第一种方案">尝试第一种方案</h2>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-class Test
-{
-private:
-	int mCount;
-public:
-	Test():mCount(0)
-	{
-		mCount++;	
-	} 
-	~Test()
-	{
-		mCount--;
-	}		
-	int getCount()
-	{
-		return mCount;
-	}
-};
-
-Test gTest;
-
-int main(int argc, char *argv[])
-{
-	Test t1;
-	Test t2;
-	
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t1.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t2.getCount() &lt;&lt; endl;
-	
-	return 0;
-}
-//结果是三个1，因为成员变量是每个对象私有一套的
-</code></pre>
-<h2 id="尝试第二种方案">尝试第二种方案</h2>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-int gCount;
-
-class Test
-{
-private:
-	int mCount;
-public:
-	Test():mCount(0)
-	{
-		gCount++;	
-	} 
-	~Test()
-	{
-		gCount--;
-	}		
-	int getCount()
-	{
-		return gCount;
-	}
-};
-
-Test gTest;
-
-int main(int argc, char *argv[])
-{
-	Test t1;
-	Test t2;
-	
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t1.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t2.getCount() &lt;&lt; endl;
-	
-	return 0;
-}
-//打印结果三个3，但是用的是全局变量，
-//在当代的软件设计当中是不能使用全局变量的，因为在任何地方都能访问全局变量
-//所以不能使用全局变量
-</code></pre>
-<h1 id="静态成员变量">静态成员变量</h1>
-<ul>
-<li>在C++中课以定义静态成员变量
-<ul>
-<li>静态成员变量属于整个类所有，是属于整个类</li>
-<li>静态成员变量的生命期不依赖任何对象，就是程序的运行周期</li>
-<li>可以<strong>通过类名直接访问</strong>共有静态成员变量</li>
-<li><em>所有对象共享类的静态成员变量</em></li>
-<li>可以<strong>通过对象名访问</strong>共有静态成员变量</li>
-</ul>
-</li>
-<li>静态成员变量的特性
-<ul>
-<li>在定义时直接通过static关键字修饰</li>
-<li>静态成员变量需要在类外单独分配空间</li>
-<li>静态成员变量在程序内部位于全局数据区</li>
-</ul>
-</li>
-<li>语法规则：</li>
-</ul>
-<pre><code class="language-c++">Type ClassName::VarName = value;
-</code></pre>
-<h2 id="尝试第三种方案">尝试第三种方案</h2>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-class Test
-{
-private:
-	static int mCount;
-public:
-	Test()
-	{
-		mCount++;	
-	} 
-	~Test()
-	{
-		mCount--;
-	}		
-	int getCount()
-	{
-		return mCount;
-	}
-};
-
-//如果不加这句，编译器就会报链接器的错误
-int Test::mCount = 0;//这是在类的外部单独定义这个静态成员变量并初始化为0
-//
-
-Test gTest;
-
-int main(int argc, char *argv[])
-{
-	Test t1;
-	Test t2;
-	
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t1.getCount() &lt;&lt; endl;
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; t2.getCount() &lt;&lt; endl;
-
-	Test* pt = new Test();
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; pt-&gt;getCount() &lt;&lt; endl;
-	delete pt;
-	
-	cout &lt;&lt; &quot;count = &quot; &lt;&lt; gTest.getCount() &lt;&lt; endl;	
-	return 0;
-}
-//[Error] E:\User\exercise_Cpp\25jingtaichengyuan\main.cpp:(.text$_ZN4TestD1Ev[Test::~Test()]+0x5): undefined reference to `Test::mCount'
-//[Error] E:\User\exercise_Cpp\25jingtaichengyuan\main.cpp:(.text$_ZN4Test8getCountEv[Test::getCount()]+0x4): undefined reference to `Test::mCount'
-//[Error] E:\User\exercise_Cpp\25jingtaichengyuan\main.cpp:(.text$_ZN4TestC1Ev[Test::Test()]+0x5): undefined reference to `Test::mCount'
-//[Error] collect2: ld returned 1 exit status
-//这是链接器找不到static int mCount的内存空间，
-//需要在类的外部单独定义，以便于分配空间
-</code></pre>
-<h1 id="小结">小结</h1>
-<ul>
-<li>类中可以通过static关键字定义静态成员变量</li>
-<li>静态成员变量隶属于类所有，需要在外部进行分配空间</li>
-<li>每一个对象都可以访问静态成员变量</li>
-<li>静态成员变量在全局数据区分配空间</li>
-<li>静态成员变量的生命期为程序运行期</li>
+<li>为了提升输入电阻，可以用放大倍数为1的电压跟随器组合起来，这个输入电阻就位无穷大<br>
+<img src="https://leichen2552.github.io//post-images/1585387822424.png" alt="" loading="lazy"></li>
+<li>但是这要同时调整两个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>R</mi><mi>f</mi></msub></mrow><annotation encoding="application/x-tex">R_f</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10764em;">f</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>，所以加入了如下三个电阻<br>
+<img src="https://leichen2552.github.io//post-images/1585387381466.png" alt="" loading="lazy"></li>
 </ul>
 
                         </div>
                         
                             <div class="post-toc">
                                 <ul class="markdownIt-TOC">
-<li><a href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%9B%9E%E9%A1%BE">成员变量回顾</a></li>
-<li><a href="#%E6%96%B0%E7%9A%84%E9%9C%80%E6%B1%82%E5%B0%8F%E5%AE%9E%E4%BE%8B">新的需求：小实例</a>
+<li><a href="#%E8%BF%90%E7%AE%97%E7%B1%BB%E5%9E%8B">运算类型</a>
 <ul>
-<li><a href="#%E5%B0%9D%E8%AF%95%E7%AC%AC%E4%B8%80%E7%A7%8D%E6%96%B9%E6%A1%88">尝试第一种方案</a></li>
-<li><a href="#%E5%B0%9D%E8%AF%95%E7%AC%AC%E4%BA%8C%E7%A7%8D%E6%96%B9%E6%A1%88">尝试第二种方案</a></li>
+<li><a href="#%E5%8A%A0%E6%B3%95%E7%94%B5%E8%B7%AF">加法电路</a></li>
+<li><a href="#%E5%8A%A0%E6%B3%95%E7%94%B5%E8%B7%AF%E5%BA%94%E7%94%A8">加法电路应用</a></li>
+<li><a href="#%E5%87%8F%E6%B3%95%E7%94%B5%E8%B7%AF">减法电路</a></li>
 </ul>
 </li>
-<li><a href="#%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F">静态成员变量</a>
-<ul>
-<li><a href="#%E5%B0%9D%E8%AF%95%E7%AC%AC%E4%B8%89%E7%A7%8D%E6%96%B9%E6%A1%88">尝试第三种方案</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
 </ul>
 
                             </div>
@@ -419,7 +251,7 @@ int main(int argc, char *argv[])
 
                                             <p class="copyright-item">
                                                 <span>Permalink:</span>
-                                                <span><a href="https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-bian-liang/">https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-bian-liang/</a></span>
+                                                <span><a href="https://leichen2552.github.io/post/yun-suan-dian-lu/">https://leichen2552.github.io/post/yun-suan-dian-lu/</a></span>
                                             </p>
 
                                             <p class="copyright-item">
@@ -434,9 +266,9 @@ int main(int argc, char *argv[])
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-bian-liang/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-bian-liang/&sharesource=qzone&title=回顾（25）：类的静态成员变量&pics=https://leichen2552.github.io//images/avatar.png?v=1586955322954&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-bian-liang/&sharesource=weibo&title=回顾（25）：类的静态成员变量 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1586955322954 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/yun-suan-dian-lu/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/yun-suan-dian-lu/&sharesource=qzone&title=运算电路&pics=https://leichen2552.github.io//images/avatar.png?v=1586955322954&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/yun-suan-dian-lu/&sharesource=weibo&title=运算电路 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1586955322954 "><i class="fa fa-weibo "></i></a>
                                                         
                                                             <div class="reward ">
                                                                 <div class="reward-button ">&yen;
@@ -453,12 +285,6 @@ int main(int argc, char *argv[])
                                                                         <span>Tag(s):</span>
                                                                         <span class="tag ">
                         
-                        
-                        <a href="https://leichen2552.github.io/tag/dTVQPvwPR/">#
-                                                C++
-                                                    </a>
-                                                    
-                                                        
                                                             </span>
                                                                     </div>
                                                                     <div>
@@ -471,13 +297,9 @@ int main(int argc, char *argv[])
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
-                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-han-shu/">
-                                                                                            回顾（26）：类的静态成员函数
-                                                                                        </a>
-                                                                                        
                                                                                             
-                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-24jing-dian-wen-ti-jie-xi-er/">
-                                                                                                    回顾（24）：经典问题解析二
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/xin-hao-fang-da-he-ge-chi-dian-lu/">
+                                                                                                    信号放大、隔离电路、滤波电路
                                                                                                 </a>
                                                                                                 
                                                                                 </section>
