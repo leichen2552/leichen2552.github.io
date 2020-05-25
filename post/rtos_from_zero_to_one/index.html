@@ -89,7 +89,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1588903437176" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1590395865495" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -108,7 +108,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1588903437176" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1590395865495" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -191,9 +191,9 @@
                                 Date: <a href="#">2020-01-05</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">20.0
+                                    href="#">30.1
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">5362</a></span>
+                                    <span class="post-words">words:<a href="#">8326</a></span>
                                     
                                         <span class="post-category">
                                 Category:
@@ -236,6 +236,7 @@
 </ul>
 </li>
 <li><a href="#%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%88%87%E6%8D%A2">实现两个任务的切换</a></li>
+<li><a href="#%E5%8F%8C%E4%BB%BB%E5%8A%A1%E5%BB%B6%E6%97%B6%E5%8E%9F%E7%90%86%E4%B8%8E%E7%A9%BA%E9%97%B2%E4%BB%BB%E5%8A%A1">双任务延时原理与空闲任务</a></li>
 <li><a href="#%E5%AF%B9%E4%BA%8E%E5%85%B1%E4%BA%AB%E8%B5%84%E6%BA%90%E7%9A%84%E4%BF%9D%E6%8A%A4">对于共享资源的保护</a></li>
 <li><a href="#%E4%BD%8D%E5%9B%BE%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0%E4%BB%BB%E5%8A%A1%E4%BC%98%E5%85%88%E7%BA%A7">位图数据结构实现任务优先级</a></li>
 <li><a href="#%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%BB%B6%E6%97%B6%E9%98%9F%E5%88%97">任务的延时队列</a></li>
@@ -642,25 +643,68 @@ int main()
 }
 </code></pre>
 <h2 id="实现两个任务的切换">实现两个任务的切换</h2>
-<p>有了任务的切换机制，再有两个任务</p>
+<p>有了任务的切换机制，再有两个任务，task1、task2两个任务，依靠SyTick触发PendSV异常来切换任务，此时这个任务中的延时依然采用软件延时函数（如图4）。但是软件延时依然会有很高的风险，比如这个任务延时1秒，难道其他任务也得等着吗？<br>
+<img src="https://leichen2552.github.io//post-images/1590394999522.png" alt="" loading="lazy"></p>
+<h2 id="双任务延时原理与空闲任务">双任务延时原理与空闲任务</h2>
+<p>因为SysTick定时的时间是10ms，所以采用这个延时，比如延时几个10ms。在任务初始化的时候添加一个变量delayTicks，当任务遇到延时函数的时候，就把延时的时间变量传给这个delayTicks，然后就进行任务调度。在SysTick的定时中断里面对这两个任务的delayTicks自减，再进行任务调度（如图6）。如果这两个任务都进行延时，这时候需要一个空闲任务，这个空闲任务来执行一些堆栈测量或者是cpu使用量测量，这些具体下面再分析。<br>
+<img src="https://leichen2552.github.io//post-images/1590395176369.png" alt="" loading="lazy"></p>
 <h2 id="对于共享资源的保护">对于共享资源的保护</h2>
+<p>不同的任务会对同一片共享资源进行访问，或者说任务和中断也会对同一片资源进行访问，这时就需要一种机制来保护这片共享资源。临界区保护就是在访问这片资源前先屏蔽所有中断，然后对共享资源进行操作，访问结束后再开启所有中断。调度锁保护在这种开关中断保护之上，比如在访问这片共享资源的时候禁止关闭中断，所以只能采取调度锁保护，就是在访问资源前关闭调度，再对资源资源进行操作，接着开启调度。这两种方法在以后用会很常见。</p>
 <h2 id="位图数据结构实现任务优先级">位图数据结构实现任务优先级</h2>
+<p>上面的代码才支持两个任务，一个多任务操作系统怎么能支持两个任务，这里引入一种数据结构来支持任务的优先级——位图数据结构。<br>
+<img src="https://leichen2552.github.io//post-images/1590395222248.png" alt="" loading="lazy"></p>
 <h2 id="任务的延时队列">任务的延时队列</h2>
+<p>任务的延时采用上面所说的延时原理。延时队列是什么？其实是一个双向链表，比如一个任务有延时发生，就会把这个任务插入延时队列的尾部，并把这个任务从就绪态切换为延时态，这时会继续扫描优先级任务表，取出最高优先级的任务占据CPU运行。但是如果所有的任务都在延时态，就如上面所说会执行一个空闲任务。随着SysTick触发中断，这时会去遍历这个延时队列，找出这个延时队列中的处于延时态的任务，并递减这个任务的延时变量，当延时变量递减到0时，就唤醒这个任务并转变为就绪态，并把它插入任务表中，会继续执行任务调度函数，找出最高优先级的任务，并占据CPU运行。<br>
+<img src="https://leichen2552.github.io//post-images/1590395274131.png" alt="" loading="lazy"></p>
 <h2 id="支持任务同优先级">支持任务同优先级</h2>
+<p>也就是多任务共优先级的时间片运行：什么叫时间片，就是把一秒钟给具体分配给这个任务假设执行多久。为了完成这个功能，在任务初始化的时候，把同优先级的任务插入每个优先级位的双向链表，这里就称之为任务队列。假设ABC三个任务，A的优先级最高，B、C的优先级相同。在任务初始化的时候，把同优先级的任务放入一个双向链表中，并初始化时间片是10（Keil代码中设定是10），B、C任务的延时是普通依靠减一个数的delay延时，A是依靠时钟节拍的延时。A任务优先级最高会占据CPU运行，A遇到延时的时候，会被插入延时列表的尾部，并清除A任务在就绪表中的位（位图数据结构），A任务从就绪态变为延时态。这时会进入调度函数，找出此时优先级最高的是B和C，会从初始化时链表的头部取出一个任务并一直占据CPU运行，这时就等待系统的SysTick中断，在中断函数里，会先遍历延时队列，检测有没有延时完成的任务，然后对当前任务的时间片进行递减和0比较，如果有延时完成的任务并且优先级比当前任务高，会让延时完成的任务占据CPU运行，如果没有延时任务会继续让当前任务运行；如果当前任务的时间片运行结束，会把这个队列中处于头节点任务移除，并插入表尾。这时会继续进入调度函数，找出最高优先级的任务占据CPU运行。<br>
+<img src="https://leichen2552.github.io//post-images/1590395332972.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1590395338113.png" alt="" loading="lazy"></p>
 <h2 id="任务的挂起">任务的挂起</h2>
+<p>任务的挂起就是就是暂停任务运行，任务的恢复就是就是恢复任务运行，任务的删除就是释放任务资源。<br>
+<img src="https://leichen2552.github.io//post-images/1590395368359.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1590395386168.png" alt="" loading="lazy"></p>
 <h2 id="任务信息的查询">任务信息的查询</h2>
 <h2 id="事件控制块的实现">事件控制块的实现</h2>
+<p>上面已经说过，操作系统就是为任务进行合理地调度，重点就是合理，不同的任务有不同的功能，比如这个任务需要与其他的任务进行同步、这个任务里面删除其他任务、这个任务要继承其他任务的优先级等等，但是这些操作首先要被操作系统了解，我们称这些操作叫做事件，所以用一个大的结构来管理——事件控制块。事件控制块里很多类型，也就是说下面要介绍的：计数信号量事件类型、邮箱事件类型、存储块管理事件类型、事件标志组事件类型和互斥信号量事件类型。<br>
+<img src="https://leichen2552.github.io//post-images/1590395423235.png" alt="" loading="lazy"></p>
 <h2 id="计数信号量的实现">计数信号量的实现</h2>
+<p>计数信号量是事件控制块加一个计数器。计数器负责技术控制，事件控制块用于控制任务等待和唤醒。如果一个任务A中有信号量等待，就解除就绪态并移除就绪表，就把这个任务插入事件控制块的等待队列，如果这个任务还设置了超时等待，就插入延时队列。接着就会进入其他任务，任务B中会通知任务A，把任务A唤醒，并移除事件控制块的等待队列进入就绪态，如果唤醒的这个任务优先级更高就进行任务调度。关于时间控制块中设置超时任务，因为他在两个队列中，延时队列和事件控制块的等待队列，等待超时结束，就会在中断里进行唤醒。信号量一般用于两个任务的同步。<br>
+<img src="https://leichen2552.github.io//post-images/1590395471052.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1590395485209.png" alt="" loading="lazy"></p>
 <h2 id="邮箱的实现">邮箱的实现</h2>
+<p>邮箱的功能是满足多个任务之间传递消息。邮箱里面就有两个队列，一个是等待消息的任务队列，另一就是消息缓存队列，所以邮箱应当建立在事件控制块的基础之上。邮箱无消息，任务等待；邮箱内没有任务收消息，消息缓存；考虑效率问题，保存消息的起始地址。<br>
+<img src="https://leichen2552.github.io//post-images/1590395522329.png" alt="" loading="lazy"></p>
 <h2 id="存储块的实现">存储块的实现</h2>
+<p>内存中会有很多大量细小无法使用的碎片，频繁地进行任意大小的内存分配可能会产生很多不连续的细小的外部碎片，导致无法再分配。并且代码实现比较复杂，分配和释放过程操作时间不确定。是否真的需要分配任意大小的存储空间？从程序最底层往上应用层，所有东西开发都是完全可见的，针对特定场合开发，有时存储空间分配大小的种类通常只有少量几种。比如某个任务需要4个20k的内存块，有的任务需要3个80K的内存块，有的需求3个256B的存储块。但是缺点就是这些内存块无法彼此共享。牺牲了一定的存储空间换来简单、快速、确定的分配方式。存储块结构由两部分组成，空闲存储链表和事件控制块，空闲存储列表是空闲存储块链表，事件控制块为等待存储块的任务列表。<br>
+<img src="https://leichen2552.github.io//post-images/1590395548547.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1590395553892.png" alt="" loading="lazy"></p>
 <h2 id="事件标志组的实现">事件标志组的实现</h2>
+<p>如何在中断ISR与任务之间传递多个任务标志？每个任务都只有它等待特有的事件集合；当没有事件没有发生时，任务就进入这个列表中等待；当任务需要等待的这个事件发生，就唤醒任务。<br>
+<img src="https://leichen2552.github.io//post-images/1590395589445.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1590395597423.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1590395606052.png" alt="" loading="lazy"></p>
 <h2 id="互斥信号量的实现">互斥信号量的实现</h2>
+<p>如何在多个任务共享资源冲突的问题？之前给过关中断、调度锁保护的解决方案，但是如果访问资源的时候净值关闭中断、或者说调度锁也不能长时间关闭的情况下，这两种方案就失效了。之前还讲过计数信号量的解决方式，但是这个方式不支持嵌套使用，也不支持该型号量的所有者，也无法解决优先级反转的问题。<br>
+解释一下优先级反转问题：比如一个资源被一个低优先级任务占有资源，高优先级任务期望占有资源，所以等待，这个时候有中等优先级的任务在占用CPU的使用权，这样低优先级和高优先级都无法运行，一直是中等优先级的任务在运行。<br>
+所以这里引入一个全新的概念——互斥信号量，它有四个组成部分：用于嵌套调用的锁定次数计数器，当前已经获取信号量的任务，支持有优先级继承的原始优先级和一个事件控制块。<br>
+<img src="https://leichen2552.github.io//post-images/1590395633228.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1590395636553.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1590395819894.png" alt="" loading="lazy"></p>
 <h2 id="软件定时器的实现">软件定时器的实现</h2>
+<p>软定时器解决某个任务需要周期性的运行，这样就节省了硬件资源。创建一个定时器任务，它维护了一个定时器列表，定时器列表去周期性的查询一个又一个的软定时器，但是定时器任务可能被更高优先级的任务抢占运行，导致刷新定时器列表的时间滞后，这个滞后的时间是不确定的。为了解决这个问题又添加了一个定时器列表，这个定时器列表在系统中断节拍的服务函数里扫描的，这个定时器列表里的任务需要执行时间较短，而定时器任务列表中的函数可以执行时间较长。<br>
+<img src="https://leichen2552.github.io//post-images/1590395668150.png" alt="" loading="lazy"></p>
 <h2 id="堆栈测量的检测">堆栈测量的检测</h2>
+<p>栈的使用量：初始化栈的时候为0，因为ARM栈的使用是满降栈模式，所以从栈的起始地址开始到第一个不为零的地址结束就是栈的使用量。</p>
 <h2 id="cpu使用量检测">CPU使用量检测</h2>
+<p>统计单位时间内CPU分别有多少时间在执行应用任务的代码和空闲任务的代码，但是这个无法实现，无法得到单位时间里执行了哪些指令，硬件不支持。所以换个思路，在系统空闲时运行的时候，设计一个特殊代码块（如图26）里有个执行计数器，仅特殊代码块的计数值MAX，正常运行时获取计数值Cnt，所以cpu的百分比≈100 - Cnt*100/Max。<br>
+<img src="https://leichen2552.github.io//post-images/1590395737582.png" alt="" loading="lazy"></p>
 <h2 id="内核裁剪">内核裁剪</h2>
+<p>到这里，微型操作系统的内核差不多就实现了，为什么要裁剪呢？就是保留你需要用的功能，留下你需要用的功能。这里使用条件编译的方式，需要什么功能就使能这个功能的宏。<br>
+<img src="https://leichen2552.github.io//post-images/1590395773305.png" alt="" loading="lazy"></p>
 <h2 id="hooks拓展">Hooks拓展</h2>
-<p>👩‍👦</p>
+<p>Hooks，即钩子函数，用于在某些内核代码中插入一个占位，当执行到该位置时，执行自定义的功能代码，避免直接就该原始的内核代码。<br>
+<img src="https://leichen2552.github.io//post-images/1590395778363.png" alt="" loading="lazy"></p>
 
                         </div>
                         
@@ -686,6 +730,7 @@ int main()
 </ul>
 </li>
 <li><a href="#%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%88%87%E6%8D%A2">实现两个任务的切换</a></li>
+<li><a href="#%E5%8F%8C%E4%BB%BB%E5%8A%A1%E5%BB%B6%E6%97%B6%E5%8E%9F%E7%90%86%E4%B8%8E%E7%A9%BA%E9%97%B2%E4%BB%BB%E5%8A%A1">双任务延时原理与空闲任务</a></li>
 <li><a href="#%E5%AF%B9%E4%BA%8E%E5%85%B1%E4%BA%AB%E8%B5%84%E6%BA%90%E7%9A%84%E4%BF%9D%E6%8A%A4">对于共享资源的保护</a></li>
 <li><a href="#%E4%BD%8D%E5%9B%BE%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0%E4%BB%BB%E5%8A%A1%E4%BC%98%E5%85%88%E7%BA%A7">位图数据结构实现任务优先级</a></li>
 <li><a href="#%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%BB%B6%E6%97%B6%E9%98%9F%E5%88%97">任务的延时队列</a></li>
@@ -736,8 +781,8 @@ int main()
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/rtos_from_zero_to_one/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/rtos_from_zero_to_one/&sharesource=qzone&title=从0到1写RTOS&pics=https://leichen2552.github.io//images/avatar.png?v=1588903437176&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/rtos_from_zero_to_one/&sharesource=weibo&title=从0到1写RTOS + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1588903437176 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/rtos_from_zero_to_one/&sharesource=qzone&title=从0到1写RTOS&pics=https://leichen2552.github.io//images/avatar.png?v=1590395865495&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/rtos_from_zero_to_one/&sharesource=weibo&title=从0到1写RTOS + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1590395865495 "><i class="fa fa-weibo "></i></a>
                                                         
                                                             <div class="reward ">
                                                                 <div class="reward-button ">&yen;
@@ -854,7 +899,7 @@ int main()
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1588903437176);
+                    newDate.setTime(1590395865495);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
