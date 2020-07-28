@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-07-01T01:03:15.698Z</updated>
+    <updated>2020-07-28T01:27:15.244Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,34 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[ESP8266]]></title>
+        <id>https://leichen2552.github.io/post/esp8266/</id>
+        <link href="https://leichen2552.github.io/post/esp8266/">
+        </link>
+        <updated>2020-07-09T00:49:43.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="esp8266的工作模式">ESP8266的工作模式</h1>
+<p>ESP8266共有三种工作模式，分别是Station模式，AP模式，AP+Station模式。ESP8266出厂默认是第三种模式。</p>
+<p>1、Station模式，Station就像一个接收器，可以接收其他接收器的的信号，而我们的手机、笔记本等就像是一个个的Station，可以接收路由器发出的信号。</p>
+<p>2、AP模式：AP是Wireless Access Point的简称，中文名称：无线接入点；AP模式也就是无线接入点模式。其主要作用是将各个无线网络客户端连接到一起，然后将无线网络接入以太网(这正是Access Point名称的本义)，我们家里的路由器就工作在这个模式下，说简单点，就像一个基站，将有线网络转换成无线网络发射出去，这样我们的手机、电脑等就可以连接扩展出来的无线网络上网了。</p>
+<p>3、AP+Station模式，模块支持一个AP接口，一个Station接口。即可接受AP的无线，自身也可发送无线。</p>
+<h2 id="透传">透传</h2>
+<h3 id="透传概念">透传概念：</h3>
+<p>透传即是透明传送，是指传送网络无论传输业务如何，只负责将需要传送的业务传送到目的节点，同时保证传输的质量即可，而不对传输的业务进行处理。在数据的传输过程中，这组数据不发生任何形式的改变，即不竭断，不分组，不编码，不加密，不混淆等等，仿佛传输过程是透明的一样，原封不动地到了最终接收者手里。</p>
+<h3 id="透传模式的要求">透传模式的要求：</h3>
+<ol>
+<li>
+<p>透传模式只能在单链接模式下开启；</p>
+</li>
+<li>
+<p>模块开启服务器模式时，必须开启多链接模式，所以只能作为单链接模式下的客户端。</p>
+</li>
+</ol>
+<h3 id="透传与非透传的区别">透传与非透传的区别：</h3>
+<p>开启透传模式，可以连续的发送数据，而非透传模式下，每次发送数据前都需要发送相关的发送数据的AT指令。</p>
+<p>透传时必须选择单路模式。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[STM32的BSRR与BRR寄存器的区别]]></title>
         <id>https://leichen2552.github.io/post/stm32-de-bsrr-yu-brr-ji-cun-qi-de-qu-bie/</id>
@@ -2287,198 +2315,6 @@ s = efgabcd
 <li>string类中提供了成员函数可以查找目标字符的位置</li>
 </ul>
 </li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（32）：初探C++标准库]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-32chu-tan-cbiao-zhun-ku/</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-32chu-tan-cbiao-zhun-ku/">
-        </link>
-        <updated>2020-02-17T08:19:27.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="有趣的重载">有趣的重载</h1>
-<p>操作符&lt;&lt;的原生意义是按位左移，例如：1 &lt;&lt; 2</p>
-<pre><code>意义是把 1 按位左移 2 位
-0001 &lt;&lt; 2   --&gt;     0100 
-</code></pre>
-<p>重载左移操作符，将变量或者常量左移到一个对象中</p>
-<pre><code class="language-c++">#include &lt;stdio.h&gt;
-
-class Console
-{
-public :
-	void operator &lt;&lt; (int i)
-	{
-		printf(&quot;%d&quot;,i);
-	}
-	void operator &lt;&lt; (char c)
-	{
-		printf(&quot;%c&quot;,c);
-	}		
-};
-
-Console cout;
-
-int main(int argc, char *argv[])
-{
-	cout &lt;&lt; 1;
-	cout &lt;&lt; '\n';
-	
-	//cout &lt;&lt; 1 &lt;&lt; '\n';//像这样连续左移就不支持，所以采用这样
-	return 0;
-}
-</code></pre>
-<p>采用返回当前对象的方式支持连续左移</p>
-<pre><code class="language-c++">#include &lt;stdio.h&gt;
-
-class Console
-{
-public :
-	Console&amp; operator &lt;&lt; (int i)
-	{
-		printf(&quot;%d&quot;,i);
-		return *this;
-	}
-	Console&amp; operator &lt;&lt; (char c)
-	{
-		printf(&quot;%c&quot;,c);
-		return *this;
-	}		
-};
-
-Console cout;
-
-int main(int argc, char *argv[])
-{
-	cout &lt;&lt; 1 &lt;&lt; '\n';
-	return 0;
-}
-</code></pre>
-<p>但是生平最讨厌输入换行符'\n'，加入const char endl = '\n'</p>
-<pre><code class="language-c++">#include &lt;stdio.h&gt;
-
-const char endl = '\n';
-
-class Console
-{
-public :
-	Console&amp; operator &lt;&lt; (int i)
-	{
-		printf(&quot;%d&quot;,i);
-		return *this;
-	}
-	Console&amp; operator &lt;&lt; (char c)
-	{
-		printf(&quot;%c&quot;,c);
-		return *this;
-	}	
-	Console&amp; operator &lt;&lt; (const char* s)
-	{
-		printf(&quot;%s&quot;,s);
-		return *this;
-	}
-	Console&amp; operator &lt;&lt; (double d)
-	{
-		printf(&quot;%f&quot;,d);
-		return *this;
-	}	
-};
-
-Console cout;
-
-int main(int argc, char *argv[])
-{
-	double a = 0.777;
-	
-	cout &lt;&lt; 1 &lt;&lt; endl;
-	cout &lt;&lt; &quot;112233, &quot; &lt;&lt; a &lt;&lt;endl;
-	return 0;
-}
-</code></pre>
-<p><font color = blue size = 4>但是重复造轮子并不是一件有创造性的事，</font><br>
-<font color = blue size = 4>站在巨人的肩膀上解决问题会更加有效！</font></p>
-<h1 id="c标准库">c++标准库</h1>
-<ul>
-<li>
-<p>C++标准库不是C++语言的一部分，是那些做编译器的厂商在开发编译器的时候添加的，就是你做编译器，就要提供标准库</p>
-<ul>
-<li>C++标准库是由类库和函数库组成的集合</li>
-<li>C++标准库中定义的类和对象都位于std命名空间中</li>
-<li>C++标准库的头文件都不带.h后缀，这是因为C++自诞生以来就背负的沉重使命就是兼容C语言</li>
-<li>C++标准库涵盖了C库的功能</li>
-</ul>
-</li>
-<li>
-<p>C++编译环境组成<br>
-<img src="https://leichen2552.github.io//post-images/1581929564115.png" alt="" loading="lazy"></p>
-</li>
-<li>
-<p>C++标准库预定义了多数常用的数据结构<br>
-<img src="https://leichen2552.github.io//post-images/1581929709852.png" alt="" loading="lazy"></p>
-</li>
-</ul>
-<pre><code class="language-c++">#include &lt;cstdio&gt;
-#include &lt;cstring&gt;
-#include &lt;cstdlib&gt;
-#include &lt;cmath&gt;
-
-//使用的是标准库，所以要打开这个命名空间
-using namespace std; 
-
-
-int main(int argc, char *argv[])
-{
-	printf(&quot;Hello world&quot;);
-	
-	char* p = (char*)malloc(16);
-	
-	strcpy(p, &quot;I love you&quot;);
-	
-	free(p);
-	 
-	return 0;
-}
-
-</code></pre>
-<ul>
-<li>使用cout和cin<br>
-<img src="https://leichen2552.github.io//post-images/1581930295253.png" alt="" loading="lazy"></li>
-</ul>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;cmath&gt;
-//使用的是标准库，所以要打开这个命名空间
-using namespace std; 
-
-
-int main(int argc, char *argv[])
-{
-	cout &lt;&lt; &quot;Hello world！&quot; &lt;&lt;endl;
-	double a = 0;
-	double b = 0;
-	
-	cout &lt;&lt; &quot;Input a: &quot;;
-	cin &gt;&gt; a;
-	
-	cout &lt;&lt; &quot;Input b: &quot;;
-	cin &gt;&gt; b;
-	
-	double c = sqrt(a*a + b*b);
-	
-	cout &lt;&lt; &quot;c = &quot; &lt;&lt; c &lt;&lt; endl; 
-	return 0;
-}
-</code></pre>
-<p>打印结果：<br>
-Hello world!<br>
-Input a: 3<br>
-Input a: 4<br>
-c = 5</p>
-<h1 id="小结">小结</h1>
-<ul>
-<li>C++标准库是由类库和函数库组成的集合</li>
-<li>C++标准库包含经典算法和数据结构的实现</li>
-<li>C++标准库涵盖了C库的功能</li>
-<li>C++标准库中的所有类库和函数都位于<font color = blue size = 5><strong>std</strong></font>这个命名空间当中</li>
 </ul>
 ]]></content>
     </entry>

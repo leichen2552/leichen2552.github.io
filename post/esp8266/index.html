@@ -175,33 +175,144 @@
 </script>
             <div class="main">
                 <div class="container">
-                    <div class="post-wrap archive">
-                        
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                ESP8266
+                            </h1>
                             
-                                <h3>
-                                    2020
-                                </h3>
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        ChenLei's Blog
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2020-07-09</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">1.9
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">533</a></span>
+                                    
+                                            Views:
+                                            <span data-hk-page="current"> - </span>
+                                            
+                                </div>
+                                
+                        </header>
+                        
+                        <div class="post-content">
+                            <h1 id="esp8266的工作模式">ESP8266的工作模式</h1>
+<p>ESP8266共有三种工作模式，分别是Station模式，AP模式，AP+Station模式。ESP8266出厂默认是第三种模式。</p>
+<p>1、Station模式，Station就像一个接收器，可以接收其他接收器的的信号，而我们的手机、笔记本等就像是一个个的Station，可以接收路由器发出的信号。</p>
+<p>2、AP模式：AP是Wireless Access Point的简称，中文名称：无线接入点；AP模式也就是无线接入点模式。其主要作用是将各个无线网络客户端连接到一起，然后将无线网络接入以太网(这正是Access Point名称的本义)，我们家里的路由器就工作在这个模式下，说简单点，就像一个基站，将有线网络转换成无线网络发射出去，这样我们的手机、电脑等就可以连接扩展出来的无线网络上网了。</p>
+<p>3、AP+Station模式，模块支持一个AP接口，一个Station接口。即可接受AP的无线，自身也可发送无线。</p>
+<h2 id="透传">透传</h2>
+<h3 id="透传概念">透传概念：</h3>
+<p>透传即是透明传送，是指传送网络无论传输业务如何，只负责将需要传送的业务传送到目的节点，同时保证传输的质量即可，而不对传输的业务进行处理。在数据的传输过程中，这组数据不发生任何形式的改变，即不竭断，不分组，不编码，不加密，不混淆等等，仿佛传输过程是透明的一样，原封不动地到了最终接收者手里。</p>
+<h3 id="透传模式的要求">透传模式的要求：</h3>
+<ol>
+<li>
+<p>透传模式只能在单链接模式下开启；</p>
+</li>
+<li>
+<p>模块开启服务器模式时，必须开启多链接模式，所以只能作为单链接模式下的客户端。</p>
+</li>
+</ol>
+<h3 id="透传与非透传的区别">透传与非透传的区别：</h3>
+<p>开启透传模式，可以连续的发送数据，而非透传模式下，每次发送数据前都需要发送相关的发送数据的AT指令。</p>
+<p>透传时必须选择单路模式。</p>
+
+                        </div>
+                        
+                            <div class="post-toc">
+                                <ul class="markdownIt-TOC">
+<li><a href="#esp8266%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F">ESP8266的工作模式</a>
+<ul>
+<li><a href="#%E9%80%8F%E4%BC%A0">透传</a>
+<ul>
+<li><a href="#%E9%80%8F%E4%BC%A0%E6%A6%82%E5%BF%B5">透传概念：</a></li>
+<li><a href="#%E9%80%8F%E4%BC%A0%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%A6%81%E6%B1%82">透传模式的要求：</a></li>
+<li><a href="#%E9%80%8F%E4%BC%A0%E4%B8%8E%E9%9D%9E%E9%80%8F%E4%BC%A0%E7%9A%84%E5%8C%BA%E5%88%AB">透传与非透传的区别：</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                            </div>
+                            
                                 
                                     
+                                        <!--en-->
+                                        <section class="post-copyright en">
+                                            <p class="copyright-item">
+                                                <span>Author:</span>
+                                                <span>ChenLei's Blog</span>
+                                            </p>
 
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://leichen2552.github.io/post/markdownnotes/">
-                                                markdownNotes
-                                            </a>
-                                            <span class="archive-item-date">2020-01-06 </span>
-                                        </article>
+                                            <p class="copyright-item">
+                                                <span>Permalink:</span>
+                                                <span><a href="https://leichen2552.github.io/post/esp8266/">https://leichen2552.github.io/post/esp8266/</a></span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>License:</span>
+                                                <span>MIT License</span>
+                                            </p>
+                                        </section>
                                         
-                                            
                                                 
-                    </div>
-                    <div class="pagination-container">
-                        
-                                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/esp8266/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/esp8266/&sharesource=qzone&title=ESP8266&pics=https://leichen2552.github.io//images/avatar.png?v=1595896916588&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/esp8266/&sharesource=weibo&title=ESP8266 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1595896916588 "><i class="fa fa-weibo "></i></a>
                                                         
+                                                            <div class="reward ">
+                                                                <div class="reward-button ">&yen;
+                                                                    <span class="reward-code "> 
+                                                                <span class="alipay-code "> <img class="alipay-img " alt = "support " src="https://leichen2552.github.io/alipay.jpg"><b>Alipay</b> </span>
+                                                                    <span class="wechat-code "> <img alt ="support " class="wechat-img " src="https://leichen2552.github.io/wechat.jpg"><b>Wechat</b> </span> </span>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
                                                                 
-                    </div>
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/stm32-de-bsrr-yu-brr-ji-cun-qi-de-qu-bie/">
+                                                                                                    STM32的BSRR与BRR寄存器的区别
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
                 </div>
+                
+                                            
             </div>
+    </div>
+    </div>
     </div>
     
         <footer id="footer" class="footer">
@@ -315,5 +426,8 @@
                     
         </div>
 </body>
+<script>
+    scroll();
+</script>
 
 </html>
