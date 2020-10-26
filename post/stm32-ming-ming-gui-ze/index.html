@@ -183,7 +183,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                回顾（12）：经典问题解析一
+                                STM32命名规则
                             </h1>
                             
                                     <!--zh-->
@@ -192,15 +192,15 @@
                                         <a itemprop="author" rel="author" href="/">
                                             ChenLei's Blog
                                         </a>
-                                        <span class="post-time">&#x65E5;&#x671F;: <a href="#">2020-02-04</a></span>
+                                        <span class="post-time">&#x65E5;&#x671F;: <a href="#">2020-10-26</a></span>
                                         <span class="post-readtime">&#x9605;&#x8BFB;&#x65F6;&#x95F4;:<a
-                                    href="#">4.5
+                                    href="#">0.3
                                     &#x5206;&#x949F;</a></span>
-                                        <span class="post-words">&#x5B57;&#x6570;:<a href="#">1093</a></span>
+                                        <span class="post-words">&#x5B57;&#x6570;:<a href="#">88</a></span>
                                         
                                             <span class="post-category">&#x5206;&#x7C7B;:
                                 
-                                <a href="https://leichen2552.github.io/tag/dTVQPvwPR/">C++</a>
+                                <a href="https://leichen2552.github.io/tag/ZD5C_TPTM/">STM32</a>
                                 
                             </span>
                                             
@@ -211,179 +211,22 @@
                                     
                         </header>
                         
-                            <img class="post-feature-image" src="https://leichen2552.github.io//post-images/hui-gu-12jing-dian-wen-ti-jie-xi-yi.jpg" alt="">
-                          
                         <div class="post-content">
-                            <h1 id="const">const</h1>
-<ul>
-<li>什么时候是只读变量？</li>
-<li>什么时候是常量？</li>
-</ul>
-<h2 id="const常量的判别标准">const常量的判别标准</h2>
-<ul>
-<li>只有用字面量初始化的const常量才会进入符号表</li>
-<li>使用其他变量初始化的const常量仍然是只读变量</li>
-<li>被volatile修饰的const常量不会进入符号表，volatile修饰的就是易变的，是可能发生变化，可能会在外部被改变，所以通过volatile去访问这个变量就会去访问这个变量的内存。所以const修饰只是当前文件下的这个变量是只读属性</li>
-</ul>
-<p><code>在编译期间不能直接确定初始值的const标识符，都被作为只读变量</code></p>
-<h2 id="关于const的提问">关于const的提问</h2>
-<ul>
-<li>const引用的类型与初始化变量的类型
-<ul>
-<li>相同：初始化变量成为只读变量</li>
-<li>不同：生成一个新的只读变量</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-c++">#include &lt;stdio.h&gt;
-
-int main()
-{
-    const int x = 2;
-    const int&amp; rx = x;
-    int&amp; nrx = const_cast&lt;int&amp;&gt;(rx);
-
-    nrx = 5;
-
-    printf(&quot;x = %d\n&quot;,x);
-    printf(&quot;rx = %d\n&quot;,rx);
-    printf(&quot;nrx = %d\n&quot;,nrx);
-    printf(&quot;&amp;x = %d\n&quot;,&amp;x);
-    printf(&quot;&amp;rx = %d\n&quot;,&amp;rx);
-    printf(&quot;&amp;nrx = %d\n&quot;,&amp;nrx);
-    
-    volatile const int y = 2;
-    int* p = const_cast&lt;int*&gt;(&amp;y)
-
-    *p = 6;
-
-    printf(&quot;y = %d\n&quot;,y);
-    printf(&quot;p = %p\n&quot;,p);
-
-    const int z = y;
-
-    p = const_cast&lt;int*&gt;(&amp;z);
-
-    *p = 7;
-
-    printf(&quot;z= %d\n&quot;, z);
-    printf(&quot;p = %p\n&quot;, p);
-
-    char c = 'c';
-    char&amp; rc = c;
-    const int&amp; trc = c;//这已经是一个新的只读变量了
-
-    rc = 'a';
-
-    printf(&quot;c= %d\n&quot;, c);       //a
-    printf(&quot;rc = %p\n&quot;, rc);    //a
-
-    printf(&quot;trc = %p\n&quot;, trc);  //c
-    //const引用的类型与初始化变量的类型不同，会生成一个新的只读变量
-
-    return 0;
-}
-</code></pre>
-<h2 id="引用和指针有什么关系">引用和指针有什么关系</h2>
-<ul>
-<li>如何理解引用的本质就是指针常量
-<ul>
-<li>指针就是一个变量
-<ul>
-<li>值为一个内存地址，不需要初始化，可以保存不同的地址</li>
-<li>通过指针访问对应内存地址中的值</li>
-<li>指针可以被const修饰成为常量或者只读变量</li>
-</ul>
-</li>
-<li>引用只是一个变量的新名字
-<ul>
-<li>对引用的操作（赋值，取地址等）都会传递到代表的变量上</li>
-<li>const引用使其代表的变量具有只读属性</li>
-<li>引用必须在定义时初始化，之后无法代表其他变量</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>从不同的角度来看
-<ul>
-<li>从使用C++语言角度的角度来看
-<ul>
-<li>引用于指针没有任何的关系</li>
-<li>引用是变量的新名字，操作引用就是操作对应的变量</li>
-</ul>
-</li>
-<li>从C++编译器的角度来看
-<ul>
-<li>为了支持新概念“引用”必须要一个有效的解决方案</li>
-<li>在编译器内部，使用指针常量来实现引用</li>
-<li>因此“引用”在定义时必须初始化</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>在工程项目开发中
-<ul>
-<li>当进行C++编程时，直接站在使用的角度看待引用，与指针毫无关系，引用就是变量的别名</li>
-<li>当对C++代码进行调试分析时，一些特殊情况，可以考虑站在C++编译器的角度看待引用</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-c++">#include &lt;stdio.h&gt;
-
-int a = 1;
-
-struct SV
-{
-    int&amp; x;
-    int&amp; y;
-    int&amp; z;
-};
-
-int main()
-{
-    int b = 2;
-    int* pc = new int(3);
-    SV sv = {a, b, *pc};
-    int&amp; array[] = {a, b, *pc}; // &amp;array[1] - &amp;array[0] = ?  Expected ==&gt; 4
-    /*
-    C语言中的数组在内存中是依次顺序排放的。
-    当然在C++中，也是需要兼容C语言中的这个特性，但是唯有引用数组就破坏了这个特性。
-    比如上面的， &amp;array[1] - &amp;array[0]是不为4的，可以利用结构体SV查看x、y、z的地址。
-    所以说，C++中不支持引用数组！！！
-    */
-    printf(&quot;&amp;sv.x = %p\n&quot;, &amp;sv.x);
-    printf(&quot;&amp;sv.y = %p\n&quot;, &amp;sv.y);
-    printf(&quot;&amp;sv.z = %p\n&quot;, &amp;sv.z);
-    
-    delete pc;
-    
-    return 0;
-}
-</code></pre>
-<p><font  face = "Courier New" color = blue size = 5><strong>所以说，C++中不支持引用数组！</strong></font></p>
-<h1 id="小结">小结</h1>
-<ul>
-<li>指针是一个变量</li>
-<li>引用就是一个变量的新名字</li>
-<li>const引用能够生成新的只读变量</li>
-<li>在编译器内部使用指针常量实现引用，C++中为了兼容C语言数组特性——地址之差不是所期望的，所以只能抛弃引用数组</li>
-<li>编译时不能直接确定初始值的const标识符都是只读变量</li>
-</ul>
+                            <p>STM32型号的说明：以STM32F103RBT6这个型号的芯片为例，该型号的组成为7个部分，其命名规则如下：<br>
+<img src="https://leichen2552.github.io//post-images/1603675741233.jpg" alt="" loading="lazy"></p>
+<p>所以，目前所用芯片STM32F429IGT6，名字解读如下：<br>
+STM32：32位MCU<br>
+F：基础型<br>
+429：具有特定功能<br>
+I：176脚<br>
+G：1024kb的闪存容量<br>
+T：QFP封装<br>
+6：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo><mn>40</mn></mrow><annotation encoding="application/x-tex">-40</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord">4</span><span class="mord">0</span></span></span></span> ~ <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>+</mo><mn>85</mn></mrow><annotation encoding="application/x-tex">+85</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">+</span><span class="mord">8</span><span class="mord">5</span></span></span></span>摄氏度</p>
 
                         </div>
                         
                             <div class="post-toc">
-                                <ul class="markdownIt-TOC">
-<li><a href="#const">const</a>
-<ul>
-<li><a href="#const%E5%B8%B8%E9%87%8F%E7%9A%84%E5%88%A4%E5%88%AB%E6%A0%87%E5%87%86">const常量的判别标准</a></li>
-<li><a href="#%E5%85%B3%E4%BA%8Econst%E7%9A%84%E6%8F%90%E9%97%AE">关于const的提问</a></li>
-<li><a href="#%E5%BC%95%E7%94%A8%E5%92%8C%E6%8C%87%E9%92%88%E6%9C%89%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB">引用和指针有什么关系</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
-</ul>
-
+                                
                             </div>
                             
                                 
@@ -397,7 +240,7 @@ int main()
 
                                                 <p class="copyright-item">
                                                     <span>&#x6C38;&#x4E45;&#x94FE;&#x63A5;:</span>
-                                                    <span><a href="https://leichen2552.github.io/post/hui-gu-12jing-dian-wen-ti-jie-xi-yi/">https://leichen2552.github.io/post/hui-gu-12jing-dian-wen-ti-jie-xi-yi/</a></span>
+                                                    <span><a href="https://leichen2552.github.io/post/stm32-ming-ming-gui-ze/">https://leichen2552.github.io/post/stm32-ming-ming-gui-ze/</a></span>
                                                 </p>
 
                                                 <p class="copyright-item">
@@ -412,9 +255,9 @@ int main()
                                                                     <span style="margin-right:15px">
                         <i class="post-share"></i>
                         <span>&#x5206;&#x4EAB;:</span>
-                                                                    <a title="QR 码" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/hui-gu-12jing-dian-wen-ti-jie-xi-yi/"><i class="fa fa-qrcode"></i></a>
-                                                                    <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/hui-gu-12jing-dian-wen-ti-jie-xi-yi/&sharesource=qzone&title=回顾（12）：经典问题解析一&pics=https://leichen2552.github.io//images/avatar.png?v=1603676791250&summary="><i class="fa fa-qq"></i></a>
-                                                                    <a title="新浪微博" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/hui-gu-12jing-dian-wen-ti-jie-xi-yi/&sharesource=weibo&title=回顾（12）：经典问题解析一 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1603676791250 "><i class="fa fa-weibo "></i></a>
+                                                                    <a title="QR 码" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/stm32-ming-ming-gui-ze/"><i class="fa fa-qrcode"></i></a>
+                                                                    <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/stm32-ming-ming-gui-ze/&sharesource=qzone&title=STM32命名规则&pics=https://leichen2552.github.io//images/avatar.png?v=1603676791250&summary="><i class="fa fa-qq"></i></a>
+                                                                    <a title="新浪微博" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/stm32-ming-ming-gui-ze/&sharesource=weibo&title=STM32命名规则 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1603676791250 "><i class="fa fa-weibo "></i></a>
 
                                                                     </span>
                                                                     
@@ -433,8 +276,8 @@ int main()
                                                                                     <span class="tag ">
                         
                         
-                        <a href="https://leichen2552.github.io/tag/dTVQPvwPR/">#
-                    C++
+                        <a href="https://leichen2552.github.io/tag/ZD5C_TPTM/">#
+                    STM32
                         </a>
                         
                             
@@ -452,13 +295,13 @@ int main()
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
-                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/hui-gu-13jin-jie-mian-xiang-dui-xiang-shang/">
-                                                                                            回顾（13）：进阶面向对象（上）
+                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/sramdram-he-sdram-de-qu-bie/">
+                                                                                            SRAM、DRAM和SDRAM的区别
                                                                                         </a>
                                                                                         
                                                                                             
-                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-11xin-xing-de-lei-xing-zhuan-huan/">
-                                                                                                    回顾（11）：新型的类型转换
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/esp8266/">
+                                                                                                    ESP8266
                                                                                                 </a>
                                                                                                 
                                                                                 </section>
