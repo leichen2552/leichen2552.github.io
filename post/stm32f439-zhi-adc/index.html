@@ -183,7 +183,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                电机分类
+                                STM32F439之ADC
                             </h1>
                             
                                     <!--zh-->
@@ -192,11 +192,11 @@
                                         <a itemprop="author" rel="author" href="/">
                                             ChenLei's Blog
                                         </a>
-                                        <span class="post-time">&#x65E5;&#x671F;: <a href="#">2020-03-09</a></span>
+                                        <span class="post-time">&#x65E5;&#x671F;: <a href="#">2020-10-28</a></span>
                                         <span class="post-readtime">&#x9605;&#x8BFB;&#x65F6;&#x95F4;:<a
-                                    href="#">2.9
+                                    href="#">1.3
                                     &#x5206;&#x949F;</a></span>
-                                        <span class="post-words">&#x5B57;&#x6570;:<a href="#">872</a></span>
+                                        <span class="post-words">&#x5B57;&#x6570;:<a href="#">321</a></span>
                                         
                                                 阅读量:
                                                 <span data-hk-page="current"> - </span>
@@ -206,52 +206,23 @@
                         </header>
                         
                         <div class="post-content">
-                            <h1 id="直流电机">直流电机</h1>
-<p>直流电机（direct current machine）是指能将直流电能转换成机械能（直流电动机）或将机械能转换成直流电能（直流发电机）的旋转电机。它是能实现直流电能和机械能互相转换的电机。当它作电动机运行时是直流电动机，将电能转换为机械能；作发电机运行时是直流发电机，将机械能转换为电能。</p>
-<h2 id="步进电机">步进电机</h2>
-<p>工作原理：步进电机是一种将电脉冲转化为角位移的执行机构。当步进驱动器接收到一个脉冲信号, 它就驱动步进电机按设定的方向转动一个固定的角度(称为”步距角“)，它的旋转是以固定的角度一步一步运的。可以通过控制脉冲个数来控制角位移量，从而达到准确定位的目的；同时可以通过控制脉冲频率来控制电机转动的速度和加速度,从而达到调速的目的。</p>
-<h2 id="伺服电机">伺服电机</h2>
-<p>伺服电机内部的转子是永磁铁,驱动器控制的U/N/W三相电形成电磁场,转子在此磁场的作用下转动，同时电机自带的编码器反馈信号给驱动器,驱动器根据反馈值与目标值进行比较,调整转子转动的角度。伺服电机的精度决定于编码器的精度(线数)。</p>
-<h2 id="有刷电机">有刷电机</h2>
-<p><img src="https://leichen2552.github.io//post-images/1583756480897.png" alt="" loading="lazy"><br>
-<img src="https://leichen2552.github.io//post-images/1583757956370.png" alt="" loading="lazy"><br>
-有刷电机采用机械换向，磁极不动，线圈旋转。电机工作时，线圈和换向器旋转，磁钢和碳刷不转，线圈电流方向的交替变化是随电机转动的换相器和电刷来完成的。<br>
-在有刷电机中，这个过程是将各组线圈的两个电源输入端，依次排成一个环，相互之间用绝缘材料分隔，组成一个象圆柱体的东西，与电机轴连成一体，电源通过两个碳元素做成的小柱子（碳刷），在弹簧压力的作用下，从两个特定的固定位置，压在上面线圈电源输入环状圆柱上的两点，给一组线圈通电。<br>
-随着电机转动，不同时刻给不同线圈或同一个线圈的不同的两极通电，使得线圈产生磁场的N-S极与最靠近的永磁铁定子的N-S极有一个适合的角度差，磁场异性相吸、同性相斥，产生力量，推动电机转动。碳电极在线圈接线头上滑动，象刷子在物体表面刷，因此叫碳“刷”。<br>
-相互滑动，会摩擦碳刷，造成损耗，需要定期更换碳刷；碳刷与线圈接线头之间通断交替，会发生电火花，产生电磁破，干扰电子设备。</p>
-<h2 id="无刷电机">无刷电机</h2>
-<p><img src="https://leichen2552.github.io//post-images/1583760375948.png" alt="" loading="lazy"><br>
-<img src="https://leichen2552.github.io//post-images/1583760380606.png" alt="" loading="lazy"><br>
-<img src="https://leichen2552.github.io//post-images/1583760386303.png" alt="" loading="lazy"><br>
-转子上有NS级，有三对线圈绕在定子上，三对线圈先后通上电流再关闭，就能让外面的转子转动。</p>
-<p>但是这样的转动不圆滑，而且动率小。</p>
-<p>按下图这样，前一对线圈在前面吸引，后一对线圈在后面推动，这样就十分圆滑，且功率就提升上来。<br>
-<img src="https://leichen2552.github.io//post-images/1583761136981.png" alt="" loading="lazy"></p>
-<p>但是有两个问题：</p>
-<ul>
-<li>什么时候给线圈通电？</li>
-<li>该给哪两对线圈通电？</li>
+                            <ul>
+<li>ADC需要若干个ADC_CLK周期完成对输入的电压进行采样，采样的周期数可通过ADC 采样时间寄存器ADC_SMPR1和ADC_SMPR2中的 SMP[2:0]位设置，ADC_SMPR2控制的是通道 0 ~ 9，ADC_SMPR1控制的是通道10 ~ 17。每个通道可以分别用不同的时间采样。其中采样周期最小是 3个，即如果我们要达到最快的采样，那么应该设置采样周期为3个周期，这里说的周期就是1/ADC_CLK。</li>
+<li>ADC的总转换时间跟ADC的输入时钟和采样时间有关：公式为</li>
 </ul>
-<p>用霍尔传感器来检测转子的位置<br>
-<img src="https://leichen2552.github.io//post-images/1583761321773.jpg" alt="" loading="lazy"></p>
-<h1 id="电机参数">电机参数</h1>
-<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io//post-images/1583762546767.png" alt="" loading="lazy"></figure>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mrow><mi>c</mi><mi>o</mi><mi>n</mi><mi>v</mi></mrow></msub><mo>=</mo><mi mathvariant="normal">采</mi><mi mathvariant="normal">样</mi><mi mathvariant="normal">时</mi><mi mathvariant="normal">间</mi><mo>+</mo><mn>12</mn><mi mathvariant="normal">个</mi><mi mathvariant="normal">周</mi><mi mathvariant="normal">期</mi></mrow><annotation encoding="application/x-tex">{T_{conv} = 采样时间 + 12个周期}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">c</span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord cjk_fallback">采</span><span class="mord cjk_fallback">样</span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">间</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span><span class="mord">2</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">周</span><span class="mord cjk_fallback">期</span></span></span></span></span></span></p>
+<ul>
+<li>当 ADCCLK = 30MHz，即PCLK2为 60MHz，ADC时钟为2分频，采样时间设置为 3个周期，那么总的转换时为：Tconv = 3 + 12 = 15个周期 =0.5us。</li>
+<li>一般我们设置 PCLK2=90MHz，经过 ADC预分频器能分频到最大的时钟只能是 22.5M，采样周期设置为3个周期，算出最短的转换时间为0.6667us，这个才是最常用的。</li>
+</ul>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>15</mn><mi mathvariant="normal">个</mi><mi mathvariant="normal">周</mi><mi mathvariant="normal">期</mi><mo>∗</mo><mn>1</mn><mi mathvariant="normal">/</mi><mo>(</mo><mi>A</mi><mi>D</mi><msub><mi>C</mi><mrow><mi>C</mi><mi>L</mi><mi>K</mi></mrow></msub><mo>)</mo><mo>=</mo><mn>15</mn><mo>∗</mo><mo>(</mo><mn>1</mn><mi mathvariant="normal">/</mi><mo>(</mo><mn>22.5</mn><mo>∗</mo><mn>1</mn><msup><mn>0</mn><mn>6</mn></msup><mo>)</mo><mo>)</mo><mo>=</mo><mn>0.667</mn><mi>u</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">15个周期 *  1/(ADC_{CLK} )= 15 * (1 / (22.5 * 10^6)) = 0.667us
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">5</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">周</span><span class="mord cjk_fallback">期</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mopen">(</span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.07153em;">C</span><span class="mord mathdefault mtight">L</span><span class="mord mathdefault mtight" style="margin-right:0.07153em;">K</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mord">/</span><span class="mopen">(</span><span class="mord">2</span><span class="mord">2</span><span class="mord">.</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.1141079999999999em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">6</span><span class="mord">6</span><span class="mord">7</span><span class="mord mathdefault">u</span><span class="mord mathdefault">s</span></span></span></span></span></p>
 
                         </div>
                         
                             <div class="post-toc">
-                                <ul class="markdownIt-TOC">
-<li><a href="#%E7%9B%B4%E6%B5%81%E7%94%B5%E6%9C%BA">直流电机</a>
-<ul>
-<li><a href="#%E6%AD%A5%E8%BF%9B%E7%94%B5%E6%9C%BA">步进电机</a></li>
-<li><a href="#%E4%BC%BA%E6%9C%8D%E7%94%B5%E6%9C%BA">伺服电机</a></li>
-<li><a href="#%E6%9C%89%E5%88%B7%E7%94%B5%E6%9C%BA">有刷电机</a></li>
-<li><a href="#%E6%97%A0%E5%88%B7%E7%94%B5%E6%9C%BA">无刷电机</a></li>
-</ul>
-</li>
-<li><a href="#%E7%94%B5%E6%9C%BA%E5%8F%82%E6%95%B0">电机参数</a></li>
-</ul>
-
+                                
                             </div>
                             
                                 
@@ -265,7 +236,7 @@
 
                                                 <p class="copyright-item">
                                                     <span>&#x6C38;&#x4E45;&#x94FE;&#x63A5;:</span>
-                                                    <span><a href="https://leichen2552.github.io/post/dian-ji-fen-lei/">https://leichen2552.github.io/post/dian-ji-fen-lei/</a></span>
+                                                    <span><a href="https://leichen2552.github.io/post/stm32f439-zhi-adc/">https://leichen2552.github.io/post/stm32f439-zhi-adc/</a></span>
                                                 </p>
 
                                                 <p class="copyright-item">
@@ -280,9 +251,9 @@
                                                                     <span style="margin-right:15px">
                         <i class="post-share"></i>
                         <span>&#x5206;&#x4EAB;:</span>
-                                                                    <a title="QR 码" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/dian-ji-fen-lei/"><i class="fa fa-qrcode"></i></a>
-                                                                    <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/dian-ji-fen-lei/&sharesource=qzone&title=电机分类&pics=https://leichen2552.github.io//images/avatar.png?v=1603892384277&summary="><i class="fa fa-qq"></i></a>
-                                                                    <a title="新浪微博" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/dian-ji-fen-lei/&sharesource=weibo&title=电机分类 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1603892384277 "><i class="fa fa-weibo "></i></a>
+                                                                    <a title="QR 码" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/stm32f439-zhi-adc/"><i class="fa fa-qrcode"></i></a>
+                                                                    <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/stm32f439-zhi-adc/&sharesource=qzone&title=STM32F439之ADC&pics=https://leichen2552.github.io//images/avatar.png?v=1603892384277&summary="><i class="fa fa-qq"></i></a>
+                                                                    <a title="新浪微博" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/stm32f439-zhi-adc/&sharesource=weibo&title=STM32F439之ADC + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1603892384277 "><i class="fa fa-weibo "></i></a>
 
                                                                     </span>
                                                                     
@@ -314,13 +285,9 @@
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
-                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/fpga-zhi-ji-shu-qi-de-bian-xie/">
-                                                                                            FPGA之计数器的编写
-                                                                                        </a>
-                                                                                        
                                                                                             
-                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/fpga-zhi-san-ba-yi-ma-qi-de-bian-xie/">
-                                                                                                    FPGA之三八译码器的编写
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/yi-ge-zi-deng-yu-duo-shao-ge-zi-jie/">
+                                                                                                    一个字等于多少个字节？
                                                                                                 </a>
                                                                                                 
                                                                                 </section>

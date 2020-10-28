@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2020-10-26T01:53:52.441Z</updated>
+    <updated>2020-10-28T13:39:46.547Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,55 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[STM32F439之ADC]]></title>
+        <id>https://leichen2552.github.io/post/stm32f439-zhi-adc/</id>
+        <link href="https://leichen2552.github.io/post/stm32f439-zhi-adc/">
+        </link>
+        <updated>2020-10-28T08:06:35.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li>ADC需要若干个ADC_CLK周期完成对输入的电压进行采样，采样的周期数可通过ADC 采样时间寄存器ADC_SMPR1和ADC_SMPR2中的 SMP[2:0]位设置，ADC_SMPR2控制的是通道 0 ~ 9，ADC_SMPR1控制的是通道10 ~ 17。每个通道可以分别用不同的时间采样。其中采样周期最小是 3个，即如果我们要达到最快的采样，那么应该设置采样周期为3个周期，这里说的周期就是1/ADC_CLK。</li>
+<li>ADC的总转换时间跟ADC的输入时钟和采样时间有关：公式为</li>
+</ul>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mrow><mi>c</mi><mi>o</mi><mi>n</mi><mi>v</mi></mrow></msub><mo>=</mo><mi mathvariant="normal">采</mi><mi mathvariant="normal">样</mi><mi mathvariant="normal">时</mi><mi mathvariant="normal">间</mi><mo>+</mo><mn>12</mn><mi mathvariant="normal">个</mi><mi mathvariant="normal">周</mi><mi mathvariant="normal">期</mi></mrow><annotation encoding="application/x-tex">{T_{conv} = 采样时间 + 12个周期}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">c</span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord cjk_fallback">采</span><span class="mord cjk_fallback">样</span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">间</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span><span class="mord">2</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">周</span><span class="mord cjk_fallback">期</span></span></span></span></span></span></p>
+<ul>
+<li>当 ADCCLK = 30MHz，即PCLK2为 60MHz，ADC时钟为2分频，采样时间设置为 3个周期，那么总的转换时为：Tconv = 3 + 12 = 15个周期 =0.5us。</li>
+<li>一般我们设置 PCLK2=90MHz，经过 ADC预分频器能分频到最大的时钟只能是 22.5M，采样周期设置为3个周期，算出最短的转换时间为0.6667us，这个才是最常用的。</li>
+</ul>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>15</mn><mi mathvariant="normal">个</mi><mi mathvariant="normal">周</mi><mi mathvariant="normal">期</mi><mo>∗</mo><mn>1</mn><mi mathvariant="normal">/</mi><mo>(</mo><mi>A</mi><mi>D</mi><msub><mi>C</mi><mrow><mi>C</mi><mi>L</mi><mi>K</mi></mrow></msub><mo>)</mo><mo>=</mo><mn>15</mn><mo>∗</mo><mo>(</mo><mn>1</mn><mi mathvariant="normal">/</mi><mo>(</mo><mn>22.5</mn><mo>∗</mo><mn>1</mn><msup><mn>0</mn><mn>6</mn></msup><mo>)</mo><mo>)</mo><mo>=</mo><mn>0.667</mn><mi>u</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">15个周期 *  1/(ADC_{CLK} )= 15 * (1 / (22.5 * 10^6)) = 0.667us
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">5</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">周</span><span class="mord cjk_fallback">期</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mopen">(</span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.07153em;">C</span><span class="mord mathdefault mtight">L</span><span class="mord mathdefault mtight" style="margin-right:0.07153em;">K</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mord">/</span><span class="mopen">(</span><span class="mord">2</span><span class="mord">2</span><span class="mord">.</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.1141079999999999em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">6</span><span class="mord">6</span><span class="mord">7</span><span class="mord mathdefault">u</span><span class="mord mathdefault">s</span></span></span></span></span></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[一个字等于多少个字节？]]></title>
+        <id>https://leichen2552.github.io/post/yi-ge-zi-deng-yu-duo-shao-ge-zi-jie/</id>
+        <link href="https://leichen2552.github.io/post/yi-ge-zi-deng-yu-duo-shao-ge-zi-jie/">
+        </link>
+        <updated>2020-10-28T02:28:59.000Z</updated>
+        <content type="html"><![CDATA[<ol>
+<li>位（bit） 来自英文bit，音译为“比特”，表示二进制位。位是计算机内部数据储存的最小单位。</li>
+<li>字节（byte） 字节来自英文Byte，音译为“拜特”，习惯上用大写的“B”表示。 字节是计算机中数据处理的基本单位。</li>
+<li>字 （word）计算机进行数据处理时，一次存取、加工和传送的数据长度称为字。一个字通常由一个或多个（一般是字节的整数位）字节构成。</li>
+</ol>
+<p>一个字等于多少个字节，与系统硬件（总线、cpu命令字位数等）有关，不应该毫无前提地说一个字等于多少位。<br>
+正确的说法：</p>
+<ul>
+<li>
+<p>字节（byte） = 8位（bit）</p>
+</li>
+<li>
+<p>在16位的系统中（比如8086微机） 1字 （word）= 2字节（byte）= 16（bit）</p>
+</li>
+<li>
+<p>在32位的系统中（比如win32） 1字（word）= 4字节（byte）=32（bit）</p>
+</li>
+<li>
+<p>在64位的系统中（比如win64）1字（word）= 8字节（byte）=64（bit）</p>
+</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[SRAM、DRAM和SDRAM的区别]]></title>
         <id>https://leichen2552.github.io/post/sramdram-he-sdram-de-qu-bie/</id>
@@ -1410,319 +1459,6 @@ endmodule
 <p>最后，让我们一同来思考一个问题。有了5G，光纤通信是否还需要？答案是，不仅需要，而且还要大幅度提高。</p>
 <p>我们不妨从相反的角度思考这个问题，就很容易得到答案。假如没有光纤，只有移动网络，那么基站和基站之间的通讯就不得不用移动网络实现，这就要占据很大的带宽，就会影响我们每一个人和基站的通信。</p>
 <p>因此光纤依然是必要的，不仅必要，而且要增加，因为我们和基站通信的速率增加了，又有很多IoT的设备连进来，总的通信量就增加了。从这里我们还可以得出一个结论，从事光纤通讯产业的人，将是5G的获益者。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[回顾（35）：函数对象分析——重载函数调用操作符（( )）]]></title>
-        <id>https://leichen2552.github.io/post/hui-gu-35han-shu-dui-xiang-fen-xi-chong-zai-han-shu-diao-yong-cao-zuo-fu/</id>
-        <link href="https://leichen2552.github.io/post/hui-gu-35han-shu-dui-xiang-fen-xi-chong-zai-han-shu-diao-yong-cao-zuo-fu/">
-        </link>
-        <updated>2020-02-25T08:11:25.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#%E5%AE%A2%E6%88%B7%E9%9C%80%E6%B1%82">客户需求</a></li>
-<li><a href="#%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98">存在的问题</a></li>
-<li><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">解决方案</a>
-<ul>
-<li><a href="#%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1">函数对象</a></li>
-<li><a href="#%E9%87%8D%E8%BD%BD%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%93%8D%E4%BD%9C%E7%AC%A6">重载函数调用操作符（( )）</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
-</ul>
-</p>
-<h1 id="客户需求">客户需求</h1>
-<ul>
-<li>函数可以获得斐波那契数列每项的值</li>
-<li>每调用一次返回一个值</li>
-<li>函数可根据需要重复使用</li>
-</ul>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-int fib()
-{
-	static int a0 = 0;
-	static int a1 = 1;//使用静态局部变量，可以使数据返回时不被摧毁，从而避免使用全局变量 
-	
-	int ret = a1;
-	
-	a1 = a0 + a1;
-	a0 = ret;
-	
-	return ret;
-} 
-
-int main(int argc, char *argv[])
-{
-	for(int i=0; i&lt;10; i++)
-	{
-		cout &lt;&lt; fib() &lt;&lt; endl;
-	}
-	
-	return 0;
-}
-</code></pre>
-<h1 id="存在的问题">存在的问题</h1>
-<ul>
-<li>函数一旦开始就无法重来
-<ul>
-<li>静态局部变量处于函数内部，外界无法改变</li>
-<li>函数为全局函数，是唯一的，无法多次独立使用</li>
-<li>无法指定某个具体的数列项作为初始值</li>
-</ul>
-</li>
-</ul>
-<h1 id="解决方案">解决方案</h1>
-<h2 id="函数对象">函数对象</h2>
-<ul>
-<li>使用具体的类对象取代函数</li>
-<li>该类的对象具备函数调用的行为</li>
-<li>构造函数指定具体数列项的起始位置</li>
-<li>多个对象相互独立的求解数列项</li>
-</ul>
-<h2 id="重载函数调用操作符">重载函数调用操作符（( )）</h2>
-<ul>
-<li>只能通过类的成员函数重载</li>
-<li>可以定义不同参数的多个重载函数</li>
-</ul>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-class fib
-{
-	int a0;
-	int a1;//使用静态局部变量，可以使数据返回时不被摧毁，从而避免使用全局变量 
-public:	
-	fib()
-	{
-		a0 = 0;
-		a1 = 1;
-	}
-	
-	fib(int n)
-	{
-		a0 = 0;
-		a1 = 1;
-		
-		for(int i=2; i&lt;=n; i++)
-		{
-			int t=a1;
-			
-			a1 = a0 + a1;
-			a0 = t;
-		}
-	}
-	
-	int operator()()
-	{
-		int ret = a1;
-	
-		a1 = a0 + a1;
-		a0 = ret;
-		
-		return ret;
-	}
-};
-
-int main(int argc, char *argv[])
-{
-	fib a;
-	
-	for(int i=0; i&lt;10; i++)
-	{
-		cout &lt;&lt; a() &lt;&lt; endl;
-	}
-	
-	fib b(10);
-	
-	for(int i=0; i&lt;5; i++)
-	{
-		cout &lt;&lt; b() &lt;&lt; endl;
-	}
-	return 0;
-}
-</code></pre>
-<h1 id="小结">小结</h1>
-<ul>
-<li>函数调用操作符（<font color = red size = 4>( )</font>）是可以重载的</li>
-<li>函数调用操作符智能通过<font color = blue size = 4>类的成员函数重载</font></li>
-<li>函数调用操作符可以定义不同参数的<font color = ff3030 size = 4>多个重载函数</font></li>
-<li>函数对象在工程中<font color = ff00ff size = 4>取代函数指针</font></li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[智能信息处理概论]]></title>
-        <id>https://leichen2552.github.io/post/zhi-neng-xin-xi-chu-li-gai-lun/</id>
-        <link href="https://leichen2552.github.io/post/zhi-neng-xin-xi-chu-li-gai-lun/">
-        </link>
-        <updated>2020-02-24T07:22:32.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#%E8%84%91%E4%B8%8E%E6%99%BA%E8%83%BD">脑与智能</a>
-<ul>
-<li><a href="#%E6%99%BA%E8%83%BD%E5%AE%9A%E4%B9%89">智能定义</a>
-<ul>
-<li><a href="#%E6%99%BA%E8%83%BD%E7%9A%84%E6%A6%82%E5%BF%B5">智能的概念</a></li>
-<li><a href="#%E6%89%80%E8%B0%93%E7%9A%84%E6%99%BA%E8%83%BDabc">所谓的智能ABC</a></li>
-</ul>
-</li>
-<li><a href="#%E6%99%BA%E8%83%BD%E7%9A%84%E6%B7%B1%E5%B1%82%E5%AE%9A%E4%B9%89">智能的深层定义</a></li>
-<li><a href="#%E4%BF%A1%E6%81%AF%E5%92%8C%E7%9F%A5%E8%AF%86">信息和知识</a>
-<ul>
-<li><a href="#%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%9A%84%E4%B8%89%E4%B8%AA%E5%AD%A6%E6%B4%BE">人工智能的三个学派</a></li>
-</ul>
-</li>
-<li><a href="#%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%90%86%E8%AE%BA">人工智能理论</a></li>
-<li><a href="#%E8%AE%A1%E7%AE%97%E6%99%BA%E8%83%BD%E7%9A%84%E4%B8%BB%E8%A6%81%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95">计算智能的主要研究方法</a></li>
-</ul>
-</li>
-<li><a href="#%E6%99%BA%E8%83%BD%E4%BF%A1%E6%81%AF%E7%9A%84%E6%84%8F%E4%B9%89%E4%B8%8E%E4%BD%9C%E7%94%A8">智能信息的意义与作用</a></li>
-<li><a href="#%E6%9C%89%E5%85%B3%E6%99%BA%E8%83%BD%E4%BF%A1%E6%81%AF%E5%A4%84%E7%90%86%E7%9A%84%E6%A6%82%E5%BF%B5">有关智能信息处理的概念</a>
-<ul>
-<li><a href="#%E5%8F%91%E5%B1%95%E8%BF%87%E7%A8%8B">发展过程</a></li>
-<li><a href="#%E6%99%BA%E8%83%BD%E4%BF%A1%E6%81%AF%E5%A4%84%E7%90%86%E7%9A%84%E4%B8%BB%E8%A6%81%E6%8A%80%E6%9C%AF">智能信息处理的主要技术</a></li>
-</ul>
-</li>
-</ul>
-</p>
-<h1 id="脑与智能">脑与智能</h1>
-<p>智能的核心是思维，思维是大脑活动，怎么来刻画这个思维过程，就来定义什么是智能。</p>
-<h2 id="智能定义">智能定义</h2>
-<p>在给定的任务或目的下，能根据环境条件能制定正确的策略和角色，并能有效地实现其目的的过程或能力。要有一个目标，而不是泛泛的，能够达到一个准确的决策。但是怎么来细化这个目的是需要研究的。</p>
-<h3 id="智能的概念">智能的概念</h3>
-<ul>
-<li>什么是生物智能（Biological Intelligence - BI）？研究自然生物体的智能</li>
-<li>什么是人工智能（Artificial Intelligence - AI）？模拟生物体智能来发展人工的系统，通过这种方式拓宽生物智能</li>
-<li>什么是计算智能（Computational Intelligence - CI）？</li>
-</ul>
-<h3 id="所谓的智能abc">所谓的智能ABC</h3>
-<ul>
-<li>Bczdek观点：CI <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> AI <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> BI（1992）</li>
-<li>Jacek M. Zurada的观点：CI不完全包含于AI</li>
-</ul>
-<h2 id="智能的深层定义">智能的深层定义</h2>
-<p>智能：有效地获取、传递、处理、再生和利用信息，使其任意环境下成功地达到预定目标的能力。对于同样的环境和目标下，具有更强的信息“获取、处理、再生和利用”的能力，就更容易有效的实现目标，从而表现出具有更强的智能水平。</p>
-<h2 id="信息和知识">信息和知识</h2>
-<ul>
-<li>信息：认识主体所感受到的失误状态及其变化的方式</li>
-<li>知识：是人类经验的总结和提炼，具有抽象性和普遍性，属于认识论范畴的概念，知识是加工后的信息，是抽象化/广义化的信息。</li>
-</ul>
-<h3 id="人工智能的三个学派">人工智能的三个学派</h3>
-<ul>
-<li>符号主义学派：Rule，if A and B</li>
-<li>联接主义学派：模拟神经网状结构</li>
-<li>行为主义学派：感知<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span>行为，控制论</li>
-</ul>
-<h2 id="人工智能理论">人工智能理论</h2>
-<ul>
-<li>传统人工智能</li>
-<li>现代人工智能</li>
-<li>计算智能：以数据为基础，以计算为手段建立功能模型，从而进行问题求解，以实现对智能的模拟和认识</li>
-</ul>
-<h2 id="计算智能的主要研究方法">计算智能的主要研究方法</h2>
-<ul>
-<li>模型</li>
-<li>算法</li>
-<li>实验</li>
-</ul>
-<h1 id="智能信息的意义与作用">智能信息的意义与作用</h1>
-<ul>
-<li>意义：
-<ul>
-<li>通过模拟人脑的信息处理过程，实现人脑的智能处理能力</li>
-<li>提高我们解决实际工程和科学研究问题的能力</li>
-<li>极大地提高我们认识自然界奥秘的能力</li>
-</ul>
-</li>
-<li>作用：
-<ul>
-<li>通过智能信息处理的研究，可以对我们目前无法解决的难题找到更加有效的高效处理方法和途径</li>
-<li>对直接用计算机过程程序无法有效解决的难题，采用智能处理方法将事半功倍</li>
-<li>等等</li>
-</ul>
-</li>
-</ul>
-<h1 id="有关智能信息处理的概念">有关智能信息处理的概念</h1>
-<ul>
-<li>智能信息处理的定义
-<ul>
-<li>智能信息处理是利用各种智能手段进行信息变换的过程，这里的智能手段，包括各种人工之能、机器智能和计算智能</li>
-</ul>
-</li>
-<li>分类
-<ul>
-<li>基于传统计算机技术的智能信息处理
-<ul>
-<li>基于逻辑符号推理实现的智能</li>
-<li>包括：智能仪器、自动跟踪系统、自动故障诊断等</li>
-</ul>
-</li>
-<li>基于计算机技术的智能信息处理
-<ul>
-<li>基于结构和功能的计算来模拟和实现的智能</li>
-<li>包括：模拟人的形象思维、联想记忆</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="发展过程">发展过程</h2>
-<ul>
-<li>伴随着人工智能的技术发展的工程而发展</li>
-<li>神经网络研究的兴起</li>
-<li>计算智能技术</li>
-<li>多种计算方法的综合继承-现在</li>
-</ul>
-<h2 id="智能信息处理的主要技术">智能信息处理的主要技术</h2>
-<ul>
-<li>模糊逻辑技术</li>
-<li>神经网络技术
-<ul>
-<li>前馈神经网络计算模型
-<ul>
-<li>BP网络、RPF网络等</li>
-</ul>
-</li>
-<li>反馈神经网络计算模型
-<ul>
-<li>Hopfield网络、回馈网络</li>
-</ul>
-</li>
-<li>自组织网络计算模型
-<ul>
-<li>Hebb学习、竞争学习、ART和基于信息论模型等</li>
-</ul>
-</li>
-<li>联想记忆网络模型
-<ul>
-<li>单项和双向联想记忆</li>
-</ul>
-</li>
-<li>细胞神经网络模型</li>
-<li>小波神经网络</li>
-<li>等等</li>
-</ul>
-</li>
-<li>进化演化技术</li>
-<li>自然计算技术
-<ul>
-<li>粒子群优化</li>
-<li>蚁群算法（Ant Colony Algorithm）</li>
-<li>DNA计算</li>
-<li>文化算法</li>
-<li>免疫算法</li>
-<li>内分泌算法</li>
-<li>等等</li>
-</ul>
-</li>
-<li>量子计算技术</li>
-<li>混沌计算技术</li>
-<li>分形计算技术</li>
-<li>专家系统技术</li>
-<li>多种智能技术的综合集成</li>
-</ul>
 ]]></content>
     </entry>
 </feed>
