@@ -336,9 +336,10 @@
   color: #424242;
   border-bottom: 1px solid #beb1b1;
   transition: border-color 0.2s;
-}
-.search-input:hover {
-  width: 180px;
+  /*
+  &:hover {
+    width: 180px;
+  }*/
 }
 .search-input .dark-theme {
   color: #fafafa;
@@ -610,10 +611,10 @@
   }
 }
 
-        .en{
+        .zh{
           display:none;
         }
-        #menu-toggle-en {display:none;}
+        #menu-toggle-zh {display:none;}
     
       html {
         font-family: -apple-system,BlinkMacSystemFont,'Helvetica Neue','PingFang SC','Hiragino Sans GB','Droid Sans Fallback','Microsoft YaHei',sans-serif;
