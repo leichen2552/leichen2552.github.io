@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2021-01-07T03:09:04.129Z</updated>
+    <updated>2021-01-07T13:39:51.696Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,68 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[串口重映射的思想]]></title>
+        <id>https://leichen2552.github.io/post/chuan-kou-chong-ying-she-de-si-xiang/</id>
+        <link href="https://leichen2552.github.io/post/chuan-kou-chong-ying-she-de-si-xiang/">
+        </link>
+        <updated>2021-01-07T13:03:49.000Z</updated>
+        <content type="html"><![CDATA[<p>标准库函数的默认输出设备是显示器，要实现在串口或LCD输出，必须重定义标准库函数里调用的与输出设备相关的函数。</p>
+<h2 id="stm32重映射">stm32重映射</h2>
+<pre><code class="language-c">///重定向c库函数printf到串口，重定向后可使用printf函数
+int fputc(int ch, FILE *f)
+{
+		/* 发送一个字节数据到串口 */
+		USART_SendData(DEBUG_USART, (uint8_t) ch);
+		
+		/* 等待发送完毕 */
+		while (USART_GetFlagStatus(DEBUG_USART, USART_FLAG_TXE) == RESET);		
+	
+		return (ch);
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[stm32f429移植FreeRTOS]]></title>
+        <id>https://leichen2552.github.io/post/stm32f429-yi-zhi-freertos/</id>
+        <link href="https://leichen2552.github.io/post/stm32f429-yi-zhi-freertos/">
+        </link>
+        <updated>2021-01-07T12:53:33.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="第一步">第一步</h2>
+<p>从官方下载的freertos文件中找到如下目录，我们只需要FreeRTOS目录下的Source目录下的文件，至于FreeRTOS-Plus目录下的，咱们不用管。<br>
+<img src="https://leichen2552.github.io//post-images/1610025381010.jpg" alt="" loading="lazy"></p>
+<h2 id="第二步">第二步</h2>
+<ul>
+<li>在原有的某工程目录下新建一个FreeRTOS文件夹<br>
+<img src="https://leichen2552.github.io//post-images/1610026183467.jpg" alt="" loading="lazy"></li>
+<li>在这个文件夹下，把刚才Source目录下的文件全部复制过来<br>
+<img src="https://leichen2552.github.io//post-images/1610026075955.png" alt="" loading="lazy"></li>
+<li>portable目录下只保留三个文件夹<br>
+<img src="https://leichen2552.github.io//post-images/1610026165083.png" alt="" loading="lazy"></li>
+<li>RVDS目录下，我们需要的是M4F这个文件夹<br>
+<img src="https://leichen2552.github.io//post-images/1610026254473.jpg" alt="" loading="lazy"></li>
+</ul>
+<h2 id="第三步">第三步</h2>
+<p>在原有的工程目录里新建两个组，如图，并把刚才Freertos目录下的文件放入，也如图所示<br>
+<img src="https://leichen2552.github.io//post-images/1610026399947.jpg" alt="" loading="lazy"><br>
+并把下载下来的FreeRTOS文件夹下Demo（找到CORTEX_M4F_STM32F407ZG-SK这个Demo就可以了）中的的freeRTOSconfig.h放进工程中新建FreeRTOS文件夹下</p>
+<h2 id="第四步">第四步</h2>
+<p>修改一些文件内容</p>
+<h3 id="第一处">第一处</h3>
+<pre><code class="language-c">#if defined (__ICCARM__)||(__CC_ARM)||(__GNUC__)
+	#include &lt;stdint.h&gt;
+	extern uint32_t SystemCoreClock;
+#endif
+</code></pre>
+<h3 id="第二处">第二处</h3>
+<pre><code class="language-c">//#define xPortSysTickHandler SysTick_Handler
+</code></pre>
+<h3 id="第三处">第三处</h3>
+<p>把这四项改成0<br>
+<img src="https://leichen2552.github.io//post-images/1610026754623.jpg" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[STM32F429的SPI总线驱动AD7606]]></title>
         <id>https://leichen2552.github.io/post/stm32f429-de-spi-zong-xian-qu-dong-ad76068-lu-16-wei-adc/</id>
@@ -1071,285 +1133,6 @@ endmodule
 <img src="https://leichen2552.github.io//post-images/1583761321773.jpg" alt="" loading="lazy"></p>
 <h1 id="电机参数">电机参数</h1>
 <figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io//post-images/1583762546767.png" alt="" loading="lazy"></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[FPGA之三八译码器的编写]]></title>
-        <id>https://leichen2552.github.io/post/fpga-zhi-san-ba-yi-ma-qi-de-bian-xie/</id>
-        <link href="https://leichen2552.github.io/post/fpga-zhi-san-ba-yi-ma-qi-de-bian-xie/">
-        </link>
-        <updated>2020-03-08T07:37:40.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#%E4%B8%89%E5%85%AB%E8%AF%91%E7%A0%81%E5%99%A8%E7%9C%9F%E5%80%BC%E8%A1%A8">三八译码器真值表</a></li>
-<li><a href="#%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99">代码编写</a></li>
-<li><a href="#%E6%B5%8B%E8%AF%95%E6%96%87%E4%BB%B6%E7%BC%96%E5%86%99">测试文件编写</a>
-<ul>
-<li><a href="#rtl%E4%BB%BF%E7%9C%9F">RTL仿真</a></li>
-<li><a href="#%E9%97%A8%E7%BA%A7%E4%BB%BF%E7%9C%9F">门级仿真</a></li>
-</ul>
-</li>
-</ul>
-</p>
-<h1 id="三八译码器真值表">三八译码器真值表</h1>
-<table>
-<thead>
-<tr>
-<th>A</th>
-<th>B</th>
-<th>C</th>
-<th>output</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0000_0001</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0000_0010</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0000_0100</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0000_1000</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0001_0000</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0010_0000</td>
-</tr>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>0100_0000</td>
-</tr>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1000_0000</td>
-</tr>
-</tbody>
-</table>
-<h1 id="代码编写">代码编写</h1>
-<pre><code class="language-c">module Decoder3_8(a, b, c, out);
-	input a;
-	input b;
-	input c;
-	
-	output [7:0]out;//定义多位位宽的信号
-	
-	always@(a,b,c)begin
-		case({a,b,c})//用花括号位拼接
-			3'b000:out = 8'b0000_0001;//下划线是占位符，不代表任何意思
-			3'b001:out = 8'b0000_0010;
-			3'b010:out = 8'b0000_0100;
-			3'b011:out = 8'b0000_1000;
-			3'b100:out = 8'b0001_0000;
-			3'b101:out = 8'b0010_0000;
-			3'b110:out = 8'b0100_0000;
-			3'b111:out = 8'b1000_0000;
-			//default:out = 8'b1000_0000;
-		endcase	
-	end
-
-endmodule
-
-</code></pre>
-<p>编译报错：Error (10137): Verilog HDL Procedural Assignment error at Decoder3_8.v(10): object &quot;out&quot; on left-hand side of assignment must have a variable data type</p>
-<p>在always@()块中的输出信号一定要是reg型，所以<code>output [7:0]out;</code>修改成<code>output reg [7:0]out;</code></p>
-<p>/*<br>
-这样也行<br>
-output [7:0]out;<br>
-reg [7:0]out;<br>
-*/</p>
-<h1 id="测试文件编写">测试文件编写</h1>
-<pre><code class="language-c">`timescale 1ns/1ps//定义 延时和仿真 精度
-
-module Decoder3_8_tb;
-	
-	reg a;//定义激励信号源
-	reg b;//定义激励信号源
-	reg c;//定义激励信号源
-	
-	wire [7:0] out;//定义观测信号源
-	
-	Decoder3_8 u1(
-		.a(a), //一定要在a之前加上点
-		.b(b), 
-		.c(c), 
-		.out(out)
-	);
-	
-	initial begin
-		a = 0;b = 0;c = 0;
-		#100;	
-		a = 0;b = 0;c = 1;
-		#100;
-		a = 0;b = 1;c = 0;
-		#100;
-		a = 0;b = 1;c = 1;
-		#100;
-		a = 1;b = 0;c = 0;
-		#100;	
-		a = 1;b = 0;c = 1;
-		#100;
-		a = 1;b = 1;c = 0;
-		#100;	
-		a = 1;b = 1;c = 1;
-		#200;
-		$stop;
-	end
-
-endmodule 
-</code></pre>
-<h2 id="rtl仿真">RTL仿真</h2>
-<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io//post-images/1583657266256.png" alt="" loading="lazy"></figure>
-<h2 id="门级仿真">门级仿真</h2>
-<p><img src="https://leichen2552.github.io//post-images/1583657333533.png" alt="" loading="lazy"><br>
-为什么门级仿真会出现电平混乱？<br>
-因为现实的电子器件，电平<code>0000_0001</code> 跳转到 <code>0000_0010</code>时，有可能是<code>0000_0001</code>成<code>0000_0011</code>，然后<code>0000_0011</code>再变成<code>0000_0010</code>，器件当中会存在电平跳变的时间差，所以会有这样的现象。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[FPGA语法简单介绍]]></title>
-        <id>https://leichen2552.github.io/post/fpga-yu-fa-jian-dan-jie-shao/</id>
-        <link href="https://leichen2552.github.io/post/fpga-yu-fa-jian-dan-jie-shao/">
-        </link>
-        <updated>2020-03-05T07:22:55.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="verilog文件基本结构">Verilog文件基本结构</h1>
-<pre><code class="language-c">/*****第一种定义*****/
-模块声明 模块名(端口列表)
-module mux2(a, b, sel, out, io);
-//端口属性定义
-    input [7:0]a;//定义位宽
-    input [7:0]b;
-    input sel;//sel = 0时，out = a;要么out = b;
-    output [7:0]out;
-    inout io;
-
-    /*一般组合逻辑的信号由wire定义，时序逻辑的信号由reg来定义*/
-    //定义内部信号
-    wire oe;//线网型
-    reg oo;
-
-    /*连续赋值语句*/
-    assign out = ( sel == 0 ) ? a : b;
-    assign out = !sel ? a : b ;
-    assign out = sel ? a : b;
-
-    /*三态门控制*/
-    assign = oe = sel;
-    assign io = oe ? out[0] : 1'bz;
-
-    /*Verilog HDL取位操作*/  
-    //1、取某一位的数据用作数据源
-    wire [2:0]m;
-    assign m = out[5:3];
-
-    //循环右移
-    reg [7:0]shift_a;
-    always@(posedge clk)
-        shift_a &lt;= {shift_a[0], shift_a[7:1]};
-
-    //移位寄存器
-    reg [7:0]shift_a;
-    wire data;
-    always@(posedge clk)
-        shift_a &lt;= {shift_a[6:0], data};
-
-    //移位寄存器
-    reg [7:0]shift_a;
-    wire data;
-    always@(posedge clk)
-        shift_a &lt;= {data，shift_a[7:1]};
-    
-    wire [3:0]x;
-    wire [3:0]y;
-    wire [7:0]z;
-    wire [31:0]x;
-    //拼接
-    assign z = {x, y};
-
-    assign n = {y, 7{x}};//下面同这种拓宽7倍的x
-    assign n = {y, x, x, x, x, x, x, x};
-
-
-    assign n = {y, 7{1'b1};//7倍的一个比特宽度的1
-
-    //数据表示
-    assign x = 4'b1001; //x是4个比特宽度的二进制1001
-    assign x = 4'd9;    //x是4个比特宽度的十进制9
-    assign x = 4'h9;    //x是4个比特宽度的十六进制9
-
-    assign x = 4'hc;
-    assign n = 32'h1234_5678;
-    assign n = 8'b1101_0011;
-
-    /***运算***/
-    /*加（+）、减（-）、乘（*）、除（/）,加减乘都能用，但是除法不行，对于时效性不高的，除法可以用剪发代替，但是对于时效性高的*/
-
-    //逻辑运算
-    //与或非
-    //逻辑与（&amp;&amp;），逻辑或（||），逻辑非（！）
-    a = 4'b1011; b = 4'b0000
-    wire c;
-    c = a &amp;&amp; b; = 0//逻辑只有真跟假
-
-    //按位与，按位或，按位取反
-    a = 4'b1011; b = 4'b0110;
-    wire [3:0]c;
-    wire [3:0]d;
-    wire [3:0]e;
-    c = a&amp;b; = 4'b0010
-    d = a | b; = 4'b1111
-    e = ~b;    = 4'b1101
-
-endmodule
-
-/*****第二种定义*****/
-module mux2 {
-//端口属性定义
-    input [7:0]a,
-    input [7:0]b,
-    input sel,
-    output [7.0]out,
-    inout io//最后一个不加逗号
-}
-endmodule
-
-
-module mux4();
-endmodule
-</code></pre>
-<p>**注意！always块使用注意事项 **</p>
-<ol>
-<li>不要在不同的always块内为同一个变量赋值。</li>
-<li>不要在同一个always块内同时使用阻塞赋值（=）和非阻塞赋值（&lt;=）。</li>
-<li>使用always块描述组合逻辑时使用阻塞赋值（=），在使用always块描述时序逻辑时使用非阻塞赋值（&lt;=）。简单理解就是，在电平敏感的always块内使用阻塞赋值，在边沿敏感的always块内使用非阻塞赋值。</li>
-<li>任何在always块内“被赋值的变量”都必须是寄存器型（reg）。即，&lt;=或=左边的信号，必须是reg型。</li>
-<li>always的敏感列表中可以同时包括多个电平敏感事件，也可以同时包括多个边沿敏感事件，但不能同时有电平和边沿敏感事件。另外，敏感列表中，同时包括一个信号的上升沿和它的下降沿敏感事件也是不允许的，因为这两个事件可以合并为一个电平事件。</li>
-</ol>
 ]]></content>
     </entry>
 </feed>
