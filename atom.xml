@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2021-01-08T01:01:59.754Z</updated>
+    <updated>2021-01-08T01:04:09.395Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -56,6 +56,10 @@ int fputc(int ch, FILE *f)
 </li>
 <li><a href="#%E4%BF%AE%E6%94%B9systemtick%E5%AE%9A%E6%97%B6%E5%99%A8%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9">修改SystemTick定时器文件内容</a></li>
 <li><a href="#%E5%BC%80%E5%90%AFf429%E7%9A%84fpu">开启F429的FPU</a></li>
+</ul>
+</li>
+<li><a href="#%E6%B5%8B%E8%AF%95">测试</a>
+<ul>
 <li><a href="#%E6%B3%A8%E6%84%8F">注意</a></li>
 </ul>
 </li>
@@ -140,7 +144,7 @@ void SysTick_Handler(void)
 <h3 id="开启f429的fpu">开启F429的FPU</h3>
 <p>在system_stm32f4xx.c文件的SystemInit函数里，也就是该文件的第478行，有一个__FPU_USED，选中Go To Definetion会跳转core_cm4.h中，把123行修改为__FPU_USED的值修改为1就行</p>
 <p>到此为止，修改完成</p>
-<p>##测试</p>
+<h2 id="测试">测试</h2>
 <pre><code class="language-c">#include &quot;bsp.h&quot;
 #include &quot;FreeRTOS.h&quot;
 #include &quot;task.h&quot;
