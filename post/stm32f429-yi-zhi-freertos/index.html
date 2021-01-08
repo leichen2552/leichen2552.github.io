@@ -91,7 +91,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1610067985543" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1610068120824" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -110,7 +110,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1610067985543" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1610068120824" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -232,7 +232,7 @@
                                     <span class="post-readtime">Reading Time:<a
                                     href="#">4.3
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">995</a></span>
+                                    <span class="post-words">words:<a href="#">1000</a></span>
                                     
                                             Views:
                                             <span data-hk-page="current"> - </span>
@@ -248,7 +248,8 @@
 <li><a href="#%E7%AC%AC%E4%B8%80%E6%AD%A5">第一步</a></li>
 <li><a href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5">第二步</a></li>
 <li><a href="#%E7%AC%AC%E4%B8%89%E6%AD%A5">第三步</a></li>
-<li><a href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5">第四步</a>
+<li><a href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5">第四步</a></li>
+<li><a href="#%E7%AC%AC%E4%BA%94%E6%AD%A5">第五步</a>
 <ul>
 <li><a href="#%E4%BF%AE%E6%94%B9freertosconfigh%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9">修改FreeRTOSConfig.h文件内容</a>
 <ul>
@@ -287,9 +288,10 @@
 </ul>
 <h2 id="第三步">第三步</h2>
 <p>在原有的工程目录里新建两个组，如图，并把刚才Freertos目录下的文件放入，也如图所示<br>
-<img src="https://leichen2552.github.io//post-images/1610026399947.jpg" alt="" loading="lazy"><br>
-并把下载下来的FreeRTOS文件夹下Demo（找到CORTEX_M4F_STM32F407ZG-SK这个Demo就可以了）中的的FreeRTOSconfig.h放进工程中新建FreeRTOS文件夹下</p>
+<img src="https://leichen2552.github.io//post-images/1610026399947.jpg" alt="" loading="lazy"></p>
 <h2 id="第四步">第四步</h2>
+<p>把下载下来的FreeRTOS文件夹下Demo（找到CORTEX_M4F_STM32F407ZG-SK这个Demo就可以了）中的的FreeRTOSconfig.h放进工程中新建FreeRTOS文件夹下</p>
+<h2 id="第五步">第五步</h2>
 <h3 id="修改freertosconfigh文件内容">修改FreeRTOSConfig.h文件内容</h3>
 <h4 id="第一处88~91行改成如下">第一处：88~91行改成如下</h4>
 <pre><code class="language-c">#if defined (__ICCARM__)||(__CC_ARM)||(__GNUC__)
@@ -462,7 +464,8 @@ void float_task(void *pvParameters)
 <li><a href="#%E7%AC%AC%E4%B8%80%E6%AD%A5">第一步</a></li>
 <li><a href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5">第二步</a></li>
 <li><a href="#%E7%AC%AC%E4%B8%89%E6%AD%A5">第三步</a></li>
-<li><a href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5">第四步</a>
+<li><a href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5">第四步</a></li>
+<li><a href="#%E7%AC%AC%E4%BA%94%E6%AD%A5">第五步</a>
 <ul>
 <li><a href="#%E4%BF%AE%E6%94%B9freertosconfigh%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9">修改FreeRTOSConfig.h文件内容</a>
 <ul>
@@ -514,8 +517,8 @@ void float_task(void *pvParameters)
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/stm32f429-yi-zhi-freertos/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/stm32f429-yi-zhi-freertos/&sharesource=qzone&title=stm32f429移植FreeRTOS&pics=https://leichen2552.github.io//images/avatar.png?v=1610067985543&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/stm32f429-yi-zhi-freertos/&sharesource=weibo&title=stm32f429移植FreeRTOS + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1610067985543 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/stm32f429-yi-zhi-freertos/&sharesource=qzone&title=stm32f429移植FreeRTOS&pics=https://leichen2552.github.io//images/avatar.png?v=1610068120824&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/stm32f429-yi-zhi-freertos/&sharesource=weibo&title=stm32f429移植FreeRTOS + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1610068120824 "><i class="fa fa-weibo "></i></a>
                                                         
                                                             <div class="reward ">
                                                                 <div class="reward-button ">&yen;
@@ -626,7 +629,7 @@ void float_task(void *pvParameters)
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1610067985543);
+                    newDate.setTime(1610068120824);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
