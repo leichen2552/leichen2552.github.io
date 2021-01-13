@@ -217,7 +217,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                串口重映射的思想
+                                推挽输出与开漏输出的区别
                             </h1>
                             
                                 <!--en-->
@@ -227,12 +227,12 @@
                                         ChenLei's Blog
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2021-01-07</a>
+                                Date: <a href="#">2021-01-13</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">0.4
+                                    href="#">0.1
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">108</a></span>
+                                    <span class="post-words">words:<a href="#">10</a></span>
                                     
                                             Views:
                                             <span data-hk-page="current"> - </span>
@@ -242,32 +242,13 @@
                         </header>
                         
                         <div class="post-content">
-                            <p>标准库函数的默认输出设备是显示器，要实现在串口或LCD输出，必须重定义标准库函数里调用的与输出设备相关的函数。</p>
-<h2 id="stm32重映射">stm32重映射</h2>
-<pre><code class="language-c">///重定向c库函数printf到串口，重定向后可使用printf函数
-int fputc(int ch, FILE *f)
-{
-		/* 发送一个字节数据到串口 */
-		USART_SendData(DEBUG_USART, (uint8_t) ch);
-		
-		/* 等待发送完毕 */
-		while (USART_GetFlagStatus(DEBUG_USART, USART_FLAG_TXE) == RESET);		
-	
-		return (ch);
-}
-</code></pre>
+                            <p>转自：<br>
+https://blog.csdn.net/qq_27016651/article/details/83096126</p>
 
                         </div>
                         
                             <div class="post-toc">
-                                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#stm32%E9%87%8D%E6%98%A0%E5%B0%84">stm32重映射</a></li>
-</ul>
-</li>
-</ul>
-
+                                
                             </div>
                             
                                 
@@ -281,7 +262,7 @@ int fputc(int ch, FILE *f)
 
                                             <p class="copyright-item">
                                                 <span>Permalink:</span>
-                                                <span><a href="https://leichen2552.github.io/post/chuan-kou-chong-ying-she-de-si-xiang/">https://leichen2552.github.io/post/chuan-kou-chong-ying-she-de-si-xiang/</a></span>
+                                                <span><a href="https://leichen2552.github.io/post/tui-wan-shu-chu-yu-kai-lou-shu-chu-de-qu-bie/">https://leichen2552.github.io/post/tui-wan-shu-chu-yu-kai-lou-shu-chu-de-qu-bie/</a></span>
                                             </p>
 
                                             <p class="copyright-item">
@@ -296,9 +277,9 @@ int fputc(int ch, FILE *f)
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/chuan-kou-chong-ying-she-de-si-xiang/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/chuan-kou-chong-ying-she-de-si-xiang/&sharesource=qzone&title=串口重映射的思想&pics=https://leichen2552.github.io//images/avatar.png?v=1610537996200&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/chuan-kou-chong-ying-she-de-si-xiang/&sharesource=weibo&title=串口重映射的思想 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1610537996200 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/tui-wan-shu-chu-yu-kai-lou-shu-chu-de-qu-bie/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/tui-wan-shu-chu-yu-kai-lou-shu-chu-de-qu-bie/&sharesource=qzone&title=推挽输出与开漏输出的区别&pics=https://leichen2552.github.io//images/avatar.png?v=1610537996200&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/tui-wan-shu-chu-yu-kai-lou-shu-chu-de-qu-bie/&sharesource=weibo&title=推挽输出与开漏输出的区别 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1610537996200 "><i class="fa fa-weibo "></i></a>
                                                         
                                                             <div class="reward ">
                                                                 <div class="reward-button ">&yen;
@@ -327,13 +308,9 @@ int fputc(int ch, FILE *f)
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
-                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/tui-wan-shu-chu-yu-kai-lou-shu-chu-de-qu-bie/">
-                                                                                            推挽输出与开漏输出的区别
-                                                                                        </a>
-                                                                                        
                                                                                             
-                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/stm32f429-yi-zhi-freertos/">
-                                                                                                    stm32f429移植FreeRTOS
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/chuan-kou-chong-ying-she-de-si-xiang/">
+                                                                                                    串口重映射的思想
                                                                                                 </a>
                                                                                                 
                                                                                 </section>

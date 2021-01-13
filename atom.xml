@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2021-01-13T09:15:33.691Z</updated>
+    <updated>2021-01-13T11:40:05.776Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,16 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[推挽输出与开漏输出的区别]]></title>
+        <id>https://leichen2552.github.io/post/tui-wan-shu-chu-yu-kai-lou-shu-chu-de-qu-bie/</id>
+        <link href="https://leichen2552.github.io/post/tui-wan-shu-chu-yu-kai-lou-shu-chu-de-qu-bie/">
+        </link>
+        <updated>2021-01-13T11:39:24.000Z</updated>
+        <content type="html"><![CDATA[<p>转自：<br>
+https://blog.csdn.net/qq_27016651/article/details/83096126</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[串口重映射的思想]]></title>
         <id>https://leichen2552.github.io/post/chuan-kou-chong-ying-she-de-si-xiang/</id>
@@ -1232,44 +1242,6 @@ endmodule
 <img src="https://leichen2552.github.io//post-images/1583744492018.png" alt="" loading="lazy"><br>
 点击<code>RTL Viewer</code>，就可以该软件根据代码生成的数字逻辑图<br>
 <img src="https://leichen2552.github.io//post-images/1583745546612.png" alt="" loading="lazy"></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[电机分类]]></title>
-        <id>https://leichen2552.github.io/post/dian-ji-fen-lei/</id>
-        <link href="https://leichen2552.github.io/post/dian-ji-fen-lei/">
-        </link>
-        <updated>2020-03-09T11:57:32.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="直流电机">直流电机</h1>
-<p>直流电机（direct current machine）是指能将直流电能转换成机械能（直流电动机）或将机械能转换成直流电能（直流发电机）的旋转电机。它是能实现直流电能和机械能互相转换的电机。当它作电动机运行时是直流电动机，将电能转换为机械能；作发电机运行时是直流发电机，将机械能转换为电能。</p>
-<h2 id="步进电机">步进电机</h2>
-<p>工作原理：步进电机是一种将电脉冲转化为角位移的执行机构。当步进驱动器接收到一个脉冲信号, 它就驱动步进电机按设定的方向转动一个固定的角度(称为”步距角“)，它的旋转是以固定的角度一步一步运的。可以通过控制脉冲个数来控制角位移量，从而达到准确定位的目的；同时可以通过控制脉冲频率来控制电机转动的速度和加速度,从而达到调速的目的。</p>
-<h2 id="伺服电机">伺服电机</h2>
-<p>伺服电机内部的转子是永磁铁,驱动器控制的U/N/W三相电形成电磁场,转子在此磁场的作用下转动，同时电机自带的编码器反馈信号给驱动器,驱动器根据反馈值与目标值进行比较,调整转子转动的角度。伺服电机的精度决定于编码器的精度(线数)。</p>
-<h2 id="有刷电机">有刷电机</h2>
-<p><img src="https://leichen2552.github.io//post-images/1583756480897.png" alt="" loading="lazy"><br>
-<img src="https://leichen2552.github.io//post-images/1583757956370.png" alt="" loading="lazy"><br>
-有刷电机采用机械换向，磁极不动，线圈旋转。电机工作时，线圈和换向器旋转，磁钢和碳刷不转，线圈电流方向的交替变化是随电机转动的换相器和电刷来完成的。<br>
-在有刷电机中，这个过程是将各组线圈的两个电源输入端，依次排成一个环，相互之间用绝缘材料分隔，组成一个象圆柱体的东西，与电机轴连成一体，电源通过两个碳元素做成的小柱子（碳刷），在弹簧压力的作用下，从两个特定的固定位置，压在上面线圈电源输入环状圆柱上的两点，给一组线圈通电。<br>
-随着电机转动，不同时刻给不同线圈或同一个线圈的不同的两极通电，使得线圈产生磁场的N-S极与最靠近的永磁铁定子的N-S极有一个适合的角度差，磁场异性相吸、同性相斥，产生力量，推动电机转动。碳电极在线圈接线头上滑动，象刷子在物体表面刷，因此叫碳“刷”。<br>
-相互滑动，会摩擦碳刷，造成损耗，需要定期更换碳刷；碳刷与线圈接线头之间通断交替，会发生电火花，产生电磁破，干扰电子设备。</p>
-<h2 id="无刷电机">无刷电机</h2>
-<p><img src="https://leichen2552.github.io//post-images/1583760375948.png" alt="" loading="lazy"><br>
-<img src="https://leichen2552.github.io//post-images/1583760380606.png" alt="" loading="lazy"><br>
-<img src="https://leichen2552.github.io//post-images/1583760386303.png" alt="" loading="lazy"><br>
-转子上有NS级，有三对线圈绕在定子上，三对线圈先后通上电流再关闭，就能让外面的转子转动。</p>
-<p>但是这样的转动不圆滑，而且动率小。</p>
-<p>按下图这样，前一对线圈在前面吸引，后一对线圈在后面推动，这样就十分圆滑，且功率就提升上来。<br>
-<img src="https://leichen2552.github.io//post-images/1583761136981.png" alt="" loading="lazy"></p>
-<p>但是有两个问题：</p>
-<ul>
-<li>什么时候给线圈通电？</li>
-<li>该给哪两对线圈通电？</li>
-</ul>
-<p>用霍尔传感器来检测转子的位置<br>
-<img src="https://leichen2552.github.io//post-images/1583761321773.jpg" alt="" loading="lazy"></p>
-<h1 id="电机参数">电机参数</h1>
-<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io//post-images/1583762546767.png" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
 </feed>
