@@ -91,7 +91,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1610068120824" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1610502355730" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -110,7 +110,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1610068120824" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1610502355730" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -230,9 +230,9 @@
                                 Date: <a href="#">2021-01-07</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">4.3
+                                    href="#">3.5
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">1000</a></span>
+                                    <span class="post-words">words:<a href="#">817</a></span>
                                     
                                             Views:
                                             <span data-hk-page="current"> - </span>
@@ -254,12 +254,10 @@
 <li><a href="#%E4%BF%AE%E6%94%B9freertosconfigh%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9">修改FreeRTOSConfig.h文件内容</a>
 <ul>
 <li><a href="#%E7%AC%AC%E4%B8%80%E5%A4%8488~91%E8%A1%8C%E6%94%B9%E6%88%90%E5%A6%82%E4%B8%8B">第一处：88~91行改成如下</a></li>
-<li><a href="#%E7%AC%AC%E4%BA%8C%E5%A4%84%E5%80%92%E6%95%B0%E7%AC%AC%E4%BA%8C%E8%A1%8C%E7%9A%84define">第二处：倒数第二行的define</a></li>
-<li><a href="#%E7%AC%AC%E4%B8%89%E5%A4%84config%E5%BC%80%E5%A4%B4%E5%AE%8F%E4%BF%AE%E6%94%B9">第三处：config开头宏修改</a></li>
+<li><a href="#%E7%AC%AC%E4%BA%8C%E5%A4%84config%E5%BC%80%E5%A4%B4%E5%AE%8F%E4%BF%AE%E6%94%B9">第二处：config开头宏修改</a></li>
 <li><a href="#%E7%AC%AC%E5%9B%9B%E5%A4%84%E7%AC%AC98%E8%A1%8C%E4%B8%8D%E5%90%8C%E6%96%87%E4%BB%B6%E8%A1%8C%E6%95%B0%E4%BC%9A%E6%9C%89%E5%B7%AE%E5%BC%82configtick_rate_hz%E4%BF%AE%E6%94%B9">第四处：第98行（不同文件行数会有差异）configTICK_RATE_HZ修改</a></li>
 </ul>
 </li>
-<li><a href="#%E4%BF%AE%E6%94%B9systemtick%E5%AE%9A%E6%97%B6%E5%99%A8%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9">修改SystemTick定时器文件内容</a></li>
 <li><a href="#%E5%BC%80%E5%90%AFf429%E7%9A%84fpu">开启F429的FPU</a></li>
 </ul>
 </li>
@@ -299,56 +297,15 @@
 	extern uint32_t SystemCoreClock;
 #endif
 </code></pre>
-<h4 id="第二处倒数第二行的define">第二处：倒数第二行的define</h4>
-<pre><code class="language-c">//#define xPortSysTickHandler SysTick_Handler
-</code></pre>
-<h4 id="第三处config开头宏修改">第三处：config开头宏修改</h4>
+<h4 id="第二处config开头宏修改">第二处：config开头宏修改</h4>
 <p>把这四项改成0<br>
 <img src="https://leichen2552.github.io//post-images/1610026754623.jpg" alt="" loading="lazy"></p>
 <h4 id="第四处第98行不同文件行数会有差异configtick_rate_hz修改">第四处：第98行（不同文件行数会有差异）configTICK_RATE_HZ修改</h4>
 <pre><code class="language-c">//去掉(TickType_t)
 #define configTICK_RATE_HZ				( 1000 )
 </code></pre>
-<h3 id="修改systemtick定时器文件内容">修改SystemTick定时器文件内容</h3>
-<p>这个文件是你工程中原有的文件，我工程里的是bsp_SysTick.c，这个文件改成如下就行</p>
-<pre><code class="language-c">#include &quot;bsp_SysTick.h&quot;
-#include &quot;FreeRTOS.h&quot;
-#include &quot;task.h&quot;
-
-void SysTickInit(void)
-{
-    SetSysTickPeriod(1);
-}
-
-void SetSysTickPeriod(uint32_t ms)
-{
-    /* 
-     * SystemFrequency / 1000    1ms中断一次
-	 * SystemFrequency / 100000	 10us中断一次
-	 * SystemFrequency / 1000000 1us中断一次
-	 */
-    //这个configCPU_CLOCK_HZ，configTICK_RATE_HZ来自FreeRTOSConfig.h中，F429是180MHz，configTICK_RATE_HZ是1000
-    SysTick-&gt;LOAD  = ms * configCPU_CLOCK_HZ / configTICK_RATE_HZ - 1; 
-    NVIC_SetPriority (SysTick_IRQn, (1&lt;&lt;__NVIC_PRIO_BITS) - 1);
-    SysTick-&gt;VAL   = 0;                           
-    SysTick-&gt;CTRL  = SysTick_CTRL_CLKSOURCE_Msk |
-                     SysTick_CTRL_TICKINT_Msk   |
-                     SysTick_CTRL_ENABLE_Msk; 
-}
-
-extern void xPortSysTickHandler(void);
-//systick中断服务函数,使用OS时用到
-void SysTick_Handler(void)
-{  
-    if(xTaskGetSchedulerState()!=taskSCHEDULER_NOT_STARTED)//系统已经运行
-    {
-        xPortSysTickHandler();	
-    }
-}
-/*********************************************END OF FILE**********************/
-</code></pre>
 <h3 id="开启f429的fpu">开启F429的FPU</h3>
-<p>在system_stm32f4xx.c文件的SystemInit函数里，也就是该文件的第478行，有一个__FPU_USED，选中Go To Definetion会跳转core_cm4.h中，把123行修改为__FPU_USED的值修改为1就行</p>
+<p>在system_stm32f4xx.c文件的SystemInit函数里，也就是该文件的第478行，有一个__FPU_USED，选中Go To Definetion会跳转core_cm4.h中，把core_cm4.h文件中的第123行修改为__FPU_USED的值修改为1就行</p>
 <p>到此为止，修改完成</p>
 <h2 id="测试">测试</h2>
 <pre><code class="language-c">#include &quot;bsp.h&quot;
@@ -470,12 +427,10 @@ void float_task(void *pvParameters)
 <li><a href="#%E4%BF%AE%E6%94%B9freertosconfigh%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9">修改FreeRTOSConfig.h文件内容</a>
 <ul>
 <li><a href="#%E7%AC%AC%E4%B8%80%E5%A4%8488~91%E8%A1%8C%E6%94%B9%E6%88%90%E5%A6%82%E4%B8%8B">第一处：88~91行改成如下</a></li>
-<li><a href="#%E7%AC%AC%E4%BA%8C%E5%A4%84%E5%80%92%E6%95%B0%E7%AC%AC%E4%BA%8C%E8%A1%8C%E7%9A%84define">第二处：倒数第二行的define</a></li>
-<li><a href="#%E7%AC%AC%E4%B8%89%E5%A4%84config%E5%BC%80%E5%A4%B4%E5%AE%8F%E4%BF%AE%E6%94%B9">第三处：config开头宏修改</a></li>
+<li><a href="#%E7%AC%AC%E4%BA%8C%E5%A4%84config%E5%BC%80%E5%A4%B4%E5%AE%8F%E4%BF%AE%E6%94%B9">第二处：config开头宏修改</a></li>
 <li><a href="#%E7%AC%AC%E5%9B%9B%E5%A4%84%E7%AC%AC98%E8%A1%8C%E4%B8%8D%E5%90%8C%E6%96%87%E4%BB%B6%E8%A1%8C%E6%95%B0%E4%BC%9A%E6%9C%89%E5%B7%AE%E5%BC%82configtick_rate_hz%E4%BF%AE%E6%94%B9">第四处：第98行（不同文件行数会有差异）configTICK_RATE_HZ修改</a></li>
 </ul>
 </li>
-<li><a href="#%E4%BF%AE%E6%94%B9systemtick%E5%AE%9A%E6%97%B6%E5%99%A8%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9">修改SystemTick定时器文件内容</a></li>
 <li><a href="#%E5%BC%80%E5%90%AFf429%E7%9A%84fpu">开启F429的FPU</a></li>
 </ul>
 </li>
@@ -517,8 +472,8 @@ void float_task(void *pvParameters)
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/stm32f429-yi-zhi-freertos/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/stm32f429-yi-zhi-freertos/&sharesource=qzone&title=stm32f429移植FreeRTOS&pics=https://leichen2552.github.io//images/avatar.png?v=1610068120824&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/stm32f429-yi-zhi-freertos/&sharesource=weibo&title=stm32f429移植FreeRTOS + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1610068120824 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/stm32f429-yi-zhi-freertos/&sharesource=qzone&title=stm32f429移植FreeRTOS&pics=https://leichen2552.github.io//images/avatar.png?v=1610502355730&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/stm32f429-yi-zhi-freertos/&sharesource=weibo&title=stm32f429移植FreeRTOS + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1610502355730 "><i class="fa fa-weibo "></i></a>
                                                         
                                                             <div class="reward ">
                                                                 <div class="reward-button ">&yen;
@@ -629,7 +584,7 @@ void float_task(void *pvParameters)
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1610068120824);
+                    newDate.setTime(1610502355730);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
