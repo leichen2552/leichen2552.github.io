@@ -217,7 +217,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                回顾（17）：对象的构造（上）
+                                两次出海记录反思与总结
                             </h1>
                             
                                 <!--en-->
@@ -227,20 +227,13 @@
                                         ChenLei's Blog
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2020-02-06</a>
+                                Date: <a href="#">2021-01-18</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">2.6
+                                    href="#">7.3
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">635</a></span>
+                                    <span class="post-words">words:<a href="#">2151</a></span>
                                     
-                                        <span class="post-category">
-                                Category:
-                                
-                                <a href="https://leichen2552.github.io/tag/dTVQPvwPR/">C++</a>
-                                
-                            </span>
-                                        
                                             Views:
                                             <span data-hk-page="current"> - </span>
                                             
@@ -248,149 +241,108 @@
                                 
                         </header>
                         
-                            <img class="post-feature-image" src="https://leichen2552.github.io//post-images/hui-gu-17dui-xiang-de-gou-zao-shang.jpg" alt="">
-                          
                         <div class="post-content">
-                            <h1 id="对象的初始化">对象的初始化</h1>
-<pre><code>问题：对象中的成员变量初始值是多少？
-</code></pre>
-<p>试验一下就知道了！</p>
-<pre><code class="language-c++">class Test
-{
-private:
-    int i;
-    int j;
-public:
-    void int getI() {return i;}
-    void int getJ() {return j;}
-}
-
-//类得到的其实是数据类型
-
-Test gt;//因为存储空间在全局数据区
-
-int main()
-{
-    printf(&quot;gt.i = %d\n&quot;,gt.getI());
-    printf(&quot;gt.j = %d\n&quot;,gt.getJ());
-
-    Test t1;//因为存储空间在栈上面
-
-    printf(&quot;t1.i = %d\n&quot;,t1.getI());
-    printf(&quot;t1.j = %d\n&quot;,t1.getJ());
-
-    Test* pt = new Test;
-
-    printf(&quot;pt-&gt;i = %d\n&quot;,pt-&gt;getI());
-    printf(&quot;pt-&gt;j = %d\n&quot;,pt-&gt;getJ());
-
-    delete pt;
-    return 0;
-}
-//打印结果
-//i = 0
-//j = 0
-//i = 1236584
-//j = 1256981
-//i = 0，这个0只是一个巧合
-//j = 0，这个0只是一个巧合
-</code></pre>
+                            <p><ul class="markdownIt-TOC">
+<li><a href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%87%BA%E6%B5%B7">第一次出海</a>
 <ul>
-<li>从程序设计角度，对象只是变量，因此：
-<ul>
-<li>在栈上创建对象，成员变量初始为随机值</li>
-<li>在堆上创建对象，成员变量初始为随机值</li>
-<li>在静态存储区创建对象，成员变量初始值为0</li>
+<li><a href="#%E7%BC%BA%E9%99%B7">缺陷</a></li>
 </ul>
 </li>
-</ul>
-<h1 id="对象如何初始化">对象如何初始化</h1>
+<li><a href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E5%87%BA%E6%B5%B7%E5%89%8D%E5%87%86%E5%A4%87">第二次出海前准备</a>
 <ul>
-<li>生活中的对象都是初始化后上市的</li>
-<li>初始状态（出厂设置）是对象普遍存在的一个状态</li>
-</ul>
-<pre><code>问题：程序中如何对一个对象进行初始化
-</code></pre>
-<h2 id="一个public的initialize函数">一个public的initialize函数</h2>
+<li><a href="#1%E6%9C%8816%E6%97%A5">1月16日</a></li>
+<li><a href="#1%E6%9C%8817%E6%97%A5">1月17日</a>
 <ul>
-<li>一般而言，对象需要一个确定的初始状态</li>
-<li>解决方案
-<ul>
-<li>再类中提供一个public的initialize函数</li>
-<li>对象创建后理解调用initialize函数进行初始化</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-c++">class Test
-{
-private:
-    int i;
-    int j;
-public:
-    void initialize() {i = 0; j = 0;}
-    void int getI() {return i;}
-    void int getJ() {return j;}
-};
-</code></pre>
-<ul>
-<li>存在的问题
-<ul>
-<li>initialize只是一个普通函数，必须显示调用</li>
-<li>如果未调用initialize函数，运行结果是不确定的</li>
-</ul>
-</li>
-</ul>
-<p><strong>通过人手工来调用这个初始化函数太麻烦了！有没有那种刚创建完对象就自动来调用初始化的函数</strong></p>
-<h2 id="构造函数">构造函数</h2>
-<ul>
-<li>C++中可以定义与类名相同的特殊成员函数
-<ul>
-<li>这种特殊的成员函数叫做构造函数
-<ul>
-<li>构造函数没有任何返回类型的声明</li>
-<li>构造函数在对象定义时自动被调用</li>
+<li><a href="#%E7%BB%84%E8%A3%85%E6%97%B6%E7%BC%BA%E9%99%B7">组装时缺陷</a></li>
+<li><a href="#%E5%86%85%E9%83%A8%E7%94%B5%E8%B7%AF%E7%9A%84%E7%BC%BA%E9%99%B7">内部电路的缺陷</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li><a href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E5%87%BA%E6%B5%B7">第二次出海</a></li>
+<li><a href="#%E6%94%B9%E8%BF%9B">改进</a></li>
 </ul>
-<pre><code class="language-c++">class Test
-{
-private:
-    int i;
-    int j;
-public:
-    void int getI() {return i;}
-    void int getJ() {return j;}
-    Test() 
-    {
-        printf(&quot;Test() Enter\n&quot;);
-        i = 0; 
-        j = 0;
-        printf(&quot;Test() Exit\n&quot;);
-    }
-};
-</code></pre>
-<h1 id="小结">小结</h1>
+</p>
+<h1 id="第一次出海">第一次出海</h1>
+<p>第一次出海是2020年11月22日礼拜天，据师兄说，第一次出海只是气密性检测，整体设备是一个圆柱导弹型，并没加推进器，从头部到电池箱到主板控制器箱（以下称主板箱）完全密封，只有尾部的推进器箱和主板箱是采用螺纹旋紧的。</p>
+<h2 id="缺陷">缺陷</h2>
 <ul>
-<li>每个对象在使用之前都应该初始化</li>
-<li>类的构造函数用于对象的初始化</li>
-<li>构造函数与类同名并且没有返回值</li>
-<li>构造函数在对象定义时自动被调用</li>
+<li>设计缺陷(一)：采用了旋紧螺纹的连接方式。所谓完全密封，是接近两厘米的螺纹，准确的说是15*1mm，旋转15圈，螺距是1mm。当时这么设计是为了防水，但是工厂的加工师傅说再密的螺纹也是防不了水的，所以为了防水，就用螺纹密封胶，在旋螺纹之前，在螺纹上涂一些螺纹密封胶，再把头部与电池箱拧紧，其他连接处也一样。这确实是可行的解决方案，但是我们低估了拆卸的麻烦，由于是圆形，五个人卸了一个下午，才把头部给卸了下来，剩下连接处的地方根本拆不下来。</li>
+<li>设计缺陷(二)：几段圆柱中间留孔走线，真的是个糟糕的设计，完全不顾在拧螺纹的时候中间的线也会被拧紧，并且是越拧越紧，而且还会断。比如深度传感器的线，就断了，断一次就200多块。</li>
+<li>设计缺陷(三)：拉扯的线没有滚筒，导致连线很乱，而且线很重。</li>
+<li>设计缺陷(四)：虽然设计上说是200米，用了100多米的线，但是接头用了杜邦线，485的接头盒主控板之间使用128-2.54-2P的接头，这种接头在每次接的时候总是要接头上的拧螺丝，先松开再拧紧，着实麻烦。</li>
+<li>低估了海水的浮力，由于第一次没加电池，发现根本沉不下去，头部顶端的深度传感器在海浪的推动下敲打着船底，事后回来检查，深度传感器已经砸坏了。</li>
 </ul>
+<h1 id="第二次出海前准备">第二次出海前准备</h1>
+<p>出海前的组装时的缺陷，组装整整用了一天。本以为1月15号就能组装完成，1月16号就能做完实验，万事大吉，可是命运总是跟你开足了玩笑。<br>
+不是有一句话，老天不会亏待痴情的人。是啊，都是往死里整。所以，我放弃还不行么！</p>
+<h2 id="1月16日">1月16日</h2>
+<p>停电一天，没有电，根本无法组装。我与师兄约定17号什么时候来电，什么时候来实验室组装，争取上午组装好，下午去实验。</p>
+<h2 id="1月17日">1月17日</h2>
+<ul>
+<li>清晨5点48分，学长的电话来了，说来电了。然后就和他去实验室，实验室确实有电。</li>
+<li>早晨6点33分，停电了，刚热的电烙铁，刚热的热风箱以及刚剪开热缩管。然后和学长去食堂吃早饭。是的，食堂也没开，超市也没开。</li>
+<li>上午7点14分，来电了，以为是全部供电，正打算开工。</li>
+<li>上午7点17分，又断电了。看吧，学校就会和你开玩笑。</li>
+<li>上午7点34分，发现电梯有电，一楼有电，打电话给后勤，后勤说是发电机在供电，并未完全供电。</li>
+<li>上午7点40分，一楼的考研教室有电，把一些必要的器件搬到教室，开工组装。</li>
+<li>上午8点07分，导师来了，9栋没有电，看来只能在考研教室组装了。</li>
+</ul>
+<h3 id="组装时缺陷">组装时缺陷</h3>
+<ul>
+<li>师兄的想法，在本来的电池箱的底板上打个孔，把深度传感器前后旋紧在底板上，又发现之前师兄把底板的另一侧涂上了厚厚的胶，厚厚的胶不好去除，我手大，没办法把手伸进一个直径18cm深50cm里面操作去除胶。</li>
+<li>是否加装旋钮开关，本是一个很好的想法，但是开关不防水，在开关后面加装一个防水螺丝，海水密封AB胶初凝固的时间是1-2小时，也就是说，等它凝固那就要等到12点了。但是在安装的时候，那可太费劲了。四根推进器的线再加一根485的通信线在加一个旋钮开关的线，在一个孔里，然后旋紧，真的是太费劲了。最后放弃安装旋钮开关。<br>
+安装尾部的时候，我和师兄两个人，我在上面旋转尾部，师兄在底下抖线，目的就是把旋转在线上的劲道给去掉。师兄真的几次都想放弃了，但是么得办法。<br>
+终于，推进器的那部分旋进去了。终于旋进去了！旋进去了！进去了！去了！了！是的，在考研教室装完了后半部分。下午3点05分，老师来了，说已经来不及出海做实验了，怎么说都得明天了。正好，来电了，老师提议去9栋实验室。好的！</li>
+</ul>
+<h3 id="内部电路的缺陷">内部电路的缺陷</h3>
+<ul>
+<li>缺陷(一)：本来是打算使用策海科技提供的密封舱套件，接线处使用水密螺丝+灌胶的方法密封，现在时间根本来不及，还是算了。果断放弃二级密封舱防水的方法。</li>
+<li>缺陷(二)：电调散热无法解决，虽然也不知道到底会散多少热，但是这个确实算个问题。</li>
+<li>缺陷(三)：接线，粗线和细线的重力不一样，会有可能把细线拉断，今天就是，把电调的线打断了。</li>
+<li>缺陷(四)：电路板上全是杜邦线接口，设计者第二次接线都会把线接错，更别说用户了，这着实是一个糟糕的设计。</li>
+<li>缺陷(五)：接线时需要区分四个推进器顺序，这个缺陷虽然有点牵强，但是设计者还需要利用测试代码来区分推进器，这有点说不过去。</li>
+</ul>
+<h1 id="第二次出海">第二次出海</h1>
+<p>第二次出海是2021年1月18日礼拜一，也就是今天，这是导师催了很久的出海试验。这次的实验，是要完成推进器闭环的深度控制，采集数据。<br>
+也就是今天，早上7点30到实验室，再把主板密封舱的时候，那些推进器的粗线压着深度传感器的线，又差点GG，又测试了一遍，没问题，把头部旋紧主板舱，这应该是最后一次下海前把头部拧进去。算是安装完毕了，等老师过来！</p>
+<ul>
+<li>上午9点出发，导师开车上高速之后，一路100码，10点不到就到了测试的海域，船家说现在出海需要派出所证明，导师跟着去开证明了，但是万万没有想到，开证明开了两个半小时。</li>
+<li>12点40分，出海，伴随着柴油发电机的轰鸣，我们带着设备去了浅海海域，在安装后面绳子的时候，又出现了一点点小插曲，孔不够大，固定绳子的螺丝塞不进去。搞了半天，可以了。</li>
+<li>师兄拿出了电脑，准备开始调试，我把设备头部拧下来，师兄接上电源线。这时候，我最担心的事情发生了，也是昨晚最担心的事情发生了，由于在浅海海域，船晃得厉害，头部拧不紧。并且</li>
+<li>这时候由于之前吸了柴油烟，我开始晕了，可能是晕船，一点力气都没有，只能躺在船头，站不起来，看着学长和老师在那边操作，加上船家，三个人在那旋转设备头部。</li>
+<li>我躺了一会，师兄也在强撑，一共吐了三次。</li>
+<li>然后去了一个风小的小地方做实验，当师兄再次检查主控制板的时候，发现电调的线断了，这就没办法了，只能返航！</li>
+</ul>
+<h1 id="改进">改进</h1>
+<ol>
+<li>接线：尤其是电源出来的供电，之前设计用到导线分流器，但是最近看到分电板，打算用分电板。</li>
+<li>水密螺丝：这个不打算用了，还要灌胶。用那种两头插芯的防水螺丝，这个也要灌胶，但是只要灌一次就可以了</li>
+<li>板子上的接口，现在打算采用XH2.54的接口。</li>
+</ol>
 
                         </div>
                         
                             <div class="post-toc">
                                 <ul class="markdownIt-TOC">
-<li><a href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96">对象的初始化</a></li>
-<li><a href="#%E5%AF%B9%E8%B1%A1%E5%A6%82%E4%BD%95%E5%88%9D%E5%A7%8B%E5%8C%96">对象如何初始化</a>
+<li><a href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%87%BA%E6%B5%B7">第一次出海</a>
 <ul>
-<li><a href="#%E4%B8%80%E4%B8%AApublic%E7%9A%84initialize%E5%87%BD%E6%95%B0">一个public的initialize函数</a></li>
-<li><a href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">构造函数</a></li>
+<li><a href="#%E7%BC%BA%E9%99%B7">缺陷</a></li>
 </ul>
 </li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+<li><a href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E5%87%BA%E6%B5%B7%E5%89%8D%E5%87%86%E5%A4%87">第二次出海前准备</a>
+<ul>
+<li><a href="#1%E6%9C%8816%E6%97%A5">1月16日</a></li>
+<li><a href="#1%E6%9C%8817%E6%97%A5">1月17日</a>
+<ul>
+<li><a href="#%E7%BB%84%E8%A3%85%E6%97%B6%E7%BC%BA%E9%99%B7">组装时缺陷</a></li>
+<li><a href="#%E5%86%85%E9%83%A8%E7%94%B5%E8%B7%AF%E7%9A%84%E7%BC%BA%E9%99%B7">内部电路的缺陷</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E5%87%BA%E6%B5%B7">第二次出海</a></li>
+<li><a href="#%E6%94%B9%E8%BF%9B">改进</a></li>
 </ul>
 
                             </div>
@@ -406,7 +358,7 @@ public:
 
                                             <p class="copyright-item">
                                                 <span>Permalink:</span>
-                                                <span><a href="https://leichen2552.github.io/post/hui-gu-17dui-xiang-de-gou-zao-shang/">https://leichen2552.github.io/post/hui-gu-17dui-xiang-de-gou-zao-shang/</a></span>
+                                                <span><a href="https://leichen2552.github.io/post/liang-ci-chu-hai-ji-lu-fan-si-yu-zong-jie/">https://leichen2552.github.io/post/liang-ci-chu-hai-ji-lu-fan-si-yu-zong-jie/</a></span>
                                             </p>
 
                                             <p class="copyright-item">
@@ -421,9 +373,9 @@ public:
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/hui-gu-17dui-xiang-de-gou-zao-shang/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/hui-gu-17dui-xiang-de-gou-zao-shang/&sharesource=qzone&title=回顾（17）：对象的构造（上）&pics=https://leichen2552.github.io//images/avatar.png?v=1610974211037&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/hui-gu-17dui-xiang-de-gou-zao-shang/&sharesource=weibo&title=回顾（17）：对象的构造（上） + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1610974211037 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/liang-ci-chu-hai-ji-lu-fan-si-yu-zong-jie/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/liang-ci-chu-hai-ji-lu-fan-si-yu-zong-jie/&sharesource=qzone&title=两次出海记录反思与总结&pics=https://leichen2552.github.io//images/avatar.png?v=1610974211037&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/liang-ci-chu-hai-ji-lu-fan-si-yu-zong-jie/&sharesource=weibo&title=两次出海记录反思与总结 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1610974211037 "><i class="fa fa-weibo "></i></a>
                                                         
                                                             <div class="reward ">
                                                                 <div class="reward-button ">&yen;
@@ -440,12 +392,6 @@ public:
                                                                         <span>Tag(s):</span>
                                                                         <span class="tag ">
                         
-                        
-                        <a href="https://leichen2552.github.io/tag/dTVQPvwPR/">#
-                                                C++
-                                                    </a>
-                                                    
-                                                        
                                                             </span>
                                                                     </div>
                                                                     <div>
@@ -458,13 +404,9 @@ public:
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
-                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/hui-gu-18dui-xiang-de-gou-zao-zhong/">
-                                                                                            回顾（18）：对象的构造（中）
-                                                                                        </a>
-                                                                                        
                                                                                             
-                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-16lei-de-zhen-zheng-xing-tai/">
-                                                                                                    回顾（16）：类的真正形态
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/an-jian-fifo-de-dai-ma-de-si-xiang-yu-bian-xie/">
+                                                                                                    按键FIFO的代码的思想与编写
                                                                                                 </a>
                                                                                                 
                                                                                 </section>
