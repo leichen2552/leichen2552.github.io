@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2021-01-19T08:12:43.592Z</updated>
+    <updated>2021-01-26T07:15:35.268Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,25 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[stm32f429移植STemWin总结]]></title>
+        <id>https://leichen2552.github.io/post/stm32f429-yi-zhi-stemwin-zong-jie/</id>
+        <link href="https://leichen2552.github.io/post/stm32f429-yi-zhi-stemwin-zong-jie/">
+        </link>
+        <updated>2021-01-26T02:53:31.000Z</updated>
+        <content type="html"><![CDATA[<p><br>
+连续熬了三天夜，各种找资料看文档算是把STemWin移植上了裸机和FreeRTOS上了。</p>
+<p>我是按照《安富莱_STM32-V6emWin教程（V2.0）》这份教程来的，安富莱写得很详细，也确实在emWin教程这方面做得很好。<br>
+但是有几处细节方面着重说一下：</p>
+<ol>
+<li>在移植之前，板载的SDRAM驱动、触摸驱动、显示屏驱动要先准备好，这些准备好了才能进行下一步工作。</li>
+<li>GUIConf.c与GUIConf.h这两个文件，安富莱已经说得很详细了，这里就不再赘述。</li>
+<li>LCDConf_Lin_Template.c与LCDConf_Lin_Template.h，这两个文件要着重说一下。如果是在STM32Cube_FW_F4_V1.13.0\Middlewares\ST\STemWin\Config\这个目录下复制的LCDConf_Lin_Template.c这个文件，你会发现，这个文件的代码量少得可怜，跟安富莱教程里说的大相径庭。但是在STM32Cube_FW_F4_V1.13.0\Projects\STM324x9I_EVAL\Applications\STemWin\STemWin_SampleDemo\Src这个目录下，有一个LCDConf_stm324x9i_eval_MB1063.c这个文件，这个文件是ST官方移植STemWin时的文件，我们把它复制出来然后改成LCDConf_Lin_Template.c，然后替换原来的那个文件。删除掉函数LCD_LL_Init()、HAL_LTDC_MspInit()和HAL_LTDC_MspDelnit()这三个函数，因为ST官方移植的文件中还要初始化RGB屏幕的，但是我们会使用LCD_ Init()函 数初始化RGB屏，所以这三个函数我们不需要。然后再添加两个函数LTDC_IRQHandler() 和DMA2D_IRQHandler()这两个函数，这两个函数在第一步之前就该准备好。</li>
+<li>移植上freeRTOS的时候，由于之前裸机的触摸屏中断用了一个exit线中断，导致一直卡死。后来采用定时器循环扫描的方式，简单实用。关于这个文件GUI_X_FreeRTOS这个文件在Keil的安装目录里面Keil_v526\ARM\PACK\Keil\MDK-Middleware\7.7.0\emWin\Sample\GUI_X</li>
+</ol>
+<p>大概就这么多，暂时先写到这里！</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[两次出海记录反思与总结]]></title>
         <id>https://leichen2552.github.io/post/liang-ci-chu-hai-ji-lu-fan-si-yu-zong-jie/</id>
@@ -632,10 +651,15 @@ int fputc(int ch, FILE *f)
 <ul>
 <li><a href="#%E7%AC%AC%E4%B8%80%E5%A4%8488~91%E8%A1%8C%E6%94%B9%E6%88%90%E5%A6%82%E4%B8%8B">第一处：88~91行改成如下</a></li>
 <li><a href="#%E7%AC%AC%E4%BA%8C%E5%A4%84config%E5%BC%80%E5%A4%B4%E5%AE%8F%E4%BF%AE%E6%94%B9">第二处：config开头宏修改</a></li>
-<li><a href="#%E7%AC%AC%E4%B8%89%E5%A4%84%E7%AC%AC98%E8%A1%8C%E4%B8%8D%E5%90%8C%E6%96%87%E4%BB%B6%E8%A1%8C%E6%95%B0%E4%BC%9A%E6%9C%89%E5%B7%AE%E5%BC%82configtick_rate_hz%E4%BF%AE%E6%94%B9">第三处：第98行（不同文件行数会有差异）configTICK_RATE_HZ修改</a></li>
 </ul>
 </li>
-<li><a href="#%E5%BC%80%E5%90%AFf429%E7%9A%84fpu">开启F429的FPU</a></li>
+<li><a href="#%E5%BC%80%E5%90%AFf429%E7%9A%84fpu">开启F429的FPU</a>
+<ul>
+<li><a href="#%E7%AC%AC%E4%B8%80%E5%A4%84">第一处</a></li>
+<li><a href="#%E7%AC%AC%E4%BA%8C%E5%A4%84">第二处</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B7%A5%E7%A8%8B%E6%96%87%E4%BB%B6%E9%87%8C%E9%9D%A2%E4%B8%8D%E8%83%BD%E6%9C%89%E6%9C%89%E5%85%B3%E7%B3%BB%E7%BB%9F%E6%BB%B4%E7%AD%94%E5%AE%9A%E6%97%B6%E5%99%A8systick_handler%E7%9A%84%E5%87%BD%E6%95%B0%E6%9C%89%E7%9A%84%E8%AF%9D%E9%9C%80%E8%A6%81%E5%B1%8F%E8%94%BD%E6%8E%89">工程文件里面不能有有关系统滴答定时器SysTick_Handler的函数，有的话需要屏蔽掉！</a></li>
 </ul>
 </li>
 <li><a href="#%E6%B5%8B%E8%AF%95">测试</a>
@@ -677,13 +701,14 @@ int fputc(int ch, FILE *f)
 <h4 id="第二处config开头宏修改">第二处：config开头宏修改</h4>
 <p>把这四项改成0<br>
 <img src="https://leichen2552.github.io//post-images/1610026754623.jpg" alt="" loading="lazy"></p>
-<h4 id="第三处第98行不同文件行数会有差异configtick_rate_hz修改">第三处：第98行（不同文件行数会有差异）configTICK_RATE_HZ修改</h4>
-<pre><code class="language-c">//去掉(TickType_t)
-#define configTICK_RATE_HZ				( 1000 )
-</code></pre>
 <h3 id="开启f429的fpu">开启F429的FPU</h3>
+<h4 id="第一处">第一处</h4>
 <p>在system_stm32f4xx.c文件的SystemInit函数里，也就是该文件的第478行，有一个__FPU_USED，选中Go To Definetion会跳转core_cm4.h中，把core_cm4.h文件中的第123行修改为__FPU_USED的值修改为1就行</p>
+<h4 id="第二处">第二处</h4>
+<p>修改MDK软件的选项<br>
+<img src="https://leichen2552.github.io//post-images/1611580228056.jpg" alt="" loading="lazy"></p>
 <p>到此为止，修改完成</p>
+<h3 id="工程文件里面不能有有关系统滴答定时器systick_handler的函数有的话需要屏蔽掉">工程文件里面不能有有关系统滴答定时器SysTick_Handler的函数，有的话需要屏蔽掉！</h3>
 <h2 id="测试">测试</h2>
 <pre><code class="language-c">#include &quot;bsp.h&quot;
 #include &quot;FreeRTOS.h&quot;
@@ -1514,77 +1539,6 @@ endmodule
 </code></pre>
 <h1 id="阻塞赋值与非阻塞赋值区别">阻塞赋值与非阻塞赋值区别</h1>
 <p><font size = 4 color = red>阻塞</font>和<font size = 4 color = blue>非阻塞赋值</font>的区别在：<font size = 4 color = red>阻塞是顺序执行</font>，而<font size = 4 color = blue>非阻塞是并行执行</font>。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[FPGA之BCD码计数器]]></title>
-        <id>https://leichen2552.github.io/post/fpga-zhi-bcd-ma-ji-shu-qi/</id>
-        <link href="https://leichen2552.github.io/post/fpga-zhi-bcd-ma-ji-shu-qi/">
-        </link>
-        <updated>2020-03-12T13:48:49.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#%E4%BB%A3%E7%A0%81">代码</a></li>
-<li><a href="#%E7%94%A8%E6%97%B6%E5%BA%8F%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF%E7%9A%84%E6%B3%A2%E5%BD%A2%E9%97%AE%E9%A2%98">用时序逻辑电路的波形问题</a></li>
-<li><a href="#%E6%94%B9%E7%94%A8%E7%BB%84%E5%90%88%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%B3%A2%E5%BD%A2">改用组合逻辑电路的正确波形</a></li>
-</ul>
-</p>
-<h1 id="代码">代码</h1>
-<pre><code class="language-c">module BCD_Counter(Clk, Cin, Rst_n, Cout, q);
-
-	input Clk;			//计数基准时钟
-	input Cin;			//计数器进位输入
-	input Rst_n;		//系统复位 
-	
-	output Cout;	//计数进位输出
-	output [3:0]q;		//计数器值输出
-
-	reg [3:0]cnt;
-//执行计数过程	
-	always@(posedge Clk or negedge Rst_n)
-	if(Rst_n == 1'b0)
-		cnt &lt;= 4'd0;
-	else if(Cin == 1'b1)begin
-		if(cnt == 4'd9)
-			cnt &lt;= 4'd0;
-		else
-			cnt &lt;= cnt + 1'b1;
-	end
-	else
-		cnt &lt;= cnt;
-
-//不要在不同的always块中对同一个变量赋值
-//不要在同一个always块中同时使用阻塞赋值与非阻塞赋值		
-//时序逻辑电路always块中被赋值的变量必须是reg
-/*
-always时序逻辑电路中用 &lt;= 非阻塞赋值，在时序逻辑电路中用 = 阻塞赋值
-简单理解就是：在边沿敏感的always块中用非阻塞赋值，在电平敏感的always块中用阻塞赋值
-*/	
-/*
-always的敏感列表中包括多个电平敏感事件，也可以同时包括多个电平敏感事件，但是不能同时有电平和边沿敏感事件。
-另外，敏感列表中，同时包含一个信号的上升沿和下降沿也是不允许的，因为这两个事件可以合并成一个电平事件
-*/
-
-//产生进位输出信号
-	//这是把之前的时序逻辑电路（注释内）改成组合逻辑电路
-	assign Cout =(Cin == 1'b1 &amp;&amp; cnt == 4'd9);		
-/* 
-	always@(posedge Clk or negedge Rst_n)
-	if(Rst_n == 1'b0)
-		Cout &lt;= 1'b0;
-	else if(Cin == 1'b1 &amp;&amp; cnt == 4'd9)	
-		Cout &lt;= 1'b1;
-	else
-		Cout &lt;= 1'b0;
-*/		
-	assign q = cnt;	
-endmodule
-
-</code></pre>
-<h1 id="用时序逻辑电路的波形问题">用时序逻辑电路的波形问题</h1>
-<p>进位链的问题<br>
-<img src="https://leichen2552.github.io//post-images/1584021084132.jpg" alt="" loading="lazy"></p>
-<h1 id="改用组合逻辑电路的正确波形">改用组合逻辑电路的正确波形</h1>
-<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io//post-images/1584021113091.jpg" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
 </feed>
