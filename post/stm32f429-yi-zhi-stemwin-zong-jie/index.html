@@ -91,7 +91,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1611647723306" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1611649107578" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -110,7 +110,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1611647723306" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1611649107578" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -230,9 +230,9 @@
                                 Date: <a href="#">2021-01-26</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">2.2
+                                    href="#">2.4
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">611</a></span>
+                                    <span class="post-words">words:<a href="#">644</a></span>
                                     
                                             Views:
                                             <span data-hk-page="current"> - </span>
@@ -268,7 +268,7 @@
 <p>GUIConf.c与GUIConf.h这两个文件，安富莱已经说得很详细了，这里就不再赘述。</p>
 <h3 id="第三步">第三步</h3>
 <p>LCDConf_Lin_Template.c与LCDConf_Lin_Template.h，这两个文件要着重说一下。如果是在STM32Cube_FW_F4_V1.13.0\Middlewares\ST\STemWin\Config\这个目录下复制的LCDConf_Lin_Template.c这个文件，你会发现，这个文件的代码量少得可怜，跟安富莱教程里说的大相径庭。但是在STM32Cube_FW_F4_V1.13.0\Projects\STM324x9I_EVAL\Applications\STemWin\STemWin_SampleDemo\Src这个目录下，有一个LCDConf_stm324x9i_eval_MB1063.c这个文件，这个文件是ST官方移植STemWin时的文件，我们把它复制出来然后改成LCDConf_Lin_Template.c，然后替换原来的那个文件。删除掉函数LCD_LL_Init()、HAL_LTDC_MspInit()和HAL_LTDC_MspDelnit()这三个函数，因为ST官方移植的文件中还要初始化RGB屏幕的，但是我们会使用LCD_ Init()函 数初始化RGB屏，所以这三个函数我们不需要。然后再添加两个函数LTDC_IRQHandler() 和DMA2D_IRQHandler()这两个函数，这两个函数在第一步之前就该准备好。<br>
-STM32Cube_FW_F4_V1.13.0这个库里面的LCDConf_stm324x9i_eval_MB1063.c已经是HAL库了，跟安富莱的代码有点不一样，安富莱的用的还是寄存器方式。我特意去下载了STM32Cube_FW_F4_V1.1.0的库，这个库用的还是寄存器的，主要是硬盘容量不够了，所以我只能推测安富莱的并不是V1.13板移植的。</p>
+STM32Cube_FW_F4_V1.13.0这个库里面的LCDConf_stm324x9i_eval_MB1063.c已经是HAL库了，跟安富莱的代码有点不一样，安富莱的用的还是寄存器方式。我特意去下载了STM32Cube_FW_F4_V1.1.0的库，这个库用的还是寄存器的，主要是硬盘容量不够了，所以我只能推测安富莱的并不是V1.13的库，因为我看的是emWin2.0的教程，安富莱之前第一版的教程是V1.1.2的库，这就解释的通了。</p>
 <h2 id="freertos上移植">FreeRTOS上移植</h2>
 <h2 id="第一步-2">第一步</h2>
 <p>移植上freeRTOS的时候，由于之前裸机的触摸屏中断用了一个exit线中断，导致一直卡死。后来采用定时器循环扫描的方式，简单实用。关于这个文件GUI_X_FreeRTOS这个文件在Keil的安装目录里面Keil_v526\ARM\PACK\Keil\MDK-Middleware\7.7.0\emWin\Sample\GUI_X</p>
@@ -322,8 +322,8 @@ STM32Cube_FW_F4_V1.13.0这个库里面的LCDConf_stm324x9i_eval_MB1063.c已经�
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/stm32f429-yi-zhi-stemwin-zong-jie/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/stm32f429-yi-zhi-stemwin-zong-jie/&sharesource=qzone&title=stm32f429移植STemWin总结&pics=https://leichen2552.github.io//images/avatar.png?v=1611647723306&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/stm32f429-yi-zhi-stemwin-zong-jie/&sharesource=weibo&title=stm32f429移植STemWin总结 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1611647723306 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/stm32f429-yi-zhi-stemwin-zong-jie/&sharesource=qzone&title=stm32f429移植STemWin总结&pics=https://leichen2552.github.io//images/avatar.png?v=1611649107578&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/stm32f429-yi-zhi-stemwin-zong-jie/&sharesource=weibo&title=stm32f429移植STemWin总结 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1611649107578 "><i class="fa fa-weibo "></i></a>
                                                         
                                                             <div class="reward ">
                                                                 <div class="reward-button ">&yen;
@@ -430,7 +430,7 @@ STM32Cube_FW_F4_V1.13.0这个库里面的LCDConf_stm324x9i_eval_MB1063.c已经�
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1611647723306);
+                    newDate.setTime(1611649107578);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
