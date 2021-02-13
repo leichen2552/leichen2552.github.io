@@ -91,7 +91,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1611649107578" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1613209698451" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -110,7 +110,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1611649107578" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1613209698451" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -230,9 +230,9 @@
                                 Date: <a href="#">2020-01-05</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">36.0
+                                    href="#">39.3
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">9968</a></span>
+                                    <span class="post-words">words:<a href="#">10837</a></span>
                                     
                                         <span class="post-category">
                                 Category:
@@ -393,7 +393,7 @@ void taskEntry(void* param)
 <p>这个任务中利用延时函数和改变taskFlag的数值来模拟任务的运行。</p>
 <p>一个任务的执行会包含许多东西，比如栈、堆、数据区、代码区，这些都是在任务执行时状态数据，数据区和代码区由编译器自动分配，栈和堆可以由程序员分配。当CPU在执行这个任务的时候，是无法顾及其他任务的的，这也就是我们通常说的<font color = red>”该任务占据了CPU的使用权“</font>，或者说<font color = red>”CPU被当前任务占有，无暇他顾“</font>。当任务占据CPU的时候，Cortex-M3内核寄存器会在某些时刻把这些数据保存到栈中，那么每个任务都需要各自独立的栈空间，但是Cortex-M3硬件上只支持两个栈空间，这个问题该如何解决？</p>
 <h3 id="任务的栈">任务的栈</h3>
-<p>所谓栈就是一片连续的内存空间（类似C语言中的数组），就像你买了一套房子，你可以在这个房子里面吃饭睡觉，这个房子就相当于栈。<font color = red>RTOS需要每个任务拥有自己单独的栈，就是每个任务有属于自己单独的活动空间，也就是说每个任务有属于自己的内存空间</font>。这个内存空间用于保存这个任务所有的独立数据。当每个任务拥有了自己独立的栈，这时候就进行任务初始化了。</p>
+<p>所谓栈就是一片连续的内存空间（类似C语言中的数组：int stack[1024] = {0}），就像你买了一套房子，你可以在这个房子里面吃饭睡觉，这个房子就相当于栈。<font color = red>RTOS需要每个任务拥有自己单独的栈，就是每个任务有属于自己单独的活动空间，也就是说每个任务有属于自己的内存空间</font>。这个内存空间用于保存这个任务所有的独立数据。当每个任务拥有了自己独立的栈，这时候就进行任务初始化了。</p>
 <h3 id="任务的定义">任务的定义</h3>
 <p>前面我们说了一个任务表征就是一个永不返回的函数。但是一个任务到底应该包含那些东西呢，我们定义一个任务结构体，并利用typedef重新命名一个栈类型，目前任务的结构体里面只有<font color = magenta>栈</font>这一个成员变量，以后如果需要还会继续添加成员变量。这是C语言面向对象的编程思想，用一个结构体来统一管理某类对象。</p>
 <pre><code class="language-c">// Cortex-M的堆栈单元类型：堆栈单元的大小为32位，所以使用uint32_t
@@ -471,38 +471,97 @@ void tTaskInit (tTask * task, void (*entry)(void *), void *param, uint32_t * sta
 <li>上述就是任务切换的流程</li>
 </ul>
 <p>Cortex-m3的PendSV异常切换任务代码如下，采用C语言和中内嵌汇编的方式。</p>
-<pre><code class="language-s">    __asm void PendSV_Handler(void)
-    {
-        IMPORT currentTask
-        IMPORT nextTask
-        
-        MRS R0, PSP                //加载特殊功能寄存器到通用功能寄存值
-        CBZ R0, PendSVHander_nosave//判断R0的值是否为0，是0就跳转到PendSVHander_nosave段
-        
-        STMDB R0!, {R4-R11}       
-            //含义:依次压栈r0 = r0 - 4，先压r11，r0 = r11（即将r11中的内容放入r0所指的内存地址）， 
-            //再r0 = r0 - 4，
-            //再压r10，r0 = r10......r0 = r0 - 4，
-            //最后压r4，r0 = r4。
-            //则r0中就保存最新的栈顶指针值
-        
-        LDR R1, =currentTask    //加载当前任务的地址放入R1寄存器
-        LDR R1, [R1]            //获取R1地址中存储的任务地址
-        STR R0, [R1]            //把R0中保存的值存入R1寄存器
+<pre><code class="language-c">// 在任务切换中，主要依赖了PendSV进行切换。PendSV其中的一个很重要的作用便是用于支持RTOS的任务切换。
+// 实现方法为：
+// 1、首先将PendSV的中断优先配置为最低。这样只有在其它所有中断完成后，才会触发该中断；
+//    实现方法为：向NVIC_SYSPRI2写NVIC_PENDSV_PRI
+// 2、在需要中断切换时，设置挂起位为1，手动触发。这样，当没有其它中断发生时，将会引发PendSV中断。
+//    实现方法为：向NVIC_INT_CTRL写NVIC_PENDSVSET
+// 3、在PendSV中，执行任务切换操作。
+#define NVIC_INT_CTRL       0xE000ED04      // 中断控制及状态寄存器
+#define NVIC_PENDSVSET      0x10000000      // 触发软件中断的值
+#define NVIC_SYSPRI2        0xE000ED22      // 系统优先级寄存器
+#define NVIC_PENDSV_PRI     0x000000FF      // 配置优先级
 
-    PendSVHander_nosave
-        LDR R0, =currentTask    //加载当前任务到寄存器R0
-        LDR R1, =nextTask       //加载下一个任务到寄存器R1
-        LDR R2, [R1]            //把nextTask寄存器值给R2
-        STR R2, [R0]            //把nextTask值给currentTask
-        
-        LDR R0, [R2]
-        LDMIA R0!, {R4-R11}     //弹出任务的数据到CPU寄存器
-        
-        MSR PSP, R0             //存储通用寄存器的值到特殊功能寄存器
-        ORR LR, LR, #0x04       //跳转到线程堆栈指针
-        BX LR	
-    }
+#define MEM32(addr)         *(volatile unsigned long *)(addr)
+#define MEM8(addr)          *(volatile unsigned char *)(addr)
+
+/**********************************************************************************************************
+** Function name        :   PendSV_Handler
+** Descriptions         :   PendSV异常处理函数。很有些会奇怪，看不到这个函数有在哪里调用。实际上，只要保持函数头不变
+**                          void PendSV_Handler (), 在PendSV发生时，该函数会被自动调用
+** parameters           :   无
+** Returned value       :   无
+***********************************************************************************************************/
+__asm void PendSV_Handler ()
+{
+    IMPORT  currentTask               // 使用import导入C文件中声明的全局变量
+    IMPORT  nextTask                  // 类似于在C文文件中使用extern int variable
+
+    MRS     R0, PSP                   // 加载特殊功能寄存器到通用功能寄存值，获取当前任务的堆栈指针
+    CBZ     R0, PendSVHandler_nosave  // if 这是由tTaskSwitch触发的(此时，PSP肯定不会是0了，0的话必定是tTaskRunFirst)触发
+                                      // 不清楚的话，可以先看tTaskRunFirst和tTaskSwitch的实现
+    STMDB   R0!, {R4-R11}             // 那么，我们需要将除异常自动保存的寄存器这外的其它寄存器自动保存起来{R4, R11}
+                                      // 保存的地址是当前任务的PSP堆栈中，这样就完整的保存了必要的CPU寄存器,便于下次恢复
+                                      // 含义:依次压栈r0 = r0 - 4，先压r11，r0 = r11（即将r11中的内容放入r0所指的内存地址）， 
+                                      // 再r0 = r0 - 4，
+                                      // 再压r10，r0 = r10......r0 = r0 - 4，
+                                      // 最后压r4，r0 = r4。
+                                      // 则r0中就保存最新的栈顶指针值
+    LDR     R1, =currentTask          // 保存好后，将最后的堆栈顶位置，保存到currentTask-&gt;stack处
+    LDR     R1, [R1]                  // 由于stack处在结构体stack处的开始位置处，显然currentTask和stack在内存中的起始
+    STR     R0, [R1]                  // 地址是一样的，这么做不会有任何问题
+
+PendSVHandler_nosave                  // 无论是tTaskSwitch和tTaskSwitch触发的，最后都要从下一个要运行的任务的堆栈中恢复
+                                      // CPU寄存器，然后切换至该任务中运行
+    LDR     R0, =currentTask          // 好了，准备切换了
+    LDR     R1, =nextTask
+    LDR     R2, [R1]
+    STR     R2, [R0]                  // 先将currentTask设置为nextTask，也就是下一任务变成了当前任务
+
+    LDR     R0, [R2]                  // 然后，从currentTask中加载stack，这样好知道从哪个位置取出CPU寄存器恢复运行
+    LDMIA   R0!, {R4-R11}             // 恢复{R4, R11}。为什么只恢复了这么点，因为其余在退出PendSV时，硬件自动恢复
+
+    MSR     PSP, R0                   // 存储通用寄存器的值到特殊功能寄存器，最后，恢复真正的堆栈指针到PSP
+    ORR     LR, LR, #0x04             // 标记下返回标记，指明在退出LR时，切换到PSP堆栈中(PendSV使用的是MSP)
+    BX      LR                        // 最后返回，此时任务就会从堆栈中取出LR值，恢复到上次运行的位置
+}
+
+/**********************************************************************************************************
+** Function name        :   tTaskRunFirst
+** Descriptions         :   在启动tinyOS时，调用该函数，将切换至第一个任务运行
+** parameters           :   无
+** Returned value       :   无
+***********************************************************************************************************/
+void tTaskRunFirst()
+{
+    // 这里设置了一个标记，PSP = 0, 用于与tTaskSwitch()区分，用于在PEND_SV
+    // 中判断当前切换是tinyOS启动时切换至第1个任务，还是多任务已经跑起来后执行的切换
+    __set_PSP(0);
+
+    MEM8(NVIC_SYSPRI2) = NVIC_PENDSV_PRI;   // 向NVIC_SYSPRI2写NVIC_PENDSV_PRI，设置其为最低优先级
+
+    MEM32(NVIC_INT_CTRL) = NVIC_PENDSVSET;    // 向NVIC_INT_CTRL写NVIC_PENDSVSET，用于PendSV
+
+    // 可以看到，这个函数是没有返回
+    // 这是因为，一旦触发PendSV后，将会在PendSV后立即进行任务切换，切换至第1个任务运行
+    // 此后，tinyOS将负责管理所有任务的运行，永远不会返回到该函数运行
+}
+
+/**********************************************************************************************************
+** Function name        :   tTaskSwitch
+** Descriptions         :   进行一次任务切换，tinyOS会预先配置好currentTask和nextTask, 然后调用该函数，切换至
+**                          nextTask运行
+** parameters           :   无
+** Returned value       :   无
+***********************************************************************************************************/
+void tTaskSwitch()
+{
+    // 和tTaskRunFirst, 这个函数会在某个任务中调用，然后触发PendSV切换至其它任务
+    // 之后的某个时候，将会再次切换到该任务运行，此时，开始运行该行代码, 返回到
+    // tTaskSwitch调用处继续往下运行
+    MEM32(NVIC_INT_CTRL) = NVIC_PENDSVSET;  // 向NVIC_INT_CTRL写NVIC_PENDSVSET，用于PendSV
+}
 </code></pre>
 <p>在这里有了这部分切换代码，就可以实现在两个任务的切换了，先上代码，再来讲解，主要看注释。</p>
 <h4 id="tinyosh">&quot;tinyOS.h&quot;</h4>
@@ -895,8 +954,8 @@ int main()
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/rtos_from_zero_to_one/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/rtos_from_zero_to_one/&sharesource=qzone&title=从0到1写RTOS&pics=https://leichen2552.github.io//images/avatar.png?v=1611649107578&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/rtos_from_zero_to_one/&sharesource=weibo&title=从0到1写RTOS + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1611649107578 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/rtos_from_zero_to_one/&sharesource=qzone&title=从0到1写RTOS&pics=https://leichen2552.github.io//images/avatar.png?v=1613209698451&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/rtos_from_zero_to_one/&sharesource=weibo&title=从0到1写RTOS + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1613209698451 "><i class="fa fa-weibo "></i></a>
                                                         
                                                             <div class="reward ">
                                                                 <div class="reward-button ">&yen;
@@ -1013,7 +1072,7 @@ int main()
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1611649107578);
+                    newDate.setTime(1613209698451);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
