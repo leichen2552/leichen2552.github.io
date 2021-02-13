@@ -91,7 +91,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1613210792811" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1613214050406" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -110,7 +110,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1613210792811" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1613214050406" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -230,9 +230,9 @@
                                 Date: <a href="#">2020-01-05</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">39.3
+                                    href="#">41.0
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">10837</a></span>
+                                    <span class="post-words">words:<a href="#">11296</a></span>
                                     
                                         <span class="post-category">
                                 Category:
@@ -792,23 +792,80 @@ int main()
     return 0;	
 }
 </code></pre>
-<p>这里的代码不知道怎么解释能让大家懂，先停在这里！</p>
-<p>之前上面提到任务切换由PendSV异常来触发，但是PendSV由谁来触发？</p>
+<p>这里主函数的代码很简单，就是在任务tTask1执行完毕之后，去主动触发任务调度tTaskSched()，在tTaskSched()里面触发tTaskSwitch()从而来从当前任务跳转到另一个任务，taskTable[2]被称之为就绪表，这个小实验就是在两个任务中来回切换。</p>
+<p>之前上面提到任务切换由在任务中主动调用tTaskSched()来触发PendSV异常，但是tTaskSched()总是在任务中被调用，并不是很理想，而且目前任务中还有软件延时，对于实时操作系统来说，简直就是灾难。</p>
 <h3 id="任务切换机制">任务切换机制</h3>
 <p>这里有两种触发方式，事件触发和时间触发。这里举个例子，一个医院有十个病人，每个病人配有一个护工，还有一个主治医生，如果病人出现小问题，如果护工能解决就不需要去叫主治医生来解决，如果护工不能解决就需要去求助主治医生。事件触发就是护工不能解决来求助主治医生，时间触发就是主治医生每隔一个小时就是查看每个病人。试想一下，如果同时三个护工同时来找主治医生，主治医生必然一个接着一个，但是这三个病人必须立马手术，不进行手术就会死亡，所以这时主治医生就分身乏术。所以事件触发相比时间触发来说，没有时间触发高效。那么PendSV异常的触发就用Cortex-M3内核自带的SysTick定时器，我们选择10ms触发一次。</p>
 <p>SysTick的配置：</p>
-<pre><code class="language-c">void tSetSysTickPeriod(uint32_t ms) //配置定时间隔
+<pre><code class="language-c">/*********************************************************************************************************
+** 系统时钟节拍定时器System Tick配置
+** 在我们目前的环境（模拟器）中，系统时钟节拍为12MHz
+** 请务必按照本教程推荐配置，否则systemTick的值就会有变化，需要查看数据手册才了解
+**********************************************************************************************************/
+void tSetSysTickPeriod(uint32_t ms)
 {
-	SysTick-&gt;LOAD  = ms * SystemCoreClock / 1000 - 1; 
-	NVIC_SetPriority (SysTick_IRQn, (1&lt;&lt;__NVIC_PRIO_BITS) - 1);
-	SysTick-&gt;VAL   = 0;                           
-	SysTick-&gt;CTRL  = SysTick_CTRL_CLKSOURCE_Msk |
-			 SysTick_CTRL_TICKINT_Msk   |
-                         SysTick_CTRL_ENABLE_Msk; 
+  SysTick-&gt;LOAD  = ms * SystemCoreClock / 1000 - 1; 
+  NVIC_SetPriority (SysTick_IRQn, (1&lt;&lt;__NVIC_PRIO_BITS) - 1);
+  SysTick-&gt;VAL   = 0;                           
+  SysTick-&gt;CTRL  = SysTick_CTRL_CLKSOURCE_Msk |
+                   SysTick_CTRL_TICKINT_Msk   |
+                   SysTick_CTRL_ENABLE_Msk; 
+}
+
+/**********************************************************************************************************
+** Function name        :   SysTick_Handler
+** Descriptions         :   SystemTick的中断处理函数。
+** parameters           :   无
+** Returned value       :   无
+***********************************************************************************************************/
+void SysTick_Handler () 
+{
+    // 什么都没做，除了进行任务切换
+    // 由于tTaskSched自动选择另一个任务切换过去，所以其效果就是
+    // 两个任务交替运行，与上一次例子不同的是，这是由系统时钟节拍推动的
+    // 如果说，上一个例子里需要每个任务主动去调用tTaskSched切换，那么这里就是不管任务愿不愿意，CPU
+    // 的运行权都会被交给另一个任务。这样对每个任务就很公平了，不存在某个任务拒不调用tTaskSched而一直占用CPU的情况
+    tTaskSched();
 }
 </code></pre>
 <h2 id="实现两个任务的切换">实现两个任务的切换</h2>
-<p>有了任务的切换机制，再有两个任务，task1、task2两个任务，依靠SyTick触发PendSV异常来切换任务，此时这个任务中的延时依然采用软件延时函数（如图4）。但是软件延时依然会有很高的风险，比如这个任务延时1秒，难道其他任务也得等着吗？<br>
+<p>有了任务的切换机制，再有两个任务，task1、task2两个任务，依靠SyTick触发PendSV异常来切换任务，那任务代码就可以简化：</p>
+<pre><code class="language-c">/**********************************************************************************************************
+** 应用示例
+** 有两个任务，分别执行task1Entry和task2Entry。功能是分别对相应的变量进行周期性置0置1.
+** 每个任务都可以占用一段时间的CPU，一旦用完了，就会被强制暂停，切换到另一个任务中去。
+**********************************************************************************************************/
+void delay (int count) 
+{
+    while (--count &gt; 0);
+}
+
+int task1Flag;
+void task1Entry (void * param) 
+{
+    tSetSysTickPeriod(10);
+    for (;;) 
+    {
+        task1Flag = 1;
+        delay(100);
+        task1Flag = 0;
+        delay(100);
+    }
+}
+
+int task2Flag;
+void task2Entry (void * param) 
+{
+    for (;;) 
+    {
+        task2Flag = 1;
+        delay(100);
+        task2Flag = 0;
+        delay(100);
+    }
+}
+</code></pre>
+<p>此时这个任务中的延时依然采用软件延时函数（如图4）。但是软件延时依然会有很高的风险，比如这个任务延时1秒，难道其他任务也得等着吗？<br>
 <img src="https://leichen2552.github.io//post-images/1590394999522.png" alt="" loading="lazy"></p>
 <h2 id="双任务延时原理与空闲任务">双任务延时原理与空闲任务</h2>
 <p>因为SysTick定时的时间是10ms，所以采用这个延时，比如延时几个10ms。在任务初始化的时候添加一个变量delayTicks，当任务遇到延时函数的时候，就把延时的时间变量传给这个delayTicks，然后就进行任务调度。在SysTick的定时中断里面对这两个任务的delayTicks自减，再进行任务调度（如图6）。如果这两个任务都进行延时，这时候需要一个空闲任务，这个空闲任务来执行一些堆栈测量或者是cpu使用量测量，这些具体下面再分析。<br>
@@ -954,8 +1011,8 @@ int main()
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/rtos_from_zero_to_one/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/rtos_from_zero_to_one/&sharesource=qzone&title=从0到1写RTOS&pics=https://leichen2552.github.io//images/avatar.png?v=1613210792811&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/rtos_from_zero_to_one/&sharesource=weibo&title=从0到1写RTOS + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1613210792811 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/rtos_from_zero_to_one/&sharesource=qzone&title=从0到1写RTOS&pics=https://leichen2552.github.io//images/avatar.png?v=1613214050406&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/rtos_from_zero_to_one/&sharesource=weibo&title=从0到1写RTOS + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1613214050406 "><i class="fa fa-weibo "></i></a>
                                                         
                                                             <div class="reward ">
                                                                 <div class="reward-button ">&yen;
@@ -1072,7 +1129,7 @@ int main()
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1613210792811);
+                    newDate.setTime(1613214050406);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
