@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2021-03-16T07:49:05.867Z</updated>
+    <updated>2021-03-16T07:58:48.014Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,15 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[测试：123]]></title>
+        <id>https://leichen2552.github.io/post/ce-shi-123/</id>
+        <link href="https://leichen2552.github.io/post/ce-shi-123/">
+        </link>
+        <updated>2021-03-16T07:52:48.000Z</updated>
+        <content type="html"><![CDATA[<p>123</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[转载科普文章：你需要减肥吗？]]></title>
         <id>https://leichen2552.github.io/post/zhuan-zai-ke-pu-wen-zhang-ni-xu-yao-jian-fei-ma/</id>
@@ -1319,60 +1328,6 @@ T：QFP封装<br>
 <h3 id="透传与非透传的区别">透传与非透传的区别：</h3>
 <p>开启透传模式，可以连续的发送数据，而非透传模式下，每次发送数据前都需要发送相关的发送数据的AT指令。</p>
 <p>透传时必须选择单路模式。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[STM32的BSRR与BRR寄存器的区别]]></title>
-        <id>https://leichen2552.github.io/post/stm32-de-bsrr-yu-brr-ji-cun-qi-de-qu-bie/</id>
-        <link href="https://leichen2552.github.io/post/stm32-de-bsrr-yu-brr-ji-cun-qi-de-qu-bie/">
-        </link>
-        <updated>2020-07-01T00:56:13.000Z</updated>
-        <content type="html"><![CDATA[<p>使用BRR和BSRR寄存器可以方便地快速地实现对端口某些特定位的操作，而不影响其它位的状态。</p>
-<p>比如希望快速地对GPIOE的位7进行翻转，则可以：</p>
-<pre><code class="language-c">    GPIOE-&gt;BSRR = 0x80; // 置'1'
-    GPIOE-&gt;BRR = 0x80; // 置'0'
-</code></pre>
-<p>如果使用常规'读-改-写'的方法：</p>
-<pre><code class="language-c">    GPIOE-&gt;ODR = GPIOE-&gt;ODR | 0x80; // 置'1'
-    GPIOE-&gt;ODR = GPIOE-&gt;ODR &amp; 0xFF7F; // 置'0'
-</code></pre>
-<p>有人问是否BSRR的高16位是多余的，请看下面这个例子：</p>
-<p>假如你想在一个操作中对GPIOE的位7置'1'，位6置'0'，则使用BSRR非常方便：</p>
-<pre><code>    GPIOE-&gt;BSRR = 0x00400080;
-</code></pre>
-<p>如果没有BSRR的高16位，则要分2次操作，结果造成位7和位6的变化<strong>不同步</strong>！</p>
-<pre><code class="language-c">    GPIOE-&gt;BSRR = 0x80;
-    GPIOE-&gt;BRR   = 0x40;
-</code></pre>
-<h2 id="规则">规则</h2>
-<ol>
-<li>置GPIOD-&gt;BSRR低16位的某位为'1'，则对应的I/O端口置'1'；而置GPIOD-&gt;BSRR低16位</li>
-</ol>
-<p>的某位为'0'，则对应的I/O端口不变。</p>
-<ol start="2">
-<li>置GPIOD-&gt;BSRR高16位的某位为'1'，则对应的I/O端口置'0'；而置GPIOD-&gt;BSRR高16位</li>
-</ol>
-<p>的某位为'0'，则对应的I/O端口不变。</p>
-<ol start="3">
-<li>置GPIOD-&gt;BRR低16位的某位为'1'，则对应的I/O端口置'0'；而置GPIOD-&gt;BRR低16位的</li>
-</ol>
-<p>某位为'0'，则对应的I/O端口不变。</p>
-<p>例如：</p>
-<ol>
-<li>要设置D0、D5、D10、D11为高，而保持其它I/O口不变，只需一行语句：</li>
-</ol>
-<pre><code class="language-c">    GPIOD-&gt;BSRR = 0x0C21；// 使用规则一
-</code></pre>
-<ol start="2">
-<li>要设置D1、D3、D14、D15为低，而保持其它I/O口不变，只需一行语句：</li>
-</ol>
-<pre><code class="language-c">    GPIOD-&gt;BRR = 0xC00A；// 使用规则三
-</code></pre>
-<ol start="3">
-<li>要同时设置D0、D5、D10、D11为高，设置D1、D3、D14、D15为低，而保持其它I/O口不变，也只需一行语句：</li>
-</ol>
-<pre><code class="language-c">  GPIOD-&gt;BSRR = 0xC00A0C21；// 使用规则一和规则二
-</code></pre>
 ]]></content>
     </entry>
 </feed>
