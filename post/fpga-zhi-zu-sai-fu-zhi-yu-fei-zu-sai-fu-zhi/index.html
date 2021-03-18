@@ -14,7 +14,7 @@
 <meta name="description" content="正经人谁写博客啊">
 <meta name="keywords" content="FPGA,Linux,RTOS,机械设计，流体仿真">
 <script async src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
-<link rel="stylesheet" href="https://leichen2552.github.io//styles/main.css" />
+<link rel="stylesheet" href="https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com/styles/main.css" />
 <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js"></script>
 
@@ -57,7 +57,7 @@
     <nav class="navbar">
         <div class="container">
             <div class="navbar-header header-logo">
-                <a href="https://leichen2552.github.io/">
+                <a href="https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com">
                     ChenLei&#39;s Blog
                 </a>
             </div>
@@ -91,7 +91,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1616051706364" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1616052201245" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -102,7 +102,7 @@
             <div class="container">
                 <div class="navbar-header">
                     <div>
-                        <a href="https://leichen2552.github.io/">
+                        <a href="https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com">
                             ChenLei&#39;s Blog
                         </a>
                         <!--en-->
@@ -110,7 +110,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1616051706364" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1616052201245" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -237,7 +237,7 @@
                                         <span class="post-category">
                                 Category:
                                 
-                                <a href="https://leichen2552.github.io/tag/_TqkTUQ4v/">FPGA</a>
+                                <a href="https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com/tag/_TqkTUQ4v/">FPGA</a>
                                 
                             </span>
                                         
@@ -248,7 +248,7 @@
                                 
                         </header>
                         
-                            <img class="post-feature-image" src="https://leichen2552.github.io//post-images/fpga-zhi-zu-sai-fu-zhi-yu-fei-zu-sai-fu-zhi.jpg" alt="">
+                            <img class="post-feature-image" src="https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com/post-images/fpga-zhi-zu-sai-fu-zhi-yu-fei-zu-sai-fu-zhi.jpg" alt="">
                           
                         <div class="post-content">
                             <p><ul class="markdownIt-TOC">
@@ -269,8 +269,8 @@
 </p>
 <h1 id="阻塞赋值">阻塞赋值</h1>
 <h2 id="d-ab在前out-dc在后">（d = a+b）在前，（out = d+c）在后</h2>
-<p><img src="https://leichen2552.github.io//post-images/1584087038775.png" alt="" loading="lazy"><br>
-<img src="https://leichen2552.github.io//post-images/1584103818545.png" alt="" loading="lazy"></p>
+<p><img src="https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com/post-images/1584087038775.png" alt="" loading="lazy"><br>
+<img src="https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com/post-images/1584103818545.png" alt="" loading="lazy"></p>
 <pre><code class="language-c">module block_nonblock(Clk, Rst_n, a,b,c, out);
 
 	input Clk;
@@ -295,8 +295,8 @@
 endmodule 
 </code></pre>
 <h2 id="out-dc在前d-ab在后">（out = d+c）在前，（d = a+b）在后</h2>
-<p><img src="https://leichen2552.github.io//post-images/1584087052664.png" alt="" loading="lazy"><br>
-<img src="https://leichen2552.github.io//post-images/1584104806285.png" alt="" loading="lazy"></p>
+<p><img src="https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com/post-images/1584087052664.png" alt="" loading="lazy"><br>
+<img src="https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com/post-images/1584104806285.png" alt="" loading="lazy"></p>
 <pre><code class="language-c">module block_nonblock(Clk, Rst_n, a,b,c, out);
 
 	input Clk;
@@ -322,8 +322,8 @@ endmodule
 </code></pre>
 <h1 id="非阻塞赋值">非阻塞赋值</h1>
 <h2 id="d-ab在前out-dc在后-2">（d &lt;= a+b）在前，（out &lt;= d+c）在后</h2>
-<p><img src="https://leichen2552.github.io//post-images/1584087437779.png" alt="" loading="lazy"><br>
-<img src="https://leichen2552.github.io//post-images/1584104694854.png" alt="" loading="lazy"></p>
+<p><img src="https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com/post-images/1584087437779.png" alt="" loading="lazy"><br>
+<img src="https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com/post-images/1584104694854.png" alt="" loading="lazy"></p>
 <pre><code class="language-c">module block_nonblock(Clk, Rst_n, a,b,c, out);
 
 	input Clk;
@@ -373,8 +373,8 @@ module block_nonblock(Clk, Rst_n, a,b,c, out);
 endmodule 
 </code></pre>
 <h2 id="out-dc在前d-ab在后-2">（out &lt;= d+c）在前，（d &lt;= a+b）在后</h2>
-<p><img src="https://leichen2552.github.io//post-images/1584087293324.png" alt="" loading="lazy"><br>
-<img src="https://leichen2552.github.io//post-images/1584104624629.png" alt="" loading="lazy"></p>
+<p><img src="https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com/post-images/1584087293324.png" alt="" loading="lazy"><br>
+<img src="https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com/post-images/1584104624629.png" alt="" loading="lazy"></p>
 <pre><code class="language-c">module block_nonblock(Clk, Rst_n, a,b,c, out);
 
 	input Clk;
@@ -433,7 +433,7 @@ endmodule
 
                                             <p class="copyright-item">
                                                 <span>Permalink:</span>
-                                                <span><a href="https://leichen2552.github.io/post/fpga-zhi-zu-sai-fu-zhi-yu-fei-zu-sai-fu-zhi/">https://leichen2552.github.io/post/fpga-zhi-zu-sai-fu-zhi-yu-fei-zu-sai-fu-zhi/</a></span>
+                                                <span><a href="https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com/post/fpga-zhi-zu-sai-fu-zhi-yu-fei-zu-sai-fu-zhi/">https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com/post/fpga-zhi-zu-sai-fu-zhi-yu-fei-zu-sai-fu-zhi/</a></span>
                                             </p>
 
                                             <p class="copyright-item">
@@ -448,9 +448,9 @@ endmodule
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/fpga-zhi-zu-sai-fu-zhi-yu-fei-zu-sai-fu-zhi/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/fpga-zhi-zu-sai-fu-zhi-yu-fei-zu-sai-fu-zhi/&sharesource=qzone&title=FPGA之阻塞赋值与非阻塞赋值&pics=https://leichen2552.github.io//images/avatar.png?v=1616051706364&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/fpga-zhi-zu-sai-fu-zhi-yu-fei-zu-sai-fu-zhi/&sharesource=weibo&title=FPGA之阻塞赋值与非阻塞赋值 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1616051706364 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com/post/fpga-zhi-zu-sai-fu-zhi-yu-fei-zu-sai-fu-zhi/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com/post/fpga-zhi-zu-sai-fu-zhi-yu-fei-zu-sai-fu-zhi/&sharesource=qzone&title=FPGA之阻塞赋值与非阻塞赋值&pics=https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com/images/avatar.png?v=1616052201245&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com/post/fpga-zhi-zu-sai-fu-zhi-yu-fei-zu-sai-fu-zhi/&sharesource=weibo&title=FPGA之阻塞赋值与非阻塞赋值 + " - " + &pic="https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com/images/avatar.png?v=1616052201245 "><i class="fa fa-weibo "></i></a>
                                                         
                                                             <div class="reward ">
                                                                 <div class="reward-button ">&yen;
@@ -468,7 +468,7 @@ endmodule
                                                                         <span class="tag ">
                         
                         
-                        <a href="https://leichen2552.github.io/tag/_TqkTUQ4v/">#
+                        <a href="https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com/tag/_TqkTUQ4v/">#
                                                 FPGA
                                                     </a>
                                                     
@@ -485,12 +485,12 @@ endmodule
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
-                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/fpga-zhuang-tai-ji-she-ji-shi-li/">
+                                                                                        <a class="prev" rel="prev" href="https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com/post/fpga-zhuang-tai-ji-she-ji-shi-li/">
                                                                                             FPGA状态机设计实例
                                                                                         </a>
                                                                                         
                                                                                             
-                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/fpga-zhi-bcd-ma-ji-shu-qi/">
+                                                                                                <a class="next" rel="next" href="https://coding-pages-bucket-3537133-8470725-14491-535694-1305263430.cos-website.ap-hongkong.myqcloud.com/post/fpga-zhi-bcd-ma-ji-shu-qi/">
                                                                                                     FPGA之BCD码计数器
                                                                                                 </a>
                                                                                                 
@@ -567,7 +567,7 @@ endmodule
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1616051706364);
+                    newDate.setTime(1616052201245);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
