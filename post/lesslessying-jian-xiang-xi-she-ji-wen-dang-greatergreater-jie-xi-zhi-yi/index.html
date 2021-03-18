@@ -217,7 +217,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                运算电路
+                                《硬件详细设计文档》解析之一
                             </h1>
                             
                                 <!--en-->
@@ -227,12 +227,12 @@
                                         ChenLei's Blog
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2020-03-27</a>
+                                Date: <a href="#">2021-03-18</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">0.5
+                                    href="#">3.1
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">133</a></span>
+                                    <span class="post-words">words:<a href="#">906</a></span>
                                     
                                             Views:
                                             <span data-hk-page="current"> - </span>
@@ -242,38 +242,51 @@
                         </header>
                         
                         <div class="post-content">
-                            <h1 id="运算类型">运算类型</h1>
-<p><font color = red>Summation(加法求和)，Subtraction(减法)</font><br>
-<font color = red>Intgration(积分)</font>，differentation(微分)<br>
-<font color = red>Logarithmic(对数)</font>，exponential(指数)<br>
-<font color = red>Multiplier(模拟乘法器)</font>：<br>
-Multiplication(乘)，division(除)<br>
-square(平方)，square root(开方)</p>
-<h2 id="加法电路">加法电路</h2>
+                            <p><ul class="markdownIt-TOC">
+<li>
 <ul>
-<li>两个输入端的电阻必须要满足比例系数<br>
-<img src="https://leichen2552.github.io//post-images/1585384073839.png" alt="" loading="lazy"></li>
-</ul>
-<h2 id="加法电路应用">加法电路应用</h2>
-<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io//post-images/1585384231515.png" alt="" loading="lazy"></figure>
-<h2 id="减法电路">减法电路</h2>
-<figure data-type="image" tabindex="2"><img src="https://leichen2552.github.io//post-images/1585385146193.png" alt="" loading="lazy"></figure>
+<li>
 <ul>
-<li>为了提升输入电阻，可以用放大倍数为1的电压跟随器组合起来，这个输入电阻就位无穷大<br>
-<img src="https://leichen2552.github.io//post-images/1585387822424.png" alt="" loading="lazy"></li>
-<li>但是这要同时调整两个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>R</mi><mi>f</mi></msub></mrow><annotation encoding="application/x-tex">R_f</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10764em;">f</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>，所以加入了如下三个电阻<br>
-<img src="https://leichen2552.github.io//post-images/1585387381466.png" alt="" loading="lazy"></li>
+<li><a href="#%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83">运行环境</a></li>
+<li><a href="#%E5%8D%95%E6%9D%BF%E5%8A%9F%E8%80%97">单板功耗</a></li>
 </ul>
+</li>
+</ul>
+</li>
+</ul>
+<br>
+硬件详设是硬件开发过程中最重要的、最正式的文档。<br>
+在单板硬件进入到详细设计阶段，应提交单板硬件详细设计报告。在单板硬件详细设计中应着重体现：</p>
+<ul>
+<li>单板逻辑框图及各功能模块详细说明，各功能模块实现方式、地址分配、控制方式、接口方式、存贮器空间、中断方式、接口管脚信号详细定义、时序说明、性能指标、 指示灯说明、外接线定义、可编程器件图、功能模块说明、原理图、详细物料清单以及单板 测试、调试计划。</li>
+<li>有时候一块单板的硬件和软件分别由两个开发人员开发，因此这时候单板 硬件详细设计便为软件设计者提供了一个详细的指导，因此单板硬件详细设计报告至关重要。尤其是地址分配、控制方式、接口方式、中断方式是编制单板软件的基础，一定要详细写出。</li>
+</ul>
+<h3 id="运行环境">运行环境</h3>
+<ul>
+<li>第一就是考虑硬件的运行环境：单板长期工作环境温度为0°C～45°C，湿度为10%～90%；短期工作环境温度为–5°C～55°C，湿度为5%～95%；存储环境温度为–40°C～70°C，湿度为10%～100%；运输环境温度为–40°C～70°C。需注意的是短期工作条件是指华为SDH设备连续工作不超过96小时和全年累计工作不超过15天。<br>
+我们在做热仿真的时候，需要考虑两个时间长度的不同的环境温度对单板的热冲击。这个55度的环境温度对器件选型还是有很大影响的，特别是内存，X86的处理器，都面临挑战。<br>
+由于低温需要考虑-5℃，对于一些商业级器件选型时，需要考虑其低于0℃时的一些场景。</li>
+<li>如果开发军品、航空、航海，对于更多苛刻的应用场景的要求，不但需要考虑不同的应用场景，行业标准，还需要实际环境情况的地理特征。比如刚刚说的IPC，如果安装在俄罗斯、非洲等严寒或者酷暑的场景，则需要根据实际情况和当地特点，进一步修改参数指标。</li>
+<li>我们需要罗列单板的一些重要指标。一方面检查关键指标是否满足应用场景要求，另外展示单板的一些特点，利于后续开发维护者掌握关键信息。</li>
+</ul>
+<h3 id="单板功耗">单板功耗</h3>
+<p>如前文所述，我们会明确电路板的应用场景和环境的要求。当我们的场景确定之后，有些功耗则变成了一些硬件设计的硬性要求。<br>
+对于盒式设备来说，盒子的大小以及产品系列选择适配器或者内置电源的规格，是我们总功耗的一个硬性要求。<br>
+对于框式设备来说，每个单板槽位的功率上限也是有要求的。一方面供电要满足要求，并满足余量；另一方面散热要满足要求并满足余量。<br>
+对于特殊供电设备，例如USB供电、PoE供电等设备功耗由协议确定了的，功耗上限也是电路板关键指标。关于功耗，有些情况下，板子不组装出来调试，功耗不能确定，就考虑额定功率。</p>
 
                         </div>
                         
                             <div class="post-toc">
                                 <ul class="markdownIt-TOC">
-<li><a href="#%E8%BF%90%E7%AE%97%E7%B1%BB%E5%9E%8B">运算类型</a>
+<li>
 <ul>
-<li><a href="#%E5%8A%A0%E6%B3%95%E7%94%B5%E8%B7%AF">加法电路</a></li>
-<li><a href="#%E5%8A%A0%E6%B3%95%E7%94%B5%E8%B7%AF%E5%BA%94%E7%94%A8">加法电路应用</a></li>
-<li><a href="#%E5%87%8F%E6%B3%95%E7%94%B5%E8%B7%AF">减法电路</a></li>
+<li>
+<ul>
+<li><a href="#%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83">运行环境</a></li>
+<li><a href="#%E5%8D%95%E6%9D%BF%E5%8A%9F%E8%80%97">单板功耗</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -291,7 +304,7 @@ square(平方)，square root(开方)</p>
 
                                             <p class="copyright-item">
                                                 <span>Permalink:</span>
-                                                <span><a href="https://leichen2552.github.io/post/yun-suan-dian-lu/">https://leichen2552.github.io/post/yun-suan-dian-lu/</a></span>
+                                                <span><a href="https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-yi/">https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-yi/</a></span>
                                             </p>
 
                                             <p class="copyright-item">
@@ -306,9 +319,9 @@ square(平方)，square root(开方)</p>
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/yun-suan-dian-lu/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/yun-suan-dian-lu/&sharesource=qzone&title=运算电路&pics=https://leichen2552.github.io//images/avatar.png?v=1616068806895&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/yun-suan-dian-lu/&sharesource=weibo&title=运算电路 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1616068806895 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-yi/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-yi/&sharesource=qzone&title=《硬件详细设计文档》解析之一&pics=https://leichen2552.github.io//images/avatar.png?v=1616068806895&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-yi/&sharesource=weibo&title=《硬件详细设计文档》解析之一 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1616068806895 "><i class="fa fa-weibo "></i></a>
                                                         
                                                             <div class="reward ">
                                                                 <div class="reward-button ">&yen;
@@ -337,13 +350,9 @@ square(平方)，square root(开方)</p>
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
-                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/stm32-de-bsrr-yu-brr-ji-cun-qi-de-qu-bie/">
-                                                                                            STM32的BSRR与BRR寄存器的区别
-                                                                                        </a>
-                                                                                        
                                                                                             
-                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/xin-hao-fang-da-he-ge-chi-dian-lu/">
-                                                                                                    信号放大、隔离电路、滤波电路
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/zhuan-zai-ke-pu-wen-zhang-ni-xu-yao-jian-fei-ma/">
+                                                                                                    转载科普文章：你需要减肥吗？
                                                                                                 </a>
                                                                                                 
                                                                                 </section>
