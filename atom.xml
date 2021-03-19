@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2021-03-18T14:43:45.498Z</updated>
+    <updated>2021-03-19T01:32:19.512Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,31 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[让gitbash走全局代理]]></title>
+        <id>https://leichen2552.github.io/post/rang-gitbash-zou-quan-ju-dai-li/</id>
+        <link href="https://leichen2552.github.io/post/rang-gitbash-zou-quan-ju-dai-li/">
+        </link>
+        <updated>2021-03-19T00:30:13.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="gridea日常同步失败">Gridea日常同步失败</h2>
+<p>没错，Gridea同步总会出问题，那是因为Gridea在进行仓库连接的时候，因为某种特殊力量，总会连接不上。也就在“远程”那个选项里，“检测远程连接”总会出问题，楼主两天测试了上百次，也仅仅就成功了三次。</p>
+<h2 id="解决办法">解决办法</h2>
+<p>因为我是把Gridea的文件夹放在onedrive里面的，便于各个电脑之间同步文件。既然Gridea的同步功能会失败，那我就手动把代码上传到github上。</p>
+<ol>
+<li>在Gridea文件夹的output子文件夹里面，打开gitbash，用命令“git pull origin master”先拉一下远程仓库，果不其然，这是会失败的。</li>
+<li>然后我们打开神秘力量，再次使用命令“git pull origin master”发现还是不行，明明已经开启了神秘力量，怎么就是不行呢？这是因为gitbash并没有走神秘力量的全局代理。</li>
+<li>设置gitbash走全局代理，一般情况用全局的</li>
+</ol>
+<pre><code class="language-c">    git config --global http.proxy 127.0.0.1:1080 为全局的 git 项目都设置代理
+    git config --local http.proxy 127.0.0.1:1080  为某个 git 项目单独设置代理
+</code></pre>
+<ol start="4">
+<li>完美解决<img src="https://leichen2552.github.io//post-images/1616115028836.png" alt="" loading="lazy"></li>
+<li>再次打开gridea，写一篇文章之后，点击预览，其实就是Gridea把写好的文章中心编译放进output文件夹里。然后git push -u origin master，上传代码就OK！</li>
+<li>再也不需要看到Gridea日常同步失败了！妈妈再也不用担心我的学习！</li>
+</ol>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[《硬件详细设计文档》解析之一]]></title>
         <id>https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-yi/</id>
@@ -1331,34 +1356,6 @@ I：176脚<br>
 G：1024kb的闪存容量<br>
 T：QFP封装<br>
 6：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo><mn>40</mn></mrow><annotation encoding="application/x-tex">-40</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord">4</span><span class="mord">0</span></span></span></span> ~ <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>+</mo><mn>85</mn></mrow><annotation encoding="application/x-tex">+85</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">+</span><span class="mord">8</span><span class="mord">5</span></span></span></span>摄氏度</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[ESP8266]]></title>
-        <id>https://leichen2552.github.io/post/esp8266/</id>
-        <link href="https://leichen2552.github.io/post/esp8266/">
-        </link>
-        <updated>2020-07-09T00:49:43.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="esp8266的工作模式">ESP8266的工作模式</h1>
-<p>ESP8266共有三种工作模式，分别是Station模式，AP模式，AP+Station模式。ESP8266出厂默认是第三种模式。</p>
-<p>1、Station模式，Station就像一个接收器，可以接收其他接收器的的信号，而我们的手机、笔记本等就像是一个个的Station，可以接收路由器发出的信号。</p>
-<p>2、AP模式：AP是Wireless Access Point的简称，中文名称：无线接入点；AP模式也就是无线接入点模式。其主要作用是将各个无线网络客户端连接到一起，然后将无线网络接入以太网(这正是Access Point名称的本义)，我们家里的路由器就工作在这个模式下，说简单点，就像一个基站，将有线网络转换成无线网络发射出去，这样我们的手机、电脑等就可以连接扩展出来的无线网络上网了。</p>
-<p>3、AP+Station模式，模块支持一个AP接口，一个Station接口。即可接受AP的无线，自身也可发送无线。</p>
-<h2 id="透传">透传</h2>
-<h3 id="透传概念">透传概念：</h3>
-<p>透传即是透明传送，是指传送网络无论传输业务如何，只负责将需要传送的业务传送到目的节点，同时保证传输的质量即可，而不对传输的业务进行处理。在数据的传输过程中，这组数据不发生任何形式的改变，即不竭断，不分组，不编码，不加密，不混淆等等，仿佛传输过程是透明的一样，原封不动地到了最终接收者手里。</p>
-<h3 id="透传模式的要求">透传模式的要求：</h3>
-<ol>
-<li>
-<p>透传模式只能在单链接模式下开启；</p>
-</li>
-<li>
-<p>模块开启服务器模式时，必须开启多链接模式，所以只能作为单链接模式下的客户端。</p>
-</li>
-</ol>
-<h3 id="透传与非透传的区别">透传与非透传的区别：</h3>
-<p>开启透传模式，可以连续的发送数据，而非透传模式下，每次发送数据前都需要发送相关的发送数据的AT指令。</p>
-<p>透传时必须选择单路模式。</p>
 ]]></content>
     </entry>
 </feed>
