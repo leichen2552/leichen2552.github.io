@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2021-03-31T02:15:45.411Z</updated>
+    <updated>2021-04-01T13:51:08.053Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,131 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[PCB 工艺设计规范]]></title>
+        <id>https://leichen2552.github.io/post/pcb-gong-yi-she-ji-gui-fan/</id>
+        <link href="https://leichen2552.github.io/post/pcb-gong-yi-she-ji-gui-fan/">
+        </link>
+        <updated>2021-04-01T11:13:21.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="pcb-工艺设计规范">PCB 工艺设计规范</h1>
+<h2 id="1目的">1.目的</h2>
+<p>  规范产品PCB工艺设计，规定PCB工艺设计的相关参数，使得PCB的设计满足课生产性，可测试性、安规、EMC、EMI等的技术规范要求，在产品设计过程中构建产品的工艺、技术、质量、成本优势。</p>
+<h2 id="2使用范围">2.使用范围</h2>
+<p>  本规范适用于所有的电子产品的PCB工艺设计，运用于但不限于PCB的设计、PCB投板工艺审查、单板工艺审查等活动。<br>
+  本规范之前的相关标准、规范的内容如与本规范的指定相抵触的，一本规范为准。</p>
+<h2 id="3定义">3.定义</h2>
+<p>  导通孔(via)：一种用于内层连接的金属化孔，但其中并不用于插入元件或其他增强材料。<br>
+  盲孔(Blind via)：从印刷板内仅延展到一个表层的导通孔。<br>
+  埋孔(Buried via)：未延伸到印刷版表面的一种导通孔。<br>
+  过孔(Through via)：从印制板的一个表面延展到另一层表面的导通孔。<br>
+  元件孔(Component hole)：用于元件端子固定于印制板及导电图形电器联接的孔。<br>
+  Stand off：表面贴器件的本体底部到引脚底部的垂直距离。</p>
+<h2 id="4引用参考标准或资料">4.引用/参考标准或资料</h2>
+<p>  TS--S0902010001  《信息技术设备PCB安规设计规范》<br>
+  TS--SOE0199001  《电子设备的强迫风冷热设计规范》<br>
+  TS--SOE0199002  《电子设备的自然冷却热设计规范》<br>
+  IEC60194  《印刷版设计、制造与组装术语与定义》（Printed Circuit Board design manufacture assembly-terms and definituons）<br>
+  IPC--A--600F  《印刷版的验收条件》(Acceptably of printed board)<br>
+  IEC60950</p>
+<h2 id="5规范要求">5.规范要求</h2>
+<h3 id="51pcb板材要求">5.1PCB板材要求</h3>
+<h4 id="511确定pcb使用板材以及tg值">5.1.1确定PCB使用板材以及TG值</h4>
+<p>  确定PCB所选用的板材，例如FR--4、铝基板、陶瓷基板、纸芯板等，若选用高TG值得板材，应在文件中表明厚度公差。</p>
+<h4 id="512确定pcb的表面处理镀层">5.1.2确定PCB的表面处理镀层</h4>
+<p>  确定PCB铜箔的表面处理镀层，例如镀锡、镀镶金或OSP等，并在文件中注明</p>
+<h3 id="52热设计要求">5.2热设计要求</h3>
+<h4 id="521-高热器件应该考虑放于出风口或利于对流的位置">5.2.1 高热器件应该考虑放于出风口或利于对流的位置</h4>
+<p>  PCB在布局中考虑将高热器件放于出风口或利于对流的位置。</p>
+<h4 id="522-较高的元件应考虑放于出风口且不阻挡封路">5.2.2 较高的元件应考虑放于出风口，且不阻挡封路</h4>
+<h4 id="523-散热器的放置应考虑对流">5.2.3 散热器的放置应考虑对流</h4>
+<h4 id="524-温度敏感器械件应该要考虑热源">5.2.4 温度敏感器械件应该要考虑热源</h4>
+<p>  对于自身温升高与30摄氏度的热源。一般要求：<br>
+  a. 在风冷条件下，电解电容等温度敏感器件离热源距离要求大于或等于2.5mm；<br>
+  b. 自然冷条件下，电解电容等温度敏感器件离热源距离要求大于或等于4.0mm。<br>
+  若因为空间的原因不能达到要求距离，则应通过温度测试保证温度敏感器件的温升在降额范围内。</p>
+<h4 id="525-大面积铜箔要求用隔热带鱼焊盘相连">5.2.5 大面积铜箔要求用隔热带鱼焊盘相连</h4>
+<p>  为了保证透锡良好，在大面积铜箔上的元件的焊盘相连，对于需过5A以上的大电流不能采用隔热焊盘，如图所示：<img src="https://leichen2552.github.io//post-images/1617281562519.png" alt="" loading="lazy"></p>
+<h4 id="526-过回流焊的0805以及0805以下片式元件两端焊盘的散热对称性">5.2.6 过回流焊的0805以及0805以下片式元件两端焊盘的散热对称性</h4>
+<p>  为了避免器件过回流焊后出现偏位、立碑现象</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[《硬件详细设计文档》解析之五 可靠性指标]]></title>
+        <id>https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-wu-ke-kao-xing-zhi-biao/</id>
+        <link href="https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-wu-ke-kao-xing-zhi-biao/">
+        </link>
+        <updated>2021-04-01T11:11:58.000Z</updated>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io//post-images/1617275531233.jpg" alt="" loading="lazy"></figure>
+<h2 id="可靠性要求分类">可靠性要求分类</h2>
+<p>定性要求用一种非量化的形式来设计、评价和保证产品的可靠性。<br>
+定量要求规定产品的可靠性参数、指标和相应的验证方法。用定量方法进行设计分析，进行可靠性验证，从而保证产品的可靠性。<br>
+在详细设计的过程中，需要定量的计算可靠性指标，达成可靠性的定量要求。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[《硬件详细设计文档》解析之四 归一化审查]]></title>
+        <id>https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-si-gui-yi-hua-shen-cha/</id>
+        <link href="https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-si-gui-yi-hua-shen-cha/">
+        </link>
+        <updated>2021-04-01T10:53:38.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="归一化工作按照层次分类器件归一化电路板归一化硬件平台归一化网络结构归一化">归一化工作按照层次分类：器件归一化，电路板归一化，硬件平台归一化，网络结构归一化；</h2>
+<p>平台归一化是：一套硬件平台，通过不同的硬件模块的组合，承载不同的软件加载，可以支持不同的业务，既可以支持这个业务，也可以支持那个业务。例如我们以前开发的硬件平台，业务类型支持：彩信、彩铃、短信，呼叫中心、统一通信等场景。<br>
+硬件归一化其实是做出来的硬件模块，或者说硬件电路板，相同的功能模块可以支持多种功能场景，例如我们把语音编解码模块单独独立出来，作为各种编解码的处理，可以根据客户需求，处理不同的编解码的转换，同时系统也支持用户规格，选择电路模块的数量，支持不同客户规格的需求。</p>
+<h3 id="器件归一化">器件归一化</h3>
+<p>硬件工程师一般都能够理解，在一个板子上面的，尽可能的选择成本更低的器件，选择更少种类的器件，便于集中采购，同时也便于加工。但是其他公司可能没有对器件归一化的工作做得那么细致和严格。</p>
+<p>第一， 由于华为整个公司使用的器件种类非常的多，所以如果减小一个器件编码，带来的收益是十万人民币到几百万，而其他公司可能达不到这个高的收益。所以如果能减少一个编码，宁愿选择可能成本更高的器件。但是这个也需要按照每年的器件直接成本收益*器件发货数量，与编码成本+加工成本差异，进行对比的。不过器件归一化之后，器件的价格又可以跟供应商重新谈价格，这个收益是迭代的。所以，有时即使是成本占优，也会倾向选择器件归一化的结论。例如，逐步去除了5%精度的电阻，归一化到1%。</p>
+<p>第二， 器件归一化，都是需要进行专题分析的。因为也有工程师为了归一化，对电路原理没有充分分析，导致的归一化带来“问题引入”。所以，当时我的部门当时有一个表格，“器件归一化分析.xls”的excel表格，把每个器件，原来选型，归一化的选型，更改的原因，都做好记录和原因分析。一是让每个归一化的员工都充分考虑分析，二是问题都有记录，便于评审，三是出了问题，好打板子。</p>
+<h3 id="单板归一化">单板归一化</h3>
+<p>除了器件归一化，更高一个层次的归一化，就是单板归一化。（单板这个概念，我稍微澄清一下，我刚到华为的时候，也觉得这个词很奇怪。因为通信设备，都是机框，背板，加各个功能模块的电路板，各个功能模块的电路就叫做“单板”，硬件工程师，一般也叫做“单板硬件”）</p>
+<p>单板归一化带来的好处，首先是电路的种类少，电路的种类少的好处有两个：一是生产成本降低，二是硬件维护成本降低，三是软件开发和维护的成本降低。</p>
+<p>第一、单板归一化的先决条件首先是处理器归一化。其实，华为的有的产品这点做得其实不好，X86、MIPS、ARM、PPC全部都用个遍，所以一个硬件平台，需要配备各种软件人员，操作系统搞N套，VxWorks和Linux，BIOS各种配套。</p>
+<p>第二、单板的归一化，要注意产品的衍生。第一个版本的机框上的单板所实现的功能，如果后续的产品可以使用，应该直接可以用，不需要再开发。如果不注意这点，第一个版本的单板，到第二版本时，发现不能相互借用。反过来，再修改第一个版本的电路板，来适应新版本。有时问题更糟糕，就是完全不能兼容，只好重新开发。单板的规划显得非常重要。</p>
+<p>第三、单板归一化时，虽然电路部分兼容了，但是结构件不兼容。对于市场人员的配置来说，仍然是两种配置。一样是失败的。</p>
+<h3 id="平台归一化">平台归一化</h3>
+<p>那么如果发现不同的硬件平台的架构雷同，功能类似。那么机框也可以归一化。只需要制作不同的电路功能模块，就可以实现不同的功能需求。<br>
+但是不同的硬件形态都是有他存在的意义的，如果强行归一，市场未必会接受这种事情的发生。例如用一个运营商的平台去归一一个企业应用或者家庭应用的产品，可能就未必能够成功。</p>
+<h3 id="网络架构归一化">网络架构归一化</h3>
+<p>这个说法是我自己想的，早在08年的时候，华为就在讨论“云管端战略”了，当时不是很理解。当我们一个运营商平台部门，跟“服务器”的部门合并的时候，似乎理解了点什么。<br>
+当X86处理器足够强大的时候，所有的运算，不管是否性价比最高，都送到云端进行处理，那么所有中间的存储和计算都显得不重要了。那么整个网络的结构，就是终端+管道+云存储和云计算。<br>
+<img src="https://leichen2552.github.io//post-images/1617274634608.jpg" alt="" loading="lazy"><br>
+既然计算和存储设备都是一样的，那作为运算和存储的设备，也就不需要那么多样化了。这时网络存储设备，和服务器就显得尤为重要。<br>
+这也是华为成立IT产品线，做重点战略投资的重要原因。<br>
+所以现在也就不需要那么多网络节点和网络平台了，只需要超强的处理和存储能力和宽广的通道，多样的终端。</p>
+<h2 id="我们为什么需要归一化">我们为什么需要归一化？</h2>
+<h3 id="第一-减少不必要的人力投入">第一、 减少不必要的人力投入。</h3>
+<p>以前在研究所工作的时候，由于“技术不传染”，项目组之间没有什么技术沟通，相互之间的原理图、PCB、文档、案例、基本不共享，不交流，但是大家的一些模块，功能是一样的，但是设计结果各式各样，在设计阶段就重复劳动，当出了问题之后，其实大家面对相同的功能模块，在解决不同的问题。例如，音频的放大模块，频率其实基本上是0kHz~30kHz的有效信号，都是交流耦合，按照单电源、双电源；高电源电压，低电源电压；R-8，RM-8等不同的情况，有限的分类，我们进行一致性的设计；找到一些可以进行多厂家器件兼容，设计考虑几种容限的情况。做几种类型的设计。从设计上面来说，所有人都有参考标准。如果碰到新问题，现有的设计模块不能满足时，再引入新器件及新设计。例如平时大家的放大量都是100，按照增益带宽积，已有设计能够满足很多场景的带宽（同时单位时间的电压上升率也满足）；出现10000倍放大需求的时候再评估是否需要引入新模块设计。<br>
+但是实际的设计，都是放羊式设计，你喜欢ADI的，我喜欢TI的，他喜欢用MAX的，我喜欢用FET搭。所有每人手上一套放大电路，每个人的滤波电路都不一样，ADC选型和设计也是各式各样。如果有人出了问题，没有借鉴，也没有讨论，因为一开始就没有讨论。</p>
+<h3 id="第二-降低总体的采购成本">第二、 降低总体的采购成本。</h3>
+<p>举个例子，大家都知道，贴片电阻，如果按照一盘进行采购，大约25元左右，有5000片。按时你只买100颗相同的电阻，可能拿到的采购价格是5元。<br>
+我们可以简单对比单价：按整盘采购单价是0.5分，按照散装采购价格是5分；单价相差10倍；其实通过这样的简单对比，我们很容易理解，批发价比零售价便宜很多在器件采购这个方面，有非常明显的特性。<br>
+除了类似于电容、电阻、电感等分立器件，有这个特性；在半导体器件采购，这个特性更明显。为什么呢？因为大家知道，半导体的主要原料是二氧化硅，也就是这个世界上取之不尽用之不竭的物质“沙子”；在一个芯片被成功设计和量产之后，其原料成本是非常有限的，主要的成本都是早期投入，例如研发投入，生产线投入，而这两部分的投入支出都非常的庞大。<br>
+几乎所有的芯片都是阶梯价，也就是你采购量越大，得到的价格就越便宜。<br>
+曾经待在华为的硬件平台部门。其实在硬件平台部门，主要的目标就是把公司各个业务承载在相同的硬件上，用最少量的硬件研发人力承载最大的营收。减少重复的研发投入，并且降低总体的采购成本。但是其实我们阶段性的成果，造成的局面是一个硬件平台，处理有7、8种，X86多种、单核PPC、多核PPC、MIPS、ARM……从器件采购上面来说没有形成优势，从研发上面来说，每套开发的人员需要的技能都不一样，在开发和维护阶段的人力投入都非常巨大。在器件采购上面，每种器件的使用量都比较有限，在商务上没有特别的突破。<br>
+同时降低，管理成本、资金占用成本，库存成本。</p>
+<h3 id="第三-更高的产品质量">第三、 更高的产品质量。</h3>
+<p>如果产品设计形成合力，相同的器件、相同的模块、相同的电路，其的发货量比较巨大，暴露出来的问题往往也是概率性的，层次也比较深入。一些低级的问题，由于涉及的人员比较多，投入度也得到保证，所以在设计早期就已经解决的比较充分，并且当设计新电路的时候，可借鉴参考的内容也比较多，可讨论的同事也比较多。如果你选用一款器件，而这款器件被同事选用，已经产品化，并且海量发货。那么你选用这颗芯片的时候，不但这颗芯片被大批量验证过了，而且设计已经解决了已经发现的问题，同时由于你的选用，可能增加这颗芯片的发货量，也进一步增加商务谈判的砝码。</p>
+<h2 id="我们如何实施归一化">我们如何实施归一化？</h2>
+<p>平台归一化，这个设计场景比较少，架构师在考虑平台归一化的时候，往往是业务驱动。通过现有产品发现，哪些业务可以通过重新规划电路的功能集合，完成新的电路模块的划分，实现新的硬件平台可以涵盖更多的使用场景。例如经典的硬件平台ATCA。<br>
+ATCA（Advanced TelecomComputing Architecture）标准即先进的电信计算平台，它脱胎于在电信、航天、工业控制、医疗器械、智能交通、军事装备等领域应用广泛的新一代主流工业计算技术——CompactPCI标准。是为下一代融合通信及数据网络应用提供的一个高性价比的，基于模块化结构的、兼容的、并可扩展的硬件构架。<br>
+ATCA总线主要针对电信运营级应用，为下一代通信及数据网络应用提供了一个高性价比、模块化、兼容性强、并可扩展的硬件构架，同时以模块结构的形式呈现，以符合现代对高速数据传输的需求，为新一代电信运营设备提供了一个“可靠、可用、适用”的解决方案。<br>
+正是由于ATCA优越的“高性价比，模块化合理，兼容性强，可扩展性强”的特点，所以具备特别强的生命力。与ATCA的类似的还有其他种类的硬件平台，往往没有这么长的生命周期，或者没有这么大的市场占有率。<br>
+硬件单板归一化，强调的是在架构设计的时候，模块划分比较合理，模块的复用度高，模块间的耦合度低。ATCA这样的硬件平台归一化的时候，合理的拆分功能模块，才能实现其可扩展性和兼容性的特点。在硬件单板设计的时候，模块设计的时候，就需要考虑规格设计，涵盖场景等等因素。<br>
+器件归一化，是硬件工程师，经常需要面对的问题，此处做重点描述。</p>
+<h3 id="第一-处理器选型归一化">第一、 处理器选型归一化。</h3>
+<p>需要考虑软件归一化。如果选用相同的处理器，那么软件即使功能模块可能不一样，但是其大多数公用模块都可以借用，相同的处理器，操作系统可以保持一致，同时驱动等底层软件都可以借用。给软件开发的便利性带来了很大的优势。特别是多版本的大规模发货的产品，由于产品本身有很多的沉淀需要传承。当操作系统的变更，会导致很多功能可能需要重新开发。<br>
+例如，华为在变革操作系统的过程，部分业务从VxWorks切换到Linux的过程，非常痛苦，首先大量的业务软件是运行在Dopra(Dopra是在不同OS之上的一层封装，提供统一接口，提供编程框架。)当你选用新的Linux版本的时候，Dopra都需要跟随进行补丁，或者重新确立版本。另外，大量的生产测试，是基于VxWorks上进行开发的，如果需要移植到Linux，则需要花费大量的人力物力。一些运行Linux的电路板就运行双操作系统，在业务状态下，电路启动之后就先进入VxWorks，如果需要进入生产装备等状态，则相关按键进入。如果是正常业务，再次引导Linux进入Linux进行业务运行。<br>
+所以我们成熟平台上，进行处理器选型，尤其要注意电路的继承性。</p>
+<h3 id="第二-内存类型的选型归一化">第二、 内存类型的选型归一化</h3>
+<p>一个平台的生命周期需要考虑其所有器件的生命周期的健康性。而内存类的器件，往往生命周期并没有平台的生命周期长。所以在器件选型的时候，需要注意两个生命周期的配合。选型某款DSP的时候，其外围的存储器件只能选用SDRAM,但是同一平台的其他器件已经进入DDR2时代；但是由于X86更新换代比较快，很快配套内存选用DDR3。当平台发布没多久，几个大的存储器件厂家宣布SDARAM停产了。但是由于整个平台只有这么一个设计的位置选用了SDRAM，导致备货都无法开展。根据发货量预测到平台生命周期结束，对SDRAM进行备货。所以我们在选型的时候，哪怕有各种规格的DDR，但是也需要考虑归一化，这样哪怕备货的时候，也能形成批量采购获得价格优势，或者发货量大去影响其生命周期，或者扶持一些小的器件厂商进行替代。</p>
+<h3 id="第三-电阻-电容-电感等无源器件归一化">第三、 电阻、电容、电感等无源器件归一化</h3>
+<p>电阻，我们需要在电阻精度上面进行归一化，若干年前，当生产电阻时，其精度还不那么容易控制的时候，我们需要根据设计，选用精度相对不那么高的电阻以降低成本。但是目前来说1%精度的电阻，与5%精度电阻的价格差异不再那么大的时候。我们可以统一选用1%，不但增加了统一采购的数量，以此来获得批量采购的价格优势，同时由于减少了器件的种类，降低了生产的时间。在阻值方面也可以做一些归一化的工作，例如一些对阻值不是那么敏感的设计中，我们可以进行一些器件归一化的，例如一些远离有用信号的RC滤波，相对不需要那么准确的精度，我们27欧姆归一化到33欧姆，这种对滤波结果影响不大的场景，可以选择归一化。同时，有些电阻阻值在整板，只有一个器件（20k），我们可以选择两个电阻的阻值之和（两个10k）来实现，来实现归一化。<br>
+但是我们不能为了归一化而归一化，在减少器件种类或者减少器件数量的时候，一定需要考虑归一化之后对电路的影响。当年我们开发Corei7嵌入式版本开发，第一版的时候工作都正常的，调测完成之后，进入产品化阶段。但是回板之后，电路无法正常工作。原来是硬件人员没有进行评估，把处理器的外围晶振的对地电容18pF归一化到30pF，导致的晶振不起振。</p>
+<h3 id="第四-通用化ic归一化">第四、通用化IC归一化</h3>
+<p>电源、时钟、运放、分立器件等这些通用性很强的器件，可以考虑归一化。同时做好不同厂家最好是PIN2PIN的替代方案。<br>
+例如电源，我们选定了一种规格，例如12V输入，5V输出，电流10A，整个公司都可以选择同一种解决方案。不需要不同的工程师选择各种厂家的解决方案，电路设计、芯片选型都不一致，但是功能完全一致的电路方案。但是，我们需要关心，即使是不同厂家的相同型号，也有可能有一些微弱的差异。以下以706看门狗为例，虽然各个厂家型号、封装、管脚定义都一样。但是具体规格却是有比较大的差异。<br>
+<img src="https://leichen2552.github.io//post-images/1617274823388.jpg" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[《硬件详细设计文档》解析之三 单元详细描述]]></title>
         <id>https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-san/</id>
@@ -995,391 +1120,6 @@ int fputc(int ch, FILE *f)
 		return (ch);
 }
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[stm32f429移植FreeRTOS]]></title>
-        <id>https://leichen2552.github.io/post/stm32f429-yi-zhi-freertos/</id>
-        <link href="https://leichen2552.github.io/post/stm32f429-yi-zhi-freertos/">
-        </link>
-        <updated>2021-01-07T12:53:33.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E7%AC%AC%E4%B8%80%E6%AD%A5">第一步</a></li>
-<li><a href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5">第二步</a></li>
-<li><a href="#%E7%AC%AC%E4%B8%89%E6%AD%A5">第三步</a></li>
-<li><a href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5">第四步</a></li>
-<li><a href="#%E7%AC%AC%E4%BA%94%E6%AD%A5">第五步</a>
-<ul>
-<li><a href="#%E4%BF%AE%E6%94%B9freertosconfigh%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9">修改FreeRTOSConfig.h文件内容</a>
-<ul>
-<li><a href="#%E7%AC%AC%E4%B8%80%E5%A4%8488~91%E8%A1%8C%E6%94%B9%E6%88%90%E5%A6%82%E4%B8%8B">第一处：88~91行改成如下</a></li>
-<li><a href="#%E7%AC%AC%E4%BA%8C%E5%A4%84config%E5%BC%80%E5%A4%B4%E5%AE%8F%E4%BF%AE%E6%94%B9">第二处：config开头宏修改</a></li>
-</ul>
-</li>
-<li><a href="#%E5%BC%80%E5%90%AFf429%E7%9A%84fpu">开启F429的FPU</a>
-<ul>
-<li><a href="#%E7%AC%AC%E4%B8%80%E5%A4%84">第一处</a></li>
-<li><a href="#%E7%AC%AC%E4%BA%8C%E5%A4%84">第二处</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B7%A5%E7%A8%8B%E6%96%87%E4%BB%B6%E9%87%8C%E9%9D%A2%E4%B8%8D%E8%83%BD%E6%9C%89%E6%9C%89%E5%85%B3%E7%B3%BB%E7%BB%9F%E6%BB%B4%E7%AD%94%E5%AE%9A%E6%97%B6%E5%99%A8systick_handler%E7%9A%84%E5%87%BD%E6%95%B0%E6%9C%89%E7%9A%84%E8%AF%9D%E9%9C%80%E8%A6%81%E5%B1%8F%E8%94%BD%E6%8E%89">工程文件里面不能有有关系统滴答定时器SysTick_Handler的函数，有的话需要屏蔽掉！</a></li>
-</ul>
-</li>
-<li><a href="#%E6%B5%8B%E8%AF%95">测试</a>
-<ul>
-<li><a href="#%E6%B3%A8%E6%84%8F">注意</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</p>
-<h2 id="第一步">第一步</h2>
-<p>从官方下载的freertos文件中找到如下目录，我们只需要FreeRTOS目录下的Source目录下的文件，至于FreeRTOS-Plus目录下的，咱们不用管。<br>
-<img src="https://leichen2552.github.io//post-images/1610025381010.jpg" alt="" loading="lazy"></p>
-<h2 id="第二步">第二步</h2>
-<ul>
-<li>在原有的某工程目录下新建一个FreeRTOS文件夹<br>
-<img src="https://leichen2552.github.io//post-images/1610026183467.jpg" alt="" loading="lazy"></li>
-<li>在这个文件夹下，把刚才Source目录下的文件全部复制过来<br>
-<img src="https://leichen2552.github.io//post-images/1610026075955.png" alt="" loading="lazy"></li>
-<li>portable目录下只保留三个文件夹<br>
-<img src="https://leichen2552.github.io//post-images/1610026165083.png" alt="" loading="lazy"></li>
-<li>RVDS目录下，我们需要的是M4F这个文件夹<br>
-<img src="https://leichen2552.github.io//post-images/1610026254473.jpg" alt="" loading="lazy"></li>
-</ul>
-<h2 id="第三步">第三步</h2>
-<p>在原有的工程目录里新建两个组，如图，并把刚才Freertos目录下的文件放入，也如图所示<br>
-<img src="https://leichen2552.github.io//post-images/1610026399947.jpg" alt="" loading="lazy"></p>
-<h2 id="第四步">第四步</h2>
-<p>把下载下来的FreeRTOS文件夹下Demo（找到CORTEX_M4F_STM32F407ZG-SK这个Demo就可以了）中的的FreeRTOSconfig.h放进工程中新建FreeRTOS文件夹下</p>
-<h2 id="第五步">第五步</h2>
-<h3 id="修改freertosconfigh文件内容">修改FreeRTOSConfig.h文件内容</h3>
-<h4 id="第一处88~91行改成如下">第一处：88~91行改成如下</h4>
-<pre><code class="language-c">#if defined (__ICCARM__)||(__CC_ARM)||(__GNUC__)
-	#include &lt;stdint.h&gt;
-	extern uint32_t SystemCoreClock;
-#endif
-</code></pre>
-<h4 id="第二处config开头宏修改">第二处：config开头宏修改</h4>
-<p>把这四项改成0<br>
-<img src="https://leichen2552.github.io//post-images/1610026754623.jpg" alt="" loading="lazy"></p>
-<h3 id="开启f429的fpu">开启F429的FPU</h3>
-<h4 id="第一处">第一处</h4>
-<p>在system_stm32f4xx.c文件的SystemInit函数里，也就是该文件的第478行，有一个__FPU_USED，选中Go To Definetion会跳转core_cm4.h中，把core_cm4.h文件中的第123行修改为__FPU_USED的值修改为1就行</p>
-<h4 id="第二处">第二处</h4>
-<p>修改MDK软件的选项<br>
-<img src="https://leichen2552.github.io//post-images/1611580228056.jpg" alt="" loading="lazy"></p>
-<p>到此为止，修改完成</p>
-<h3 id="工程文件里面不能有有关系统滴答定时器systick_handler的函数有的话需要屏蔽掉">工程文件里面不能有有关系统滴答定时器SysTick_Handler的函数，有的话需要屏蔽掉！</h3>
-<h2 id="测试">测试</h2>
-<pre><code class="language-c">#include &quot;bsp.h&quot;
-#include &quot;FreeRTOS.h&quot;
-#include &quot;task.h&quot;
-
-#define START_TASK_PRIO     1           //任务优先级
-#define START_STK_SIZE      256         //任务堆栈大小
-TaskHandle_t StartTask_Handler;         //任务句柄
-void start_task(void *pvParameters);    //任务函数
-
-#define LED0_TASK_PRIO      2           //任务优先级
-#define LED0_STK_SIZE       256          //任务堆栈大小
-TaskHandle_t LED0Task_Handler;          //任务句柄
-void led0_task(void *p_arg);            //任务函数
-
-#define LED1_TASK_PRIO      3           //任务优先级
-#define LED1_STK_SIZE       256          //任务堆栈大小
-TaskHandle_t LED1Task_Handler;         //任务句柄
-void led1_task(void*p_arg);             //任务函数
-
-#define FLOAT_TASK_PRIO     4           //任务优先级
-#define FLOAT_STK_SIZE      256         //任务堆栈大小
-TaskHandle_t FLOATTask_Handler;         //任务句柄
-void float_task(void *p_arg);           //任务函数
-
-int main(void)
-{
-    BspInit();
-    
-    //创建开始任务
-    xTaskCreate((TaskFunction_t )start_task,            //任务函数
-                (const char*    )&quot;start_task&quot;,          //任务名称
-                (uint16_t       )START_STK_SIZE,        //任务堆栈大小
-                (void*          )NULL,                  //传递给任务函数的参数
-                (UBaseType_t    )START_TASK_PRIO,       //任务优先级
-                (TaskHandle_t*  )&amp;StartTask_Handler);   //任务句柄              
-    vTaskStartScheduler();          //开启任务调度
-}
-
-//开始任务任务函数
-void start_task(void *pvParameters)
-{
-    taskENTER_CRITICAL();           //进入临界区
-    //创建LED0任务
-    xTaskCreate((TaskFunction_t )led0_task,     	
-                (const char*    )&quot;led0_task&quot;,   	
-                (uint16_t       )LED0_STK_SIZE, 
-                (void*          )NULL,				
-                (UBaseType_t    )LED0_TASK_PRIO,	
-                (TaskHandle_t*  )&amp;LED0Task_Handler);   
-    //创建LED1任务
-    xTaskCreate((TaskFunction_t )led1_task,     
-                (const char*    )&quot;led1_task&quot;,   
-                (uint16_t       )LED1_STK_SIZE, 
-                (void*          )NULL,
-                (UBaseType_t    )LED1_TASK_PRIO,
-                (TaskHandle_t*  )&amp;LED1Task_Handler);        
-    //浮点测试任务
-    xTaskCreate((TaskFunction_t )float_task,     
-                (const char*    )&quot;float_task&quot;,   
-                (uint16_t       )FLOAT_STK_SIZE, 
-                (void*          )NULL,
-                (UBaseType_t    )FLOAT_TASK_PRIO,
-                (TaskHandle_t*  )&amp;FLOATTask_Handler);  
-    vTaskDelete(StartTask_Handler); //删除开始任务
-    taskEXIT_CRITICAL();            //退出临界区
-}
-
-//LED0任务函数 
-void led0_task(void *pvParameters)
-{
-    while(1)
-    {
-        LED4_TOGGLE;
-        //printf(&quot;==--**\r\n&quot;);
-        vTaskDelay(500);
-    }
-}   
-
-//LED1任务函数
-void led1_task(void *pvParameters)
-{
-    while(1)
-    {
-        printf(&quot;led1_task--------------\r\n&quot;);
-        vTaskDelay(500);
-    }
-}
-
-//浮点测试任务
-void float_task(void *pvParameters)
-{
-	static float float_num=0.00;
-	while(1)
-	{
-		float_num+=0.01f;
-		printf(&quot;float_num的值为: %.4f\r\n&quot;,float_num);
-        vTaskDelay(500);
-	}
-}
-</code></pre>
-<p>配合串口助手，就能看到现象。</p>
-<h3 id="注意">注意</h3>
-<p>给每个任务分配的栈空间尽量大，起码256起步！</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[STM32F429的SPI总线驱动AD7606]]></title>
-        <id>https://leichen2552.github.io/post/stm32f429-de-spi-zong-xian-qu-dong-ad76068-lu-16-wei-adc/</id>
-        <link href="https://leichen2552.github.io/post/stm32f429-de-spi-zong-xian-qu-dong-ad76068-lu-16-wei-adc/">
-        </link>
-        <updated>2020-11-12T00:58:16.000Z</updated>
-        <content type="html"><![CDATA[<p><strong>目录</strong><br>
-<ul class="markdownIt-TOC">
-<li><a href="#spi%E5%8D%8F%E8%AE%AE%E7%AE%80%E4%BB%8B">SPI协议简介</a></li>
-<li><a href="#spi%E7%89%A9%E7%90%86%E5%B1%82">SPI物理层</a></li>
-<li><a href="#spi%E5%8D%8F%E8%AE%AE%E5%B1%82">SPI协议层</a>
-<ul>
-<li><a href="#spi%E5%9F%BA%E6%9C%AC%E9%80%9A%E8%AE%AF%E8%BF%87%E7%A8%8B">SPI基本通讯过程</a></li>
-<li><a href="#%E9%80%9A%E8%AE%AF%E7%9A%84%E8%B5%B7%E5%A7%8B%E5%92%8C%E5%81%9C%E6%AD%A2%E4%BF%A1%E5%8F%B7">通讯的起始和停止信号</a></li>
-<li><a href="#%E6%95%B0%E6%8D%AE%E6%9C%89%E6%95%88%E6%80%A7">数据有效性</a></li>
-<li><a href="#cpolcpha%E5%8F%8A%E9%80%9A%E8%AE%AF%E6%A8%A1%E5%BC%8F">CPOL/CPHA及通讯模式</a></li>
-</ul>
-</li>
-<li><a href="#stm32%E7%9A%84-spi%E7%89%B9%E6%80%A7%E5%8F%8A%E6%9E%B6%E6%9E%84">STM32的 SPI特性及架构</a>
-<ul>
-<li><a href="#stm32%E7%9A%84-spi%E5%A4%96%E8%AE%BE%E7%AE%80%E4%BB%8B">STM32的 SPI外设简介</a></li>
-<li><a href="#stm32%E7%9A%84-spi%E6%9E%B6%E6%9E%84%E5%89%96%E6%9E%90">STM32的 SPI架构剖析</a></li>
-<li><a href="#%E9%80%9A%E8%AE%AF%E5%BC%95%E8%84%9A">通讯引脚</a></li>
-</ul>
-</li>
-<li><a href="#ad7606%E4%B8%8Estm32%E7%9A%84%E8%BF%9E%E6%8E%A5">AD7606与STM32的连接</a>
-<ul>
-<li><a href="#ad7606%E5%88%9D%E5%A7%8B%E5%8C%96">AD7606初始化</a></li>
-<li><a href="#ad7606%E5%A4%8D%E4%BD%8D">AD7606复位</a></li>
-<li><a href="#%E5%B0%8F%E8%AE%A1">小计</a></li>
-<li><a href="#%E4%BB%A3%E7%A0%81">代码</a></li>
-</ul>
-</li>
-</ul>
-</p>
-<h1 id="spi协议简介">SPI协议简介</h1>
-<p>SPI协议是由摩托罗拉公司提出的通讯协议(Serial Peripheral Interface)，即串行外围设<br>
-备接口，是一种高速全双工的通信总线。它被广泛地使用在 ADC、LCD等设备与 MCU间，<br>
-要求通讯速率较高的场合。</p>
-<h1 id="spi物理层">SPI物理层</h1>
-<p><img src="https://leichen2552.github.io//post-images/1605143966040.png" alt="" loading="lazy"><br>
-SPI通讯使用3条总线及片选线，3条总线分别为SCK、MOSI、MISO，片选线为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>S</mi><mi>S</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{SS}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span>，它们的作用介绍如下：</p>
-<ol>
-<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>S</mi><mi>S</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{SS}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span>( Slave Select)：从设备选择信号线，常称为片选信号线，也称为NSS,CS，以下用 NSS 表示。当有多个 SPI 从设备与 SPI 主机相连时，设备的其它信号线 SCK、MOSI及 MISO同时并联到相同的 SPI总线上，即无论有多少个从设备，都共同只使用这 3条总线；而每个从设备都有独立的这一条 NSS信号线，本信号线独占主机的一个引脚，即有多少个从设备，就有多少条片选信号线。I2C 协议中通过设备地址来寻址、选中总线上的某个设备并与其进行通讯；而 SPI 协议中没有设备地址，它使用 NSS 信号线来寻址，当主机要选择从设备时，把该从设备的 NSS 信号线设置为低电平，该从设备即被选中，即片选有效，接着主机开始与被选中的从设备进行 SPI 通讯。所以SPI通讯以NSS线置低电平为开始信号，以NSS线被拉高作为结束信号。</li>
-<li>SCK  (Serial Clock)：时钟信号线，用于通讯数据同步。它由通讯主机产生，决定了通讯的速率，不同的设备支持的最高时钟频率不一样，如 STM32的 SPI时钟频率最大为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>p</mi><mi>l</mi><mi>i</mi><mi>c</mi><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">f_{plick}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">p</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">c</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>/2，两个设备之间通讯时，通讯速率受限于低速设备。</li>
-<li>MOSI (Master Output， Slave Input)：主设备输出/从设备输入引脚。主机的数据从这条信号线输出，从机由这条信号线读入主机发送的数据，即这条线上数据的方向为主机到从机。</li>
-<li>MISO(Master  Input,，Slave Output)：主设备输入/从设备输出引脚。主机从这条信号线读入数据，从机的数据由这条信号线输出到主机，即在这条线上数据的方向为从机到主机。</li>
-</ol>
-<h1 id="spi协议层">SPI协议层</h1>
-<ul>
-<li>SPI协议定义了通讯的起始和停止信号、数据有效性、时钟同步等环节。</li>
-</ul>
-<h2 id="spi基本通讯过程">SPI基本通讯过程</h2>
-<ul>
-<li>先看看SPI通讯的通讯时序：<br>
-<img src="https://leichen2552.github.io//post-images/1605144777765.png" alt="" loading="lazy"></li>
-<li>这是一个主机的通讯时序。NSS、SCK、MOSI信号都由主机控制产生，而 MISO的信号由从机产生，主机通过该信号线读取从机的数据。MOSI与MISO的信号只在 NSS为低电平的时候才有效，在 SCK的每个时钟周期MOSI和MISO传输一位数据。<br>
-以上通讯流程中包含的各个信号分解如下：</li>
-</ul>
-<h2 id="通讯的起始和停止信号">通讯的起始和停止信号</h2>
-<ul>
-<li>在图中的标号1处，NSS信号线由高变低，是SPI通讯的起始信号。NSS是每个从机各自独占的信号线，当从机检在自己的NSS线检测到起始信号后，就知道自己被主机选中了，开始准备与主机通讯。在图中的标号6处，NSS信号由低变高，是SPI通讯的停止信号，表示本次通讯结束，从机的选中状态被取消。</li>
-</ul>
-<h2 id="数据有效性">数据有效性</h2>
-<ul>
-<li>SPI使用MOSI及MISO信号线来传输数据，使用 SCK信号线进行数据同步。MOSI及MISO数据线在SCK的每个时钟周期传输一位数据，且数据输入输出是同时进行的。数据传输时，MSB先行或 LSB先行并没有作硬性规定，但要保证两个SPI通讯设备之间使用同样的协定，一般都会采用上图MSB先行模式。</li>
-<li>观察图中的2、3、4、5标号处，MOSI及 MISO的数据在 SCK的上升沿期间变化输出，在SCK的下降沿时被采样。即在 SCK的下降沿时刻，MOSI及MISO的数据有效，高电平时表示数据“1”，为低电平时表示数据“0”。在其它时刻，数据无效，MOSI及 MISO为下一次表示数据做准备。</li>
-<li>SPI每次数据传输可以8位或16位为单位，每次传输的单位数不受限制。</li>
-</ul>
-<h2 id="cpolcpha及通讯模式">CPOL/CPHA及通讯模式</h2>
-<ul>
-<li>
-<p>上面讲述的图中的时序只是SPI中的其中一种通讯模式，SPI一共有四种通讯模式，它们的主要区别是总线空闲时 SCK的时钟状态以及数据采样时刻。为方便说明，在此引入“时钟极性CPOL”和“时钟相位CPHA”的概念。</p>
-</li>
-<li>
-<p>时钟极性CPOL是指 SPI通讯设备处于空闲状态时，SCK信号线的电平信号(即 SPI通讯开始前、 NSS线为高电平时 SCK的状态)。CPOL=0时， SCK在空闲状态时为低电平，CPOL=1时，则相反。<br>
-时钟相位CPHA是指数据的采样的时刻，当CPHA=0时，MOSI或 MISO数据线上的信号将会在SCK时钟线的“奇数边沿”被采样。当CPHA=1时，数据线在SCK的“偶数边沿”采样。见下图。<br>
-<img src="https://leichen2552.github.io//post-images/1605145711355.png" alt="" loading="lazy"></p>
-</li>
-<li>
-<p>我们来分析这个CPHA=0的时序图。首先，根据 SCK在空闲状态时的电平，分为两种情况。SCK信号线在空闲状态为低电平时，CPOL=0；空闲状态为高电平时，CPOL=1。<br>
-无论CPOL=0还是=1，因为我们配置的时钟相位CPHA=0，在图中可以看到，采样时刻都是在SCK的奇数边沿。注意当CPOL=0的时候，时钟的奇数边沿是上升沿，而CPOL=1的时候，时钟的奇数边沿是下降沿。所以SPI的采样时刻不是由上升/下降沿决定的。MOSI和MISO数据线的有效信号在SCK的奇数边沿保持不变，数据信号将在 SCK奇数边沿时被采样，在非采样时刻，MOSI和 MISO的有效信号才发生切换。</p>
-</li>
-<li>
-<p>类似地，当CPHA=1时，不受CPOL的影响，数据信号在 SCK的偶数边沿被采样，见下图。<br>
-<img src="https://leichen2552.github.io//post-images/1605145997913.png" alt="" loading="lazy"></p>
-</li>
-<li>
-<p>由 CPOL及CPHA的不同状态，SPI分成了四种模式，见表 24-1，主机与从机需要工作在相同的模式下才可以正常通讯，实际中采用较多的是“模式0”与“模式3”。<br>
-<img src="https://leichen2552.github.io//post-images/1605146200840.png" alt="" loading="lazy"></p>
-</li>
-</ul>
-<h1 id="stm32的-spi特性及架构">STM32的 SPI特性及架构</h1>
-<p>STM32芯片也集成了专门用于 SPI协议通讯的外设。</p>
-<h2 id="stm32的-spi外设简介">STM32的 SPI外设简介</h2>
-<p>STM32的SPI外设可用作通讯的主机及从机，支持最高的 SCK时钟频率为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>p</mi><mi>c</mi><mi>l</mi><mi>k</mi></mrow></msub><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">f_{pclk}/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">p</span><span class="mord mathdefault mtight">c</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mord">/</span><span class="mord">2</span></span></span></span> (STM32F429型号的芯片默认<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>p</mi><mi>c</mi><mi>l</mi><mi>k</mi><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">f_{pclk1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">p</span><span class="mord mathdefault mtight">c</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>为 90MHz，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>p</mi><mi>c</mi><mi>l</mi><mi>k</mi><mn>2</mn></mrow></msub></mrow><annotation encoding="application/x-tex">f_{pclk2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">p</span><span class="mord mathdefault mtight">c</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>为 45MHz)，完全支持SPI协议的4种模式，数据帧长度可设置为 8位或16位，可设置数据 MSB先行或LSB先行。它还支持双线全双工(前面小节说明的都是这种模式)、双线单向以及单线模式。其中双线单向模式可以同时使用MOSI及 MISO数据线向一个方向传输数据，可以加快一倍的传输速度。而单线模式则可以减少硬件接线，当然这样速率会受到影响。我们只讲解双线全双工模式。</p>
-<h2 id="stm32的-spi架构剖析">STM32的 SPI架构剖析</h2>
-<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io//post-images/1605249305205.png" alt="" loading="lazy"></figure>
-<h2 id="通讯引脚">通讯引脚</h2>
-<p>SPI的所有硬件架构都从图中左侧MOSI、MISO、SCK及NSS线展开的。STM32芯片有多个SPI外设，它们的SPI通讯信号引出到不同的GPIO引脚上，使用时必须配置到这些指定的引脚，见上表。关于GPIO引脚的复用功能，可查阅《STM32F4xx规格书》，以它为准。<br>
-<img src="https://leichen2552.github.io//post-images/1605249547835.png" alt="" loading="lazy"><br>
-其中SPI1、SPI4、SPI5、SPI6是APB2上的设备，最高通信速率达45Mbtis/s，SPI2、SPI3是APB1上的设备，最高通信速率为 22.5Mbits/s。其它功能上没有差异。</p>
-<h1 id="ad7606与stm32的连接">AD7606与STM32的连接</h1>
-<p>AD7606B是一个8路16位的ADC模块，AD7606接口有三种模式选择，并行接口模式、串行接口模式、并行字节接口模式。采用stm32的8080接口来驱动，AD7606模块上两个选择，一是8080模式，二是SPI模式，下图是SPI模式的接口。<br>
-<img src="https://leichen2552.github.io//post-images/1605148318989.png" alt="" loading="lazy"></p>
-<h2 id="ad7606初始化">AD7606初始化</h2>
-<p>STM32的SPI初始化、AD7606的GPIO初始化、设置采样量程、设置过采样模式、硬件复位AD7606、开始转换引脚设置为高电平。因为AD7606内部没有寄存器，所以不需要SPI发什么指令配置啥玩意儿的。<br>
-这里有个细节要说一下，就是SPI四根线中的MISO，MISO是Master Input Slave Output，意为主机输入从机输出，但是这个GPIO配置为推挽输出。明明是主机输入，怎么就成输出了？其实测试复用推挽输出也是可以的，因为方向是SPI硬件自己控制的。</p>
-<h2 id="ad7606复位">AD7606复位</h2>
-<p>AD7606手册指明：RESET高电平脉冲宽度典型值是50ns</p>
-<h2 id="小计">小计</h2>
-<p>大部分的信息都包含在手册里，包括串行接口、并行接口啥的</p>
-<h2 id="代码">代码</h2>
-<p>8080模式的因为板子上接口未引出，所以没写，提供SPI的，定时器里面，500ms采样一次<br>
-链接：https://pan.baidu.com/s/1gz9NtGOcCmj-QJAFmWSDiQ<br>
-提取码：3s19</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[STM32F429的FMC总线应用驱动AD7606（8路16位ADC）]]></title>
-        <id>https://leichen2552.github.io/post/stm32f429-de-fmc-zong-xian-ying-yong-zhi-qu-dong-ad76068-lu-16-wei-adc/</id>
-        <link href="https://leichen2552.github.io/post/stm32f429-de-fmc-zong-xian-ying-yong-zhi-qu-dong-ad76068-lu-16-wei-adc/">
-        </link>
-        <updated>2020-11-11T06:13:11.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="ad7607">AD7607</h1>
-<h2 id="产品规格">产品规格：</h2>
-<ol>
-<li>16bit 分辨率，内置基准，单5V 供电。</li>
-<li>8 路模拟输入，阻抗1M欧姆。【无需负电源，无需前端模拟运放电路，可直接接传感器输出】</li>
-<li>输入范围可以选择正负5V 或者正负10V，可通过IO 控制量程。</li>
-<li>最大采样频率  200Ksps，支持8 档过采样设置（可以有效降低抖动）。</li>
-<li>通信接口支持SPI或16 位总线方式（也支持8 位总线，一般用的比较少），接口IO电平可以是5V<br>
-或3.3V。</li>
-</ol>
-<h2 id="重要提示">重要提示：</h2>
-<ul>
-<li>AD7606 的配置很简单，它没有内部寄存器，量程范围和过采样参数是通过外部 IO控制的，采样速<br>
-率由MCU 或DSP 提供的脉冲频率控制。</li>
-<li>AD7606 必须使用单5V供电。 而AD7606和 MCU 之间的通信接口电平由VIO （VDRIVE）引脚控制。<br>
-也就是说VIO 必须接单片机的电源，可以是3.3V也可以是5V（范围2.3V – 5V）。</li>
-</ul>
-<h1 id="ad7607的过采样">AD7607的过采样</h1>
-<ul>
-<li>采样频率高于信号最高频率的两倍，这种采样被称为过采样。</li>
-<li>采样频率低于信号最高频率的两倍，这种采样被称为欠采样。</li>
-<li>正确的理解过采样，比如我们设置是 1Ksps 采样率，64 倍过采样。意思是指每次采样，AD7606会<br>
-采样64 次数据并求平均，相当于AD7606以64Ksps 进行采样的，只是将每 64 个采样点的值做了<br>
-平均，用户得到的值就是平均后的数值。因此，如果使用AD7606最高的200Ksps采样率，就不可<br>
-以使用过采样了。</li>
-</ul>
-<h1 id="什么是fmc">什么是FMC</h1>
-<p>在这之前先说一下FSMC和FMC的区别：<br>
-<img src="https://leichen2552.github.io//post-images/1605077768178.jpg" alt="" loading="lazy"><br>
-<img src="https://leichen2552.github.io//post-images/1605077772475.jpg" alt="" loading="lazy"><br>
-看到了吧，不同的芯片支部不同的功能，我们可以理解FMC是FSMC的增强版！</p>
-<p>其实一开始不理解为什么要用FMC来驱动AD7606，一般的资料对其的描述是“灵活的静态存储控制器”，乍一听以为是来控制存储的，再想想的话，其实就能理解为一个外部总线，且是一个可以自己定义时序的总线并且速度不慢，当驱动8080接口的器件是时，如果只是使用GPIO来实现此时序的话，会占用大量的CPU资源，所以这个时候就可以考虑采用FSMC功能。</p>
-<p>由上面的FMC图可知，FMC支持NAND FLASH和NOR FLASH等接口。FMC将外部设备分为三类，分别是NOR/PSRAM设备，NAND设备和PC卡设备，以及SDRAM。他们共用地址数据总线等信号，通过不同的片选CS来区分不同的设备。</p>
-<h2 id="fmc-包含五个主要模块">FMC 包含五个主要模块：</h2>
-<ul>
-<li>AHB 接口（包括 FMC 配置寄存器）</li>
-<li>NOR Flash/PSRAM/SRAM 控制器</li>
-<li>NAND Flash/PC 卡控制器</li>
-<li>SDRAM 控制器</li>
-<li>外部器件接口<br>
-<img src="https://leichen2552.github.io//post-images/1605141178749.png" alt="" loading="lazy"></li>
-</ul>
-<h2 id="外部器件地址映射">外部器件地址映射</h2>
-<p>从 FMC 的角度，外部存储器被划分为 6 个固定大小的存储区域，每个存储区域的大小为<br>
-256 MB（请参见图 455）：</p>
-<ul>
-<li>
-<p>存储区域 1 可连接多达 4 个 NOR Flash 或 PSRAM 器件。此存储区域被划分为如下 4 个NOR/PSRAM 子区域，带 4 个专用片选信号：</p>
-<ul>
-<li>存储区域 1 NOR/PSRAM 1</li>
-<li>存储区域 1 NOR/PSRAM 2</li>
-<li>存储区域 1 NOR/PSRAM 3</li>
-<li>存储区域 1 NOR/PSRAM 4</li>
-</ul>
-</li>
-<li>
-<p>存储区域 2 和 3 用于连接 NAND Flash 器件（每个存储区域一个器件）</p>
-</li>
-<li>
-<p>存储区域 4 用于连接 PC 卡</p>
-</li>
-<li>
-<p>存储区域 5 和 6 用于连接 SDRAM 器件（每个存储区域一个器件）<br>
-对于每个存储区域，所要使用的存储器类型可由用户应用程序通过配置寄存器配置。<br>
-<img src="https://leichen2552.github.io//post-images/1605141612795.png" alt="" loading="lazy"></p>
-<p>那为什么要把AD7606当成这些内存设备来用呢？</p>
-</li>
-</ul>
-<p>一般的外部SRAM有如下几根线：地址线（A0 ~ A18），数据线（D0 ~ D15），读信号（WE），写信号（OE），片选信号（CS），如果SRAM支持字节控制的话，还有UB和LB信号。</p>
-<p>而这个AD7606的8080模式有哪几根线呢？<br>
-<img src="https://leichen2552.github.io//post-images/1605078796335.jpg" alt="" loading="lazy"><br>
-而8080接口的AD7606有如下几根线：复位信号（RST），数据线（D0 ~ D15），读信号（RD），写信号（WD），片选信号（CS）和读写功能标志（RS）。</p>
-<p>这两种接口看上去好像差不多诶…<br>
-但是不同的地方在于，AD7606没有地址信号，而且还多了个复位信号（RST），不过没事，这两个可以通过软件来控制。</p>
-<p>https://blog.csdn.net/z_jinye/article/details/41045939<br>
-但是核心板上没有把接在SDRAM上的FMC接口引出，需要16个IO口。打算用SPI模式读取AD7606。</p>
 ]]></content>
     </entry>
 </feed>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+<title>
+    ChenLei&#39;s Blog
+</title>
+<!--[if lt IE 9]><script src="//cdn.bootcss.com/html5shiv/r29/html5.js"></script><![endif]-->
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="author" content="ChenLei">
+<meta name="description" content="正经人谁写博客啊">
+<meta name="keywords" content="FPGA,Linux,RTOS,机械设计，流体仿真">
+<script async src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+<link rel="stylesheet" href="https://leichen2552.github.io//styles/main.css" />
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/css/style.min.css" />
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/script.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/icon.min.js"></script>
+        
+            <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/Card/prism.min.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/css/Card/prism.min.css" />
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css">
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js"></script>
+            
+                <!--点击特效-->
+                <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/love.min.js"></script>
+                
+                        <!--CDN样式-->
+                        <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/hit-kounter-lc-0.3.0.js"></script>
+                        <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+                        
+                            <script>
+                                (function() {
+                                    var bp = document.createElement('script');
+                                    var curProtocol = window.location.protocol.split(':')[0];
+                                    if (curProtocol === 'https') {
+                                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                                    } else {
+                                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                                    }
+                                    var s = document.getElementsByTagName("script")[0];
+                                    s.parentNode.insertBefore(bp, s);
+                                })();
+                            </script>
+                            
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo">
+                <a href="https://leichen2552.github.io/">
+                    ChenLei&#39;s Blog
+                </a>
+            </div>
+            <div id="tp-weather-widget"></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/">
+                        主页
+                    </a>
+                    
+                    <a class="menu-item" href="/posts">
+                        文章
+                    </a>
+                    
+                    <a class="menu-item" href="/archives">
+                        归档
+                    </a>
+                    
+                    <a class="menu-item" href="/tags">
+                        标签
+                    </a>
+                    
+                    <a class="menu-item" href="/friends">
+                        友链
+                    </a>
+                    
+                    <a class="menu-item" href="/post/about">
+                        关于
+                    </a>
+                    
+                        <input id="switch_default" type="checkbox" class="switch_default">
+                        <label for="switch_default" class="toggleBtn"></label>
+            </div>
+            <form id="gridea-search-form" data-update="1617285064099" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+            </form>
+        </div>
+    </nav>
+
+    
+        <nav class="navbar-mobile" id="nav-mobile">
+            <div class="container">
+                <div class="navbar-header">
+                    <div>
+                        <a href="https://leichen2552.github.io/">
+                            ChenLei&#39;s Blog
+                        </a>
+                        <!--en-->
+                        <a id="mobile-toggle-theme-en" class="a en">&nbsp;Dark</a>
+                        <!--zh-->
+                        <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
+                    </div>
+                    <form id="gridea-search-form" data-update="1617285064099" action="/search/index.html">
+                        <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+                    </form>
+                    <!--en-->
+                    <div class="menu-toggle" id="menu-toggle-en" onclick="mobileBtn()">&#9776; Menu</div>
+                    <!--zh-->
+                    <div class="menu-toggle" id="menu-toggle-zh" onclick="mobileBtn()">&#9776; &#x83DC;&#x5355;</div>
+
+                </div>
+                <div class="menu" id="mobile-menu">
+                    
+                        <a class="menu-item" href="/">
+                            主页
+                        </a>
+                        
+                        <a class="menu-item" href="/posts">
+                            文章
+                        </a>
+                        
+                        <a class="menu-item" href="/archives">
+                            归档
+                        </a>
+                        
+                        <a class="menu-item" href="/tags">
+                            标签
+                        </a>
+                        
+                        <a class="menu-item" href="/friends">
+                            友链
+                        </a>
+                        
+                        <a class="menu-item" href="/post/about">
+                            关于
+                        </a>
+                        
+                </div>
+            </div>
+        </nav>
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementById("menu-toggle-en");
+        var toggleMenu_zh = document.getElementById("menu-toggle-zh");
+
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.display != "none") {
+            if (toggleMenu.classList.contains("active")) {
+                toggleMenu.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        } else if (toggleMenu_zh.display != "none") {
+            if (toggleMenu_zh.classList.contains("active")) {
+                toggleMenu_zh.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu_zh.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        }
+
+    }
+</script>
+
+
+
+    <script>
+        (function(a, h, g, f, e, d, c, b) {
+            b = function() {
+                d = h.createElement(g);
+                c = h.getElementsByTagName(g)[0];
+                d.src = e;
+                d.charset = "utf-8";
+                d.async = 1;
+                c.parentNode.insertBefore(d, c)
+            };
+            a["SeniverseWeatherWidgetObject"] = f;
+            a[f] || (a[f] = function() {
+                (a[f].q = a[f].q || []).push(arguments)
+            });
+            a[f].l = +new Date();
+            if (a.attachEvent) {
+                a.attachEvent("onload", b)
+            } else {
+                a.addEventListener("load", b, false)
+            }
+        }(window, document, "script", "SeniverseWeatherWidget", "//cdn.sencdn.com/widget2/static/js/bundle.js?t=" + parseInt((new Date().getTime() / 100000000).toString(), 10)));
+        window.SeniverseWeatherWidget('show', {
+            flavor: "slim",
+            location: "WWEFQFPJZ7T8",
+            geolocation: true,
+            language: "auto",
+            unit: "c",
+            theme: "auto",
+            token: "61bcc333-3305-4728-9465-6785274bb0a3",
+            hover: "enabled",
+            container: "tp-weather-widget"
+        })
+    </script>
+    
+            <div class="main">
+                <div class="container">
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                PCB 工艺设计规范
+                            </h1>
+                            
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        ChenLei's Blog
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2021-04-01</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">3.2
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">869</a></span>
+                                    
+                                            Views:
+                                            <span data-hk-page="current"> - </span>
+                                            
+                                </div>
+                                
+                        </header>
+                        
+                        <div class="post-content">
+                            <h1 id="pcb-工艺设计规范">PCB 工艺设计规范</h1>
+<h2 id="1目的">1.目的</h2>
+<p>  规范产品PCB工艺设计，规定PCB工艺设计的相关参数，使得PCB的设计满足课生产性，可测试性、安规、EMC、EMI等的技术规范要求，在产品设计过程中构建产品的工艺、技术、质量、成本优势。</p>
+<h2 id="2使用范围">2.使用范围</h2>
+<p>  本规范适用于所有的电子产品的PCB工艺设计，运用于但不限于PCB的设计、PCB投板工艺审查、单板工艺审查等活动。<br>
+  本规范之前的相关标准、规范的内容如与本规范的指定相抵触的，一本规范为准。</p>
+<h2 id="3定义">3.定义</h2>
+<p>  导通孔(via)：一种用于内层连接的金属化孔，但其中并不用于插入元件或其他增强材料。<br>
+  盲孔(Blind via)：从印刷板内仅延展到一个表层的导通孔。<br>
+  埋孔(Buried via)：未延伸到印刷版表面的一种导通孔。<br>
+  过孔(Through via)：从印制板的一个表面延展到另一层表面的导通孔。<br>
+  元件孔(Component hole)：用于元件端子固定于印制板及导电图形电器联接的孔。<br>
+  Stand off：表面贴器件的本体底部到引脚底部的垂直距离。</p>
+<h2 id="4引用参考标准或资料">4.引用/参考标准或资料</h2>
+<p>  TS--S0902010001  《信息技术设备PCB安规设计规范》<br>
+  TS--SOE0199001  《电子设备的强迫风冷热设计规范》<br>
+  TS--SOE0199002  《电子设备的自然冷却热设计规范》<br>
+  IEC60194  《印刷版设计、制造与组装术语与定义》（Printed Circuit Board design manufacture assembly-terms and definituons）<br>
+  IPC--A--600F  《印刷版的验收条件》(Acceptably of printed board)<br>
+  IEC60950</p>
+<h2 id="5规范要求">5.规范要求</h2>
+<h3 id="51pcb板材要求">5.1PCB板材要求</h3>
+<h4 id="511确定pcb使用板材以及tg值">5.1.1确定PCB使用板材以及TG值</h4>
+<p>  确定PCB所选用的板材，例如FR--4、铝基板、陶瓷基板、纸芯板等，若选用高TG值得板材，应在文件中表明厚度公差。</p>
+<h4 id="512确定pcb的表面处理镀层">5.1.2确定PCB的表面处理镀层</h4>
+<p>  确定PCB铜箔的表面处理镀层，例如镀锡、镀镶金或OSP等，并在文件中注明</p>
+<h3 id="52热设计要求">5.2热设计要求</h3>
+<h4 id="521-高热器件应该考虑放于出风口或利于对流的位置">5.2.1 高热器件应该考虑放于出风口或利于对流的位置</h4>
+<p>  PCB在布局中考虑将高热器件放于出风口或利于对流的位置。</p>
+<h4 id="522-较高的元件应考虑放于出风口且不阻挡封路">5.2.2 较高的元件应考虑放于出风口，且不阻挡封路</h4>
+<h4 id="523-散热器的放置应考虑对流">5.2.3 散热器的放置应考虑对流</h4>
+<h4 id="524-温度敏感器械件应该要考虑热源">5.2.4 温度敏感器械件应该要考虑热源</h4>
+<p>  对于自身温升高与30摄氏度的热源。一般要求：<br>
+  a. 在风冷条件下，电解电容等温度敏感器件离热源距离要求大于或等于2.5mm；<br>
+  b. 自然冷条件下，电解电容等温度敏感器件离热源距离要求大于或等于4.0mm。<br>
+  若因为空间的原因不能达到要求距离，则应通过温度测试保证温度敏感器件的温升在降额范围内。</p>
+<h4 id="525-大面积铜箔要求用隔热带鱼焊盘相连">5.2.5 大面积铜箔要求用隔热带鱼焊盘相连</h4>
+<p>  为了保证透锡良好，在大面积铜箔上的元件的焊盘相连，对于需过5A以上的大电流不能采用隔热焊盘，如图所示：<img src="https://leichen2552.github.io//post-images/1617281562519.png" alt="" loading="lazy"></p>
+<h4 id="526-过回流焊的0805以及0805以下片式元件两端焊盘的散热对称性">5.2.6 过回流焊的0805以及0805以下片式元件两端焊盘的散热对称性</h4>
+<p>  为了避免器件过回流焊后出现偏位、立碑现象</p>
+
+                        </div>
+                        
+                            <div class="post-toc">
+                                <ul class="markdownIt-TOC">
+<li><a href="#pcb-%E5%B7%A5%E8%89%BA%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83">PCB 工艺设计规范</a>
+<ul>
+<li><a href="#1%E7%9B%AE%E7%9A%84">1.目的</a></li>
+<li><a href="#2%E4%BD%BF%E7%94%A8%E8%8C%83%E5%9B%B4">2.使用范围</a></li>
+<li><a href="#3%E5%AE%9A%E4%B9%89">3.定义</a></li>
+<li><a href="#4%E5%BC%95%E7%94%A8%E5%8F%82%E8%80%83%E6%A0%87%E5%87%86%E6%88%96%E8%B5%84%E6%96%99">4.引用/参考标准或资料</a></li>
+<li><a href="#5%E8%A7%84%E8%8C%83%E8%A6%81%E6%B1%82">5.规范要求</a>
+<ul>
+<li><a href="#51pcb%E6%9D%BF%E6%9D%90%E8%A6%81%E6%B1%82">5.1PCB板材要求</a>
+<ul>
+<li><a href="#511%E7%A1%AE%E5%AE%9Apcb%E4%BD%BF%E7%94%A8%E6%9D%BF%E6%9D%90%E4%BB%A5%E5%8F%8Atg%E5%80%BC">5.1.1确定PCB使用板材以及TG值</a></li>
+<li><a href="#512%E7%A1%AE%E5%AE%9Apcb%E7%9A%84%E8%A1%A8%E9%9D%A2%E5%A4%84%E7%90%86%E9%95%80%E5%B1%82">5.1.2确定PCB的表面处理镀层</a></li>
+</ul>
+</li>
+<li><a href="#52%E7%83%AD%E8%AE%BE%E8%AE%A1%E8%A6%81%E6%B1%82">5.2热设计要求</a>
+<ul>
+<li><a href="#521-%E9%AB%98%E7%83%AD%E5%99%A8%E4%BB%B6%E5%BA%94%E8%AF%A5%E8%80%83%E8%99%91%E6%94%BE%E4%BA%8E%E5%87%BA%E9%A3%8E%E5%8F%A3%E6%88%96%E5%88%A9%E4%BA%8E%E5%AF%B9%E6%B5%81%E7%9A%84%E4%BD%8D%E7%BD%AE">5.2.1 高热器件应该考虑放于出风口或利于对流的位置</a></li>
+<li><a href="#522-%E8%BE%83%E9%AB%98%E7%9A%84%E5%85%83%E4%BB%B6%E5%BA%94%E8%80%83%E8%99%91%E6%94%BE%E4%BA%8E%E5%87%BA%E9%A3%8E%E5%8F%A3%E4%B8%94%E4%B8%8D%E9%98%BB%E6%8C%A1%E5%B0%81%E8%B7%AF">5.2.2 较高的元件应考虑放于出风口，且不阻挡封路</a></li>
+<li><a href="#523-%E6%95%A3%E7%83%AD%E5%99%A8%E7%9A%84%E6%94%BE%E7%BD%AE%E5%BA%94%E8%80%83%E8%99%91%E5%AF%B9%E6%B5%81">5.2.3 散热器的放置应考虑对流</a></li>
+<li><a href="#524-%E6%B8%A9%E5%BA%A6%E6%95%8F%E6%84%9F%E5%99%A8%E6%A2%B0%E4%BB%B6%E5%BA%94%E8%AF%A5%E8%A6%81%E8%80%83%E8%99%91%E7%83%AD%E6%BA%90">5.2.4 温度敏感器械件应该要考虑热源</a></li>
+<li><a href="#525-%E5%A4%A7%E9%9D%A2%E7%A7%AF%E9%93%9C%E7%AE%94%E8%A6%81%E6%B1%82%E7%94%A8%E9%9A%94%E7%83%AD%E5%B8%A6%E9%B1%BC%E7%84%8A%E7%9B%98%E7%9B%B8%E8%BF%9E">5.2.5 大面积铜箔要求用隔热带鱼焊盘相连</a></li>
+<li><a href="#526-%E8%BF%87%E5%9B%9E%E6%B5%81%E7%84%8A%E7%9A%840805%E4%BB%A5%E5%8F%8A0805%E4%BB%A5%E4%B8%8B%E7%89%87%E5%BC%8F%E5%85%83%E4%BB%B6%E4%B8%A4%E7%AB%AF%E7%84%8A%E7%9B%98%E7%9A%84%E6%95%A3%E7%83%AD%E5%AF%B9%E7%A7%B0%E6%80%A7">5.2.6 过回流焊的0805以及0805以下片式元件两端焊盘的散热对称性</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                            </div>
+                            
+                                
+                                    
+                                        <!--en-->
+                                        <section class="post-copyright en">
+                                            <p class="copyright-item">
+                                                <span>Author:</span>
+                                                <span>ChenLei's Blog</span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>Permalink:</span>
+                                                <span><a href="https://leichen2552.github.io/post/pcb-gong-yi-she-ji-gui-fan/">https://leichen2552.github.io/post/pcb-gong-yi-she-ji-gui-fan/</a></span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>License:</span>
+                                                <span>MIT License</span>
+                                            </p>
+                                        </section>
+                                        
+                                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/pcb-gong-yi-she-ji-gui-fan/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/pcb-gong-yi-she-ji-gui-fan/&sharesource=qzone&title=PCB 工艺设计规范&pics=https://leichen2552.github.io//images/avatar.png?v=1617285064099&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/pcb-gong-yi-she-ji-gui-fan/&sharesource=weibo&title=PCB 工艺设计规范 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1617285064099 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                            <div class="reward ">
+                                                                <div class="reward-button ">&yen;
+                                                                    <span class="reward-code "> 
+                                                                <span class="alipay-code "> <img class="alipay-img " alt = "support " src="https://leichen2552.github.io/alipay.jpg"><b>Alipay</b> </span>
+                                                                    <span class="wechat-code "> <img alt ="support " class="wechat-img " src="https://leichen2552.github.io/wechat.jpg"><b>Wechat</b> </span> </span>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
+                                                                
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-wu-ke-kao-xing-zhi-biao/">
+                                                                                                    《硬件详细设计文档》解析之五 可靠性指标
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
+                </div>
+                
+                                            
+            </div>
+    </div>
+    </div>
+    </div>
+    
+        <footer id="footer" class="footer">
+            <div class="copyright">
+                
+                    <div class="Like">
+                        <div class="tip" data-tooltip="Do you like it?">
+                            <a href="https://github.com/ITJoker233/Gridea-theme-Chic" target="_blank" title=""><svg class="icon"
+                        aria-hidden="true">
+                        <use xlink:href="#like"></use>
+                    </svg><b class="like_text" id="star"></b></a>
+                        </div>
+                    </div>
+                    
+                        <a href="https://github.com/getgridea/gridea" target="_blank">Chenlei</a>
+                            
+                                <b id="hitokoto"></b><br>
+                                
+                                        <svg viewBox="0 0 1024 1024" style="margin-left: 5px;margin-right: 5px;" version="1.0" width="8" height="8" class="my-face">
+            <path
+                d="M863.597631 513.574282l-271.33965-140.213484L729.783667 81.926656c3.583731-7.87141 7.167462-15.742819 7.167462-25.214109C736.887134 25.226908 708.345275 0.012799 672.635953 0.012799a63.611229 63.611229 0 0 0-39.293053 12.607055c-1.791866 1.59988-3.519736 3.19976-5.311602 3.19976L147.87531 418.925381a55.547834 55.547834 0 0 0-19.646527 47.356448c1.791866 17.278704 14.27093 33.021523 32.125591 42.492813l271.33965 141.749369L292.504463 945.221908c-12.479064 25.214109-1.791866 53.563983 23.166262 69.306802 10.751194 6.335525 23.230258 9.47129 35.709322 9.47129 16.062795 0 32.125591-4.735645 44.604655-15.742819l480.091993-403.297753a55.547834 55.547834 0 0 0 19.646526-47.228458 61.243407 61.243407 0 0 0-32.12559-44.156688z"
+                fill="#93b5cf"></path>
+        </svg>
+                                        ChenLei&#39;s Blog &copy;Copyright
+                                            <script>
+                                                var date = new Date();
+                                                document.write("" + date.getFullYear());
+                                            </script>
+                                            | Powered by
+                                            <a href="https://coding.net" target="_blank">
+                                                Coding.net
+                                            </a>
+            </div>
+            <div id="update" style="display:none;">
+                on
+            </div>
+            
+                <div id="version" style="display:none;">
+                    1.7.6
+                </div>
+                
+                    <script>
+                        var port = '';
+                        
+                        document.write('<div id="home_path" style="display:none;">' + document.location.protocol + '//' + window.document.location.hostname + port + '</div>')
+                    </script>
+        </footer>
+        
+            <script src='https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js'></script>
+            
+                <script>
+                    
+                    
+                    loadlive2d();
+                    
+                    
+                    hitokoto();
+                    
+                    getStar();
+                    hljs.initHighlighting();
+                    console.clear();
+                    
+                    CheckVersion();
+                    
+                    var newDate = new Date();
+                    newDate.setTime(1617285064099);
+                    console.log(" Blog Update Time: " + newDate.toLocaleDateString());
+                    console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
+                </script>
+        </div>
+</body>
+<script>
+    scroll();
+</script>
+
+</html>
