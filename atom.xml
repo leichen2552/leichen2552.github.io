@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2021-04-03T07:45:00.371Z</updated>
+    <updated>2021-04-03T13:10:17.517Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -90,7 +90,9 @@
   若有超重的器件必须不在BOTTOM面，则应通过实验验证可行性。</p>
 <h4 id="544-需波峰焊加工的单板背面器件不形成阴影效应的安全距离已考虑波峰焊工艺的smt器件距离要求如下">5.4.4 需波峰焊加工的单板背面器件不形成阴影效应的安全距离已考虑波峰焊工艺的SMT器件距离要求如下：</h4>
 <p>  相同类型器件距离(见图2)<br>
+<img src="https://leichen2552.github.io//post-images/1617446033866.png" alt="" loading="lazy"><br>
 <img src="https://leichen2552.github.io//post-images/1617435778866.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1617446038419.png" alt="" loading="lazy"><br>
 <img src="https://leichen2552.github.io//post-images/1617434174744.png" alt="" loading="lazy"></p>
 <h4 id="545-大于0805封装的陶瓷电容布局是尽量靠近传送边或应力较小区域其轴向尽量与进板方向平行图4尽量不使用1825以上的尺寸的陶瓷电容-保留意见">5.4.5 大于0805封装的陶瓷电容，布局是尽量靠近传送边或应力较小区域，其轴向尽量与进板方向平行(图4)，尽量不使用1825以上的尺寸的陶瓷电容。(保留意见)</h4>
 <figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io//post-images/1617434416240.jpg" alt="" loading="lazy"></figure>
@@ -104,9 +106,54 @@
 <p>  为保证过波峰焊时不连锡，过波峰焊的插件元件焊盘边缘间距应大于1.0mm(包括元件本身引脚的焊盘边缘间距)。<br>
   优选插件元件间距(pitch) <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 2.0mm，焊盘边缘间距 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 1.0mm<br>
   在器件本体不相互干涉的前提下，相邻器件焊盘边缘间距满足图6要求：<br>
+<img src="https://leichen2552.github.io//post-images/1617446123110.png" alt="" loading="lazy"><br>
 <img src="https://leichen2552.github.io//post-images/1617435443460.png" alt="" loading="lazy"><br>
   插件元件没牌引脚为较多，以焊盘排列方向平行于进板方向布置器件时，当相邻盘边缘间距0.6mm -- 1.0mm时，推荐采用椭圆形焊盘或偷加锡焊盘(图7)。<br>
 <img src="https://leichen2552.github.io//post-images/1617435613047.png" alt="" loading="lazy"></p>
+<h4 id="5410-bga周围3mm内无器件">5.4.10 BGA周围3mm内无器件</h4>
+<p>  为了保证可维修性，BGA器件周围需留有3mm禁布区，最佳为5mm禁布区。一般情况下BGA不不允许放置背面(两次过回流焊的单板第第一次过过回流焊面)；当背面有BGA器件时，不能在正面BGA5mm禁布区的投影范围内布器件。</p>
+<h4 id="5411-贴片元件之间的最小间距满足要求">5.4.11 贴片元件之间的最小间距满足要求</h4>
+<p>  机器贴片之间器件距离要求(图8)：<br>
+  同种器件：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 0.3mm<br>
+  异种器件：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 0.13*h+0.3mm(h为周围近邻元件最大高度差)<br>
+  只能手工贴片的元件之间距离要求：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 1.5mm<br>
+<img src="https://leichen2552.github.io//post-images/1617448169458.png" alt="" loading="lazy"></p>
+<h4 id="5412-元器件的外侧距过板轨道接触的两个板边大于-等于5mm-图9">5.4.12 元器件的外侧距过板轨道接触的两个板边大于、等于5mm。(图9)</h4>
+<p><img src="https://leichen2552.github.io//post-images/1617449391782.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1617449395801.png" alt="" loading="lazy"><br>
+  为了保证制成板过波峰焊或回流焊，传送轨道的卡抓不到元件，元器件的外侧距板边距离应大于或等于5mm，若达不到要求，则PCB应加工艺边，器件与V--CUT的距离 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 1mm。</p>
+<h4 id="5413-可调器件-可插拔器件周围留有足够的空间供调试和维修">5.4.13 可调器件、可插拔器件周围留有足够的空间供调试和维修。</h4>
+<p>  应根据系统或模块的PCBA安装布局以及可调器件的调测方式来综合考虑可调器件的排布方向、调测空间；可插拔器件周围空间预留应根据邻近器件的高度来决定。</p>
+<h4 id="5414-所有的插装磁性元件一定要有坚固的底座禁止使用无底座插装电感">5.4.14 所有的插装磁性元件一定要有坚固的底座，禁止使用无底座插装电感。</h4>
+<h4 id="5415-有极性的变压器的引脚尽量不要设计成对称形式">5.4.15 有极性的变压器的引脚尽量不要设计成对称形式。</h4>
+<h4 id="5416-安装孔的禁布区内无元器件和走线不包括安装孔自身的走线和铜箔">5.4.16 安装孔的禁布区内无元器件和走线(不包括安装孔自身的走线和铜箔)。</h4>
+<h4 id="5417-金属壳体器件和金属件与其他器件的距离满足安规要求">5.4.17 金属壳体器件和金属件与其他器件的距离满足安规要求。</h4>
+<p>  金属壳体器件和金属件的排布应在空间上保证与其他器件的距离满足安规要求。</p>
+<h4 id="5418-对于采用通孔回流焊器件布局的要求">5.4.18 对于采用通孔回流焊器件布局的要求</h4>
+<p>  a. 对于非传送边尺寸大于300mm的PCB，较重的器件尽量不要布置在PCB的中间，以减轻由于插装件在重量在焊接过程中对PCB变形的影响，以及插装过程对板上已经贴放的器件的影响。<br>
+  b. 为方便插装，器件推荐布置在靠近插装操作侧的位置<br>
+  c. 尺寸较长的器件(如内存条插座等)长度方向推荐与传送方向一致。<br>
+<img src="https://leichen2552.github.io//post-images/1617452134170.png" alt="" loading="lazy"><br>
+  d. 通孔回流焊器件焊盘边缘与pitch <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≤</mo></mrow><annotation encoding="application/x-tex">\leq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≤</span></span></span></span> 0.65mm的QFN、SOP、连接器及所有的BGA丝印之间要 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 10mm，与其他SMT器件间距 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 2mm。<br>
+  e. 通孔回流焊器件本体间距离 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 10mm。有夹具扶持的插针焊接不做要求。<br>
+  f. 通孔回流焊器件焊盘边缘与传送边的距离 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 10mm；与非传送边距离 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 5mm。</p>
+<h4 id="5419-通孔回流焊器件禁布区要求">5.4.19 通孔回流焊器件禁布区要求</h4>
+<p>  a. 通孔回流焊器件焊盘周围要留出足够的空间进行焊膏涂布，具体禁布区要求为：对于欧式连接器靠板内的方向10.5mm不能有器件，在禁布区之内不能有器件和过孔。<br>
+  b. 须放置在禁布区内的过孔要做阻焊塞孔处理。</p>
+<h4 id="5420-器件布局要整体考虑单板装配干涉">5.4.20 器件布局要整体考虑单板装配干涉</h4>
+<p>  器件在布局设计时，要考虑单板与单板、单板与机构件的装配干涉问题，尤其是高器件、立体装配的单板等。</p>
+<h4 id="5421-器件和机箱的距离要求">5.4.21 器件和机箱的距离要求</h4>
+<p>  器件布局时要考虑尽量不要太靠近机箱壁，以避免将PCB安装到机箱是损坏器件。特别注意安装在PCB边缘的，在冲击和振动时会产生秦伟移动或没有兼顾的外形的器件：如立装电阻、无底座电感变压器等，若无法满足上述要求，就要采取另外的固定措施来满足安规和振动要求。</p>
+<h4 id="5422-有过波峰焊接的器件尽量布置在pcb边缘以方便堵孔若器件布置在pcb边缘并且式装夹具做的好在波峰焊接是甚至不需要堵孔">5.4.22 有过波峰焊接的器件尽量布置在PCB边缘以方便堵孔，若器件布置在PCB边缘，并且式装夹具做的好，在波峰焊接是甚至不需要堵孔。</h4>
+<h4 id="5423-设计和布局pcb时应尽量允许器件过波峰焊接-选择器件时尽量少选不能过波峰焊接的器件另外放在焊接面的器件应尽量少以减少手工焊接">5.4.23 设计和布局PCB时，应尽量允许器件过波峰焊接。选择器件时尽量少选不能过波峰焊接的器件，另外放在焊接面的器件应尽量少，以减少手工焊接。</h4>
+<h4 id="5424-裸跳线不能贴板跨越版上的导线或铜皮以避免和板上的铜皮短路绿油不能作为有效的绝缘">5.4.24 裸跳线不能贴板跨越版上的导线或铜皮，以避免和板上的铜皮短路，绿油不能作为有效的绝缘</h4>
+<h4 id="5425-布局时考虑所有器件在焊接后易于检查和维护">5.4.25 布局时考虑所有器件在焊接后易于检查和维护。</h4>
+<h4 id="5426-电缆的焊接端尽量靠近pcb的边缘布置以便插装和焊接否则pcb上别的器件会阻碍电缆的插装焊接或被电缆碰歪">5.4.26 电缆的焊接端尽量靠近PCB的边缘布置以便插装和焊接，否则PCB上别的器件会阻碍电缆的插装焊接或被电缆碰歪。</h4>
+<h4 id="5427-多个引脚在同一直线上的器件象连器件-dip封装器件-t220封装器件布局时应使其轴线和波峰焊方向平行-图11">5.4.27 多个引脚在同一直线上的器件，象连器件、DIP封装器件、T220封装器件，布局时应使其轴线和波峰焊方向平行。(图11)</h4>
+<figure data-type="image" tabindex="3"><img src="https://leichen2552.github.io//post-images/1617454907425.png" alt="" loading="lazy"></figure>
+<h4 id="5428-较轻的器件如二极管和-14w-电阻等布局时应使其轴线和波峰焊方向垂直-这样能防止波峰焊时因一端先焊接凝固而使器件产生浮高现象-图12">5.4.28 较轻的器件如二极管和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>4</mn><mi>W</mi></mrow><annotation encoding="application/x-tex">1/4W</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord">4</span><span class="mord mathdefault" style="margin-right:0.13889em;">W</span></span></span></span> 电阻等，布局时应使其轴线和波峰焊方向垂直。这样能防止波峰焊时因一端先焊接凝固而使器件产生浮高现象。(图12)</h4>
+<figure data-type="image" tabindex="4"><img src="https://leichen2552.github.io//post-images/1617455154752.png" alt="" loading="lazy"></figure>
+<h4 id="5429-电缆和周围器件之间要留有一定空间否则电缆的折弯部分会压迫并损坏收尾器件及其焊点">5.4.29 电缆和周围器件之间要留有一定空间，否则电缆的折弯部分会压迫并损坏收尾器件及其焊点。</h4>
 ]]></content>
     </entry>
     <entry>
