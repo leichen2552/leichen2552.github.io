@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2021-04-03T13:11:07.370Z</updated>
+    <updated>2021-04-04T00:44:21.689Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -154,6 +154,20 @@
 <h4 id="5428-较轻的器件如二极管和-14w-电阻等布局时应使其轴线和波峰焊方向垂直-这样能防止波峰焊时因一端先焊接凝固而使器件产生浮高现象-图12">5.4.28 较轻的器件如二极管和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>4</mn><mi>W</mi></mrow><annotation encoding="application/x-tex">1/4W</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord">4</span><span class="mord mathdefault" style="margin-right:0.13889em;">W</span></span></span></span> 电阻等，布局时应使其轴线和波峰焊方向垂直。这样能防止波峰焊时因一端先焊接凝固而使器件产生浮高现象。(图12)</h4>
 <figure data-type="image" tabindex="4"><img src="https://leichen2552.github.io//post-images/1617455154752.png" alt="" loading="lazy"></figure>
 <h4 id="5429-电缆和周围器件之间要留有一定空间否则电缆的折弯部分会压迫并损坏收尾器件及其焊点">5.4.29 电缆和周围器件之间要留有一定空间，否则电缆的折弯部分会压迫并损坏收尾器件及其焊点。</h4>
+<h3 id="55-走线要求">5.5 走线要求</h3>
+<h4 id="551-印制板边距离v-cut-边大于075mm铁槽边大于03mm">5.5.1 印制板边距离：V-CUT 边大于0.75mm，铁槽边大于0.3mm。</h4>
+<p>  为了保证PCB加工时不出现露铜的缺陷，要求所有的走线及铜箔距离板边：V-CUT边大于0.75mm，铁槽边大于0.3mm(铜箔离板边的距离还应满足安装要求)。</p>
+<h4 id="552-散热器正面下方无走线或已作绝缘处理">5.5.2 散热器正面下方无走线(或已作绝缘处理)</h4>
+<p>  为了保证电器绝缘性，散热器下方周围应无走线(考虑到散热器安装的偏位及安规距离)，若需要在散热器下布线，则应采取绝缘措施使散热器与走线绝缘，或确认走线与散热器是同等点位。</p>
+<h4 id="553-金属拉手条底下无走线">5.5.3 金属拉手条底下无走线</h4>
+<p>  为了保证电气绝缘性，金属拉手条底下应无走线。</p>
+<h4 id="554-各类螺钉孔的禁布区范围要求">5.5.4 各类螺钉孔的禁布区范围要求</h4>
+<p>  各种规格的螺钉的禁布区范围如以下表 5 所示(此禁布区的范围只适用于保证电气绝缘的安装空间，未考虑安规距离，而且只是用圆孔)<br>
+<img src="https://leichen2552.github.io//post-images/1617496698782.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1617496703117.png" alt="" loading="lazy"></p>
+<h3 id="56-固定孔-安装孔-过孔要求">5.6 固定孔、安装孔、过孔要求</h3>
+<h4 id="561-过波峰的">5.6.1 过波峰的</h4>
+<p>  </p>
 ]]></content>
     </entry>
     <entry>
