@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2021-04-08T01:32:42.045Z</updated>
+    <updated>2021-04-12T12:57:49.108Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -78,8 +78,8 @@
 <h4 id="523-散热器的放置应考虑对流">5.2.3 散热器的放置应考虑对流</h4>
 <h4 id="524-温度敏感器械件应该要考虑热源">5.2.4 温度敏感器械件应该要考虑热源</h4>
 <p>  对于自身温升高与30摄氏度的热源。一般要求：<br>
-  a. 在风冷条件下，电解电容等温度敏感器件离热源距离要求大于或等于2.5mm；<br>
-  b. 自然冷条件下，电解电容等温度敏感器件离热源距离要求大于或等于4.0mm。<br>
+   a. 在风冷条件下，电解电容等温度敏感器件离热源距离要求大于或等于2.5mm；<br>
+   b. 自然冷条件下，电解电容等温度敏感器件离热源距离要求大于或等于4.0mm。<br>
   若因为空间的原因不能达到要求距离，则应通过温度测试保证温度敏感器件的温升在降额范围内。</p>
 <h4 id="525-大面积铜箔要求用隔热带鱼焊盘相连">5.2.5 大面积铜箔要求用隔热带鱼焊盘相连</h4>
 <p>  为了保证透锡良好，在大面积铜箔上的元件的焊盘相连，对于需过5A以上的大电流不能采用隔热焊盘，如图所示：<img src="https://leichen2552.github.io//post-images/1617281562519.png" alt="" loading="lazy"></p>
@@ -193,7 +193,11 @@
 <h4 id="554-各类螺钉孔的禁布区范围要求">5.5.4 各类螺钉孔的禁布区范围要求</h4>
 <p>  各种规格的螺钉的禁布区范围如以下表 5 所示(此禁布区的范围只适用于保证电气绝缘的安装空间，未考虑安规距离，而且只是用圆孔)<br>
 <img src="https://leichen2552.github.io//post-images/1617496698782.png" alt="" loading="lazy"><br>
-<img src="https://leichen2552.github.io//post-images/1617496703117.png" alt="" loading="lazy"></p>
+<img src="https://leichen2552.github.io//post-images/1617496703117.png" alt="" loading="lazy"><br>
+  本体范围内有安装孔的器件，例如插座的铆钉孔、螺钉安装孔等，为了保证电器绝缘性，夜莺在元件库中将也的禁布区标识清楚。</p>
+<h4 id="555-要增加孤立焊盘和走线连接部分的宽度泪滴焊般特别是对于单面板的焊盘以避免过波峰焊接时将焊盘拉脱">5.5.5 要增加孤立焊盘和走线连接部分的宽度（泪滴焊般）特别是对于单面板的焊盘，以避免过波峰焊接时将焊盘拉脱。</h4>
+<p>  腰形长孔禁步区如下表6：<br>
+<img src="https://leichen2552.github.io//post-images/1618232065423.png" alt="" loading="lazy"></p>
 <h3 id="56-固定孔-安装孔-过孔要求">5.6 固定孔、安装孔、过孔要求</h3>
 <h4 id="561-过波峰的">5.6.1 过波峰的</h4>
 <p>  </p>
