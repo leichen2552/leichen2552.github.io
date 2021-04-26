@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2021-04-26T03:03:10.168Z</updated>
+    <updated>2021-04-26T06:37:03.076Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -38,26 +38,6 @@
       结果非常好，没有漏水！<br>
       非常好，没有漏水！<br>
   紧接着，我们又把控制电路放进设备中，这次试验成功了！</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[美的修空调维权]]></title>
-        <id>https://leichen2552.github.io/post/mei-de-xiu-kong-diao-wei-quan/</id>
-        <link href="https://leichen2552.github.io/post/mei-de-xiu-kong-diao-wei-quan/">
-        </link>
-        <updated>2021-04-07T12:18:18.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="美的空调第一次出现问题">美的空调第一次出现问题</h2>
-<p>冷藏室制冷达不到效果，本来应该零下18度，可是却只有零下四五度的样子。初步判断是温控器的问题<br>
-在美的公众号上报修。</p>
-<h3 id="维修">维修</h3>
-<p>维修师傅来换了一个温控器，一分钱没有收。<br>
-本以为好了，发现还是不行。</p>
-<h2 id="美的空调第二次出现问题">美的空调第二次出现问题</h2>
-<p>现象是压缩机一直不停工作，冷藏室还是没有达到应有的制冷效果。维修师傅把冰箱运回去维修，送回来之后压缩机一部分外面焊接了什么东西，后来自行查询得知是人工定时器。又继续联系维修师傅，维修师傅问我们是不是压缩机一会儿工作一会儿停止，冷藏室温度降了下来。现象确实是，但是冷藏室的温度只有4摄氏度，压缩机工作一会儿工作一会儿停下来是因为加了人工定时器。其实维修师傅就是在糊弄我们，本来冰箱是没有人工定时器的，我们直接打美的客服。他说继续来维修。</p>
-<h2 id="三">三</h2>
-<p>维修师傅要走了淘宝订单号，换台新的。</p>
-<h2 id="后记">后记</h2>
-<p>其实以前遇到这种事情，就会很急，大可没有必要。主要是看这件事情对工作生活学习的影响大不大。</p>
 ]]></content>
     </entry>
     <entry>
@@ -1254,6 +1234,16 @@ while(1)
 <li>读取按键的函数可以设计为非阻塞的，不需要等待按键抖动滤波处理完毕。</li>
 <li>按键FIFO程序在嘀嗒定时器中定期的执行检测，不需要在主程序中一直做检测，这样可以有效地降低系统资源消耗。</li>
 </ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[推挽输出与开漏输出的区别]]></title>
+        <id>https://leichen2552.github.io/post/tui-wan-shu-chu-yu-kai-lou-shu-chu-de-qu-bie/</id>
+        <link href="https://leichen2552.github.io/post/tui-wan-shu-chu-yu-kai-lou-shu-chu-de-qu-bie/">
+        </link>
+        <updated>2021-01-13T11:39:24.000Z</updated>
+        <content type="html"><![CDATA[<p>转自：<br>
+https://blog.csdn.net/qq_27016651/article/details/83096126</p>
 ]]></content>
     </entry>
 </feed>
