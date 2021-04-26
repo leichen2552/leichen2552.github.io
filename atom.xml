@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2021-04-22T07:18:16.376Z</updated>
+    <updated>2021-04-26T03:03:10.168Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,36 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[四次实验记录]]></title>
+        <id>https://leichen2552.github.io/post/di-san-ci-shi-yan-ji-lu/</id>
+        <link href="https://leichen2552.github.io/post/di-san-ci-shi-yan-ji-lu/">
+        </link>
+        <updated>2021-04-26T00:37:48.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="3月27日第一次实验记录">3月27日第一次实验记录</h1>
+<p>  开学以来的第一次试验，地点是在解放军301医院那边的码头。<br>
+  获取测深仪的数据，为学长的实验作准备，水深大概是5米。期间还看到大水母。关于测深仪真是一言难尽，测深仪的上位机是用老古董VC++6.0开发的，所以要使用上位机的话，必须安装VC++6.0.幸好我的电脑是win7系统，还可与之一战。就后续实验，他们的电脑是win10，没有一个能把VC++6.0企业版装成功的。因为301医院地处原因，期间有个做水下设备的人员与我们探讨，并且还给我们指了一条明路。<br>
+  水下图像数据获取。</p>
+<h1 id="4月4日第二次实验记录">4月4日第二次实验记录</h1>
+<p>  第二次实验，地点是红塘湾，也是教训最为惨痛的一次。<br>
+  学长的设备可以下水了。这次做了一个接插件(如图)，利用12个螺丝在周围压紧固定。<br>
+<img src="https://leichen2552.github.io//post-images/1619400503693.jpg" alt="" loading="lazy"><br>
+因为之前那个设备拧不开，包括头部拧上去太难了。这次接插件的只要目的就是衔接上下，然后用螺丝固定。接插件的内嵌部分采用双层的密封圈挤压防水，两层衔接部分采用一层密封圈防水。<br>
+  本以为层层防水之下不会再漏水，科是整个设备刚如水，就推进器在水面短暂地旋转之后就停止工作，数据也没有出现。急忙拉上来之后，原来是进水了。主板也烧了。心情异常复杂<br>
+  后来导师提议把所有内部东西拆了，先检测防水。试验之后，漏水量挺多。初步怀疑是密封圈的尺寸太小导致的漏水。<br>
+  这次来回搬设备真的挺累，26千克的东西，下次得带个小车托运。</p>
+<h1 id="4月17日第三次实验记录">4月17日第三次实验记录</h1>
+<p>  千呼万唤始出来，地点还是红塘湾，依稀记得那天的太阳仍然是那么毒辣，跟清明节那天的比起来，热度丝毫不减<br>
+  在这个实验开始之前，学长更换了不同类型的防水密封圈，可是在7~8米水深下，依然漏水。这真的不知道是什么原因了。但是作为看过所有柯南剧场版的我来说，”排除所有的不可能，剩下的即使再难以相信，那也是真相“。所以要么就是头部的胶开裂漏水，要么就是尾部的胶开裂漏水。</p>
+<h1 id="4月24日第四次实验记录">4月24日第四次实验记录</h1>
+<p>  这回真的是背水一战了，毫无退路。环氧树脂AB胶在头部以及尾部完完全全封了一层，并且在水缸中测试了一遍。这次依旧是红塘湾，在设备下水呆了近十分钟之后，拉上来看，还是漏水，但是此时进水不多，很少。<br>
+  学长提议把电池啥的装进去，因为装进去盖上的操作，然后衔接器的内嵌部分抵住电池盖，其实一开始并没有抱太大希望，因为水这个东西，无孔不入。所以先让学长准备，然后我们去做了另一个实验。回来把电池盖安装好，在电池盖的背面加上了配重块，然后再放下去测试。<br>
+      很意外，舱内没有进水！<br>
+      结果非常好，没有漏水！<br>
+      非常好，没有漏水！<br>
+  紧接着，我们又把控制电路放进设备中，这次试验成功了！</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[美的修空调维权]]></title>
         <id>https://leichen2552.github.io/post/mei-de-xiu-kong-diao-wei-quan/</id>
@@ -28,15 +58,6 @@
 <p>维修师傅要走了淘宝订单号，换台新的。</p>
 <h2 id="后记">后记</h2>
 <p>其实以前遇到这种事情，就会很急，大可没有必要。主要是看这件事情对工作生活学习的影响大不大。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[第三次实验记录]]></title>
-        <id>https://leichen2552.github.io/post/di-san-ci-shi-yan-ji-lu/</id>
-        <link href="https://leichen2552.github.io/post/di-san-ci-shi-yan-ji-lu/">
-        </link>
-        <updated>2021-04-06T00:37:48.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="第三次实验记录">第三次实验记录</h1>
 ]]></content>
     </entry>
     <entry>
