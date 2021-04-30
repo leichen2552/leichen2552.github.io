@@ -91,7 +91,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1619683434902" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1619806697941" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -110,7 +110,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1619683434902" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1619806697941" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -217,7 +217,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                四次实验记录
+                                五次实验记录
                             </h1>
                             
                                 <!--en-->
@@ -227,12 +227,12 @@
                                         ChenLei's Blog
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2021-04-26</a>
+                                Date: <a href="#">2021-04-30</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">3.2
+                                    href="#">4.9
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">952</a></span>
+                                    <span class="post-words">words:<a href="#">1454</a></span>
                                     
                                             Views:
                                             <span data-hk-page="current"> - </span>
@@ -263,7 +263,12 @@
       很意外，舱内没有进水！<br>
       结果非常好，没有漏水！<br>
       非常好，没有漏水！<br>
-  紧接着，我们又把控制电路放进设备中，姿态数据完全出来了，但是深度闭环数据并没有出来！也不知道是什么原因，所以这次算80%的成功！</p>
+  紧接着，我们又把控制电路放进设备中，姿态数据完全出来了，但是深度闭环数据并没有出来！也不知道是什么原因，所以这次算50%的成功！</p>
+<h1 id="4月30日第五次实验记录">4月30日第五次实验记录</h1>
+<p>  赶在四月的最后一天，因为上次深度数据没有出来，所以没办法完成推进器的PWM与深度的闭环。经过这几天的修改程序，应该差不多吧。<br>
+  两点半出发，到那三点，整理东西到场地三点半，就在准备下水的时候，忘记带数据线了，也就是开发板和电脑的数据线。这里提一下，开发板和潜水器是通过485总线来通信的。电脑和开发板通过USB转串口的线来通信，线的接口类型是MINI-USB，这种接口在也被称为老式的USB接口。本以为老师的车上有，同门去拿过来的线是micro-usb，途中还撞得头破血流。没办法，老师开车带着我去离着最近的镇上去买，也不知道跑了多少家中国移动、中国电信、华为体验店、文具商行，最后在一家中国移动的维修处那里买到了两根线。<br>
+  开始实验，从一开始计算的浮力数据来看，只需要加四个配重块就可以进行闭环控制。但是实验结果并不对。后来把配重块卸了，继续实验，还是不行。原因就是设备太重，推进器反推最大也没办法浮起来，这个设计上的缺陷，没办法改变。而且设备旋转的很厉害，那么就把后面绕的绳子不停地上劲，打结，甚至推进器在水下被485的线缠绕，甚至推进器缠绕上了水中垃圾。<br>
+  其实从去年跟学长讨论闭环的时候，我就提议，这个闭环应该是深度和PWM之间构成的闭环。什么意思呢？因为电脑通过上位机发指令给开发板，开发板把指令发给水中的潜水器，然后潜水器执行操作。</p>
 
                         </div>
                         
@@ -273,6 +278,7 @@
 <li><a href="#4%E6%9C%884%E6%97%A5%E7%AC%AC%E4%BA%8C%E6%AC%A1%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95">4月4日第二次实验记录</a></li>
 <li><a href="#4%E6%9C%8817%E6%97%A5%E7%AC%AC%E4%B8%89%E6%AC%A1%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95">4月17日第三次实验记录</a></li>
 <li><a href="#4%E6%9C%8824%E6%97%A5%E7%AC%AC%E5%9B%9B%E6%AC%A1%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95">4月24日第四次实验记录</a></li>
+<li><a href="#4%E6%9C%8830%E6%97%A5%E7%AC%AC%E4%BA%94%E6%AC%A1%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95">4月30日第五次实验记录</a></li>
 </ul>
 
                             </div>
@@ -304,8 +310,8 @@
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/di-san-ci-shi-yan-ji-lu/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/di-san-ci-shi-yan-ji-lu/&sharesource=qzone&title=四次实验记录&pics=https://leichen2552.github.io//images/avatar.png?v=1619683434902&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/di-san-ci-shi-yan-ji-lu/&sharesource=weibo&title=四次实验记录 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1619683434902 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/di-san-ci-shi-yan-ji-lu/&sharesource=qzone&title=五次实验记录&pics=https://leichen2552.github.io//images/avatar.png?v=1619806697941&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/di-san-ci-shi-yan-ji-lu/&sharesource=weibo&title=五次实验记录 + " - " + &pic="https://leichen2552.github.io//images/avatar.png?v=1619806697941 "><i class="fa fa-weibo "></i></a>
                                                         
                                                             <div class="reward ">
                                                                 <div class="reward-button ">&yen;
@@ -412,7 +418,7 @@
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1619683434902);
+                    newDate.setTime(1619806697941);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
