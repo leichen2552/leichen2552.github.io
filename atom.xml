@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://leichen2552.github.io/</id>
     <title>ChenLei&apos;s Blog</title>
-    <updated>2021-05-21T00:48:03.374Z</updated>
+    <updated>2021-07-03T18:33:57.491Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://leichen2552.github.io/"/>
     <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
@@ -10,6 +10,18 @@
     <logo>https://leichen2552.github.io/images/avatar.png</logo>
     <icon>https://leichen2552.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, ChenLei&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[20210704仿生鱼阶段总结]]></title>
+        <id>https://leichen2552.github.io/post/20210507-fang-sheng-yu-jie-duan-zong-jie/</id>
+        <link href="https://leichen2552.github.io/post/20210507-fang-sheng-yu-jie-duan-zong-jie/">
+        </link>
+        <updated>2021-07-03T18:22:31.000Z</updated>
+        <content type="html"><![CDATA[<p>  正好就这停电，写一写仿生鱼制作过程中遇到的那些点点滴滴吧！算不上坑，但是难受绝对算得上的。（20210507）<br>
+  就从研一开始说起吧，研一只要学RTOS，确实把RTOS的学得很透，从0到1写了一个RTOS的内核，相信这些东西肯定能在仿生鱼上大放异彩。下学期碰上疫情，在家学习QT、C++，看看仿生鱼的文献，总结归纳人家的仿生鱼是什么做的。但是，这里总结的只是对文献内容上进行总结，至于文献里的方案到底有没有出来还得两说。还有，对于仿生鱼制作部分的细节也并未完全给出，这里的细节指的是机械加工、安装、经验等等都没有给出。<br>
+  好了，接下来就开始Solidworks学习，学了接近一个半月，绘制了几版像模像样的仿生鱼，前期追求极致像鱼，全是曲面，但是加工真的太难了，所以就放弃了。又绘制了几版，皆被否定。这里插入一句不好听的话，本来这个仿生鱼的有三部分组成，机械设计+电路设计+控制设计，本来三个人的活，全落在我一个人身上。机械设计？并不是科班，没有一点经验，完全重头学，都不算是摸着石头过河，压根就没有石头。电路设计，一个控制板，驱动舵机和电机外加几个串口，双面板就可以，布线布通外加上供电稳定就可以了，但是就这画板+打板子+焊接+测试，这一套流程下来得两个礼拜吧。再就是控制设计，这本是这条鱼的关键所在，控制鱼体像一个真实鱼的样子游动才是重中之重。可是到目前为止，舵机坏了，之前贵的舵机不愿意买，这种便宜的舵机又不稳定。能怎么办。<br>
+  现在需要自主游动，真是需求一点一点往上加，前期不是自顶向下设计，现在东加一点西加一点。这就好像厕所里有一坨很臭的屎，如果不冲，勉强还能上厕所。但是如果把屎冲了，整个厕所就倒了。知道这是什么感觉吗？</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[stm32f4外部晶振更换为8M时]]></title>
         <id>https://leichen2552.github.io/post/stm32f4-wai-bu-jing-zhen-geng-huan-wei-8m-shi/</id>
@@ -23,17 +35,6 @@
 <li>(这一步可能需要也可能不需要)将system_stm32f4xx.c中的语句 #define HSE_BYPASS_INPUT_FREQUENCY  25000000改作 #define HSE_BYPASS_INPUT_FREQUENCY 8000000</li>
 <li>将system_stm32f4xx.c中 #define PLL_M  25     改作 #define PLL_M 8</li>
 </ol>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[20210507仿生鱼阶段总结]]></title>
-        <id>https://leichen2552.github.io/post/20210507-fang-sheng-yu-jie-duan-zong-jie/</id>
-        <link href="https://leichen2552.github.io/post/20210507-fang-sheng-yu-jie-duan-zong-jie/">
-        </link>
-        <updated>2021-05-07T07:17:31.000Z</updated>
-        <content type="html"><![CDATA[<p>  正好就这停电，写一写仿生鱼制作过程中遇到的那些点点滴滴吧！算不上坑，但是难受绝对算得上的。<br>
-  就从研一开始说起吧，研一只要学RTOS，确实把RTOS的学得很透，从0到1写了一个RTOS的内核，相信这些东西肯定能在仿生鱼上大放异彩。下学期碰上疫情，在家学习QT、C++，看看仿生鱼的文献，总结归纳人家的仿生鱼是什么做的。但是，这里总结的只是对文献内容上进行总结，至于文献里的方案到底有没有出来还得两说。还有，对于仿生鱼制作部分的细节也并未完全给出，这里的细节值得是机械加工、安装、经验等等都没有给出。<br>
-  好了，接下来就开始Solidworks学习，学了接近一个半月，绘制了几版像模像样的仿生鱼，前期追求极致像鱼，全是曲面，但是加工真的太难了，所以就放弃了。又绘制了几版，皆被否定。哈哈哈哈哈，这里插入一句不好听的话，本来这个仿生鱼的有三部分组成，机械设计+电路设计+控制设计，本来三个人的活，全落在我一个人身上，哈哈哈哈哈哈，机械设计？对不起没学过，没有一点经验。</p>
 ]]></content>
     </entry>
     <entry>
