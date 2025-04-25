@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://leichen2552.github.io/</id>
+    <title>CLL&apos;s Blog</title>
+    <updated>2025-04-25T22:22:41.085Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://leichen2552.github.io/"/>
+    <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>https://leichen2552.github.io/images/avatar.png</logo>
+    <icon>https://leichen2552.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2025, CLL&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[Introduction to programming inPython]]></title>
+        <id>https://leichen2552.github.io/post/test/</id>
+        <link href="https://leichen2552.github.io/post/test/">
+        </link>
+        <updated>2025-04-24T10:25:12.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="序言">序言</h1>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Make小结]]></title>
+        <id>https://leichen2552.github.io/post/make-xiao-jie/</id>
+        <link href="https://leichen2552.github.io/post/make-xiao-jie/">
+        </link>
+        <updated>2024-09-28T13:11:11.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#overview">overview</a></li>
+</ul>
+</p>
+<h1 id="overview">overview</h1>
+<p>其实用make作为工程管理其实是一件很难受的事情，因为现在各种的IDE都把编译链接这些东西封装起来，导致用make的人越来越少，而且学习make是一件时间成本很高的事情，以至于很多人都不愿意去学。</p>
+<pre><code class="language-c">//test.c
+#include &lt;stdio.h&gt;
+
+int main(){
+    int distance = 100;
+  
+  	printf(&quot;You are %d miles away.\n&quot;, distance);
+}
+</code></pre>
+<p>上面是一个<code>test.c</code>文件，在命令行执行<code>make test</code>，再执行<code>./test</code>你能看到如下的显示：</p>
+<pre><code class="language-sh">make test
+cc     test.c   -o test
+
+./test
+You are 10 miles away.
+</code></pre>
+<p>很奇怪对不对，我们都没有写<code>Makefile</code>，为什么能编译出我们想要的。<code>make</code>里面内建了一些规则，它就是一个规则机器。规则说，在给定了一个<code>target</code>后，所以在<code>make test</code>中，<code>test</code>就是目标，<code>make</code>会去当前目录下寻找同名但是不同后缀名的文件，从而进行编译，但是目标<code>test</code>的依赖我们并没有去指明。这是远古传说中的隐含依赖，这些远古传说来自于几十年的C代码构建经验，我们不需要告诉make所有事情，make本来就知道怎么构建C文件。</p>
+<p>我们可以去指定一个<code>Makefile</code>文件：</p>
+<pre><code class="language-sh">CFLAGS=-Wall -g
+
+all: clean test
+
+clean:
+	rm -rf test
+</code></pre>
+<p>执行<code>make all</code>显示如下：</p>
+<pre><code class="language-sh">make all
+rm -rf test
+cc -Wall -g    test.c   -o test
+</code></pre>
+<p>显然对于目标<code>all</code>来说，有两个依赖，一个是<code>clean</code>，还有一个是<code>test</code>。对于目标<code>clean</code>来说，是删除<code>test</code>文件，但是目标<code>test</code>的依赖仍然没有指定，上面已经解释过是隐含依赖。</p>
+<p><code>CFLAGS</code>是一个环境变量，可以用来设置参数，把<code>Makefile</code>中<code>CFLAGS</code>那行代码前面加个<code>#</code>后注释掉，然后执行<code>CFLAGS=&quot;-Wall&quot; make all</code></p>
+<pre><code class="language-sh">CFLAGS=&quot;-Wall&quot; make all
+
+rm -rf test
+cc -Wall    test.c   -o test
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[正则表达式汇总]]></title>
+        <id>https://leichen2552.github.io/post/zheng-ze-biao-da-shi-hui-zong/</id>
+        <link href="https://leichen2552.github.io/post/zheng-ze-biao-da-shi-hui-zong/">
+        </link>
+        <updated>2023-02-26T05:34:03.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="匹配任意字符">匹配任意字符</h1>
+<ol>
+<li>.字符，也就是英文句号，可以匹配任何一个单个的字符</li>
+<li></li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[笔记：NULL、null、nullptr三者的区别]]></title>
+        <id>https://leichen2552.github.io/post/bi-ji-nullnullnullptr-san-zhe-de-qu-bie/</id>
+        <link href="https://leichen2552.github.io/post/bi-ji-nullnullnullptr-san-zhe-de-qu-bie/">
+        </link>
+        <updated>2022-02-13T14:35:31.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#1-null">1. NULL</a></li>
+<li><a href="#2-nullptr">2. nullptr</a></li>
+<li><a href="#3">3. &quot;&quot;</a></li>
+</ul>
+</li>
+</ul>
+</p>
+<p>其实null和NULL都是字符串（没啥区别，欢迎高手纠错！），具体看它们宏定义被定义成为什么值。</p>
+<p>在VS中NULL被定义为0，因为习惯上把宏定义的所有字符都大写，当把NULL它赋值给指针时意思为空，当然你也可以把null定义为0了，都一样。</p>
+<p>它们都没定义时都只能叫符号了，定义后就有另外的意思了，你把0直接赋值给指针也行，只要指针指向0就为空。</p>
+<p>其实NULL在有些编译器中是赋为0了，这时你不能再去#define定义它了，否则就重定义了！</p>
+<h2 id="1-null">1. NULL</h2>
+<pre><code class="language-cpp">#ifdef __cplusplus  
+#define NULL    0  
+#else  
+#define NULL    ((void *)0) 
+#endif  
+</code></pre>
+<p>在C语言环境下，由于不存在函数重载等问题，直接将NULL定义为一个void<em>的指针就可以完美的解决一切问题。<br>
+但是在C++环境下情况就变得复杂起来，首先我们不能写这样的代码：<br>
+FILE</em> fp = (void*)0; //将void*直接赋值给一个指针是不合法的，编译器会报错。<br>
+我们只能这样写代码</p>
+<pre><code class="language-cpp">FILE* fp = (FILE*)0;
+// or  
+FILE* fp = 0;
+</code></pre>
+<h2 id="2-nullptr">2. nullptr</h2>
+<p>C++11，其中有一个是新的关键字nullptr<br>
+如果我们的编译器是支持nullptr的话，那么我们应该直接使用nullptr来替代NULL的宏定义。正常使用过程中他们是完全等价的。</p>
+<h2 id="3">3. &quot;&quot;</h2>
+<p>&quot;&quot; 也表示空，但是和null有很大区别：null没有分配空间，&quot;&quot;分配了空间</p>
+<pre><code class="language-cpp">String str1 = null;  //str引用为空
+
+String str2 = &quot;&quot;;  //str引用一个空串
+</code></pre>
+<p>也就是null没有分配空间，&quot;&quot;分配了空间，因此str1还不是一个实例化的对象，而str2已经实例化。</p>
+<p>注意：</p>
+<p>因为null不是对象，&quot;&quot;是对象。所以比较的时候必须是 if(str1==null){...}和if(str2.equals(&quot;&quot;)){...}。</p>
+<p>对象用equals比较，null用等号比较。</p>
+<p>因此，如果str1=null;下面的写法错误：</p>
+<p>if(str1.equals(&quot;&quot;)||str1==null){//如果str1没有值，则.... }</p>
+<p>正确的写法是</p>
+<p>if(str1==null||str1.equals(&quot;&quot;)){//先判断是不是对象，如果是，再判断是不是空字符串}</p>
+<p>打个比方：一个空玻璃杯，你不能说它里面什么都没有，因为里面有空气，当然也可以把它弄成真空，null与&quot; &quot;的区别就象真空与空气一样。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[数字0、字符0、"0"、'0'、'\0'的区别]]></title>
+        <id>https://leichen2552.github.io/post/shu-zi-0zi-fu-0000de-qu-bie/</id>
+        <link href="https://leichen2552.github.io/post/shu-zi-0zi-fu-0000de-qu-bie/">
+        </link>
+        <updated>2022-02-13T09:22:51.000Z</updated>
+        <content type="html"><![CDATA[<p>首先把上面5种分下类，分成4类</p>
+<ul>
+<li>数字0：这个0是整型，int a = 0，ASCII表里面，对应的就是0；</li>
+<li>字符0、'0'：这这两个是char型，char c = '0'，ASCII表里面，对应的就是0x30，也就是48；</li>
+<li>'\0'：这个是转义字符，意义是空字符(NULL)，也是字符串结束符，ASCII表里面，对应的就是0，所以'\0' == 数字0；</li>
+<li>&quot;0&quot;：这个是字符串0，看似只有一个字符其实有两个，是字符0和转义字符'\0'的结合，&quot;0&quot; =={ '0', '\0' }。</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[stm32f4外部晶振更换为8M时]]></title>
+        <id>https://leichen2552.github.io/post/stm32f4-wai-bu-jing-zhen-geng-huan-wei-8m-shi/</id>
+        <link href="https://leichen2552.github.io/post/stm32f4-wai-bu-jing-zhen-geng-huan-wei-8m-shi/">
+        </link>
+        <updated>2021-05-18T01:44:55.000Z</updated>
+        <content type="html"><![CDATA[<p>程序上设置的晶振频率跟实际外部用的晶振频率不一致，会导致时钟紊乱，比如定时器定时不准，还会导致串口传输数据错误。</p>
+<p>将晶振频率设置成12M的步骤如下：</p>
+<ol>
+<li>将stm32f4xx.h中语句 #define HSE_VALUE    ((uint32_t)25000000)改作#define HSE_VALUE    ((uint32_t)8000000)</li>
+<li>(这一步可能需要也可能不需要)将system_stm32f4xx.c中的语句 #define HSE_BYPASS_INPUT_FREQUENCY  25000000改作 #define HSE_BYPASS_INPUT_FREQUENCY 8000000</li>
+<li>将system_stm32f4xx.c中 #define PLL_M  25     改作 #define PLL_M 8</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[五次实验记录]]></title>
+        <id>https://leichen2552.github.io/post/di-san-ci-shi-yan-ji-lu/</id>
+        <link href="https://leichen2552.github.io/post/di-san-ci-shi-yan-ji-lu/">
+        </link>
+        <updated>2021-04-30T00:37:48.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="3月27日第一次实验记录">3月27日第一次实验记录</h1>
+<p>  开学以来的第一次试验，地点是在解放军301医院那边的码头。<br>
+  获取测深仪的数据，为学长的实验作准备，水深大概是5米。期间还看到大水母。关于测深仪真是一言难尽，测深仪的上位机是用老古董VC++6.0开发的，所以要使用上位机的话，必须安装VC++6.0.幸好我的电脑是win7系统，还可与之一战。就后续实验，他们的电脑是win10，没有一个能把VC++6.0企业版装成功的。因为301医院地处原因，期间有个做水下设备的人员与我们探讨，并且还给我们指了一条明路。<br>
+  水下图像数据获取。</p>
+<h1 id="4月4日第二次实验记录">4月4日第二次实验记录</h1>
+<p>  第二次实验，地点是红塘湾，也是教训最为惨痛的一次。<br>
+  学长的设备可以下水了。这次做了一个接插件(如图)，利用12个螺丝在周围压紧固定。<br>
+<img src="https://leichen2552.github.io//post-images/1619400503693.jpg" alt="" loading="lazy"><br>
+因为之前那个设备拧不开，包括头部拧上去太难了。这次接插件的只要目的就是衔接上下，然后用螺丝固定。接插件的内嵌部分采用双层的密封圈挤压防水，两层衔接部分采用一层密封圈防水。<br>
+  本以为层层防水之下不会再漏水，科是整个设备刚如水，就推进器在水面短暂地旋转之后就停止工作，数据也没有出现。急忙拉上来之后，原来是进水了。主板也烧了。心情异常复杂<br>
+  后来导师提议把所有内部东西拆了，先检测防水。试验之后，漏水量挺多。初步怀疑是密封圈的尺寸太小导致的漏水。<br>
+  这次来回搬设备真的挺累，26千克的东西，下次得带个小车托运。</p>
+<h1 id="4月17日第三次实验记录">4月17日第三次实验记录</h1>
+<p>  千呼万唤始出来，地点还是红塘湾，依稀记得那天的太阳仍然是那么毒辣，跟清明节那天的比起来，热度丝毫不减<br>
+  在这个实验开始之前，学长更换了不同类型的防水密封圈，可是在7~8米水深下，依然漏水。这真的不知道是什么原因了。但是作为看过所有柯南剧场版的我来说，”排除所有的不可能，剩下的即使再难以相信，那也是真相“。所以要么就是头部的胶开裂漏水，要么就是尾部的胶开裂漏水。</p>
+<h1 id="4月24日第四次实验记录">4月24日第四次实验记录</h1>
+<p>  这回真的是背水一战了，毫无退路。环氧树脂AB胶在头部以及尾部完完全全封了一层，并且在水缸中测试了一遍。这次依旧是红塘湾，在设备下水呆了近十分钟之后，拉上来看，还是漏水，但是此时进水不多，很少。<br>
+  学长提议把电池啥的装进去，因为装进去盖上的操作，然后衔接器的内嵌部分抵住电池盖，其实一开始并没有抱太大希望，因为水这个东西，无孔不入。所以先让学长准备，然后我们去做了另一个实验。回来把电池盖安装好，在电池盖的背面加上了配重块，然后再放下去测试。<br>
+      很意外，舱内没有进水！<br>
+      结果非常好，没有漏水！<br>
+      非常好，没有漏水！<br>
+  紧接着，我们又把控制电路放进设备中，姿态数据完全出来了，但是深度闭环数据并没有出来！也不知道是什么原因，所以这次算50%的成功！</p>
+<h1 id="4月30日第五次实验记录">4月30日第五次实验记录</h1>
+<p>  赶在四月的最后一天，因为上次深度数据没有出来，所以没办法完成推进器的PWM与深度的闭环。经过这几天的修改程序，应该差不多吧。<br>
+  两点半出发，到那三点，整理东西到场地三点半，就在准备下水的时候，忘记带数据线了，也就是开发板和电脑的数据线。这里提一下，开发板和潜水器是通过485总线来通信的。电脑和开发板通过USB转串口的线来通信，线的接口类型是MINI-USB，这种接口在也被称为老式的USB接口。本以为老师的车上有，同门去拿过来的线是micro-usb，途中还撞得头破血流。没办法，老师开车带着我去离着最近的镇上去买，也不知道跑了多少家中国移动、中国电信、华为体验店、文具商行，最后在一家中国移动的维修处那里买到了两根线。<br>
+  开始实验，从一开始计算的浮力数据来看，只需要加四个配重块就可以进行闭环控制。但是实验结果并不对。后来把配重块卸了，继续实验，还是不行。原因就是设备太重，推进器反推最大也没办法浮起来，这个设计上的缺陷，没办法改变。而且设备旋转的很厉害，那么就把后面绕的绳子不停地上劲，打结，甚至推进器在水下被485的线缠绕，甚至推进器缠绕上了水中垃圾。<br>
+  其实从去年跟学长讨论闭环的时候，我就提议，这个闭环应该是深度和PWM之间构成的闭环。什么意思呢？因为电脑通过上位机发指令给开发板，开发板把指令发给水中的潜水器，然后潜水器执行操作。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[美的修冰箱维权]]></title>
+        <id>https://leichen2552.github.io/post/mei-de-xiu-kong-diao-wei-quan/</id>
+        <link href="https://leichen2552.github.io/post/mei-de-xiu-kong-diao-wei-quan/">
+        </link>
+        <updated>2021-04-07T12:18:18.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="记一次修美的冰箱的事件">记一次修美的冰箱的事件</h1>
+<h2 id="3月25日美的冰箱第一次出现问题">3月25日美的冰箱第一次出现问题</h2>
+<p>冷冻室制冷达不到效果，本来应该零下18度，可是却只有零下四五度的样子。初步判断是温控器的问题<br>
+在美的公众号上报修。</p>
+<h2 id="3月28日第一次维修">3月28日第一次维修</h2>
+<p>3月28日维修师傅来换了一个温控器，一分钱没有收。本以为好了，发现还是不行。</p>
+<h2 id="3月29日美的冰箱第二次出现问题">3月29日美的冰箱第二次出现问题</h2>
+<p>现象是压缩机一直不停工作，冷藏室还是没有达到应有的制冷效果。冰箱内存储物很少，冷藏室结很厚一层冰，温控器失灵，压缩机一直工作不停。维修师傅把冰箱运回去维修。</p>
+<h2 id="4月6日第二次维修">4月6日第二次维修</h2>
+<p>售后维修在电源处加接了一个冰箱知音(在网上可查其功用)，它一个旋钮调冰箱压缩机运行时间{电接通〉，另一个旋钮调压缩机停止时间(电断开)，而冰箱自己的温控失灵问题没有解决;另一个问题就是压缩机不停的运行而冰箱冰冻室只有零下8度左右的问题，我看到压缩机两侧管道有重新焊接的痕迹，可能加了制冷制。</p>
+<p>又继续联系维修师傅，维修师傅问我们是不是压缩机一会儿工作一会儿停止，冷藏室温度降了下来。现象确实是，但是冷藏室的温度只有4摄氏度，压缩机工作一会儿工作一会儿停下来是因为加了人工定时器（就是前面说的冰箱知音）。</p>
+<p>其实维修师傅就是在糊弄我们，本来冰箱是没有人工定时器的，我们直接打售后。他说继续来维修。</p>
+<h2 id="4月8日第三次维修">4月8日第三次维修</h2>
+<p>维修师傅来电告知换台新冰箱，需要十几天时间。要走了淘宝订单号，换台新的。可是迟迟没有动静，等了小半个月，都没啥动静。</p>
+<h2 id="事情继续发展">事情继续发展</h2>
+<p>4月25日售后来人说只能折旧退款，退659。但是我拒绝了，这不是折旧退款的事情，是现在售后修不好的事情，整机维修一年，核心零部件三年。这不满足核心零部件三年的这项条款。继续报修投诉，打400投诉，过了两天仍无动静。</p>
+<p>4月28日6点半我又打美的400客服冰箱报修投诉。她说是25日报修投诉的？我说是的，但这几天也没人答理我，冰箱又被他们拖走了。她说需了解一下情况再回复。</p>
+<p>4月28日8点多维修师傅打电话来说上午来送线。10点多美的客服又来电询问情况。11点58分维修师傅终于来电说在万塔街等我。我去在冰箱收回退款959元的机打印收条上签字，还在一张也是机打印的内容是冰箱收回什么的上面有许多空挌(内需填写型号丶退货原因之类，维修师傅说由他们填写)签字，这张维修师傅说需要贴在回收冰箱上。</p>
+<p>然而4月25日那天来人只是要我写一张659元的手写收据，两一对比我怀疑是维修处擅自退款659元，然后再在机打印的两个文件上签上我的名字去美的厂家领取959元，这样近300元就到维修处的腰包。</p>
+<p>这段时间，维修处拖延、蒙骗、暗强迫等方法，尤其25号来拖冰箱送钱时，我打电话质疑维修处的负责人(是固话女的)时，她态度蛮横、嚣张，上消协投诉好了之类。无利不起早，我当时就怀疑里面有诈。不说了，为了这事这一阵挺累的，好了，终于守得云开见月明！</p>
+<h2 id="后记">后记</h2>
+<p>美的的售后维修并不是美的总部开的，我觉得是一种加盟的方式。比如某个地方有一个修冰箱的小作坊，然后越修店面越大，后来就加盟美的售后维修。从某种程度上说这种开售后维修的方式有点像外包。经此事件，对美的的好感度大减，天下的乌鸦一般黑。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[PCB 工艺设计规范]]></title>
+        <id>https://leichen2552.github.io/post/pcb-gong-yi-she-ji-gui-fan/</id>
+        <link href="https://leichen2552.github.io/post/pcb-gong-yi-she-ji-gui-fan/">
+        </link>
+        <updated>2021-04-01T11:13:21.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="pcb-工艺设计规范">PCB 工艺设计规范</h1>
+<h2 id="1目的">1.目的</h2>
+<p>  规范产品PCB工艺设计，规定PCB工艺设计的相关参数，使得PCB的设计满足课生产性，可测试性、安规、EMC、EMI等的技术规范要求，在产品设计过程中构建产品的工艺、技术、质量、成本优势。</p>
+<h2 id="2使用范围">2.使用范围</h2>
+<p>  本规范适用于所有的电子产品的PCB工艺设计，运用于但不限于PCB的设计、PCB投板工艺审查、单板工艺审查等活动。<br>
+  本规范之前的相关标准、规范的内容如与本规范的指定相抵触的，一本规范为准。</p>
+<h2 id="3定义">3.定义</h2>
+<p>  导通孔(via)：一种用于内层连接的金属化孔，但其中并不用于插入元件或其他增强材料。<br>
+  盲孔(Blind via)：从印刷板内仅延展到一个表层的导通孔。<br>
+  埋孔(Buried via)：未延伸到印刷版表面的一种导通孔。<br>
+  过孔(Through via)：从印制板的一个表面延展到另一层表面的导通孔。<br>
+  元件孔(Component hole)：用于元件端子固定于印制板及导电图形电器联接的孔。<br>
+  Stand off：表面贴器件的本体底部到引脚底部的垂直距离。</p>
+<h2 id="4引用参考标准或资料">4.引用/参考标准或资料</h2>
+<p>  TS--S0902010001  《信息技术设备PCB安规设计规范》<br>
+  TS--SOE0199001  《电子设备的强迫风冷热设计规范》<br>
+  TS--SOE0199002  《电子设备的自然冷却热设计规范》<br>
+  IEC60194  《印刷版设计、制造与组装术语与定义》（Printed Circuit Board design manufacture assembly-terms and definituons）<br>
+  IPC--A--600F  《印刷版的验收条件》(Acceptably of printed board)<br>
+  IEC60950</p>
+<h2 id="5规范要求">5.规范要求</h2>
+<h3 id="51pcb板材要求">5.1PCB板材要求</h3>
+<h4 id="511确定pcb使用板材以及tg值">5.1.1确定PCB使用板材以及TG值</h4>
+<p>  确定PCB所选用的板材，例如FR--4、铝基板、陶瓷基板、纸芯板等，若选用高TG值得板材，应在文件中表明厚度公差。</p>
+<h4 id="512确定pcb的表面处理镀层">5.1.2确定PCB的表面处理镀层</h4>
+<p>  确定PCB铜箔的表面处理镀层，例如镀锡、镀镶金或OSP等，并在文件中注明</p>
+<h3 id="52热设计要求">5.2热设计要求</h3>
+<h4 id="521-高热器件应该考虑放于出风口或利于对流的位置">5.2.1 高热器件应该考虑放于出风口或利于对流的位置</h4>
+<p>  PCB在布局中考虑将高热器件放于出风口或利于对流的位置。</p>
+<h4 id="522-较高的元件应考虑放于出风口且不阻挡封路">5.2.2 较高的元件应考虑放于出风口，且不阻挡封路</h4>
+<h4 id="523-散热器的放置应考虑对流">5.2.3 散热器的放置应考虑对流</h4>
+<h4 id="524-温度敏感器械件应该要考虑热源">5.2.4 温度敏感器械件应该要考虑热源</h4>
+<p>  对于自身温升高与30摄氏度的热源。一般要求：<br>
+   a. 在风冷条件下，电解电容等温度敏感器件离热源距离要求大于或等于2.5mm；<br>
+   b. 自然冷条件下，电解电容等温度敏感器件离热源距离要求大于或等于4.0mm。<br>
+  若因为空间的原因不能达到要求距离，则应通过温度测试保证温度敏感器件的温升在降额范围内。</p>
+<h4 id="525-大面积铜箔要求用隔热带鱼焊盘相连">5.2.5 大面积铜箔要求用隔热带鱼焊盘相连</h4>
+<p>  为了保证透锡良好，在大面积铜箔上的元件的焊盘相连，对于需过5A以上的大电流不能采用隔热焊盘，如图所示：<img src="https://leichen2552.github.io//post-images/1617281562519.png" alt="" loading="lazy"></p>
+<h4 id="526-过回流焊的0805以及0805以下片式元件两端焊盘的散热对称性">5.2.6 过回流焊的0805以及0805以下片式元件两端焊盘的散热对称性</h4>
+<p>  为了避免器件过回流焊后出现偏位、立碑现象，地回流焊的0805以及0805以下片式元件两端焊盘应保证散热对称性，焊盘与印制导线的连接部位宽度不应大于0.3mm(对于不对称焊盘)，如图1所示。</p>
+<h4 id="527-高热器件的安装方式及是否考虑带散热器">5.2.7 高热器件的安装方式及是否考虑带散热器</h4>
+<p>  确定高热器件的安装的安装方式易于操作和焊接，原则上党员器件的发热密度超过0.4W/<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><msup><mi>m</mi><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">cm^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span>，单靠元器件的引线腿及器件本省不足充分散热，应采用散热网、汇流条件等措施来提高过电流能力，汇流条的支脚应采用多点连接，尽可能采用铆接后过波峰焊或直接过波峰焊接，以利于装配、焊接；对于较长的汇流条的使用，应考虑过波峰时受热汇流条与PCB热膨胀系数不匹配造成的PCB变形。<br>
+  为保证搪锡易于操作，锡道宽度应不大于等于2.0mm，锡道边缘间距大于1.5mm。</p>
+<h3 id="53-器件库选型要求">5.3 器件库选型要求</h3>
+<h4 id="531-已有pcb元件封装库的选用应确认无误">5.3.1 已有PCB元件封装库的选用应确认无误</h4>
+<p>  PCB上已有元件库器件的选用应保证封装与元器件实物外形轮廓、引脚间距、通孔直径等相符合。<br>
+  插装器件管脚与通孔配合良好(通孔直径大于管脚直径8 -- 20mil)，考虑公差可适当增加，确保透锡良好。<br>
+  元件的孔径形成序列化，40mil以上按5mil增加，即40mil、45mil、50mil、55mil......；40mil一下按照4mil递减，即36mil、32mil、28mil、24mil、20mil、16mil、12mil、8mil。<br>
+  器件引脚直径与PCB焊盘孔径的对应关系，以及二次电源插针焊脚与通孔回流焊的焊盘孔径对应关系如表1：<img src="https://leichen2552.github.io//post-images/1617346809259.png" alt="" loading="lazy">  建立元件封装库存是应将孔径的单位换算为英制(mil)，并使孔径满足序列化要求。</p>
+<h4 id="532-新器件的pcb封装库存应确定无误">5.3.2 新器件的PCB封装库存应确定无误</h4>
+<p>  PCB上尚无件封装库的器件，应根据器件资料建立打捞的元件封装库，并保证丝印库存与实务相符合，特别是新建立的电磁元件、自制结构件等的元件库存是否与减员的资料(承认书、图纸)相符合。新器件应建立能够满足不同工艺(回流焊、波峰焊、通孔回流焊)要求的元件库</p>
+<h4 id="533-需过波峰焊的smt器件要求使用表面贴波峰焊盘库">5.3.3 需过波峰焊的SMT器件要求使用表面贴波峰焊盘库。</h4>
+<h4 id="534-轴向器件和条线的引脚间距的种类应尽量少以减少器件的成形和安装工具">5.3.4 轴向器件和条线的引脚间距的种类应尽量少，以减少器件的成形和安装工具。</h4>
+<h4 id="535-不同pin间距的兼容要有单独焊盘孔特别是封装箭筒的继电器之间个兼容焊盘之间要连线">5.3.5 不同PIN间距的兼容要有单独焊盘孔，特别是封装箭筒的继电器之间个兼容焊盘之间要连线。</h4>
+<h4 id="536-锰铜丝等作为测量用的跳线的焊盘要做成非金属化若是金属化焊盘那么焊接后焊盘内的那段电阻江北短路电阻的有效长度将变小而且不一致从而导致测试结果不准确">5.3.6 锰铜丝等作为测量用的跳线的焊盘要做成非金属化，若是金属化焊盘，那么焊接后，焊盘内的那段电阻江北短路，电阻的有效长度将变小而且不一致，从而导致测试结果不准确。</h4>
+<h4 id="537-不能用表贴器件作为手工焊的调测器件表贴器件在手工焊接是容易受热冲击损坏">5.3.7 不能用表贴器件作为手工焊的调测器件，表贴器件在手工焊接是容易受热冲击损坏。</h4>
+<h4 id="538-除非实验验证没有问题否则不能选用和pcb热膨胀系数差别太大的无引脚表贴器件这容易引起焊盘拉托的现象">5.3.8 除非实验验证没有问题，否则不能选用和PCB热膨胀系数差别太大的无引脚表贴器件，这容易引起焊盘拉托的现象。</h4>
+<h4 id="539-除非实验验证没有问题否则不能选非表贴器件使用-因为这样可能需要手焊接效果和可靠性都会很低">5.3.9 除非实验验证没有问题，否则不能选非表贴器件使用。因为这样可能需要手焊接，效果和可靠性都会很低。</h4>
+<h4 id="5310多层pcb侧面局部镀铜作为用于焊接的引脚时必须保证每层均有铜箔相连以增加镀铜的附着强度同时要有实验验证没有问题否则双面板不能采用侧面镀铜作为焊接引脚">5.3.10多层PCB侧面局部镀铜作为用于焊接的引脚时，必须保证每层均有铜箔相连，以增加镀铜的附着强度，同时要有实验验证没有问题，否则双面板不能采用侧面镀铜作为焊接引脚。</h4>
+<h3 id="54-基本布局要求">5.4 基本布局要求</h3>
+<h4 id="541-pcba加工工序合理">5.4.1 PCBA加工工序合理</h4>
+<p>  制成板的元件布局应保证制成板的加工工序合理，以便于提高制成板加工效率和直通率。PCB布局选用的加工流程应使加工效率最高。<br>
+  常用PCBA的6种主流加工流程图如表2：</p>
+<h4 id="542-波峰焊加工的制成板进板方向要求有丝印表明">5.4.2 波峰焊加工的制成板进板方向要求有丝印表明</h4>
+<p>  波峰焊加工的制成板进板方向应在PCB上标明，并使进板方向合理，若PCB可以从两个方向进板，应采用双箭头的进板标识。<img src="https://leichen2552.github.io//post-images/1617435836265.png" alt="" loading="lazy"></p>
+<h4 id="543-两面过回流焊的pcb的buttom面要求无大体积-太重的表贴器件需两面都过回流焊的pcb第一次回流焊接器件重量限制如下">5.4.3 两面过回流焊的PCB的BUTTOM面要求无大体积、太重的表贴器件需两面都过回流焊的PCB，第一次回流焊接器件重量限制如下：</h4>
+<p>  <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span> = 器件重量/引脚与焊盘接触面积<br>
+  片式器件 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>≤</mo><mn>0.075</mn><mi>g</mi><mi mathvariant="normal">/</mi><mi>m</mi><msup><mi>m</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">A \leq 0.075g/mm^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">7</span><span class="mord">5</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord">/</span><span class="mord mathdefault">m</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><br>
+  翼形引脚器件：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>≤</mo><mn>0.300</mn><mi>g</mi><mi mathvariant="normal">/</mi><mi>m</mi><msup><mi>m</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">A \leq 0.300g/mm^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">3</span><span class="mord">0</span><span class="mord">0</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord">/</span><span class="mord mathdefault">m</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><br>
+  <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>J</mi></mrow><annotation encoding="application/x-tex">J</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.09618em;">J</span></span></span></span>形引脚器件：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>≤</mo><mn>0.200</mn><mi>g</mi><mi mathvariant="normal">/</mi><mi>m</mi><msup><mi>m</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">A \leq 0.200g/mm^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">2</span><span class="mord">0</span><span class="mord">0</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord">/</span><span class="mord mathdefault">m</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><br>
+  面阵列器件：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>≤</mo><mn>0.100</mn><mi>g</mi><mi mathvariant="normal">/</mi><mi>m</mi><msup><mi>m</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">A \leq 0.100g/mm^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord">/</span><span class="mord mathdefault">m</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><br>
+  若有超重的器件必须不在BOTTOM面，则应通过实验验证可行性。</p>
+<h4 id="544-需波峰焊加工的单板背面器件不形成阴影效应的安全距离已考虑波峰焊工艺的smt器件距离要求如下">5.4.4 需波峰焊加工的单板背面器件不形成阴影效应的安全距离已考虑波峰焊工艺的SMT器件距离要求如下：</h4>
+<p>  相同类型器件距离(见图2)<br>
+<img src="https://leichen2552.github.io//post-images/1617446033866.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1617435778866.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1617446038419.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1617434174744.png" alt="" loading="lazy"></p>
+<h4 id="545-大于0805封装的陶瓷电容布局是尽量靠近传送边或应力较小区域其轴向尽量与进板方向平行图4尽量不使用1825以上的尺寸的陶瓷电容-保留意见">5.4.5 大于0805封装的陶瓷电容，布局是尽量靠近传送边或应力较小区域，其轴向尽量与进板方向平行(图4)，尽量不使用1825以上的尺寸的陶瓷电容。(保留意见)</h4>
+<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io//post-images/1617434416240.jpg" alt="" loading="lazy"></figure>
+<h4 id="546-经常插拔器件或板边连接器周围3mm范围内尽量不布置smd以防止连接器插拔时产生的应力损坏器件如图5">5.4.6 经常插拔器件或板边连接器周围3mm范围内尽量不布置SMD，以防止连接器插拔时产生的应力损坏器件，如图5：</h4>
+<figure data-type="image" tabindex="2"><img src="https://leichen2552.github.io//post-images/1617434540604.png" alt="" loading="lazy"></figure>
+<h4 id="547-过波峰焊的表面贴器件的stand-off符合规范要求">5.4.7 过波峰焊的表面贴器件的stand off符合规范要求</h4>
+<p>  过波峰焊的表面贴器件的stand off应小于0.15mm，否则不能布在B面过波峰焊，若器件的stand off 在 0.15mm 与 0.2mm 之间，可在器件本体底下布铜箔以减少器件本体底部与 PCB 表面的距离。</p>
+<h4 id="548-波峰焊时背面测试点不连锡的最小安全距离已确定">5.4.8 波峰焊时背面测试点不连锡的最小安全距离已确定</h4>
+<p>  为保证过波峰焊时不连锡，背面测试点边缘间距应大于1.0mm</p>
+<h4 id="549-过波峰焊的插件元件焊盘间距大于10mm">5.4.9 过波峰焊的插件元件焊盘间距大于1.0mm</h4>
+<p>  为保证过波峰焊时不连锡，过波峰焊的插件元件焊盘边缘间距应大于1.0mm(包括元件本身引脚的焊盘边缘间距)。<br>
+  优选插件元件间距(pitch) <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 2.0mm，焊盘边缘间距 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 1.0mm<br>
+  在器件本体不相互干涉的前提下，相邻器件焊盘边缘间距满足图6要求：<br>
+<img src="https://leichen2552.github.io//post-images/1617446123110.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1617435443460.png" alt="" loading="lazy"><br>
+  插件元件没牌引脚为较多，以焊盘排列方向平行于进板方向布置器件时，当相邻盘边缘间距0.6mm -- 1.0mm时，推荐采用椭圆形焊盘或偷加锡焊盘(图7)。<br>
+<img src="https://leichen2552.github.io//post-images/1617435613047.png" alt="" loading="lazy"></p>
+<h4 id="5410-bga周围3mm内无器件">5.4.10 BGA周围3mm内无器件</h4>
+<p>  为了保证可维修性，BGA器件周围需留有3mm禁布区，最佳为5mm禁布区。一般情况下BGA不不允许放置背面(两次过回流焊的单板第第一次过过回流焊面)；当背面有BGA器件时，不能在正面BGA5mm禁布区的投影范围内布器件。</p>
+<h4 id="5411-贴片元件之间的最小间距满足要求">5.4.11 贴片元件之间的最小间距满足要求</h4>
+<p>  机器贴片之间器件距离要求(图8)：<br>
+  同种器件：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 0.3mm<br>
+  异种器件：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 0.13*h+0.3mm(h为周围近邻元件最大高度差)<br>
+  只能手工贴片的元件之间距离要求：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 1.5mm<br>
+<img src="https://leichen2552.github.io//post-images/1617448169458.png" alt="" loading="lazy"></p>
+<h4 id="5412-元器件的外侧距过板轨道接触的两个板边大于-等于5mm-图9">5.4.12 元器件的外侧距过板轨道接触的两个板边大于、等于5mm。(图9)</h4>
+<p><img src="https://leichen2552.github.io//post-images/1617449391782.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1617449395801.png" alt="" loading="lazy"><br>
+  为了保证制成板过波峰焊或回流焊，传送轨道的卡抓不到元件，元器件的外侧距板边距离应大于或等于5mm，若达不到要求，则PCB应加工艺边，器件与V--CUT的距离 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 1mm。</p>
+<h4 id="5413-可调器件-可插拔器件周围留有足够的空间供调试和维修">5.4.13 可调器件、可插拔器件周围留有足够的空间供调试和维修。</h4>
+<p>  应根据系统或模块的PCBA安装布局以及可调器件的调测方式来综合考虑可调器件的排布方向、调测空间；可插拔器件周围空间预留应根据邻近器件的高度来决定。</p>
+<h4 id="5414-所有的插装磁性元件一定要有坚固的底座禁止使用无底座插装电感">5.4.14 所有的插装磁性元件一定要有坚固的底座，禁止使用无底座插装电感。</h4>
+<h4 id="5415-有极性的变压器的引脚尽量不要设计成对称形式">5.4.15 有极性的变压器的引脚尽量不要设计成对称形式。</h4>
+<h4 id="5416-安装孔的禁布区内无元器件和走线不包括安装孔自身的走线和铜箔">5.4.16 安装孔的禁布区内无元器件和走线(不包括安装孔自身的走线和铜箔)。</h4>
+<h4 id="5417-金属壳体器件和金属件与其他器件的距离满足安规要求">5.4.17 金属壳体器件和金属件与其他器件的距离满足安规要求。</h4>
+<p>  金属壳体器件和金属件的排布应在空间上保证与其他器件的距离满足安规要求。</p>
+<h4 id="5418-对于采用通孔回流焊器件布局的要求">5.4.18 对于采用通孔回流焊器件布局的要求</h4>
+<p>  a. 对于非传送边尺寸大于300mm的PCB，较重的器件尽量不要布置在PCB的中间，以减轻由于插装件在重量在焊接过程中对PCB变形的影响，以及插装过程对板上已经贴放的器件的影响。<br>
+  b. 为方便插装，器件推荐布置在靠近插装操作侧的位置<br>
+  c. 尺寸较长的器件(如内存条插座等)长度方向推荐与传送方向一致。<br>
+<img src="https://leichen2552.github.io//post-images/1617452134170.png" alt="" loading="lazy"><br>
+  d. 通孔回流焊器件焊盘边缘与pitch <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≤</mo></mrow><annotation encoding="application/x-tex">\leq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≤</span></span></span></span> 0.65mm的QFN、SOP、连接器及所有的BGA丝印之间要 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 10mm，与其他SMT器件间距 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 2mm。<br>
+  e. 通孔回流焊器件本体间距离 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 10mm。有夹具扶持的插针焊接不做要求。<br>
+  f. 通孔回流焊器件焊盘边缘与传送边的距离 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 10mm；与非传送边距离 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 5mm。</p>
+<h4 id="5419-通孔回流焊器件禁布区要求">5.4.19 通孔回流焊器件禁布区要求</h4>
+<p>  a. 通孔回流焊器件焊盘周围要留出足够的空间进行焊膏涂布，具体禁布区要求为：对于欧式连接器靠板内的方向10.5mm不能有器件，在禁布区之内不能有器件和过孔。<br>
+  b. 须放置在禁布区内的过孔要做阻焊塞孔处理。</p>
+<h4 id="5420-器件布局要整体考虑单板装配干涉">5.4.20 器件布局要整体考虑单板装配干涉</h4>
+<p>  器件在布局设计时，要考虑单板与单板、单板与机构件的装配干涉问题，尤其是高器件、立体装配的单板等。</p>
+<h4 id="5421-器件和机箱的距离要求">5.4.21 器件和机箱的距离要求</h4>
+<p>  器件布局时要考虑尽量不要太靠近机箱壁，以避免将PCB安装到机箱是损坏器件。特别注意安装在PCB边缘的，在冲击和振动时会产生秦伟移动或没有兼顾的外形的器件：如立装电阻、无底座电感变压器等，若无法满足上述要求，就要采取另外的固定措施来满足安规和振动要求。</p>
+<h4 id="5422-有过波峰焊接的器件尽量布置在pcb边缘以方便堵孔若器件布置在pcb边缘并且式装夹具做的好在波峰焊接是甚至不需要堵孔">5.4.22 有过波峰焊接的器件尽量布置在PCB边缘以方便堵孔，若器件布置在PCB边缘，并且式装夹具做的好，在波峰焊接是甚至不需要堵孔。</h4>
+<h4 id="5423-设计和布局pcb时应尽量允许器件过波峰焊接-选择器件时尽量少选不能过波峰焊接的器件另外放在焊接面的器件应尽量少以减少手工焊接">5.4.23 设计和布局PCB时，应尽量允许器件过波峰焊接。选择器件时尽量少选不能过波峰焊接的器件，另外放在焊接面的器件应尽量少，以减少手工焊接。</h4>
+<h4 id="5424-裸跳线不能贴板跨越版上的导线或铜皮以避免和板上的铜皮短路绿油不能作为有效的绝缘">5.4.24 裸跳线不能贴板跨越版上的导线或铜皮，以避免和板上的铜皮短路，绿油不能作为有效的绝缘</h4>
+<h4 id="5425-布局时考虑所有器件在焊接后易于检查和维护">5.4.25 布局时考虑所有器件在焊接后易于检查和维护。</h4>
+<h4 id="5426-电缆的焊接端尽量靠近pcb的边缘布置以便插装和焊接否则pcb上别的器件会阻碍电缆的插装焊接或被电缆碰歪">5.4.26 电缆的焊接端尽量靠近PCB的边缘布置以便插装和焊接，否则PCB上别的器件会阻碍电缆的插装焊接或被电缆碰歪。</h4>
+<h4 id="5427-多个引脚在同一直线上的器件象连器件-dip封装器件-t220封装器件布局时应使其轴线和波峰焊方向平行-图11">5.4.27 多个引脚在同一直线上的器件，象连器件、DIP封装器件、T220封装器件，布局时应使其轴线和波峰焊方向平行。(图11)</h4>
+<figure data-type="image" tabindex="3"><img src="https://leichen2552.github.io//post-images/1617454907425.png" alt="" loading="lazy"></figure>
+<h4 id="5428-较轻的器件如二极管和-14w-电阻等布局时应使其轴线和波峰焊方向垂直-这样能防止波峰焊时因一端先焊接凝固而使器件产生浮高现象-图12">5.4.28 较轻的器件如二极管和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>4</mn><mi>W</mi></mrow><annotation encoding="application/x-tex">1/4W</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord">4</span><span class="mord mathdefault" style="margin-right:0.13889em;">W</span></span></span></span> 电阻等，布局时应使其轴线和波峰焊方向垂直。这样能防止波峰焊时因一端先焊接凝固而使器件产生浮高现象。(图12)</h4>
+<figure data-type="image" tabindex="4"><img src="https://leichen2552.github.io//post-images/1617455154752.png" alt="" loading="lazy"></figure>
+<h4 id="5429-电缆和周围器件之间要留有一定空间否则电缆的折弯部分会压迫并损坏收尾器件及其焊点">5.4.29 电缆和周围器件之间要留有一定空间，否则电缆的折弯部分会压迫并损坏收尾器件及其焊点。</h4>
+<h3 id="55-走线要求">5.5 走线要求</h3>
+<h4 id="551-印制板边距离v-cut-边大于075mm铁槽边大于03mm">5.5.1 印制板边距离：V-CUT 边大于0.75mm，铁槽边大于0.3mm。</h4>
+<p>  为了保证PCB加工时不出现露铜的缺陷，要求所有的走线及铜箔距离板边：V-CUT边大于0.75mm，铁槽边大于0.3mm(铜箔离板边的距离还应满足安装要求)。</p>
+<h4 id="552-散热器正面下方无走线或已作绝缘处理">5.5.2 散热器正面下方无走线(或已作绝缘处理)</h4>
+<p>  为了保证电器绝缘性，散热器下方周围应无走线(考虑到散热器安装的偏位及安规距离)，若需要在散热器下布线，则应采取绝缘措施使散热器与走线绝缘，或确认走线与散热器是同等点位。</p>
+<h4 id="553-金属拉手条底下无走线">5.5.3 金属拉手条底下无走线</h4>
+<p>  为了保证电气绝缘性，金属拉手条底下应无走线。</p>
+<h4 id="554-各类螺钉孔的禁布区范围要求">5.5.4 各类螺钉孔的禁布区范围要求</h4>
+<p>  各种规格的螺钉的禁布区范围如以下表 5 所示(此禁布区的范围只适用于保证电气绝缘的安装空间，未考虑安规距离，而且只是用圆孔)<br>
+<img src="https://leichen2552.github.io//post-images/1617496698782.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io//post-images/1617496703117.png" alt="" loading="lazy"><br>
+  本体范围内有安装孔的器件，例如插座的铆钉孔、螺钉安装孔等，为了保证电器绝缘性，夜莺在元件库中将也的禁布区标识清楚。</p>
+<h4 id="555-要增加孤立焊盘和走线连接部分的宽度泪滴焊般特别是对于单面板的焊盘以避免过波峰焊接时将焊盘拉脱">5.5.5 要增加孤立焊盘和走线连接部分的宽度（泪滴焊般）特别是对于单面板的焊盘，以避免过波峰焊接时将焊盘拉脱。</h4>
+<p>  腰形长孔禁步区如下表6：<br>
+<img src="https://leichen2552.github.io//post-images/1618232065423.png" alt="" loading="lazy"></p>
+<h3 id="56-固定孔-安装孔-过孔要求">5.6 固定孔、安装孔、过孔要求</h3>
+<h4 id="561-过波峰的">5.6.1 过波峰的</h4>
+<p>  </p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[《硬件详细设计文档》解析之五 可靠性指标]]></title>
+        <id>https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-wu-ke-kao-xing-zhi-biao/</id>
+        <link href="https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-wu-ke-kao-xing-zhi-biao/">
+        </link>
+        <updated>2021-04-01T11:11:58.000Z</updated>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io//post-images/1617275531233.jpg" alt="" loading="lazy"></figure>
+<h2 id="可靠性要求分类">可靠性要求分类</h2>
+<p>定性要求用一种非量化的形式来设计、评价和保证产品的可靠性。<br>
+定量要求规定产品的可靠性参数、指标和相应的验证方法。用定量方法进行设计分析，进行可靠性验证，从而保证产品的可靠性。<br>
+在详细设计的过程中，需要定量的计算可靠性指标，达成可靠性的定量要求。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[《硬件详细设计文档》解析之四 归一化审查]]></title>
+        <id>https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-si-gui-yi-hua-shen-cha/</id>
+        <link href="https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-si-gui-yi-hua-shen-cha/">
+        </link>
+        <updated>2021-04-01T10:53:38.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="归一化工作按照层次分类器件归一化电路板归一化硬件平台归一化网络结构归一化">归一化工作按照层次分类：器件归一化，电路板归一化，硬件平台归一化，网络结构归一化；</h2>
+<p>平台归一化是：一套硬件平台，通过不同的硬件模块的组合，承载不同的软件加载，可以支持不同的业务，既可以支持这个业务，也可以支持那个业务。例如我们以前开发的硬件平台，业务类型支持：彩信、彩铃、短信，呼叫中心、统一通信等场景。<br>
+硬件归一化其实是做出来的硬件模块，或者说硬件电路板，相同的功能模块可以支持多种功能场景，例如我们把语音编解码模块单独独立出来，作为各种编解码的处理，可以根据客户需求，处理不同的编解码的转换，同时系统也支持用户规格，选择电路模块的数量，支持不同客户规格的需求。</p>
+<h3 id="器件归一化">器件归一化</h3>
+<p>硬件工程师一般都能够理解，在一个板子上面的，尽可能的选择成本更低的器件，选择更少种类的器件，便于集中采购，同时也便于加工。但是其他公司可能没有对器件归一化的工作做得那么细致和严格。</p>
+<p>第一， 由于华为整个公司使用的器件种类非常的多，所以如果减小一个器件编码，带来的收益是十万人民币到几百万，而其他公司可能达不到这个高的收益。所以如果能减少一个编码，宁愿选择可能成本更高的器件。但是这个也需要按照每年的器件直接成本收益*器件发货数量，与编码成本+加工成本差异，进行对比的。不过器件归一化之后，器件的价格又可以跟供应商重新谈价格，这个收益是迭代的。所以，有时即使是成本占优，也会倾向选择器件归一化的结论。例如，逐步去除了5%精度的电阻，归一化到1%。</p>
+<p>第二， 器件归一化，都是需要进行专题分析的。因为也有工程师为了归一化，对电路原理没有充分分析，导致的归一化带来“问题引入”。所以，当时我的部门当时有一个表格，“器件归一化分析.xls”的excel表格，把每个器件，原来选型，归一化的选型，更改的原因，都做好记录和原因分析。一是让每个归一化的员工都充分考虑分析，二是问题都有记录，便于评审，三是出了问题，好打板子。</p>
+<h3 id="单板归一化">单板归一化</h3>
+<p>除了器件归一化，更高一个层次的归一化，就是单板归一化。（单板这个概念，我稍微澄清一下，我刚到华为的时候，也觉得这个词很奇怪。因为通信设备，都是机框，背板，加各个功能模块的电路板，各个功能模块的电路就叫做“单板”，硬件工程师，一般也叫做“单板硬件”）</p>
+<p>单板归一化带来的好处，首先是电路的种类少，电路的种类少的好处有两个：一是生产成本降低，二是硬件维护成本降低，三是软件开发和维护的成本降低。</p>
+<p>第一、单板归一化的先决条件首先是处理器归一化。其实，华为的有的产品这点做得其实不好，X86、MIPS、ARM、PPC全部都用个遍，所以一个硬件平台，需要配备各种软件人员，操作系统搞N套，VxWorks和Linux，BIOS各种配套。</p>
+<p>第二、单板的归一化，要注意产品的衍生。第一个版本的机框上的单板所实现的功能，如果后续的产品可以使用，应该直接可以用，不需要再开发。如果不注意这点，第一个版本的单板，到第二版本时，发现不能相互借用。反过来，再修改第一个版本的电路板，来适应新版本。有时问题更糟糕，就是完全不能兼容，只好重新开发。单板的规划显得非常重要。</p>
+<p>第三、单板归一化时，虽然电路部分兼容了，但是结构件不兼容。对于市场人员的配置来说，仍然是两种配置。一样是失败的。</p>
+<h3 id="平台归一化">平台归一化</h3>
+<p>那么如果发现不同的硬件平台的架构雷同，功能类似。那么机框也可以归一化。只需要制作不同的电路功能模块，就可以实现不同的功能需求。<br>
+但是不同的硬件形态都是有他存在的意义的，如果强行归一，市场未必会接受这种事情的发生。例如用一个运营商的平台去归一一个企业应用或者家庭应用的产品，可能就未必能够成功。</p>
+<h3 id="网络架构归一化">网络架构归一化</h3>
+<p>这个说法是我自己想的，早在08年的时候，华为就在讨论“云管端战略”了，当时不是很理解。当我们一个运营商平台部门，跟“服务器”的部门合并的时候，似乎理解了点什么。<br>
+当X86处理器足够强大的时候，所有的运算，不管是否性价比最高，都送到云端进行处理，那么所有中间的存储和计算都显得不重要了。那么整个网络的结构，就是终端+管道+云存储和云计算。<br>
+<img src="https://leichen2552.github.io//post-images/1617274634608.jpg" alt="" loading="lazy"><br>
+既然计算和存储设备都是一样的，那作为运算和存储的设备，也就不需要那么多样化了。这时网络存储设备，和服务器就显得尤为重要。<br>
+这也是华为成立IT产品线，做重点战略投资的重要原因。<br>
+所以现在也就不需要那么多网络节点和网络平台了，只需要超强的处理和存储能力和宽广的通道，多样的终端。</p>
+<h2 id="我们为什么需要归一化">我们为什么需要归一化？</h2>
+<h3 id="第一-减少不必要的人力投入">第一、 减少不必要的人力投入。</h3>
+<p>以前在研究所工作的时候，由于“技术不传染”，项目组之间没有什么技术沟通，相互之间的原理图、PCB、文档、案例、基本不共享，不交流，但是大家的一些模块，功能是一样的，但是设计结果各式各样，在设计阶段就重复劳动，当出了问题之后，其实大家面对相同的功能模块，在解决不同的问题。例如，音频的放大模块，频率其实基本上是0kHz~30kHz的有效信号，都是交流耦合，按照单电源、双电源；高电源电压，低电源电压；R-8，RM-8等不同的情况，有限的分类，我们进行一致性的设计；找到一些可以进行多厂家器件兼容，设计考虑几种容限的情况。做几种类型的设计。从设计上面来说，所有人都有参考标准。如果碰到新问题，现有的设计模块不能满足时，再引入新器件及新设计。例如平时大家的放大量都是100，按照增益带宽积，已有设计能够满足很多场景的带宽（同时单位时间的电压上升率也满足）；出现10000倍放大需求的时候再评估是否需要引入新模块设计。<br>
+但是实际的设计，都是放羊式设计，你喜欢ADI的，我喜欢TI的，他喜欢用MAX的，我喜欢用FET搭。所有每人手上一套放大电路，每个人的滤波电路都不一样，ADC选型和设计也是各式各样。如果有人出了问题，没有借鉴，也没有讨论，因为一开始就没有讨论。</p>
+<h3 id="第二-降低总体的采购成本">第二、 降低总体的采购成本。</h3>
+<p>举个例子，大家都知道，贴片电阻，如果按照一盘进行采购，大约25元左右，有5000片。按时你只买100颗相同的电阻，可能拿到的采购价格是5元。<br>
+我们可以简单对比单价：按整盘采购单价是0.5分，按照散装采购价格是5分；单价相差10倍；其实通过这样的简单对比，我们很容易理解，批发价比零售价便宜很多在器件采购这个方面，有非常明显的特性。<br>
+除了类似于电容、电阻、电感等分立器件，有这个特性；在半导体器件采购，这个特性更明显。为什么呢？因为大家知道，半导体的主要原料是二氧化硅，也就是这个世界上取之不尽用之不竭的物质“沙子”；在一个芯片被成功设计和量产之后，其原料成本是非常有限的，主要的成本都是早期投入，例如研发投入，生产线投入，而这两部分的投入支出都非常的庞大。<br>
+几乎所有的芯片都是阶梯价，也就是你采购量越大，得到的价格就越便宜。<br>
+曾经待在华为的硬件平台部门。其实在硬件平台部门，主要的目标就是把公司各个业务承载在相同的硬件上，用最少量的硬件研发人力承载最大的营收。减少重复的研发投入，并且降低总体的采购成本。但是其实我们阶段性的成果，造成的局面是一个硬件平台，处理有7、8种，X86多种、单核PPC、多核PPC、MIPS、ARM……从器件采购上面来说没有形成优势，从研发上面来说，每套开发的人员需要的技能都不一样，在开发和维护阶段的人力投入都非常巨大。在器件采购上面，每种器件的使用量都比较有限，在商务上没有特别的突破。<br>
+同时降低，管理成本、资金占用成本，库存成本。</p>
+<h3 id="第三-更高的产品质量">第三、 更高的产品质量。</h3>
+<p>如果产品设计形成合力，相同的器件、相同的模块、相同的电路，其的发货量比较巨大，暴露出来的问题往往也是概率性的，层次也比较深入。一些低级的问题，由于涉及的人员比较多，投入度也得到保证，所以在设计早期就已经解决的比较充分，并且当设计新电路的时候，可借鉴参考的内容也比较多，可讨论的同事也比较多。如果你选用一款器件，而这款器件被同事选用，已经产品化，并且海量发货。那么你选用这颗芯片的时候，不但这颗芯片被大批量验证过了，而且设计已经解决了已经发现的问题，同时由于你的选用，可能增加这颗芯片的发货量，也进一步增加商务谈判的砝码。</p>
+<h2 id="我们如何实施归一化">我们如何实施归一化？</h2>
+<p>平台归一化，这个设计场景比较少，架构师在考虑平台归一化的时候，往往是业务驱动。通过现有产品发现，哪些业务可以通过重新规划电路的功能集合，完成新的电路模块的划分，实现新的硬件平台可以涵盖更多的使用场景。例如经典的硬件平台ATCA。<br>
+ATCA（Advanced TelecomComputing Architecture）标准即先进的电信计算平台，它脱胎于在电信、航天、工业控制、医疗器械、智能交通、军事装备等领域应用广泛的新一代主流工业计算技术——CompactPCI标准。是为下一代融合通信及数据网络应用提供的一个高性价比的，基于模块化结构的、兼容的、并可扩展的硬件构架。<br>
+ATCA总线主要针对电信运营级应用，为下一代通信及数据网络应用提供了一个高性价比、模块化、兼容性强、并可扩展的硬件构架，同时以模块结构的形式呈现，以符合现代对高速数据传输的需求，为新一代电信运营设备提供了一个“可靠、可用、适用”的解决方案。<br>
+正是由于ATCA优越的“高性价比，模块化合理，兼容性强，可扩展性强”的特点，所以具备特别强的生命力。与ATCA的类似的还有其他种类的硬件平台，往往没有这么长的生命周期，或者没有这么大的市场占有率。<br>
+硬件单板归一化，强调的是在架构设计的时候，模块划分比较合理，模块的复用度高，模块间的耦合度低。ATCA这样的硬件平台归一化的时候，合理的拆分功能模块，才能实现其可扩展性和兼容性的特点。在硬件单板设计的时候，模块设计的时候，就需要考虑规格设计，涵盖场景等等因素。<br>
+器件归一化，是硬件工程师，经常需要面对的问题，此处做重点描述。</p>
+<h3 id="第一-处理器选型归一化">第一、 处理器选型归一化。</h3>
+<p>需要考虑软件归一化。如果选用相同的处理器，那么软件即使功能模块可能不一样，但是其大多数公用模块都可以借用，相同的处理器，操作系统可以保持一致，同时驱动等底层软件都可以借用。给软件开发的便利性带来了很大的优势。特别是多版本的大规模发货的产品，由于产品本身有很多的沉淀需要传承。当操作系统的变更，会导致很多功能可能需要重新开发。<br>
+例如，华为在变革操作系统的过程，部分业务从VxWorks切换到Linux的过程，非常痛苦，首先大量的业务软件是运行在Dopra(Dopra是在不同OS之上的一层封装，提供统一接口，提供编程框架。)当你选用新的Linux版本的时候，Dopra都需要跟随进行补丁，或者重新确立版本。另外，大量的生产测试，是基于VxWorks上进行开发的，如果需要移植到Linux，则需要花费大量的人力物力。一些运行Linux的电路板就运行双操作系统，在业务状态下，电路启动之后就先进入VxWorks，如果需要进入生产装备等状态，则相关按键进入。如果是正常业务，再次引导Linux进入Linux进行业务运行。<br>
+所以我们成熟平台上，进行处理器选型，尤其要注意电路的继承性。</p>
+<h3 id="第二-内存类型的选型归一化">第二、 内存类型的选型归一化</h3>
+<p>一个平台的生命周期需要考虑其所有器件的生命周期的健康性。而内存类的器件，往往生命周期并没有平台的生命周期长。所以在器件选型的时候，需要注意两个生命周期的配合。选型某款DSP的时候，其外围的存储器件只能选用SDRAM,但是同一平台的其他器件已经进入DDR2时代；但是由于X86更新换代比较快，很快配套内存选用DDR3。当平台发布没多久，几个大的存储器件厂家宣布SDARAM停产了。但是由于整个平台只有这么一个设计的位置选用了SDRAM，导致备货都无法开展。根据发货量预测到平台生命周期结束，对SDRAM进行备货。所以我们在选型的时候，哪怕有各种规格的DDR，但是也需要考虑归一化，这样哪怕备货的时候，也能形成批量采购获得价格优势，或者发货量大去影响其生命周期，或者扶持一些小的器件厂商进行替代。</p>
+<h3 id="第三-电阻-电容-电感等无源器件归一化">第三、 电阻、电容、电感等无源器件归一化</h3>
+<p>电阻，我们需要在电阻精度上面进行归一化，若干年前，当生产电阻时，其精度还不那么容易控制的时候，我们需要根据设计，选用精度相对不那么高的电阻以降低成本。但是目前来说1%精度的电阻，与5%精度电阻的价格差异不再那么大的时候。我们可以统一选用1%，不但增加了统一采购的数量，以此来获得批量采购的价格优势，同时由于减少了器件的种类，降低了生产的时间。在阻值方面也可以做一些归一化的工作，例如一些对阻值不是那么敏感的设计中，我们可以进行一些器件归一化的，例如一些远离有用信号的RC滤波，相对不需要那么准确的精度，我们27欧姆归一化到33欧姆，这种对滤波结果影响不大的场景，可以选择归一化。同时，有些电阻阻值在整板，只有一个器件（20k），我们可以选择两个电阻的阻值之和（两个10k）来实现，来实现归一化。<br>
+但是我们不能为了归一化而归一化，在减少器件种类或者减少器件数量的时候，一定需要考虑归一化之后对电路的影响。当年我们开发Corei7嵌入式版本开发，第一版的时候工作都正常的，调测完成之后，进入产品化阶段。但是回板之后，电路无法正常工作。原来是硬件人员没有进行评估，把处理器的外围晶振的对地电容18pF归一化到30pF，导致的晶振不起振。</p>
+<h3 id="第四-通用化ic归一化">第四、通用化IC归一化</h3>
+<p>电源、时钟、运放、分立器件等这些通用性很强的器件，可以考虑归一化。同时做好不同厂家最好是PIN2PIN的替代方案。<br>
+例如电源，我们选定了一种规格，例如12V输入，5V输出，电流10A，整个公司都可以选择同一种解决方案。不需要不同的工程师选择各种厂家的解决方案，电路设计、芯片选型都不一致，但是功能完全一致的电路方案。但是，我们需要关心，即使是不同厂家的相同型号，也有可能有一些微弱的差异。以下以706看门狗为例，虽然各个厂家型号、封装、管脚定义都一样。但是具体规格却是有比较大的差异。<br>
+<img src="https://leichen2552.github.io//post-images/1617274823388.jpg" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[《硬件详细设计文档》解析之三 单元详细描述]]></title>
+        <id>https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-san/</id>
+        <link href="https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-san/">
+        </link>
+        <updated>2021-03-25T12:49:27.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="单元详细描述">单元详细描述</h1>
+<p>这部分内容，一般是大家都敷衍的一个内容。因为总体设计阶段，已经写了一些专题分析，例如电源专题、时钟专题，都是套套模板，然后例行公事。所以，这时候很多工程师，都是从总体设计里面摘录一些内容，填上，就完事儿了。把总体设计的一些内容，直接填充到这个章节，就自然形成了各个单元模块的内容。<br>
+<img src="https://leichen2552.github.io//post-images/1616934753724.jpg" alt="" loading="lazy"></p>
+<p>专题分析如何做，我们在之前的文章做过分享：<br>
+第一、 例行的，每个电路一般都会做几个必选的专题：电源、时钟、小系统；把每个管脚怎么用，怎么接，对接的管脚的电平是否满足要求，都需要文档化，分析清楚。在选用新器件的话，对应硬件工程师的工作量还是比较大的。但是如果是其他公司，直接按照推荐电路设计就完事了。电源专题，需要分析电源需求，每种电源的电压范围，电流需求，动态响应，上电时序；时钟专题，针对每个时钟的输入的电平标准，频率，抖动等参数，时钟时序，并按照各种时钟解决方案进行优化；</p>
+<p>第二、 当电路设计过程中，碰到一些新的问题，之前团队中没有接触过的问题，或者认为是重点，难点的内容，会专门做这个问题点的专题分析：例如我们做过的一些双BIOS启动，摄像头的红外LED的驱动，主备倒换啊，之类的，就会把一个问题点分析透，然后再动手做画原理图。</p>
+<p>第三、 那么在开发硬件的时候，Demo只是作为参考，每一个依据都是来自于datasheet，除了看芯片的数据手册之外，还要仔细查看数据手册的勘误表errata，核对datasheet与Demo的差一点，如果器件有checklist还得核对checklist。曾经开发AMD的时候，datasheet、Demo、checklist，三个文档对不上的情况。也出现过，一个比较难复现的问题，后来查看了Errata，发现是厂家芯片升级了，修正了bug，而我们还在采购老版本的芯片。<br>
+<img src="https://leichen2552.github.io//post-images/1616936991730.png" alt="" loading="lazy"></p>
+<p>本次在解析详细设计文档，咱们再补充几点：<br>
+1、例行的电源、时钟、复位专题，即使是套模板，也是需要例行公事的，去认真的去套模板。这是前人摸索出来的经验和套路，我们按照模板填写就可以了，在填写模板的过程中，肯定会有新发现和新收获。模板是最好的积累。<br>
+<img src="https://leichen2552.github.io//post-images/1616937027105.png" alt="" loading="lazy"><br>
+例如在电源专题中，需要整理所有组件的电压和功耗。在我们整理电压的时候，其实会重新考虑我们的电源需求，是否有需要合并的电源，是否有更简洁的设计。在整理功耗的时候，会重新审视电源的负载能力，以及整个电路的散热能力。</p>
+<p>再例如，下图的电源树。通过这种拓扑的方式，能够更直观的检查电源设计是否合理，能力是否满足，时序是否正确。<br>
+<img src="https://leichen2552.github.io//post-images/1616937510735.png" alt="" loading="lazy"><br>
+2、一些新问题，如果在例行的专题没有分析，可以单独设立“专题分析”，特别是新电路、新设计、新接口等。<br>
+当我们在设计的过程中，模板中没有内容，往往就会在大脑中完成了设计。而在反复评审的文档中，并没有体现。此时我们需要单独设立专题分析，把设计过程显性化。此处再一次强调文档的重要性。<br>
+<img src="https://leichen2552.github.io//post-images/1616937954624.png" alt="" loading="lazy"><br>
+对于写作者，是对设计过程的复盘，系统的思考。<br>
+<img src="https://leichen2552.github.io//post-images/1616938020968.png" alt="" loading="lazy"><br>
+特别是一些没有成熟电路可以借鉴的设计，我们一定要把设计过程文档化，一是便于评审，二是，写文档的过程会提高设计质量，避免设计错误，提升设计的逻辑严谨性。</p>
+<p>3、在写专题分析的时候，是孤立的思考。例如电源专题可能是一个人做的，而时钟专题是另外一个人做的。所以在整合的时候，我们需要系统的思考，一些单元之间是有耦合关系的。在整合的时候，我们会有单元之间的信息交互，此处内容整合到一起之后，容易发现一些单元之间可能忽视的问题。例如时钟模块的供电需求，很可能被忽略，但是在时钟专题的时候可能提到。在整合信息的时候，发现我们提供的电源虽然基本数据满足要求，但是纹波可能不能满足时钟单元的要求。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[《硬件详细设计文档》解析之二 单板上电、复位设计]]></title>
+        <id>https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-er/</id>
+        <link href="https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-er/">
+        </link>
+        <updated>2021-03-25T12:49:06.000Z</updated>
+        <content type="html"><![CDATA[<p>&lt;详细说明单元间复位顺序、Watchdog设计、复位单元加载顺序。如果提供局部及全局分级复位请说明其层次关系。需要给出图示和文字解释。给出单板复位、断电重启的流程图。并粗略估计各流程所需的时间。需要结合故障管理方案，考虑在故障情况下的复位重启要求&gt;<br>
+&lt;复位重启时间指系统从运行状态，经历系统复位，重新恢复进入正常运行态的时间。复位类型通常包括：软件复位、硬件复位。主要考虑单板的软、硬件复位。复位一般包括基本的底层启动、自检、配置等。通常复位时间应在5min内。断电重启时间 指系统从运行状态，经历断电/通电，重新恢复进入正常运行态的时间。应考虑系统断电和单板断电重启，重启一般包括：基本的底层启动、自检、配置；系统通常重启时间在0.5小时之内。单板通常重启时间在10min之内。&gt;</p>
+<p>电路板复位机制分类（3种软复位1种硬复位）<br>
+4种复位机制：reboot、BSP_ResetBoard、BSP_PowerOff、硬件狗</p>
+<ol>
+<li>
+<pre><code>   BSP_ResetBoard 由底层软件BSP实现，实现机制是下拉CPU管脚复位CPU（软复位）。
+</code></pre>
+</li>
+<li>
+<pre><code>   reboot，OS系统默认实现机制是指令跳转，重新引导系统。但目前BSP通过注册钩子接管了reboot的复位行为，接管后的复位机制与BSP_ResetBoard一样，也是下拉CPU管脚（软复位）。
+</code></pre>
+</li>
+<li>
+<pre><code>   BSP_PowerOff 底层软件BSP实现，实现机制是下拉电源管脚复位硬件系统（掉电复位）。
+</code></pre>
+</li>
+<li>
+<pre><code>   硬件狗，复位机制由硬件实现，由软件定时喂狗来保活软件系统的正常运行，复位类型为CPU复位（软复位）。
+</code></pre>
+</li>
+</ol>
+<p>可靠复位机制（软件复位和硬件狗复位的双重保护+设计关键点：记录复位原因前，首先停止喂狗）<br>
+上述4种复位机制中，reboot、BSP_ResetBoard、BSP_PowerOff是由软件实现的，因此存在机制失效的风险，硬件狗为硬件实现可以确保系统的复位。但是硬件狗复位无法通过软件主动记录复位定位信息，因此软件复位机制也是必要的。为了既能够主动记录完善的复位定位信息又能够确保复位的真正执行，设计采用下述双层复位机制。</p>
+<p>可靠复位机制<br>
+上述设计的一个关键点是：在记录复位原因之前，首先要停止喂狗，如果在记录复位原因或者软件复位接口出现问题没有复位成功，至少可以确保系统在延迟一段时间后看门狗复位。<br>
+<img src="https://leichen2552.github.io//post-images/1616934317581.jpg" alt="" loading="lazy"></p>
+<p>复位设计的时候，电路和软件设计不但需要支持各种机制的复位方式，同时需要支持复位原因的记录。需要在主动复位之前，先发送一个不可屏蔽中断让CPU做一些复位前的准备工作，同时让CPU做一些内容记录作为电路板复位或者下电前的临终遗言。<br>
+<img src="https://leichen2552.github.io//post-images/1616934351457.jpg" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[C++调试小结【C++】error:cannot declare variable ‘l’ to be of abstract type ‘xxx’]]></title>
+        <id>https://leichen2552.github.io/post/C-调试小结/</id>
+        <link href="https://leichen2552.github.io/post/C-调试小结/">
+        </link>
+        <updated>2021-03-25T01:37:15.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="问题">问题</h1>
+<p>【C++】error: cannot declare variable ‘l’ to be of abstract type ‘xxx’</p>
+<h1 id="解答">解答</h1>
+<p>追根溯源可能是某个抽象类的纯虚函数没有得到实现！</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[《硬件详细设计文档》解析之一]]></title>
+        <id>https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-yi/</id>
+        <link href="https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-yi/">
+        </link>
+        <updated>2021-03-18T11:46:22.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83">运行环境</a></li>
+<li><a href="#%E5%8D%95%E6%9D%BF%E5%8A%9F%E8%80%97">单板功耗</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br>
+硬件详设是硬件开发过程中最重要的、最正式的文档。<br>
+在单板硬件进入到详细设计阶段，应提交单板硬件详细设计报告。在单板硬件详细设计中应着重体现：</p>
+<ul>
+<li>单板逻辑框图及各功能模块详细说明，各功能模块实现方式、地址分配、控制方式、接口方式、存贮器空间、中断方式、接口管脚信号详细定义、时序说明、性能指标、 指示灯说明、外接线定义、可编程器件图、功能模块说明、原理图、详细物料清单以及单板 测试、调试计划。</li>
+<li>有时候一块单板的硬件和软件分别由两个开发人员开发，因此这时候单板 硬件详细设计便为软件设计者提供了一个详细的指导，因此单板硬件详细设计报告至关重要。尤其是地址分配、控制方式、接口方式、中断方式是编制单板软件的基础，一定要详细写出。</li>
+</ul>
+<h3 id="运行环境">运行环境</h3>
+<ul>
+<li>第一就是考虑硬件的运行环境：单板长期工作环境温度为0°C～45°C，湿度为10%～90%；短期工作环境温度为–5°C～55°C，湿度为5%～95%；存储环境温度为–40°C～70°C，湿度为10%～100%；运输环境温度为–40°C～70°C。需注意的是短期工作条件是指华为SDH设备连续工作不超过96小时和全年累计工作不超过15天。<br>
+我们在做热仿真的时候，需要考虑两个时间长度的不同的环境温度对单板的热冲击。这个55度的环境温度对器件选型还是有很大影响的，特别是内存，X86的处理器，都面临挑战。<br>
+由于低温需要考虑-5℃，对于一些商业级器件选型时，需要考虑其低于0℃时的一些场景。</li>
+<li>如果开发军品、航空、航海，对于更多苛刻的应用场景的要求，不但需要考虑不同的应用场景，行业标准，还需要实际环境情况的地理特征。比如刚刚说的IPC，如果安装在俄罗斯、非洲等严寒或者酷暑的场景，则需要根据实际情况和当地特点，进一步修改参数指标。</li>
+<li>我们需要罗列单板的一些重要指标。一方面检查关键指标是否满足应用场景要求，另外展示单板的一些特点，利于后续开发维护者掌握关键信息。</li>
+</ul>
+<h3 id="单板功耗">单板功耗</h3>
+<p>如前文所述，我们会明确电路板的应用场景和环境的要求。当我们的场景确定之后，有些功耗则变成了一些硬件设计的硬性要求。<br>
+对于盒式设备来说，盒子的大小以及产品系列选择适配器或者内置电源的规格，是我们总功耗的一个硬性要求。<br>
+对于框式设备来说，每个单板槽位的功率上限也是有要求的。一方面供电要满足要求，并满足余量；另一方面散热要满足要求并满足余量。<br>
+对于特殊供电设备，例如USB供电、PoE供电等设备功耗由协议确定了的，功耗上限也是电路板关键指标。关于功耗，有些情况下，板子不组装出来调试，功耗不能确定，就考虑额定功率。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[转载科普文章：你需要减肥吗？]]></title>
+        <id>https://leichen2552.github.io/post/zhuan-zai-ke-pu-wen-zhang-ni-xu-yao-jian-fei-ma/</id>
+        <link href="https://leichen2552.github.io/post/zhuan-zai-ke-pu-wen-zhang-ni-xu-yao-jian-fei-ma/">
+        </link>
+        <updated>2021-03-16T05:02:35.000Z</updated>
+        <content type="html"><![CDATA[<p>以前恭维人有一句成语，叫做心宽体胖，其实那个“胖”字是多音字，应该读作pan2，意思是安详，这个成语原本的意思是一个人心胸宽广，外貌就显得安详，后来大家都读错、理解错了，当成了一个人心情愉快，身体就发胖。在以前胖人很少，身体发胖被认为是因为有足够的食物吃，有条件享受，有福气，所以身体发胖被叫做发福。现在再用心宽体胖来形容一个人，可能就把人得罪了。现在大家都不认为肥胖是什么好事，不仅是因为审美观念不一样了，而且是因为有很多的证据表明肥胖有害健康，是一种病。</p>
+<p>肥胖的意思是体内有太多的脂肪，并不只是指体重超重。我们身体的重量来自肌肉、骨骼、脂肪和体液，如果重量超出了正常范围，就叫做超重，但是超重到了一定程度，脂肪含量太多了，才算是肥胖。根据世界卫生组织的数据，2016年全世界有19亿成年人体重超重，占成年人人口的39%，其中有6.5亿人属于肥胖，占成年人人口的13%。女人比男人超重和肥胖的比例稍微多一些，女人超重的比例是40%，男人是39%。女人肥胖的比例是15%，男人是11%。儿童的肥胖现在也是一个严重的问题，全世界有380万5岁以下的儿童体重超重或者肥胖，3.4亿5-19岁的人超重或肥胖。</p>
+<p>体重超重和肥胖都对身体有害，只不过肥胖的害处更大更明显。体重超重和肥胖增加了许多疾病的风险。首先会增加心血管疾病的风险，主要是高血压、心脏病和脑卒中；其次会增加二型糖尿病的风险；第三会增加肌肉骨骼疾病的风险，特别是骨关节炎；还会增加某些癌症的风险，包括子宫内膜癌、乳腺癌、卵巢癌、前列腺癌、肝癌、膀胱癌、肾癌、结肠癌；此外还增加了膀胱疾病、睡眠呼吸暂停综合症以及某些精神疾病例如抑郁症、焦虑症的风险。总的来说，体重超重和肥胖增加了死亡率。儿童肥胖同样有健康风险，例如导致呼吸困难，增加了骨折、高血压、心血管疾病、胰岛素抵抗、心理疾病的风险，而且也增加了成年以后肥胖、过早死亡和残疾的概率。</p>
+<p>那么你怎么知道自己体重超重或肥胖呢？一个简单的办法是测量腰围。测量的时候要站着，拿一根皮尺，围绕刚好在髋骨以上的腰部一圈，皮尺要跟地面平行，贴着腰部，但是不要挤压皮肤，在刚刚呼出一口气时测量。女性的腰围大于86厘米，男性的腰围大于98厘米，则患与肥胖有关的疾病的风险增加了。更准确的方法是算体质指数，简称BMI。BMI测量的是体重与身高的比例，计算公式是体重除以身高的平方，其中体重的单位是千克，身高的单位是米。比如我的体重68千克，身高1.8米，算下来BMI等于21。BMI少于18.5属于体重太轻，BMI=18.5～24.9属于健康范围；BMI=25～29.9属于超重；BMI在30以上属于肥胖。所以我的BMI 21属于健康范围。这个算法只适用于成年人，儿童是不是体重超重，要查生长曲线，跟同一年龄的中间值做比较。</p>
+<p>如果你测量的结果发现自己体重超重甚至肥胖了，那就应该考虑减肥了。怎么减肥比较合适，我们后面再谈。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[转载科普文章：怎样才能成功减肥？]]></title>
+        <id>https://leichen2552.github.io/post/zhuan-zai-ke-pu-wen-zhang-zen-yang-cai-neng-cheng-gong-jian-fei/</id>
+        <link href="https://leichen2552.github.io/post/zhuan-zai-ke-pu-wen-zhang-zen-yang-cai-neng-cheng-gong-jian-fei/">
+        </link>
+        <updated>2021-03-16T04:57:19.000Z</updated>
+        <content type="html"><![CDATA[<p>减肥是一个巨大的产业，市场上风行着各种各样的减肥方案，这些方案的关键都是控制饮食。控制饮食方案又有很多种，但是基本上可以分成这么三大类：低热量方案，低碳水化合物方案，低脂肪方案。这些控制饮食方案哪一种减肥效果比较好呢？研究表明，不管是什么样的方案，减肥能有效果的关键都在于减少了食物能量的摄入。如果不减少能量摄入，什么方案都没有效果，如果减少了能量的摄入，不管采取什么样的方案，都会有相似的效果。所以不管采取什么饮食方案，它们的减肥效果其实都是一样的。但是不同的饮食方案对健康的影响是不一样的。比如说低碳水化合物方案，在强调尽量少吃碳水化合物食物的同时，又认为脂肪的摄入可以不受限制，这种饮食，长期来看对身体健康是有害的。低脂肪方案往往是用高含量的碳水化合物取代了脂肪，对健康同样不利。有的低热量方案属于极低热量，摄入的热量低到不能满足人体正常功能的需要，这也很危险。所以控制饮食不仅要减少能量的摄入，而且还要保证足够的能量和营养，要注意饮食均衡。</p>
+<p>我们前面谈到（《为什么减肥很难？》），减肥不能急于求成，否则很容易反弹，甚至变得更胖。减肥要慢慢地减，最好每周体重的下降不要超过1千克。要减掉这么多的体重，需要减少多少能量呢？假定少掉的都是脂肪，1克脂肪的能量大约是9千卡，1千克脂肪就是9000千卡，不过脂肪细胞并不是全都都是脂肪，脂肪大概占了87%，这样算下来，要减掉1千克脂肪细胞，只要减少能量7800千卡，这是一周要减掉的量，分摊到一天，就是一天要减少能量大约1000千卡。你可以通过减少食物能量摄入，和通过增加运动消耗能量，来达到这个目的。</p>
+<p>但是实际上没有这么简单。有多种因素会影响到体重减轻的速度。在人体获得的能量减少时，身体不仅会燃烧脂肪，而且还会减少一部分肌肉，这样就会影响减肥的效果。减肥的同时要通过肌肉增强锻炼防止肌肉损失。随着体重的减少，身体的新陈代谢速率会随之降低，这样减肥的效果就又受影响，长期下去还会反弹。所以即使你一天减少1000千卡能量，也不一定一周就能减少1千克体重，而且越往后越难减。</p>
+<p>美国研究人员曾经做过试验，把800 多个体重超重的人分成三组，不同组的饮食结构不一样，有的蛋白质多一些，有的脂肪多一些，有的碳水化合物多一些，但是他们每天摄入的能量都比平时少750大卡。试验的结果发现，不同的饮食结构的减肥效果是一样的，6个月后平均体重减少了6千克。如果按我们上面的算法，每天减少能量750大卡，每周减少5250大卡，相当于减少0.67千克体重，那么6个月后应该减少16千克，但是实际平均只减少了6千克，可见减肥要比预想的困难。而且一年以后参加试验的人体重开始反弹，等两年后试<br>
+验结束时，平均减少的体重变成了只有4千克了。</p>
+<p>所以减肥要有效果是不容易的，要维持减肥效果更不容易。那些减肥成功的人，非常注意饮食控制，坚持比较低的能量摄入，例如每天只摄入1300千卡到1500千卡的能量，尽量避免高热量食品，随时注意观察体重的变化，而且养成了每天至少锻炼30分钟的习惯。每周还应该至少做两次肌肉增强锻炼，肌肉发达了，平时的能量消耗也增加了，有助于保持体重。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[转载科普文章：为什么减肥很难？]]></title>
+        <id>https://leichen2552.github.io/post/zhuan-zai-ke-pu-wen-zhang-wei-shi-me-jian-fei-hen-nan/</id>
+        <link href="https://leichen2552.github.io/post/zhuan-zai-ke-pu-wen-zhang-wei-shi-me-jian-fei-hen-nan/">
+        </link>
+        <updated>2021-03-16T04:56:01.000Z</updated>
+        <content type="html"><![CDATA[<p>前面我们谈到了体重超重和肥胖对身体的各种危害，以及自己怎么判断是不是体重超重或肥胖。对体重超重和肥胖的人来说，当然会关心要怎么减肥。减肥在现在是一个巨大的产业，但是减肥的效果却往往很不理想，肥胖仍然是一种流行病。减肥为什么这么难呢？</p>
+<p>肥胖是因为身体摄入的能量超过了身体消耗的能量，多余的能量转变成脂肪储存了起来。如果摄入的能量与消耗的能量差不多，那么体重就会维持不变。如果摄入的能量少于消耗的能量，那么体重就会减轻。所以减肥的原理很简单，要么让摄入的能量减少，要么让消耗的能量增加，要么二者结合起来，总之，就是要设法让摄入的能量少于消耗的能量。要减少摄入的能量，就要控制饮食；要增加消耗的能量，就要增加运动量。所以如果不吃药不做手术的话，各种各样的减肥方法万变不离其宗，本质上都是控制饮食和增加运动量。</p>
+<p>减肥的原理虽然简单，实际却很复杂。为什么两个人，饭量差不多，运动量也差不多，却一个胖一个瘦呢？这和基因有关系。有的人天生的新陈代谢效率比较高，摄入的能量消耗速率快，这样的人就不容易长胖，反之就容易长胖。我们现在很羡慕那些怎么吃也长不胖的人，其实这种人在以前是没有生存优势的。在人类历史上，大部分时间人都是吃不饱饭的，经常遇到灾荒，那些新陈代谢效率高的人，更容易挨饿，甚至饿死；而那些新陈代谢效率低的人，消耗的能量少，能把更多的能量储存起来，有助于度过饥荒。所以容易长胖的人，其实在历史上是很有生存优势的，与肥胖有关的基因就容易保存、传播。只不过到了现在，在食品过剩的发达地区，容易长胖才变成了缺点。所以肥胖其实是现代病，是历史遗留给我们的不良遗产。</p>
+<p>明白这一点，对如何正确地减肥很有启发。例如有的人有一天下定决心要减肥，开始节食，比平时少吃很多，同时加强运动量，运动量比平时大很多，很快就有了明显的效果，一两个月能够减肥十几、二十几斤，别人看了很羡慕，他也作为经验介绍给别人。但是，他发现再继续减轻体重很难，而且过一段时间后，体重又逐渐上升，反弹得厉害，甚至超过了减肥之前的体重。</p>
+<p>这是为什么呢？这是因为你一旦减肥得太猛，迅速减少饭量和增加运动量，导致摄入的能量急剧下降，消耗的能量急剧上升，身体发现需要的能量比平时少很多，就会本能地以为遇到了饥荒，就会把新陈代谢效率调慢，以便度过饥荒。这样就很难再继续减轻体重，容易反弹。如果恢复到以前的饮食、运动习惯，因为新陈代谢效率已经变低了，反而会变得比以前胖。</p>
+<p>所以，减肥是一个抗拒人体本能的过程，是很难的，需要有很大的毅力坚持下去，而且要循序渐进，逐渐地减，不要急于求成。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[STM32 VBAT外围电路接法]]></title>
+        <id>https://leichen2552.github.io/post/stm32-vbat-wai-wei-dian-lu-jie-fa/</id>
+        <link href="https://leichen2552.github.io/post/stm32-vbat-wai-wei-dian-lu-jie-fa/">
+        </link>
+        <updated>2021-03-09T08:28:17.000Z</updated>
+        <content type="html"><![CDATA[<p>给大家看几块开发板的VBAT外围电路的设计图：</p>
+<p>（1）<img src="https://leichen2552.github.io//post-images/1615278632205.png" alt="" loading="lazy"><br>
+（2）<img src="https://leichen2552.github.io//post-images/1615278635722.png" alt="" loading="lazy"><br>
+（3）<img src="https://leichen2552.github.io//post-images/1615278639824.png" alt="" loading="lazy"><br>
+（4）<img src="https://leichen2552.github.io//post-images/1615278651119.png" alt="" loading="lazy"><br>
+（5）<img src="https://leichen2552.github.io//post-images/1615278654252.png" alt="" loading="lazy"></p>
+<p>stm32芯片手册要求：（大体上就这两个要求，具体要求看AN2586供电方案）</p>
+<ol>
+<li>如果应用中没有使用外部电池，VBAT必须连接到VDD引脚上。</li>
+<li>如果没有外部电池，这个引脚必须和100nF的陶瓷电容一起连接到VDD电源上</li>
+<li>在VDD上升阶段(tRSTTEMPO)或者探测到PVD之后，VBAT和VDD之间的电源开关仍会保持连接在VBAT。在VDD上升阶段，如果VDD在小于tRSTTEMPO的时间内达到稳定状态(关于tRSTTEMPO可参考数据手册中的相关部分)，且VDD &gt; VBAT + 0.6V时，电流可能通过VDD和VBAT之间的内部二极管注入到VBAT。</li>
+</ol>
+<p>第一张图：VBAT引脚直接连接电池，直接没有满足stm32参考手册要求（3），间接没有满足（1）（2）。<br>
+为什么说是间接没有满足（1）（2）呢，如果这块开发板上面电池没有接那么就会不满足（1）（2）。</p>
+<p>第二张图：这个设计更是简单，直接不接电池了，所以这个设计满足stm32芯片手册要求。</p>
+<p>第三张图：是通过jp14跳线帽选择用v3.3供电还是用电池供电，假如跳线帽连接1、2，那么就是选择v3.3供 电，这样就会不满足（2），假如跳线帽连接2、3，那么就是选择电池供电，这样就参考第一张图的答案。</p>
+<p>第四张图：这个设计是分开画的，截图没截全，这个设计和第一张图一样，参考第一张图答案。</p>
+<p>第五张图：这个设计比较好，当接电池和有v3.3电源时，就会选择v3.3供电。当接电池和没有v3.3电源时， 就会选择电池供电。当不接电池和有v3.3电源时也会选择v3.3供电。<br>
+这个设计中，D1的设计非常好，当电池供电时，电池不会给整个电路供电。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[USB接口处D+、D-怎么接]]></title>
+        <id>https://leichen2552.github.io/post/usb-jie-kou-chu-dd-zen-me-jie/</id>
+        <link href="https://leichen2552.github.io/post/usb-jie-kou-chu-dd-zen-me-jie/">
+        </link>
+        <updated>2021-03-09T08:12:23.000Z</updated>
+        <content type="html"><![CDATA[<p>USB信号是什么类型的？ 为什么在D+，D-处要接上拉下拉电阻呢，具体阻值要如何计算。</p>
+<ol>
+<li>
+<p>usb有主从设备之分，主设备有：pc, 现在市面上的那些插u-disk即可播放mp3的“mp3”之类的，<br>
+usb 信号是差分信号，信号线为D+, D-,。 在usb host 端， D+，D- 各接一个15kohm 的下拉电阻， 而在usb device端，这时就有高速低速设备的区别了。usb1.0, 1.1,2.0协议中都有定义高低速设备以满足不同情况的需求，这些在硬件上的区别就是： 高速设备：d+ 接一个1.5kohm的上拉电阻，d-不接；低速设备则相反。<br>
+这样当usb device 插入到host中时，如果是高速设备， 则d+被拉高，d-不变；低速设备则与之相反。 这个上拉过程需要大概2.5us的时间，host这这个时间内便检测到了该信号，即可判断有device plug in，和该device的类型，然后开始通讯，枚举。。。等。</p>
+</li>
+<li>
+<p>USB OTG（on the go） 就是既可以做host又可以做client<br>
+我们一般是作为client接受pc传输数据，作为host时可以接打印机直接把手机中的照片打印出来<br>
+判别是host还是client是靠USB_ID这根pin</p>
+</li>
+<li>
+<p>当作为client时，USB_ID基本是悬空的（内部有上拉）</p>
+</li>
+<li>
+<p>如果侦测到USB_ID被拉低，就被认为是作为host，向外输出<br>
+所以需要外部client设备把USB_ID拉低</p>
+</li>
+</ol>
+]]></content>
+    </entry>
+</feed>
