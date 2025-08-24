@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+<title>
+    CLL&#39;s Blog
+</title>
+<!--[if lt IE 9]><script src="//cdn.bootcss.com/html5shiv/r29/html5.js"></script><![endif]-->
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="author" content="陈磊磊">
+<meta name="description" content="正经人谁写博客啊！">
+<meta name="keywords" content="SSD, linux, stm32, 51">
+<script async src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+<link rel="stylesheet" href="https://leichen2552.github.io/styles/main.css" />
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/css/style.min.css" />
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/script.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/icon.min.js"></script>
+        
+            <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/Card/prism.min.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/css/Card/prism.min.css" />
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css">
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js"></script>
+            
+                <!--点击特效-->
+                <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/love.min.js"></script>
+                
+                    <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic@latest/assets/media/script/APlayer.min.js"></script>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+                    
+                        <!--CDN样式-->
+                        <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/hit-kounter-lc-0.3.0.js"></script>
+                        <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+                        
+                            <script>
+                                (function() {
+                                    var bp = document.createElement('script');
+                                    var curProtocol = window.location.protocol.split(':')[0];
+                                    if (curProtocol === 'https') {
+                                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                                    } else {
+                                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                                    }
+                                    var s = document.getElementsByTagName("script")[0];
+                                    s.parentNode.insertBefore(bp, s);
+                                })();
+                            </script>
+                            
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo">
+                <a href="https://leichen2552.github.io">
+                    CLL&#39;s Blog
+                </a>
+            </div>
+            <div id="tp-weather-widget"></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/">
+                        首页
+                    </a>
+                    
+                    <a class="menu-item" href="/archives">
+                        归档
+                    </a>
+                    
+                    <a class="menu-item" href="/tags">
+                        标签
+                    </a>
+                    
+                    <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                        关于
+                    </a>
+                    
+                        <input id="switch_default" type="checkbox" class="switch_default">
+                        <label for="switch_default" class="toggleBtn"></label>
+            </div>
+            <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+            </form>
+        </div>
+    </nav>
+
+    
+        <nav class="navbar-mobile" id="nav-mobile">
+            <div class="container">
+                <div class="navbar-header">
+                    <div>
+                        <a href="https://leichen2552.github.io">
+                            CLL&#39;s Blog
+                        </a>
+                        <!--en-->
+                        <a id="mobile-toggle-theme-en" class="a en">&nbsp;Dark</a>
+                        <!--zh-->
+                        <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
+                    </div>
+                    <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                        <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+                    </form>
+                    <!--en-->
+                    <div class="menu-toggle" id="menu-toggle-en" onclick="mobileBtn()">&#9776; Menu</div>
+                    <!--zh-->
+                    <div class="menu-toggle" id="menu-toggle-zh" onclick="mobileBtn()">&#9776; &#x83DC;&#x5355;</div>
+
+                </div>
+                <div class="menu" id="mobile-menu">
+                    
+                        <a class="menu-item" href="/">
+                            首页
+                        </a>
+                        
+                        <a class="menu-item" href="/archives">
+                            归档
+                        </a>
+                        
+                        <a class="menu-item" href="/tags">
+                            标签
+                        </a>
+                        
+                        <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                            关于
+                        </a>
+                        
+                </div>
+            </div>
+        </nav>
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementById("menu-toggle-en");
+        var toggleMenu_zh = document.getElementById("menu-toggle-zh");
+
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.display != "none") {
+            if (toggleMenu.classList.contains("active")) {
+                toggleMenu.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        } else if (toggleMenu_zh.display != "none") {
+            if (toggleMenu_zh.classList.contains("active")) {
+                toggleMenu_zh.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu_zh.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        }
+
+    }
+</script>
+
+
+
+    <script>
+        (function(a, h, g, f, e, d, c, b) {
+            b = function() {
+                d = h.createElement(g);
+                c = h.getElementsByTagName(g)[0];
+                d.src = e;
+                d.charset = "utf-8";
+                d.async = 1;
+                c.parentNode.insertBefore(d, c)
+            };
+            a["SeniverseWeatherWidgetObject"] = f;
+            a[f] || (a[f] = function() {
+                (a[f].q = a[f].q || []).push(arguments)
+            });
+            a[f].l = +new Date();
+            if (a.attachEvent) {
+                a.attachEvent("onload", b)
+            } else {
+                a.addEventListener("load", b, false)
+            }
+        }(window, document, "script", "SeniverseWeatherWidget", "//cdn.sencdn.com/widget2/static/js/bundle.js?t=" + parseInt((new Date().getTime() / 100000000).toString(), 10)));
+        window.SeniverseWeatherWidget('show', {
+            flavor: "slim",
+            location: "WWEFQFPJZ7T8",
+            geolocation: true,
+            language: "auto",
+            unit: "c",
+            theme: "auto",
+            token: "61bcc333-3305-4728-9465-6785274bb0a3",
+            hover: "enabled",
+            container: "tp-weather-widget"
+        })
+    </script>
+    
+            <div class="main">
+                <div class="container">
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                回顾（27）：二阶构造模式
+                            </h1>
+                            
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        CLL's Blog
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2020-02-13</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">5.5
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">1226</a></span>
+                                    
+                                        <span class="post-category">
+                                Category:
+                                
+                                <a href="https://leichen2552.github.io/tag/msUt_OWMOEz/">C++</a>
+                                
+                            </span>
+                                        
+                                            Views:
+                                            <span data-hk-page="current"> - </span>
+                                            
+                                </div>
+                                
+                        </header>
+                        
+                            <img class="post-feature-image" src="https://leichen2552.github.io/post-images/hui-gu-27er-jie-gou-zao-mo-shi.jpg" alt="">
+                          
+                        <div class="post-content">
+                            <p><ul class="markdownIt-TOC">
+<li><a href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%9A%84%E5%9B%9E%E9%A1%BE">构造函数的回顾</a>
+<ul>
+<li><a href="#%E5%85%B3%E4%BA%8E%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">关于构造函数</a></li>
+<li><a href="#%E5%8D%8A%E6%88%90%E5%93%81%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%A6%82%E5%BF%B5">半成品对象的概念</a></li>
+<li><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C%E9%98%B6%E6%9E%84%E9%80%A0">解决方案：二阶构造</a>
+<ul>
+<li><a href="#%E5%AE%9E%E4%BE%8B%E5%B1%95%E7%A4%BA%E4%BA%8C%E9%98%B6%E6%9E%84%E9%80%A0">实例展示二阶构造</a></li>
+<li><a href="#%E5%86%8D%E6%AC%A1%E4%BF%AE%E6%94%B9%E6%95%B0%E7%BB%84%E7%B1%BB">再次修改数组类</a>
+<ul>
+<li><a href="#intarrayh">IntArray.h</a></li>
+<li><a href="#intarraycpp">IntArray.cpp</a></li>
+<li><a href="#maincpp">main.cpp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</p>
+<h1 id="构造函数的回顾">构造函数的回顾</h1>
+<h2 id="关于构造函数">关于构造函数</h2>
+<ul>
+<li>类的构造函数用于对象的初始化</li>
+<li>构造函数与类同名并且没有返回值</li>
+<li>构造函数在对象定时自动被调用</li>
+</ul>
+<pre><code>问题：
+1. 如何判断构造函数的执行结果？就目前来说是没有办法来捕捉这个执行结果!
+2. 在构造函数中执行return语句会发生什么？
+3. 构造函数执行结束是否意味着对象构造成功？
+</code></pre>
+<ul>
+<li>构造函数
+<ul>
+<li>只提供自动初始化成员变量的机会</li>
+<li>不能保证初始化逻辑一定成功</li>
+<li>执行return语句后构造函数立即结束</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Test
+{
+private:
+	int mi;
+	int mj;
+	
+	bool mstatus;//强行让构造函数有个返回值，来判断构造函数是否构造成功 
+public:
+	Test(int i, int j):mstatus(false)
+	{
+		return;
+		mi = i;
+		mj = j;
+		
+		mstatus = true;
+	}
+	int getI()
+	{
+		return mi;
+	}	
+	int getJ()
+	{
+		return mj;
+	}
+	int status()
+	{
+		return mstatus;
+	}
+};
+
+int main(int argc, char *argv[])
+{
+	Test t1(1,2);
+	if(t1.status())
+	{
+		cout &lt;&lt; &quot;t1.mi = &quot; &lt;&lt; t1.getI() &lt;&lt; endl;
+		cout &lt;&lt; &quot;t1.mj = &quot; &lt;&lt; t1.getJ() &lt;&lt; endl;
+	}
+
+	return 0;
+}
+</code></pre>
+<p><font size = 4><strong>构造函数</strong>能决定的<font color = red size = 5><strong>只是对象的初始状态</strong></font>，<font color = blue size = 5><strong>而不是对象的诞生</strong>！</font></font></p>
+<h2 id="半成品对象的概念">半成品对象的概念</h2>
+<ul>
+<li>初始化操作不能按照预期完成而得到的对象</li>
+<li>半成品对象是合法的C++对象，也是Bug的重要来源</li>
+</ul>
+<h2 id="解决方案二阶构造">解决方案：二阶构造</h2>
+<ul>
+<li>工程开中的构造过程可分为
+<ul>
+<li>资源无关的初始化操作
+<ul>
+<li>不可能出现异常情况的操作</li>
+</ul>
+</li>
+<li>需要使用系统资源的操作
+<ul>
+<li>可能出现异常情况，如：内存申请，访问文件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io/post-images/1581582529088.png" alt="" width="600" height="600" loading="lazy"></figure>
+<pre><code class="language-c++">class TwoPhaseCons
+{
+private:
+    TwoPhaseCons()
+    {   //这个构造函数放在了private里面，就不能在外界被调用，
+        //不能够直接地通过类名来定义变量
+
+        //第一阶段构造函数，与资源无关的初始化操作
+    }
+    bool construct()
+    {
+        //第二阶段构造函数，与资源相关的初始化操作
+        return true;
+    }
+public:
+    static TwoPhaseCons* NewInstance();//静态的对象创建函数，返回一个对象指针，
+                                       //就是真正意义上的创建函数，用于创建对象
+};
+
+TwoPhaseCons* TwoPhaseCons::NewInstance()
+{
+    TwoPhaseCons* ret = new TwoPhaseCons();
+
+    //若第二阶段构造失败，返回NULL
+    if( !(ret &amp;&amp; ret-&gt;construct()) )
+    {
+        delete ret;
+        ret = NULL;
+    }
+
+    return ret;
+}
+</code></pre>
+<h3 id="实例展示二阶构造">实例展示二阶构造</h3>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Test
+{
+private:
+	int mi;
+	int* mp;
+	
+	Test()
+	{
+		mi = 0;
+	}
+	bool construct()
+	{
+		mp = new int;
+		if(mp)
+		{
+			return true;
+		}
+		return false;
+	}
+public:
+	static Test* NewInstance();
+};
+
+Test* Test::NewInstance()
+{
+	Test* ret = new Test();
+	
+	if( !(ret &amp;&amp; ret-&gt;construct()) )
+	{
+		delete ret;
+		ret = NULL;
+	}
+	
+	return ret;
+}
+
+int main(int argc, char *argv[])
+{
+	Test* t = Test::NewInstance();//静态成员函数只能通过类名::或者对象调用 
+	
+	cout &lt;&lt; &quot;t = &quot; &lt;&lt; t &lt;&lt; endl; 
+	 
+	return 0;
+}
+</code></pre>
+<p><font color = blue size = 3>静态成员函数</font>只能通过<font color = red size = 4><strong>类名::</strong></font>或者<font color = red size = 4><strong>对象</strong></font>调用</p>
+<h3 id="再次修改数组类">再次修改数组类</h3>
+<h4 id="intarrayh">IntArray.h</h4>
+<pre><code class="language-c++">#ifndef INTARRAY_H
+#define INTARRAY_H
+
+class IntArray{
+private:
+	int m_length;
+	int* m_pointer;
+	
+	IntArray(int len);
+	//IntArray(const IntArray&amp; ob);
+	bool construct();
+public:
+	static IntArray* NewInstance(int length);
+	int length();
+	bool get(int index, int&amp; value);
+	bool set(int index, int value);	
+	~IntArray();
+};
+
+#endif
+</code></pre>
+<h4 id="intarraycpp">IntArray.cpp</h4>
+<pre><code class="language-c++">#include &quot;IntArray.h&quot;
+
+IntArray::IntArray(int len)
+{
+	m_length = len;	
+}
+
+bool IntArray::construct()
+{
+	bool ret = true;
+	
+	m_pointer = new int[m_length];
+	
+	if(m_pointer)
+	{
+		for(int i = 0;i &lt; m_length; i++)
+		{
+			m_pointer[i] = 0;
+		}
+	}
+	else
+	{
+		ret = false;
+	}
+	
+	return ret;
+}
+
+IntArray* IntArray::NewInstance(int length)
+{
+	IntArray* ret = new IntArray(length);
+	
+	if( !(ret &amp;&amp; ret-&gt;construct()) )
+	{
+		delete ret;
+		ret = NULL;
+	}
+	
+	return ret;
+}
+
+int IntArray::length()
+{
+	return m_length;
+}
+
+bool IntArray::get(int index, int&amp; value)
+{
+	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
+	
+	if(ret)
+	{
+		value = m_pointer[index];
+	}
+	
+	return ret;
+}
+
+bool IntArray::set(int index, int value)
+{
+	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
+	
+	if(ret)
+	{
+ 		m_pointer[index] = value;
+	}
+	
+	return ret;
+}
+
+IntArray::~IntArray()
+{
+	delete[] m_pointer;
+}
+
+</code></pre>
+<h4 id="maincpp">main.cpp</h4>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &quot;IntArray.h&quot;
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+	IntArray* a = IntArray::NewInstance(5);
+
+	for(int i=0; i&lt;a-&gt;length(); i++)
+	{
+		a-&gt;set(i,i+1);//这个函数返回的是bool类型值
+	}
+	cout &lt;&lt; &quot;a-&gt;length() = &quot; &lt;&lt; a-&gt;length() &lt;&lt; endl;	
+	
+	for(int i=0; i&lt;a-&gt;length(); i++)
+	{
+		int v = 0;
+		a-&gt;get(i,v);//这个函数返回的是bool类型值 
+		cout &lt;&lt; &quot;a[&quot;&lt;&lt; i &lt;&lt;&quot;] = &quot; &lt;&lt; v &lt;&lt; endl;
+	}
+	
+	delete a;
+	
+	return 0;
+}
+
+
+
+#endif
+
+</code></pre>
+<p>大多数人又要问，使用了二阶构造之后，产生的对象只能在堆空间，就不能再栈空间了。这样恰恰是最好的，这些巨大的对象，是不适用于放在栈空间的，应该放在堆空间里面。</p>
+<h1 id="小结">小结</h1>
+<ul>
+<li>构造函数只能决定对象的初始化状态</li>
+<li>构造函数中初始化操作的失败不影响对象的诞生</li>
+<li>初始化不完全的半成品对象是Bug的重要来源</li>
+<li>二阶构造是人为的将初始化过程分为两部分</li>
+<li>二阶构造能够确保创建的对象都是完整初始化的</li>
+</ul>
+
+                        </div>
+                        
+                            <div class="post-toc">
+                                <ul class="markdownIt-TOC">
+<li><a href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%9A%84%E5%9B%9E%E9%A1%BE">构造函数的回顾</a>
+<ul>
+<li><a href="#%E5%85%B3%E4%BA%8E%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">关于构造函数</a></li>
+<li><a href="#%E5%8D%8A%E6%88%90%E5%93%81%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%A6%82%E5%BF%B5">半成品对象的概念</a></li>
+<li><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C%E9%98%B6%E6%9E%84%E9%80%A0">解决方案：二阶构造</a>
+<ul>
+<li><a href="#%E5%AE%9E%E4%BE%8B%E5%B1%95%E7%A4%BA%E4%BA%8C%E9%98%B6%E6%9E%84%E9%80%A0">实例展示二阶构造</a></li>
+<li><a href="#%E5%86%8D%E6%AC%A1%E4%BF%AE%E6%94%B9%E6%95%B0%E7%BB%84%E7%B1%BB">再次修改数组类</a>
+<ul>
+<li><a href="#intarrayh">IntArray.h</a></li>
+<li><a href="#intarraycpp">IntArray.cpp</a></li>
+<li><a href="#maincpp">main.cpp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+
+                            </div>
+                            
+                                
+                                    
+                                        <!--en-->
+                                        <section class="post-copyright en">
+                                            <p class="copyright-item">
+                                                <span>Author:</span>
+                                                <span>CLL's Blog</span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>Permalink:</span>
+                                                <span><a href="https://leichen2552.github.io/post/hui-gu-27er-jie-gou-zao-mo-shi/">https://leichen2552.github.io/post/hui-gu-27er-jie-gou-zao-mo-shi/</a></span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>License:</span>
+                                                <span>MIT License</span>
+                                            </p>
+                                        </section>
+                                        
+                                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/hui-gu-27er-jie-gou-zao-mo-shi/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/hui-gu-27er-jie-gou-zao-mo-shi/&sharesource=qzone&title=回顾（27）：二阶构造模式&pics=https://leichen2552.github.io/images/avatar.png?v=1756049228364&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/hui-gu-27er-jie-gou-zao-mo-shi/&sharesource=weibo&title=回顾（27）：二阶构造模式 + " - " + &pic="https://leichen2552.github.io/images/avatar.png?v=1756049228364 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                            <div class="reward ">
+                                                                <div class="reward-button ">&yen;
+                                                                    <span class="reward-code "> 
+                                                                <span class="alipay-code "> <img class="alipay-img " alt = "support " src=""><b>Alipay</b> </span>
+                                                                    <span class="wechat-code "> <img alt ="support " class="wechat-img " src=""><b>Wechat</b> </span> </span>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://leichen2552.github.io/tag/msUt_OWMOEz/">#
+                                                C++
+                                                    </a>
+                                                    
+                                                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
+                                                                
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/hui-gu-you-yuan-de-gan-ga-neng-li/">
+                                                                                            回顾（28）：友元的尴尬能力
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-25lei-de-jing-tai-cheng-yuan-han-shu/">
+                                                                                                    回顾（26）：类的静态成员函数
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
+                </div>
+                
+                                            
+            </div>
+    </div>
+    </div>
+    </div>
+    
+    <div id="player"></div>
+    
+        <footer id="footer" class="footer">
+            <div class="copyright">
+                
+                    <div class="Like">
+                        <div class="tip" data-tooltip="Do you like it?">
+                            <a href="https://github.com/ITJoker233/Gridea-theme-Chic" target="_blank" title=""><svg class="icon"
+                        aria-hidden="true">
+                        <use xlink:href="#like"></use>
+                    </svg><b class="like_text" id="star"></b></a>
+                        </div>
+                    </div>
+                    
+                        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+                            
+                                <b id="hitokoto"></b><br>
+                                
+                                        <svg viewBox="0 0 1024 1024" style="margin-left: 5px;margin-right: 5px;" version="1.0" width="8" height="8" class="my-face">
+            <path
+                d="M863.597631 513.574282l-271.33965-140.213484L729.783667 81.926656c3.583731-7.87141 7.167462-15.742819 7.167462-25.214109C736.887134 25.226908 708.345275 0.012799 672.635953 0.012799a63.611229 63.611229 0 0 0-39.293053 12.607055c-1.791866 1.59988-3.519736 3.19976-5.311602 3.19976L147.87531 418.925381a55.547834 55.547834 0 0 0-19.646527 47.356448c1.791866 17.278704 14.27093 33.021523 32.125591 42.492813l271.33965 141.749369L292.504463 945.221908c-12.479064 25.214109-1.791866 53.563983 23.166262 69.306802 10.751194 6.335525 23.230258 9.47129 35.709322 9.47129 16.062795 0 32.125591-4.735645 44.604655-15.742819l480.091993-403.297753a55.547834 55.547834 0 0 0 19.646526-47.228458 61.243407 61.243407 0 0 0-32.12559-44.156688z"
+                fill="#93b5cf"></path>
+        </svg>
+                                        CLL&#39;s Blog &copy;Copyright
+                                            <script>
+                                                var date = new Date();
+                                                document.write("" + date.getFullYear());
+                                            </script>
+                                            | Powered by
+                                            <a href="https://coding.net" target="_blank">
+                                                Coding.net
+                                            </a>
+            </div>
+            <div id="update" style="display:none;">
+                on
+            </div>
+            
+                <div id="version" style="display:none;">
+                    1.7.6
+                </div>
+                
+                    <script>
+                        var port = '';
+                        
+                        document.write('<div id="home_path" style="display:none;">' + document.location.protocol + '//' + window.document.location.hostname + port + '</div>')
+                    </script>
+        </footer>
+        
+            <script src='https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js'></script>
+            
+                <script>
+                    
+
+                    function LoadPlayer() {
+                        var musicList = [];
+                        
+                        musicList.push({
+                            name: '',
+                            url: '',
+                            artist: '',
+                            cover: '',
+                        });
+                        
+                        console.log(" MusicList: " + musicList);
+                        
+                        const ap = new APlayer({
+                            container: document.getElementById('player'),
+                            fixed: true,
+                            audio: musicList
+                        });
+                        
+                    }
+                    LoadPlayer();
+                    
+                    
+                    loadlive2d();
+                    
+                    
+                    hitokoto();
+                    
+                    getStar();
+                    hljs.initHighlighting();
+                    console.clear();
+                    
+                    CheckVersion();
+                    
+                    var newDate = new Date();
+                    newDate.setTime(1756049228364);
+                    console.log(" Blog Update Time: " + newDate.toLocaleDateString());
+                    console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
+                </script>
+        </div>
+</body>
+<script>
+    scroll();
+</script>
+
+</html>

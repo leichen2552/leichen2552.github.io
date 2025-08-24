@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+<title>
+    CLL&#39;s Blog
+</title>
+<!--[if lt IE 9]><script src="//cdn.bootcss.com/html5shiv/r29/html5.js"></script><![endif]-->
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="author" content="陈磊磊">
+<meta name="description" content="正经人谁写博客啊！">
+<meta name="keywords" content="SSD, linux, stm32, 51">
+<script async src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+<link rel="stylesheet" href="https://leichen2552.github.io/styles/main.css" />
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/css/style.min.css" />
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/script.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/icon.min.js"></script>
+        
+            <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/Card/prism.min.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/css/Card/prism.min.css" />
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css">
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js"></script>
+            
+                <!--点击特效-->
+                <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/love.min.js"></script>
+                
+                    <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic@latest/assets/media/script/APlayer.min.js"></script>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+                    
+                        <!--CDN样式-->
+                        <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/hit-kounter-lc-0.3.0.js"></script>
+                        <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+                        
+                            <script>
+                                (function() {
+                                    var bp = document.createElement('script');
+                                    var curProtocol = window.location.protocol.split(':')[0];
+                                    if (curProtocol === 'https') {
+                                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                                    } else {
+                                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                                    }
+                                    var s = document.getElementsByTagName("script")[0];
+                                    s.parentNode.insertBefore(bp, s);
+                                })();
+                            </script>
+                            
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo">
+                <a href="https://leichen2552.github.io">
+                    CLL&#39;s Blog
+                </a>
+            </div>
+            <div id="tp-weather-widget"></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/">
+                        首页
+                    </a>
+                    
+                    <a class="menu-item" href="/archives">
+                        归档
+                    </a>
+                    
+                    <a class="menu-item" href="/tags">
+                        标签
+                    </a>
+                    
+                    <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                        关于
+                    </a>
+                    
+                        <input id="switch_default" type="checkbox" class="switch_default">
+                        <label for="switch_default" class="toggleBtn"></label>
+            </div>
+            <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+            </form>
+        </div>
+    </nav>
+
+    
+        <nav class="navbar-mobile" id="nav-mobile">
+            <div class="container">
+                <div class="navbar-header">
+                    <div>
+                        <a href="https://leichen2552.github.io">
+                            CLL&#39;s Blog
+                        </a>
+                        <!--en-->
+                        <a id="mobile-toggle-theme-en" class="a en">&nbsp;Dark</a>
+                        <!--zh-->
+                        <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
+                    </div>
+                    <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                        <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+                    </form>
+                    <!--en-->
+                    <div class="menu-toggle" id="menu-toggle-en" onclick="mobileBtn()">&#9776; Menu</div>
+                    <!--zh-->
+                    <div class="menu-toggle" id="menu-toggle-zh" onclick="mobileBtn()">&#9776; &#x83DC;&#x5355;</div>
+
+                </div>
+                <div class="menu" id="mobile-menu">
+                    
+                        <a class="menu-item" href="/">
+                            首页
+                        </a>
+                        
+                        <a class="menu-item" href="/archives">
+                            归档
+                        </a>
+                        
+                        <a class="menu-item" href="/tags">
+                            标签
+                        </a>
+                        
+                        <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                            关于
+                        </a>
+                        
+                </div>
+            </div>
+        </nav>
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementById("menu-toggle-en");
+        var toggleMenu_zh = document.getElementById("menu-toggle-zh");
+
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.display != "none") {
+            if (toggleMenu.classList.contains("active")) {
+                toggleMenu.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        } else if (toggleMenu_zh.display != "none") {
+            if (toggleMenu_zh.classList.contains("active")) {
+                toggleMenu_zh.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu_zh.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        }
+
+    }
+</script>
+
+
+
+    <script>
+        (function(a, h, g, f, e, d, c, b) {
+            b = function() {
+                d = h.createElement(g);
+                c = h.getElementsByTagName(g)[0];
+                d.src = e;
+                d.charset = "utf-8";
+                d.async = 1;
+                c.parentNode.insertBefore(d, c)
+            };
+            a["SeniverseWeatherWidgetObject"] = f;
+            a[f] || (a[f] = function() {
+                (a[f].q = a[f].q || []).push(arguments)
+            });
+            a[f].l = +new Date();
+            if (a.attachEvent) {
+                a.attachEvent("onload", b)
+            } else {
+                a.addEventListener("load", b, false)
+            }
+        }(window, document, "script", "SeniverseWeatherWidget", "//cdn.sencdn.com/widget2/static/js/bundle.js?t=" + parseInt((new Date().getTime() / 100000000).toString(), 10)));
+        window.SeniverseWeatherWidget('show', {
+            flavor: "slim",
+            location: "WWEFQFPJZ7T8",
+            geolocation: true,
+            language: "auto",
+            unit: "c",
+            theme: "auto",
+            token: "61bcc333-3305-4728-9465-6785274bb0a3",
+            hover: "enabled",
+            container: "tp-weather-widget"
+        })
+    </script>
+    
+            <div class="main">
+                <div class="container">
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                回顾（11）：新型的类型转换
+                            </h1>
+                            
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        CLL's Blog
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2020-02-03</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">2.5
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">565</a></span>
+                                    
+                                        <span class="post-category">
+                                Category:
+                                
+                                <a href="https://leichen2552.github.io/tag/msUt_OWMOEz/">C++</a>
+                                
+                            </span>
+                                        
+                                            Views:
+                                            <span data-hk-page="current"> - </span>
+                                            
+                                </div>
+                                
+                        </header>
+                        
+                            <img class="post-feature-image" src="https://leichen2552.github.io/post-images/hui-gu-11xin-xing-de-lei-xing-zhuan-huan.jpg" alt="">
+                          
+                        <div class="post-content">
+                            <h1 id="强制类型转换">强制类型转换</h1>
+<h2 id="c方式的强制类型转换">C方式的强制类型转换</h2>
+<ul>
+<li>( Type ) ( Expression )</li>
+<li>Type( Expression )</li>
+</ul>
+<h2 id="c方式强制类型转换存在的问题">C方式强制类型转换存在的问题</h2>
+<ul>
+<li>过于粗暴
+<ul>
+<li>任意类型之间都可以进行转换，编译器很难判断其正确性</li>
+</ul>
+</li>
+<li>难于定位
+<ul>
+<li>在源代码中无法快速定位所有使用强制类型转换的语句</li>
+</ul>
+</li>
+</ul>
+<pre><code>强制类型在实际工程中是很难完全避免的！！！
+</code></pre>
+<h2 id="新式类型转换">新式类型转换</h2>
+<ul>
+<li>static_cast</li>
+<li>const_cast</li>
+<li>dynamic_cast</li>
+<li>reinterpret_cast</li>
+</ul>
+<h3 id="static_cast">static_cast</h3>
+<ul>
+<li>用于基本类型间的转换</li>
+<li>不能用于基本类型指针间的转换</li>
+<li>用于有继承关系类对象之间的转换和类指针之间的转换</li>
+</ul>
+<pre><code class="language-c++">void static_cast_demo()
+{
+    int i = 0x12345;
+    char c = 'c';
+    int* pi = &amp;i;
+    char* pc = &amp;c;
+    
+    c = static_cast&lt;char&gt;(i);
+    pc = static_cast&lt;char*&gt;(pi);//Error
+}
+</code></pre>
+<h3 id="const_cast">const_cast</h3>
+<ul>
+<li>用于去除变量的只读属性</li>
+<li>强制转换的目标类型必须是指针或引用</li>
+</ul>
+<pre><code class="language-c++">void const_cast_demo()
+{
+    const int&amp; j = 1;
+    int&amp; k = const_cast&lt;int&amp;&gt;(j);
+    
+    const int x = 2;
+    int&amp; y = const_cast&lt;int&amp;&gt;(x);
+    
+    int z = const_cast&lt;int&gt;(x);//Error
+    
+    k = 5;
+    
+    printf(&quot;k = %d\n&quot;, k);
+    printf(&quot;j = %d\n&quot;, j);
+    
+    y = 8;
+    
+    printf(&quot;x = %d\n&quot;, x);
+    printf(&quot;y = %d\n&quot;, y);
+    printf(&quot;&amp;x = %p\n&quot;, &amp;x);
+    printf(&quot;&amp;y = %p\n&quot;, &amp;y);
+}
+</code></pre>
+<h3 id="reinterpret_cast">reinterpret_cast</h3>
+<ul>
+<li>用于指针类型间的强制转换</li>
+<li>用于整数和指针类型间的强制转换</li>
+</ul>
+<pre><code class="language-c++">void reinterpret_cast_demo()
+{
+    int i = 0;
+    char c = 'c';
+    int* pi = &amp;i;
+    char* pc = &amp;c;
+    
+    pc = reinterpret_cast&lt;char*&gt;(pi);
+    pi = reinterpret_cast&lt;int*&gt;(pc);
+    pi = reinterpret_cast&lt;int*&gt;(i);
+    c = reinterpret_cast&lt;char&gt;(i); //Error
+}
+
+</code></pre>
+<h3 id="dynamic_cast">dynamic_cast</h3>
+<ul>
+<li>用于有继承关系的类指针间的转换</li>
+<li>用于有交叉关系的类指针间的转换</li>
+<li>具有类型检查的功能</li>
+<li>需要虚函数的支持</li>
+<li>具有类型检查的功能，如果类型转换失败的话，会被转换成<strong>空指针</strong></li>
+</ul>
+<pre><code class="language-c++">void dynamic_cast_demo()
+{
+    int i = 0;
+    int* pi = &amp;i;
+    char* pc = dynamic_cast&lt;char*&gt;(pi);//Error
+}
+
+int main()
+{
+    static_cast_demo();
+    const_cast_demo();
+    reinterpret_cast_demo();
+    dynamic_cast_demo();
+    
+    return 0;
+}
+</code></pre>
+<h1 id="小结">小结</h1>
+<ul>
+<li>C方式的强制类型转换
+<ul>
+<li>过于粗暴</li>
+<li>潜在的问题不易被发现</li>
+<li>不易在代码中定位</li>
+</ul>
+</li>
+<li>新式类型转换以C++关键字的方式出现
+<ul>
+<li>编译器能够帮助检查潜在的问题</li>
+<li>非常方便的在代码中定位</li>
+<li>支持动态类型识别（dynamic_cast）</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                        
+                            <div class="post-toc">
+                                <ul class="markdownIt-TOC">
+<li><a href="#%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2">强制类型转换</a>
+<ul>
+<li><a href="#c%E6%96%B9%E5%BC%8F%E7%9A%84%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2">C方式的强制类型转换</a></li>
+<li><a href="#c%E6%96%B9%E5%BC%8F%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98">C方式强制类型转换存在的问题</a></li>
+<li><a href="#%E6%96%B0%E5%BC%8F%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2">新式类型转换</a>
+<ul>
+<li><a href="#static_cast">static_cast</a></li>
+<li><a href="#const_cast">const_cast</a></li>
+<li><a href="#reinterpret_cast">reinterpret_cast</a></li>
+<li><a href="#dynamic_cast">dynamic_cast</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+
+                            </div>
+                            
+                                
+                                    
+                                        <!--en-->
+                                        <section class="post-copyright en">
+                                            <p class="copyright-item">
+                                                <span>Author:</span>
+                                                <span>CLL's Blog</span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>Permalink:</span>
+                                                <span><a href="https://leichen2552.github.io/post/hui-gu-11xin-xing-de-lei-xing-zhuan-huan/">https://leichen2552.github.io/post/hui-gu-11xin-xing-de-lei-xing-zhuan-huan/</a></span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>License:</span>
+                                                <span>MIT License</span>
+                                            </p>
+                                        </section>
+                                        
+                                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/hui-gu-11xin-xing-de-lei-xing-zhuan-huan/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/hui-gu-11xin-xing-de-lei-xing-zhuan-huan/&sharesource=qzone&title=回顾（11）：新型的类型转换&pics=https://leichen2552.github.io/images/avatar.png?v=1756049228364&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/hui-gu-11xin-xing-de-lei-xing-zhuan-huan/&sharesource=weibo&title=回顾（11）：新型的类型转换 + " - " + &pic="https://leichen2552.github.io/images/avatar.png?v=1756049228364 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                            <div class="reward ">
+                                                                <div class="reward-button ">&yen;
+                                                                    <span class="reward-code "> 
+                                                                <span class="alipay-code "> <img class="alipay-img " alt = "support " src=""><b>Alipay</b> </span>
+                                                                    <span class="wechat-code "> <img alt ="support " class="wechat-img " src=""><b>Wechat</b> </span> </span>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://leichen2552.github.io/tag/msUt_OWMOEz/">#
+                                                C++
+                                                    </a>
+                                                    
+                                                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
+                                                                
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/hui-gu-12jing-dian-wen-ti-jie-xi-yi/">
+                                                                                            回顾（12）：经典问题解析一
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-10czhong-de-xin-cheng-yuan/">
+                                                                                                    回顾（10）：C++中的新成员
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
+                </div>
+                
+                                            
+            </div>
+    </div>
+    </div>
+    </div>
+    
+    <div id="player"></div>
+    
+        <footer id="footer" class="footer">
+            <div class="copyright">
+                
+                    <div class="Like">
+                        <div class="tip" data-tooltip="Do you like it?">
+                            <a href="https://github.com/ITJoker233/Gridea-theme-Chic" target="_blank" title=""><svg class="icon"
+                        aria-hidden="true">
+                        <use xlink:href="#like"></use>
+                    </svg><b class="like_text" id="star"></b></a>
+                        </div>
+                    </div>
+                    
+                        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+                            
+                                <b id="hitokoto"></b><br>
+                                
+                                        <svg viewBox="0 0 1024 1024" style="margin-left: 5px;margin-right: 5px;" version="1.0" width="8" height="8" class="my-face">
+            <path
+                d="M863.597631 513.574282l-271.33965-140.213484L729.783667 81.926656c3.583731-7.87141 7.167462-15.742819 7.167462-25.214109C736.887134 25.226908 708.345275 0.012799 672.635953 0.012799a63.611229 63.611229 0 0 0-39.293053 12.607055c-1.791866 1.59988-3.519736 3.19976-5.311602 3.19976L147.87531 418.925381a55.547834 55.547834 0 0 0-19.646527 47.356448c1.791866 17.278704 14.27093 33.021523 32.125591 42.492813l271.33965 141.749369L292.504463 945.221908c-12.479064 25.214109-1.791866 53.563983 23.166262 69.306802 10.751194 6.335525 23.230258 9.47129 35.709322 9.47129 16.062795 0 32.125591-4.735645 44.604655-15.742819l480.091993-403.297753a55.547834 55.547834 0 0 0 19.646526-47.228458 61.243407 61.243407 0 0 0-32.12559-44.156688z"
+                fill="#93b5cf"></path>
+        </svg>
+                                        CLL&#39;s Blog &copy;Copyright
+                                            <script>
+                                                var date = new Date();
+                                                document.write("" + date.getFullYear());
+                                            </script>
+                                            | Powered by
+                                            <a href="https://coding.net" target="_blank">
+                                                Coding.net
+                                            </a>
+            </div>
+            <div id="update" style="display:none;">
+                on
+            </div>
+            
+                <div id="version" style="display:none;">
+                    1.7.6
+                </div>
+                
+                    <script>
+                        var port = '';
+                        
+                        document.write('<div id="home_path" style="display:none;">' + document.location.protocol + '//' + window.document.location.hostname + port + '</div>')
+                    </script>
+        </footer>
+        
+            <script src='https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js'></script>
+            
+                <script>
+                    
+
+                    function LoadPlayer() {
+                        var musicList = [];
+                        
+                        musicList.push({
+                            name: '',
+                            url: '',
+                            artist: '',
+                            cover: '',
+                        });
+                        
+                        console.log(" MusicList: " + musicList);
+                        
+                        const ap = new APlayer({
+                            container: document.getElementById('player'),
+                            fixed: true,
+                            audio: musicList
+                        });
+                        
+                    }
+                    LoadPlayer();
+                    
+                    
+                    loadlive2d();
+                    
+                    
+                    hitokoto();
+                    
+                    getStar();
+                    hljs.initHighlighting();
+                    console.clear();
+                    
+                    CheckVersion();
+                    
+                    var newDate = new Date();
+                    newDate.setTime(1756049228364);
+                    console.log(" Blog Update Time: " + newDate.toLocaleDateString());
+                    console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
+                </script>
+        </div>
+</body>
+<script>
+    scroll();
+</script>
+
+</html>

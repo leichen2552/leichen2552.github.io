@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+<title>
+    CLL&#39;s Blog
+</title>
+<!--[if lt IE 9]><script src="//cdn.bootcss.com/html5shiv/r29/html5.js"></script><![endif]-->
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="author" content="陈磊磊">
+<meta name="description" content="正经人谁写博客啊！">
+<meta name="keywords" content="SSD, linux, stm32, 51">
+<script async src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+<link rel="stylesheet" href="https://leichen2552.github.io/styles/main.css" />
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/css/style.min.css" />
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/script.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/icon.min.js"></script>
+        
+            <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/Card/prism.min.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/css/Card/prism.min.css" />
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css">
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js"></script>
+            
+                <!--点击特效-->
+                <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/love.min.js"></script>
+                
+                    <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic@latest/assets/media/script/APlayer.min.js"></script>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+                    
+                        <!--CDN样式-->
+                        <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/hit-kounter-lc-0.3.0.js"></script>
+                        <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+                        
+                            <script>
+                                (function() {
+                                    var bp = document.createElement('script');
+                                    var curProtocol = window.location.protocol.split(':')[0];
+                                    if (curProtocol === 'https') {
+                                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                                    } else {
+                                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                                    }
+                                    var s = document.getElementsByTagName("script")[0];
+                                    s.parentNode.insertBefore(bp, s);
+                                })();
+                            </script>
+                            
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo">
+                <a href="https://leichen2552.github.io">
+                    CLL&#39;s Blog
+                </a>
+            </div>
+            <div id="tp-weather-widget"></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/">
+                        首页
+                    </a>
+                    
+                    <a class="menu-item" href="/archives">
+                        归档
+                    </a>
+                    
+                    <a class="menu-item" href="/tags">
+                        标签
+                    </a>
+                    
+                    <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                        关于
+                    </a>
+                    
+                        <input id="switch_default" type="checkbox" class="switch_default">
+                        <label for="switch_default" class="toggleBtn"></label>
+            </div>
+            <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+            </form>
+        </div>
+    </nav>
+
+    
+        <nav class="navbar-mobile" id="nav-mobile">
+            <div class="container">
+                <div class="navbar-header">
+                    <div>
+                        <a href="https://leichen2552.github.io">
+                            CLL&#39;s Blog
+                        </a>
+                        <!--en-->
+                        <a id="mobile-toggle-theme-en" class="a en">&nbsp;Dark</a>
+                        <!--zh-->
+                        <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
+                    </div>
+                    <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                        <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+                    </form>
+                    <!--en-->
+                    <div class="menu-toggle" id="menu-toggle-en" onclick="mobileBtn()">&#9776; Menu</div>
+                    <!--zh-->
+                    <div class="menu-toggle" id="menu-toggle-zh" onclick="mobileBtn()">&#9776; &#x83DC;&#x5355;</div>
+
+                </div>
+                <div class="menu" id="mobile-menu">
+                    
+                        <a class="menu-item" href="/">
+                            首页
+                        </a>
+                        
+                        <a class="menu-item" href="/archives">
+                            归档
+                        </a>
+                        
+                        <a class="menu-item" href="/tags">
+                            标签
+                        </a>
+                        
+                        <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                            关于
+                        </a>
+                        
+                </div>
+            </div>
+        </nav>
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementById("menu-toggle-en");
+        var toggleMenu_zh = document.getElementById("menu-toggle-zh");
+
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.display != "none") {
+            if (toggleMenu.classList.contains("active")) {
+                toggleMenu.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        } else if (toggleMenu_zh.display != "none") {
+            if (toggleMenu_zh.classList.contains("active")) {
+                toggleMenu_zh.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu_zh.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        }
+
+    }
+</script>
+
+
+
+    <script>
+        (function(a, h, g, f, e, d, c, b) {
+            b = function() {
+                d = h.createElement(g);
+                c = h.getElementsByTagName(g)[0];
+                d.src = e;
+                d.charset = "utf-8";
+                d.async = 1;
+                c.parentNode.insertBefore(d, c)
+            };
+            a["SeniverseWeatherWidgetObject"] = f;
+            a[f] || (a[f] = function() {
+                (a[f].q = a[f].q || []).push(arguments)
+            });
+            a[f].l = +new Date();
+            if (a.attachEvent) {
+                a.attachEvent("onload", b)
+            } else {
+                a.addEventListener("load", b, false)
+            }
+        }(window, document, "script", "SeniverseWeatherWidget", "//cdn.sencdn.com/widget2/static/js/bundle.js?t=" + parseInt((new Date().getTime() / 100000000).toString(), 10)));
+        window.SeniverseWeatherWidget('show', {
+            flavor: "slim",
+            location: "WWEFQFPJZ7T8",
+            geolocation: true,
+            language: "auto",
+            unit: "c",
+            theme: "auto",
+            token: "61bcc333-3305-4728-9465-6785274bb0a3",
+            hover: "enabled",
+            container: "tp-weather-widget"
+        })
+    </script>
+    
+            <div class="main">
+                <div class="container">
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                STM32F429的SPI总线驱动AD7606
+                            </h1>
+                            
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        CLL's Blog
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2020-11-12</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">8.8
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">2426</a></span>
+                                    
+                                        <span class="post-category">
+                                Category:
+                                
+                                <a href="https://leichen2552.github.io/tag/-PKtYBWS0M8/">STM32</a>
+                                
+                            </span>
+                                        
+                                            Views:
+                                            <span data-hk-page="current"> - </span>
+                                            
+                                </div>
+                                
+                        </header>
+                        
+                        <div class="post-content">
+                            <p><strong>目录</strong><br>
+<ul class="markdownIt-TOC">
+<li><a href="#spi%E5%8D%8F%E8%AE%AE%E7%AE%80%E4%BB%8B">SPI协议简介</a></li>
+<li><a href="#spi%E7%89%A9%E7%90%86%E5%B1%82">SPI物理层</a></li>
+<li><a href="#spi%E5%8D%8F%E8%AE%AE%E5%B1%82">SPI协议层</a>
+<ul>
+<li><a href="#spi%E5%9F%BA%E6%9C%AC%E9%80%9A%E8%AE%AF%E8%BF%87%E7%A8%8B">SPI基本通讯过程</a></li>
+<li><a href="#%E9%80%9A%E8%AE%AF%E7%9A%84%E8%B5%B7%E5%A7%8B%E5%92%8C%E5%81%9C%E6%AD%A2%E4%BF%A1%E5%8F%B7">通讯的起始和停止信号</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E6%9C%89%E6%95%88%E6%80%A7">数据有效性</a></li>
+<li><a href="#cpolcpha%E5%8F%8A%E9%80%9A%E8%AE%AF%E6%A8%A1%E5%BC%8F">CPOL/CPHA及通讯模式</a></li>
+</ul>
+</li>
+<li><a href="#stm32%E7%9A%84-spi%E7%89%B9%E6%80%A7%E5%8F%8A%E6%9E%B6%E6%9E%84">STM32的 SPI特性及架构</a>
+<ul>
+<li><a href="#stm32%E7%9A%84-spi%E5%A4%96%E8%AE%BE%E7%AE%80%E4%BB%8B">STM32的 SPI外设简介</a></li>
+<li><a href="#stm32%E7%9A%84-spi%E6%9E%B6%E6%9E%84%E5%89%96%E6%9E%90">STM32的 SPI架构剖析</a></li>
+<li><a href="#%E9%80%9A%E8%AE%AF%E5%BC%95%E8%84%9A">通讯引脚</a></li>
+</ul>
+</li>
+<li><a href="#ad7606%E4%B8%8Estm32%E7%9A%84%E8%BF%9E%E6%8E%A5">AD7606与STM32的连接</a>
+<ul>
+<li><a href="#ad7606%E5%88%9D%E5%A7%8B%E5%8C%96">AD7606初始化</a></li>
+<li><a href="#ad7606%E5%A4%8D%E4%BD%8D">AD7606复位</a></li>
+<li><a href="#%E5%B0%8F%E8%AE%A1">小计</a></li>
+<li><a href="#%E4%BB%A3%E7%A0%81">代码</a></li>
+</ul>
+</li>
+</ul>
+</p>
+<h1 id="spi协议简介">SPI协议简介</h1>
+<p>SPI协议是由摩托罗拉公司提出的通讯协议(Serial Peripheral Interface)，即串行外围设<br>
+备接口，是一种高速全双工的通信总线。它被广泛地使用在 ADC、LCD等设备与 MCU间，<br>
+要求通讯速率较高的场合。</p>
+<h1 id="spi物理层">SPI物理层</h1>
+<p><img src="https://leichen2552.github.io/post-images/1605143966040.png" alt="" loading="lazy"><br>
+SPI通讯使用3条总线及片选线，3条总线分别为SCK、MOSI、MISO，片选线为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>S</mi><mi>S</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{SS}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span>，它们的作用介绍如下：</p>
+<ol>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>S</mi><mi>S</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{SS}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span>( Slave Select)：从设备选择信号线，常称为片选信号线，也称为NSS,CS，以下用 NSS 表示。当有多个 SPI 从设备与 SPI 主机相连时，设备的其它信号线 SCK、MOSI及 MISO同时并联到相同的 SPI总线上，即无论有多少个从设备，都共同只使用这 3条总线；而每个从设备都有独立的这一条 NSS信号线，本信号线独占主机的一个引脚，即有多少个从设备，就有多少条片选信号线。I2C 协议中通过设备地址来寻址、选中总线上的某个设备并与其进行通讯；而 SPI 协议中没有设备地址，它使用 NSS 信号线来寻址，当主机要选择从设备时，把该从设备的 NSS 信号线设置为低电平，该从设备即被选中，即片选有效，接着主机开始与被选中的从设备进行 SPI 通讯。所以SPI通讯以NSS线置低电平为开始信号，以NSS线被拉高作为结束信号。</li>
+<li>SCK  (Serial Clock)：时钟信号线，用于通讯数据同步。它由通讯主机产生，决定了通讯的速率，不同的设备支持的最高时钟频率不一样，如 STM32的 SPI时钟频率最大为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>p</mi><mi>l</mi><mi>i</mi><mi>c</mi><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">f_{plick}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">p</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">c</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>/2，两个设备之间通讯时，通讯速率受限于低速设备。</li>
+<li>MOSI (Master Output， Slave Input)：主设备输出/从设备输入引脚。主机的数据从这条信号线输出，从机由这条信号线读入主机发送的数据，即这条线上数据的方向为主机到从机。</li>
+<li>MISO(Master  Input,，Slave Output)：主设备输入/从设备输出引脚。主机从这条信号线读入数据，从机的数据由这条信号线输出到主机，即在这条线上数据的方向为从机到主机。</li>
+</ol>
+<h1 id="spi协议层">SPI协议层</h1>
+<ul>
+<li>SPI协议定义了通讯的起始和停止信号、数据有效性、时钟同步等环节。</li>
+</ul>
+<h2 id="spi基本通讯过程">SPI基本通讯过程</h2>
+<ul>
+<li>先看看SPI通讯的通讯时序：<br>
+<img src="https://leichen2552.github.io/post-images/1605144777765.png" alt="" loading="lazy"></li>
+<li>这是一个主机的通讯时序。NSS、SCK、MOSI信号都由主机控制产生，而 MISO的信号由从机产生，主机通过该信号线读取从机的数据。MOSI与MISO的信号只在 NSS为低电平的时候才有效，在 SCK的每个时钟周期MOSI和MISO传输一位数据。<br>
+以上通讯流程中包含的各个信号分解如下：</li>
+</ul>
+<h2 id="通讯的起始和停止信号">通讯的起始和停止信号</h2>
+<ul>
+<li>在图中的标号1处，NSS信号线由高变低，是SPI通讯的起始信号。NSS是每个从机各自独占的信号线，当从机检在自己的NSS线检测到起始信号后，就知道自己被主机选中了，开始准备与主机通讯。在图中的标号6处，NSS信号由低变高，是SPI通讯的停止信号，表示本次通讯结束，从机的选中状态被取消。</li>
+</ul>
+<h2 id="数据有效性">数据有效性</h2>
+<ul>
+<li>SPI使用MOSI及MISO信号线来传输数据，使用 SCK信号线进行数据同步。MOSI及MISO数据线在SCK的每个时钟周期传输一位数据，且数据输入输出是同时进行的。数据传输时，MSB先行或 LSB先行并没有作硬性规定，但要保证两个SPI通讯设备之间使用同样的协定，一般都会采用上图MSB先行模式。</li>
+<li>观察图中的2、3、4、5标号处，MOSI及 MISO的数据在 SCK的上升沿期间变化输出，在SCK的下降沿时被采样。即在 SCK的下降沿时刻，MOSI及MISO的数据有效，高电平时表示数据“1”，为低电平时表示数据“0”。在其它时刻，数据无效，MOSI及 MISO为下一次表示数据做准备。</li>
+<li>SPI每次数据传输可以8位或16位为单位，每次传输的单位数不受限制。</li>
+</ul>
+<h2 id="cpolcpha及通讯模式">CPOL/CPHA及通讯模式</h2>
+<ul>
+<li>
+<p>上面讲述的图中的时序只是SPI中的其中一种通讯模式，SPI一共有四种通讯模式，它们的主要区别是总线空闲时 SCK的时钟状态以及数据采样时刻。为方便说明，在此引入“时钟极性CPOL”和“时钟相位CPHA”的概念。</p>
+</li>
+<li>
+<p>时钟极性CPOL是指 SPI通讯设备处于空闲状态时，SCK信号线的电平信号(即 SPI通讯开始前、 NSS线为高电平时 SCK的状态)。CPOL=0时， SCK在空闲状态时为低电平，CPOL=1时，则相反。<br>
+时钟相位CPHA是指数据的采样的时刻，当CPHA=0时，MOSI或 MISO数据线上的信号将会在SCK时钟线的“奇数边沿”被采样。当CPHA=1时，数据线在SCK的“偶数边沿”采样。见下图。<br>
+<img src="https://leichen2552.github.io/post-images/1605145711355.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>我们来分析这个CPHA=0的时序图。首先，根据 SCK在空闲状态时的电平，分为两种情况。SCK信号线在空闲状态为低电平时，CPOL=0；空闲状态为高电平时，CPOL=1。<br>
+无论CPOL=0还是=1，因为我们配置的时钟相位CPHA=0，在图中可以看到，采样时刻都是在SCK的奇数边沿。注意当CPOL=0的时候，时钟的奇数边沿是上升沿，而CPOL=1的时候，时钟的奇数边沿是下降沿。所以SPI的采样时刻不是由上升/下降沿决定的。MOSI和MISO数据线的有效信号在SCK的奇数边沿保持不变，数据信号将在 SCK奇数边沿时被采样，在非采样时刻，MOSI和 MISO的有效信号才发生切换。</p>
+</li>
+<li>
+<p>类似地，当CPHA=1时，不受CPOL的影响，数据信号在 SCK的偶数边沿被采样，见下图。<br>
+<img src="https://leichen2552.github.io/post-images/1605145997913.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>由 CPOL及CPHA的不同状态，SPI分成了四种模式，见表 24-1，主机与从机需要工作在相同的模式下才可以正常通讯，实际中采用较多的是“模式0”与“模式3”。<br>
+<img src="https://leichen2552.github.io/post-images/1605146200840.png" alt="" loading="lazy"></p>
+</li>
+</ul>
+<h1 id="stm32的-spi特性及架构">STM32的 SPI特性及架构</h1>
+<p>STM32芯片也集成了专门用于 SPI协议通讯的外设。</p>
+<h2 id="stm32的-spi外设简介">STM32的 SPI外设简介</h2>
+<p>STM32的SPI外设可用作通讯的主机及从机，支持最高的 SCK时钟频率为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>p</mi><mi>c</mi><mi>l</mi><mi>k</mi></mrow></msub><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">f_{pclk}/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">p</span><span class="mord mathdefault mtight">c</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mord">/</span><span class="mord">2</span></span></span></span> (STM32F429型号的芯片默认<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>p</mi><mi>c</mi><mi>l</mi><mi>k</mi><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">f_{pclk1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">p</span><span class="mord mathdefault mtight">c</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>为 90MHz，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>p</mi><mi>c</mi><mi>l</mi><mi>k</mi><mn>2</mn></mrow></msub></mrow><annotation encoding="application/x-tex">f_{pclk2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">p</span><span class="mord mathdefault mtight">c</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>为 45MHz)，完全支持SPI协议的4种模式，数据帧长度可设置为 8位或16位，可设置数据 MSB先行或LSB先行。它还支持双线全双工(前面小节说明的都是这种模式)、双线单向以及单线模式。其中双线单向模式可以同时使用MOSI及 MISO数据线向一个方向传输数据，可以加快一倍的传输速度。而单线模式则可以减少硬件接线，当然这样速率会受到影响。我们只讲解双线全双工模式。</p>
+<h2 id="stm32的-spi架构剖析">STM32的 SPI架构剖析</h2>
+<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io/post-images/1605249305205.png" alt="" loading="lazy"></figure>
+<h2 id="通讯引脚">通讯引脚</h2>
+<p>SPI的所有硬件架构都从图中左侧MOSI、MISO、SCK及NSS线展开的。STM32芯片有多个SPI外设，它们的SPI通讯信号引出到不同的GPIO引脚上，使用时必须配置到这些指定的引脚，见上表。关于GPIO引脚的复用功能，可查阅《STM32F4xx规格书》，以它为准。<br>
+<img src="https://leichen2552.github.io/post-images/1605249547835.png" alt="" loading="lazy"><br>
+其中SPI1、SPI4、SPI5、SPI6是APB2上的设备，最高通信速率达45Mbtis/s，SPI2、SPI3是APB1上的设备，最高通信速率为 22.5Mbits/s。其它功能上没有差异。</p>
+<h1 id="ad7606与stm32的连接">AD7606与STM32的连接</h1>
+<p>AD7606B是一个8路16位的ADC模块，AD7606接口有三种模式选择，并行接口模式、串行接口模式、并行字节接口模式。采用stm32的8080接口来驱动，AD7606模块上两个选择，一是8080模式，二是SPI模式，下图是SPI模式的接口。<br>
+<img src="https://leichen2552.github.io/post-images/1605148318989.png" alt="" loading="lazy"></p>
+<h2 id="ad7606初始化">AD7606初始化</h2>
+<p>STM32的SPI初始化、AD7606的GPIO初始化、设置采样量程、设置过采样模式、硬件复位AD7606、开始转换引脚设置为高电平。因为AD7606内部没有寄存器，所以不需要SPI发什么指令配置啥玩意儿的。<br>
+这里有个细节要说一下，就是SPI四根线中的MISO，MISO是Master Input Slave Output，意为主机输入从机输出，但是这个GPIO配置为推挽输出。明明是主机输入，怎么就成输出了？其实测试复用推挽输出也是可以的，因为方向是SPI硬件自己控制的。</p>
+<h2 id="ad7606复位">AD7606复位</h2>
+<p>AD7606手册指明：RESET高电平脉冲宽度典型值是50ns</p>
+<h2 id="小计">小计</h2>
+<p>大部分的信息都包含在手册里，包括串行接口、并行接口啥的</p>
+<h2 id="代码">代码</h2>
+<p>8080模式的因为板子上接口未引出，所以没写，提供SPI的，定时器里面，500ms采样一次<br>
+链接：https://pan.baidu.com/s/1gz9NtGOcCmj-QJAFmWSDiQ<br>
+提取码：3s19</p>
+
+                        </div>
+                        
+                            <div class="post-toc">
+                                <ul class="markdownIt-TOC">
+<li><a href="#spi%E5%8D%8F%E8%AE%AE%E7%AE%80%E4%BB%8B">SPI协议简介</a></li>
+<li><a href="#spi%E7%89%A9%E7%90%86%E5%B1%82">SPI物理层</a></li>
+<li><a href="#spi%E5%8D%8F%E8%AE%AE%E5%B1%82">SPI协议层</a>
+<ul>
+<li><a href="#spi%E5%9F%BA%E6%9C%AC%E9%80%9A%E8%AE%AF%E8%BF%87%E7%A8%8B">SPI基本通讯过程</a></li>
+<li><a href="#%E9%80%9A%E8%AE%AF%E7%9A%84%E8%B5%B7%E5%A7%8B%E5%92%8C%E5%81%9C%E6%AD%A2%E4%BF%A1%E5%8F%B7">通讯的起始和停止信号</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E6%9C%89%E6%95%88%E6%80%A7">数据有效性</a></li>
+<li><a href="#cpolcpha%E5%8F%8A%E9%80%9A%E8%AE%AF%E6%A8%A1%E5%BC%8F">CPOL/CPHA及通讯模式</a></li>
+</ul>
+</li>
+<li><a href="#stm32%E7%9A%84-spi%E7%89%B9%E6%80%A7%E5%8F%8A%E6%9E%B6%E6%9E%84">STM32的 SPI特性及架构</a>
+<ul>
+<li><a href="#stm32%E7%9A%84-spi%E5%A4%96%E8%AE%BE%E7%AE%80%E4%BB%8B">STM32的 SPI外设简介</a></li>
+<li><a href="#stm32%E7%9A%84-spi%E6%9E%B6%E6%9E%84%E5%89%96%E6%9E%90">STM32的 SPI架构剖析</a></li>
+<li><a href="#%E9%80%9A%E8%AE%AF%E5%BC%95%E8%84%9A">通讯引脚</a></li>
+</ul>
+</li>
+<li><a href="#ad7606%E4%B8%8Estm32%E7%9A%84%E8%BF%9E%E6%8E%A5">AD7606与STM32的连接</a>
+<ul>
+<li><a href="#ad7606%E5%88%9D%E5%A7%8B%E5%8C%96">AD7606初始化</a></li>
+<li><a href="#ad7606%E5%A4%8D%E4%BD%8D">AD7606复位</a></li>
+<li><a href="#%E5%B0%8F%E8%AE%A1">小计</a></li>
+<li><a href="#%E4%BB%A3%E7%A0%81">代码</a></li>
+</ul>
+</li>
+</ul>
+
+                            </div>
+                            
+                                
+                                    
+                                        <!--en-->
+                                        <section class="post-copyright en">
+                                            <p class="copyright-item">
+                                                <span>Author:</span>
+                                                <span>CLL's Blog</span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>Permalink:</span>
+                                                <span><a href="https://leichen2552.github.io/post/stm32f429-de-spi-zong-xian-qu-dong-ad76068-lu-16-wei-adc/">https://leichen2552.github.io/post/stm32f429-de-spi-zong-xian-qu-dong-ad76068-lu-16-wei-adc/</a></span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>License:</span>
+                                                <span>MIT License</span>
+                                            </p>
+                                        </section>
+                                        
+                                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/stm32f429-de-spi-zong-xian-qu-dong-ad76068-lu-16-wei-adc/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/stm32f429-de-spi-zong-xian-qu-dong-ad76068-lu-16-wei-adc/&sharesource=qzone&title=STM32F429的SPI总线驱动AD7606&pics=https://leichen2552.github.io/images/avatar.png?v=1756049228364&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/stm32f429-de-spi-zong-xian-qu-dong-ad76068-lu-16-wei-adc/&sharesource=weibo&title=STM32F429的SPI总线驱动AD7606 + " - " + &pic="https://leichen2552.github.io/images/avatar.png?v=1756049228364 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                            <div class="reward ">
+                                                                <div class="reward-button ">&yen;
+                                                                    <span class="reward-code "> 
+                                                                <span class="alipay-code "> <img class="alipay-img " alt = "support " src=""><b>Alipay</b> </span>
+                                                                    <span class="wechat-code "> <img alt ="support " class="wechat-img " src=""><b>Wechat</b> </span> </span>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://leichen2552.github.io/tag/-PKtYBWS0M8/">#
+                                                STM32
+                                                    </a>
+                                                    
+                                                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
+                                                                
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/stm32f429-yi-zhi-freertos/">
+                                                                                            stm32f429移植FreeRTOS
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/stm32f429-de-fmc-zong-xian-ying-yong-zhi-qu-dong-ad76068-lu-16-wei-adc/">
+                                                                                                    STM32F429的FMC总线应用驱动AD7606（8路16位ADC）
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
+                </div>
+                
+                                            
+            </div>
+    </div>
+    </div>
+    </div>
+    
+    <div id="player"></div>
+    
+        <footer id="footer" class="footer">
+            <div class="copyright">
+                
+                    <div class="Like">
+                        <div class="tip" data-tooltip="Do you like it?">
+                            <a href="https://github.com/ITJoker233/Gridea-theme-Chic" target="_blank" title=""><svg class="icon"
+                        aria-hidden="true">
+                        <use xlink:href="#like"></use>
+                    </svg><b class="like_text" id="star"></b></a>
+                        </div>
+                    </div>
+                    
+                        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+                            
+                                <b id="hitokoto"></b><br>
+                                
+                                        <svg viewBox="0 0 1024 1024" style="margin-left: 5px;margin-right: 5px;" version="1.0" width="8" height="8" class="my-face">
+            <path
+                d="M863.597631 513.574282l-271.33965-140.213484L729.783667 81.926656c3.583731-7.87141 7.167462-15.742819 7.167462-25.214109C736.887134 25.226908 708.345275 0.012799 672.635953 0.012799a63.611229 63.611229 0 0 0-39.293053 12.607055c-1.791866 1.59988-3.519736 3.19976-5.311602 3.19976L147.87531 418.925381a55.547834 55.547834 0 0 0-19.646527 47.356448c1.791866 17.278704 14.27093 33.021523 32.125591 42.492813l271.33965 141.749369L292.504463 945.221908c-12.479064 25.214109-1.791866 53.563983 23.166262 69.306802 10.751194 6.335525 23.230258 9.47129 35.709322 9.47129 16.062795 0 32.125591-4.735645 44.604655-15.742819l480.091993-403.297753a55.547834 55.547834 0 0 0 19.646526-47.228458 61.243407 61.243407 0 0 0-32.12559-44.156688z"
+                fill="#93b5cf"></path>
+        </svg>
+                                        CLL&#39;s Blog &copy;Copyright
+                                            <script>
+                                                var date = new Date();
+                                                document.write("" + date.getFullYear());
+                                            </script>
+                                            | Powered by
+                                            <a href="https://coding.net" target="_blank">
+                                                Coding.net
+                                            </a>
+            </div>
+            <div id="update" style="display:none;">
+                on
+            </div>
+            
+                <div id="version" style="display:none;">
+                    1.7.6
+                </div>
+                
+                    <script>
+                        var port = '';
+                        
+                        document.write('<div id="home_path" style="display:none;">' + document.location.protocol + '//' + window.document.location.hostname + port + '</div>')
+                    </script>
+        </footer>
+        
+            <script src='https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js'></script>
+            
+                <script>
+                    
+
+                    function LoadPlayer() {
+                        var musicList = [];
+                        
+                        musicList.push({
+                            name: '',
+                            url: '',
+                            artist: '',
+                            cover: '',
+                        });
+                        
+                        console.log(" MusicList: " + musicList);
+                        
+                        const ap = new APlayer({
+                            container: document.getElementById('player'),
+                            fixed: true,
+                            audio: musicList
+                        });
+                        
+                    }
+                    LoadPlayer();
+                    
+                    
+                    loadlive2d();
+                    
+                    
+                    hitokoto();
+                    
+                    getStar();
+                    hljs.initHighlighting();
+                    console.clear();
+                    
+                    CheckVersion();
+                    
+                    var newDate = new Date();
+                    newDate.setTime(1756049228364);
+                    console.log(" Blog Update Time: " + newDate.toLocaleDateString());
+                    console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
+                </script>
+        </div>
+</body>
+<script>
+    scroll();
+</script>
+
+</html>

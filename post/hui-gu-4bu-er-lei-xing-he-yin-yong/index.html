@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+<title>
+    CLL&#39;s Blog
+</title>
+<!--[if lt IE 9]><script src="//cdn.bootcss.com/html5shiv/r29/html5.js"></script><![endif]-->
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="author" content="陈磊磊">
+<meta name="description" content="正经人谁写博客啊！">
+<meta name="keywords" content="SSD, linux, stm32, 51">
+<script async src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+<link rel="stylesheet" href="https://leichen2552.github.io/styles/main.css" />
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/css/style.min.css" />
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/script.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/icon.min.js"></script>
+        
+            <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/Card/prism.min.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/css/Card/prism.min.css" />
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css">
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js"></script>
+            
+                <!--点击特效-->
+                <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/love.min.js"></script>
+                
+                    <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic@latest/assets/media/script/APlayer.min.js"></script>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+                    
+                        <!--CDN样式-->
+                        <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/hit-kounter-lc-0.3.0.js"></script>
+                        <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+                        
+                            <script>
+                                (function() {
+                                    var bp = document.createElement('script');
+                                    var curProtocol = window.location.protocol.split(':')[0];
+                                    if (curProtocol === 'https') {
+                                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                                    } else {
+                                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                                    }
+                                    var s = document.getElementsByTagName("script")[0];
+                                    s.parentNode.insertBefore(bp, s);
+                                })();
+                            </script>
+                            
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo">
+                <a href="https://leichen2552.github.io">
+                    CLL&#39;s Blog
+                </a>
+            </div>
+            <div id="tp-weather-widget"></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/">
+                        首页
+                    </a>
+                    
+                    <a class="menu-item" href="/archives">
+                        归档
+                    </a>
+                    
+                    <a class="menu-item" href="/tags">
+                        标签
+                    </a>
+                    
+                    <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                        关于
+                    </a>
+                    
+                        <input id="switch_default" type="checkbox" class="switch_default">
+                        <label for="switch_default" class="toggleBtn"></label>
+            </div>
+            <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+            </form>
+        </div>
+    </nav>
+
+    
+        <nav class="navbar-mobile" id="nav-mobile">
+            <div class="container">
+                <div class="navbar-header">
+                    <div>
+                        <a href="https://leichen2552.github.io">
+                            CLL&#39;s Blog
+                        </a>
+                        <!--en-->
+                        <a id="mobile-toggle-theme-en" class="a en">&nbsp;Dark</a>
+                        <!--zh-->
+                        <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
+                    </div>
+                    <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                        <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+                    </form>
+                    <!--en-->
+                    <div class="menu-toggle" id="menu-toggle-en" onclick="mobileBtn()">&#9776; Menu</div>
+                    <!--zh-->
+                    <div class="menu-toggle" id="menu-toggle-zh" onclick="mobileBtn()">&#9776; &#x83DC;&#x5355;</div>
+
+                </div>
+                <div class="menu" id="mobile-menu">
+                    
+                        <a class="menu-item" href="/">
+                            首页
+                        </a>
+                        
+                        <a class="menu-item" href="/archives">
+                            归档
+                        </a>
+                        
+                        <a class="menu-item" href="/tags">
+                            标签
+                        </a>
+                        
+                        <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                            关于
+                        </a>
+                        
+                </div>
+            </div>
+        </nav>
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementById("menu-toggle-en");
+        var toggleMenu_zh = document.getElementById("menu-toggle-zh");
+
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.display != "none") {
+            if (toggleMenu.classList.contains("active")) {
+                toggleMenu.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        } else if (toggleMenu_zh.display != "none") {
+            if (toggleMenu_zh.classList.contains("active")) {
+                toggleMenu_zh.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu_zh.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        }
+
+    }
+</script>
+
+
+
+    <script>
+        (function(a, h, g, f, e, d, c, b) {
+            b = function() {
+                d = h.createElement(g);
+                c = h.getElementsByTagName(g)[0];
+                d.src = e;
+                d.charset = "utf-8";
+                d.async = 1;
+                c.parentNode.insertBefore(d, c)
+            };
+            a["SeniverseWeatherWidgetObject"] = f;
+            a[f] || (a[f] = function() {
+                (a[f].q = a[f].q || []).push(arguments)
+            });
+            a[f].l = +new Date();
+            if (a.attachEvent) {
+                a.attachEvent("onload", b)
+            } else {
+                a.addEventListener("load", b, false)
+            }
+        }(window, document, "script", "SeniverseWeatherWidget", "//cdn.sencdn.com/widget2/static/js/bundle.js?t=" + parseInt((new Date().getTime() / 100000000).toString(), 10)));
+        window.SeniverseWeatherWidget('show', {
+            flavor: "slim",
+            location: "WWEFQFPJZ7T8",
+            geolocation: true,
+            language: "auto",
+            unit: "c",
+            theme: "auto",
+            token: "61bcc333-3305-4728-9465-6785274bb0a3",
+            hover: "enabled",
+            container: "tp-weather-widget"
+        })
+    </script>
+    
+            <div class="main">
+                <div class="container">
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                回顾（4）：布尔类型和引用
+                            </h1>
+                            
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        CLL's Blog
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2020-01-29</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">4.9
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">1218</a></span>
+                                    
+                                            Views:
+                                            <span data-hk-page="current"> - </span>
+                                            
+                                </div>
+                                
+                        </header>
+                        
+                            <img class="post-feature-image" src="https://leichen2552.github.io/post-images/hui-gu-4bu-er-lei-xing-he-yin-yong.jpg" alt="">
+                          
+                        <div class="post-content">
+                            <p><ul class="markdownIt-TOC">
+<li><a href="#c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B">C语言中的布尔类型</a></li>
+<li><a href="#c%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B">C++中的布尔类型</a>
+<ul>
+<li><a href="#%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%80%BC">布尔类型的值</a></li>
+<li><a href="#%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B">布尔类型</a>
+<ul>
+<li><a href="#%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B%E6%98%AFc%E4%B8%AD%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">布尔类型是C++中的基本数据类型</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6">三目运算符</a>
+<ul>
+<li><a href="#c%E5%AF%B9%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6%E8%BF%9B%E8%A1%8C%E4%BA%86%E5%8D%87%E7%BA%A7">C++对三目运算符进行了升级</a></li>
+<li><a href="#c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6%E8%BF%94%E5%9B%9E%E7%9A%84%E6%98%AF%E5%8F%98%E9%87%8F%E5%80%BC">C语言中的三目运算符返回的是变量值</a></li>
+<li><a href="#c%E4%B8%AD%E7%9A%84%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6%E8%BF%94%E5%9B%9E%E7%9A%84%E6%98%AF%E5%8F%98%E9%87%8F%E6%9C%AC%E8%BA%AB%E6%B3%A8%E6%84%8F%E6%98%AF%E5%8F%98%E9%87%8F%E6%9C%AC%E8%BA%AB">C++中的三目运算符返回的是变量本身（注意是变量本身）</a></li>
+</ul>
+</li>
+<li><a href="#c%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8">C++中的引用</a>
+<ul>
+<li><a href="#%E5%8F%98%E9%87%8F%E5%90%8D%E5%9B%9E%E9%A1%BE">变量名回顾</a></li>
+<li><a href="#c%E5%AF%B9%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88">C++对三目运算符做了什么</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</p>
+<h1 id="c语言中的布尔类型">C语言中的布尔类型</h1>
+<p>C语言中没有布尔类型</p>
+<h1 id="c中的布尔类型">C++中的布尔类型</h1>
+<ul>
+<li>C++在C语言的基础类型系统里增加了bool</li>
+<li>C++中的bool可取的值只有true和false</li>
+<li>理论上bool只占用了一个字节</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>true代表真值，编译器内部用1来表示</li>
+<li>false代表非真值，编译器内部用0来表示</li>
+</ul>
+<p>C++的两个加号，一个加号就是类型上面的增强，另一个加号就是面向对象的加强<br>
+所以C语言中没有的布尔类型，在C++中就提供了这种bool类型</p>
+<h2 id="布尔类型的值">布尔类型的值</h2>
+<ul>
+<li>bool类型只有true（非0）和false（0）两个值</li>
+<li>C++编译器会将非0值转换为true，0值转换为false</li>
+</ul>
+<pre><code class="language-c++">//下面的代码会输出什么？
+bool b = 0;
+printf(&quot;b = %d&quot;,b);//0
+
+b++;
+printf(&quot;b = %d&quot;,b);//1
+
+b = b - 3;
+printf(&quot;b = %d&quot;,b);//1
+</code></pre>
+<p>但是C++中的布尔类型的内部实现还是用一个字节(byte)的整型来实现的。</p>
+<pre><code class="language-c++">#include &lt;stdio.h&gt;
+
+int main()
+{
+    bool b = false;
+    int a = b;
+
+    printf(&quot;sizeof(b) = %d\n&quot;, sizeof(b));//1
+    printf(&quot;b = %d, a = %d&quot;, b, a);//0,0
+
+    b = 3;
+    a = b;
+
+    printf(&quot;b = %d, a = %d&quot;, b, a);//1,1
+
+    b = -5;
+    a = b;
+
+    printf(&quot;b = %d, a = %d&quot;, b, a);//1,1
+
+    a = 10;
+    b = a;
+
+    printf(&quot;a = %d, b = %d&quot;, a, b);//10,1
+
+    a = 0;
+    b = a;
+
+    printf(&quot;a = %d, b = %d&quot;, a, b);//0,0
+
+    return 0;
+}
+</code></pre>
+<h2 id="布尔类型">布尔类型</h2>
+<h3 id="布尔类型是c中的基本数据类型">布尔类型是C++中的基本数据类型</h3>
+<ul>
+<li>可以定义bool类型的全局变量</li>
+<li>可以定义bool类型的常量</li>
+<li>可以定义bool类型的指针</li>
+<li>可以定义bool类型的数组</li>
+<li>其他基本类型能干的事情，bool类型都能干</li>
+</ul>
+<h2 id="三目运算符">三目运算符</h2>
+<h3 id="c对三目运算符进行了升级">C++对三目运算符进行了升级</h3>
+<pre><code class="language-c++">#include &lt;stdio.h&gt;
+
+int main()
+{
+    int a = 1;
+    int b = 2;
+
+    (a &lt; b ? a : b) = 3;//等价于a = 3;
+
+    printf(&quot;a = %d, b = %d\n&quot;, a, b);
+}
+</code></pre>
+<h3 id="c语言中的三目运算符返回的是变量值">C语言中的三目运算符返回的是变量值</h3>
+<ul>
+<li>不能作为左值使用</li>
+</ul>
+<h3 id="c中的三目运算符返回的是变量本身注意是变量本身">C++中的三目运算符返回的是变量本身（注意是变量本身）</h3>
+<ul>
+<li>既可以作为右值使用，又可以作为左值使用</li>
+</ul>
+<p>牢记：</p>
+<ul>
+<li>三目运算符就只有在所有的可能返回都是变量的时候才能作为左值使用</li>
+<li>如果混搭，编译器就会报错，像如下：</li>
+</ul>
+<pre><code class="language-c++">    int a = 1;
+    int b = 2;
+
+    (a &lt; b ? a : 2) = 3;//这句就会报错
+</code></pre>
+<p>注意：</p>
+<ul>
+<li>三目运算符可能返回的值中如果有一个常量值，则不能作为左值使用</li>
+</ul>
+<h2 id="c中的引用">C++中的引用</h2>
+<h3 id="变量名回顾">变量名回顾</h3>
+<ul>
+<li>变量是一段实际连续存储空间的别名</li>
+<li>程序是通过变量来申请并命名存储空间</li>
+<li>通过变量的名字可以使用存储空间</li>
+</ul>
+<p>问题：一段连续的存储空间只能有一个别名吗？答案：不一定</p>
+<p>###在C++中新增加了引用的概念</p>
+<ul>
+<li>引用可以看做是一个已定义变量的别名</li>
+<li>引用的语法：Type&amp; name = var;</li>
+</ul>
+<pre><code class="language-c++">    int a = 4;
+    int&amp; b = a;//b为a的别名
+
+    b = 5; //操作b就是操作a
+</code></pre>
+<p>注意：</p>
+<ul>
+<li>普通引用在定义时必须用同类型的变量进行初始化。初始化一定是其他同类型（一定要同类型，不然编译器报错）变量的别名，不能用字面常量进行初始化（不然编译器报错）</li>
+</ul>
+<pre><code class="language-c++">#include &lt;stdio.h&gt;
+
+int main()
+{
+    int a = 4;
+    int&amp; b = a;
+
+    printf(&quot;a = %d\n&quot;, a);
+    printf(&quot;b = %d\n&quot;, b);//a、b值一样
+    printf(&quot;&amp;a = %p\n&quot;, &amp;a);
+    printf(&quot;&amp;b = %p\n&quot;, &amp;b);//a、b地址也一样
+}
+</code></pre>
+<h3 id="c对三目运算符做了什么">C++对三目运算符做了什么</h3>
+<ul>
+<li>当三目运算符的可能返回都是变量时，返回的就是变量引用</li>
+<li>当三目运算府的可能返回中有常量时，返回的是值</li>
+</ul>
+<pre><code class="language-c++">int a = 1;
+int b = 2;
+
+(a &lt; b ? a : b) = 3;//正确，返回 a 或 b 的引用，可作为左值
+(a &lt; b ? a : b) = 4;//错误，返回 1 或 b 的值，不能作为左值 
+</code></pre>
+<h1 id="小结">小结</h1>
+<ul>
+<li>bool类型是C++新增加的基础类型</li>
+<li>bool类型的值只能是true和false</li>
+<li>C++中的三目运算符可作为左值使用</li>
+<li>C++中的引用可以看做是变量的别名来使用</li>
+<li>三目运算符的可能返回都是变量时，返回的是引用</li>
+</ul>
+
+                        </div>
+                        
+                            <div class="post-toc">
+                                <ul class="markdownIt-TOC">
+<li><a href="#c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B">C语言中的布尔类型</a></li>
+<li><a href="#c%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B">C++中的布尔类型</a>
+<ul>
+<li><a href="#%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%80%BC">布尔类型的值</a></li>
+<li><a href="#%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B">布尔类型</a>
+<ul>
+<li><a href="#%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B%E6%98%AFc%E4%B8%AD%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">布尔类型是C++中的基本数据类型</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6">三目运算符</a>
+<ul>
+<li><a href="#c%E5%AF%B9%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6%E8%BF%9B%E8%A1%8C%E4%BA%86%E5%8D%87%E7%BA%A7">C++对三目运算符进行了升级</a></li>
+<li><a href="#c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6%E8%BF%94%E5%9B%9E%E7%9A%84%E6%98%AF%E5%8F%98%E9%87%8F%E5%80%BC">C语言中的三目运算符返回的是变量值</a></li>
+<li><a href="#c%E4%B8%AD%E7%9A%84%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6%E8%BF%94%E5%9B%9E%E7%9A%84%E6%98%AF%E5%8F%98%E9%87%8F%E6%9C%AC%E8%BA%AB%E6%B3%A8%E6%84%8F%E6%98%AF%E5%8F%98%E9%87%8F%E6%9C%AC%E8%BA%AB">C++中的三目运算符返回的是变量本身（注意是变量本身）</a></li>
+</ul>
+</li>
+<li><a href="#c%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8">C++中的引用</a>
+<ul>
+<li><a href="#%E5%8F%98%E9%87%8F%E5%90%8D%E5%9B%9E%E9%A1%BE">变量名回顾</a></li>
+<li><a href="#c%E5%AF%B9%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88">C++对三目运算符做了什么</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+
+                            </div>
+                            
+                                
+                                    
+                                        <!--en-->
+                                        <section class="post-copyright en">
+                                            <p class="copyright-item">
+                                                <span>Author:</span>
+                                                <span>CLL's Blog</span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>Permalink:</span>
+                                                <span><a href="https://leichen2552.github.io/post/hui-gu-4bu-er-lei-xing-he-yin-yong/">https://leichen2552.github.io/post/hui-gu-4bu-er-lei-xing-he-yin-yong/</a></span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>License:</span>
+                                                <span>MIT License</span>
+                                            </p>
+                                        </section>
+                                        
+                                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/hui-gu-4bu-er-lei-xing-he-yin-yong/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/hui-gu-4bu-er-lei-xing-he-yin-yong/&sharesource=qzone&title=回顾（4）：布尔类型和引用&pics=https://leichen2552.github.io/images/avatar.png?v=1756049228364&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/hui-gu-4bu-er-lei-xing-he-yin-yong/&sharesource=weibo&title=回顾（4）：布尔类型和引用 + " - " + &pic="https://leichen2552.github.io/images/avatar.png?v=1756049228364 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                            <div class="reward ">
+                                                                <div class="reward-button ">&yen;
+                                                                    <span class="reward-code "> 
+                                                                <span class="alipay-code "> <img class="alipay-img " alt = "support " src=""><b>Alipay</b> </span>
+                                                                    <span class="wechat-code "> <img alt ="support " class="wechat-img " src=""><b>Wechat</b> </span> </span>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
+                                                                
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/hui-gu-5yin-yong-ben-zhi-fen-xi/">
+                                                                                            回顾（5）：引用本质分析
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-3jin-hua-hou-de-const-fen-xi/">
+                                                                                                    回顾（3）：进化后的const分析
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
+                </div>
+                
+                                            
+            </div>
+    </div>
+    </div>
+    </div>
+    
+    <div id="player"></div>
+    
+        <footer id="footer" class="footer">
+            <div class="copyright">
+                
+                    <div class="Like">
+                        <div class="tip" data-tooltip="Do you like it?">
+                            <a href="https://github.com/ITJoker233/Gridea-theme-Chic" target="_blank" title=""><svg class="icon"
+                        aria-hidden="true">
+                        <use xlink:href="#like"></use>
+                    </svg><b class="like_text" id="star"></b></a>
+                        </div>
+                    </div>
+                    
+                        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+                            
+                                <b id="hitokoto"></b><br>
+                                
+                                        <svg viewBox="0 0 1024 1024" style="margin-left: 5px;margin-right: 5px;" version="1.0" width="8" height="8" class="my-face">
+            <path
+                d="M863.597631 513.574282l-271.33965-140.213484L729.783667 81.926656c3.583731-7.87141 7.167462-15.742819 7.167462-25.214109C736.887134 25.226908 708.345275 0.012799 672.635953 0.012799a63.611229 63.611229 0 0 0-39.293053 12.607055c-1.791866 1.59988-3.519736 3.19976-5.311602 3.19976L147.87531 418.925381a55.547834 55.547834 0 0 0-19.646527 47.356448c1.791866 17.278704 14.27093 33.021523 32.125591 42.492813l271.33965 141.749369L292.504463 945.221908c-12.479064 25.214109-1.791866 53.563983 23.166262 69.306802 10.751194 6.335525 23.230258 9.47129 35.709322 9.47129 16.062795 0 32.125591-4.735645 44.604655-15.742819l480.091993-403.297753a55.547834 55.547834 0 0 0 19.646526-47.228458 61.243407 61.243407 0 0 0-32.12559-44.156688z"
+                fill="#93b5cf"></path>
+        </svg>
+                                        CLL&#39;s Blog &copy;Copyright
+                                            <script>
+                                                var date = new Date();
+                                                document.write("" + date.getFullYear());
+                                            </script>
+                                            | Powered by
+                                            <a href="https://coding.net" target="_blank">
+                                                Coding.net
+                                            </a>
+            </div>
+            <div id="update" style="display:none;">
+                on
+            </div>
+            
+                <div id="version" style="display:none;">
+                    1.7.6
+                </div>
+                
+                    <script>
+                        var port = '';
+                        
+                        document.write('<div id="home_path" style="display:none;">' + document.location.protocol + '//' + window.document.location.hostname + port + '</div>')
+                    </script>
+        </footer>
+        
+            <script src='https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js'></script>
+            
+                <script>
+                    
+
+                    function LoadPlayer() {
+                        var musicList = [];
+                        
+                        musicList.push({
+                            name: '',
+                            url: '',
+                            artist: '',
+                            cover: '',
+                        });
+                        
+                        console.log(" MusicList: " + musicList);
+                        
+                        const ap = new APlayer({
+                            container: document.getElementById('player'),
+                            fixed: true,
+                            audio: musicList
+                        });
+                        
+                    }
+                    LoadPlayer();
+                    
+                    
+                    loadlive2d();
+                    
+                    
+                    hitokoto();
+                    
+                    getStar();
+                    hljs.initHighlighting();
+                    console.clear();
+                    
+                    CheckVersion();
+                    
+                    var newDate = new Date();
+                    newDate.setTime(1756049228364);
+                    console.log(" Blog Update Time: " + newDate.toLocaleDateString());
+                    console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
+                </script>
+        </div>
+</body>
+<script>
+    scroll();
+</script>
+
+</html>

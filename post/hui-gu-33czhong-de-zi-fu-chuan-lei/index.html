@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+<title>
+    CLL&#39;s Blog
+</title>
+<!--[if lt IE 9]><script src="//cdn.bootcss.com/html5shiv/r29/html5.js"></script><![endif]-->
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="author" content="陈磊磊">
+<meta name="description" content="正经人谁写博客啊！">
+<meta name="keywords" content="SSD, linux, stm32, 51">
+<script async src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+<link rel="stylesheet" href="https://leichen2552.github.io/styles/main.css" />
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/css/style.min.css" />
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/script.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/icon.min.js"></script>
+        
+            <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/Card/prism.min.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/css/Card/prism.min.css" />
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css">
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js"></script>
+            
+                <!--点击特效-->
+                <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/love.min.js"></script>
+                
+                    <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic@latest/assets/media/script/APlayer.min.js"></script>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+                    
+                        <!--CDN样式-->
+                        <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/hit-kounter-lc-0.3.0.js"></script>
+                        <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+                        
+                            <script>
+                                (function() {
+                                    var bp = document.createElement('script');
+                                    var curProtocol = window.location.protocol.split(':')[0];
+                                    if (curProtocol === 'https') {
+                                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                                    } else {
+                                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                                    }
+                                    var s = document.getElementsByTagName("script")[0];
+                                    s.parentNode.insertBefore(bp, s);
+                                })();
+                            </script>
+                            
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo">
+                <a href="https://leichen2552.github.io">
+                    CLL&#39;s Blog
+                </a>
+            </div>
+            <div id="tp-weather-widget"></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/">
+                        首页
+                    </a>
+                    
+                    <a class="menu-item" href="/archives">
+                        归档
+                    </a>
+                    
+                    <a class="menu-item" href="/tags">
+                        标签
+                    </a>
+                    
+                    <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                        关于
+                    </a>
+                    
+                        <input id="switch_default" type="checkbox" class="switch_default">
+                        <label for="switch_default" class="toggleBtn"></label>
+            </div>
+            <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+            </form>
+        </div>
+    </nav>
+
+    
+        <nav class="navbar-mobile" id="nav-mobile">
+            <div class="container">
+                <div class="navbar-header">
+                    <div>
+                        <a href="https://leichen2552.github.io">
+                            CLL&#39;s Blog
+                        </a>
+                        <!--en-->
+                        <a id="mobile-toggle-theme-en" class="a en">&nbsp;Dark</a>
+                        <!--zh-->
+                        <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
+                    </div>
+                    <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                        <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+                    </form>
+                    <!--en-->
+                    <div class="menu-toggle" id="menu-toggle-en" onclick="mobileBtn()">&#9776; Menu</div>
+                    <!--zh-->
+                    <div class="menu-toggle" id="menu-toggle-zh" onclick="mobileBtn()">&#9776; &#x83DC;&#x5355;</div>
+
+                </div>
+                <div class="menu" id="mobile-menu">
+                    
+                        <a class="menu-item" href="/">
+                            首页
+                        </a>
+                        
+                        <a class="menu-item" href="/archives">
+                            归档
+                        </a>
+                        
+                        <a class="menu-item" href="/tags">
+                            标签
+                        </a>
+                        
+                        <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                            关于
+                        </a>
+                        
+                </div>
+            </div>
+        </nav>
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementById("menu-toggle-en");
+        var toggleMenu_zh = document.getElementById("menu-toggle-zh");
+
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.display != "none") {
+            if (toggleMenu.classList.contains("active")) {
+                toggleMenu.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        } else if (toggleMenu_zh.display != "none") {
+            if (toggleMenu_zh.classList.contains("active")) {
+                toggleMenu_zh.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu_zh.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        }
+
+    }
+</script>
+
+
+
+    <script>
+        (function(a, h, g, f, e, d, c, b) {
+            b = function() {
+                d = h.createElement(g);
+                c = h.getElementsByTagName(g)[0];
+                d.src = e;
+                d.charset = "utf-8";
+                d.async = 1;
+                c.parentNode.insertBefore(d, c)
+            };
+            a["SeniverseWeatherWidgetObject"] = f;
+            a[f] || (a[f] = function() {
+                (a[f].q = a[f].q || []).push(arguments)
+            });
+            a[f].l = +new Date();
+            if (a.attachEvent) {
+                a.attachEvent("onload", b)
+            } else {
+                a.addEventListener("load", b, false)
+            }
+        }(window, document, "script", "SeniverseWeatherWidget", "//cdn.sencdn.com/widget2/static/js/bundle.js?t=" + parseInt((new Date().getTime() / 100000000).toString(), 10)));
+        window.SeniverseWeatherWidget('show', {
+            flavor: "slim",
+            location: "WWEFQFPJZ7T8",
+            geolocation: true,
+            language: "auto",
+            unit: "c",
+            theme: "auto",
+            token: "61bcc333-3305-4728-9465-6785274bb0a3",
+            hover: "enabled",
+            container: "tp-weather-widget"
+        })
+    </script>
+    
+            <div class="main">
+                <div class="container">
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                回顾（33）：C++中的字符串类
+                            </h1>
+                            
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        CLL's Blog
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2020-02-18</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">6.3
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">1306</a></span>
+                                    
+                                        <span class="post-category">
+                                Category:
+                                
+                                <a href="https://leichen2552.github.io/tag/msUt_OWMOEz/">C++</a>
+                                
+                            </span>
+                                        
+                                            Views:
+                                            <span data-hk-page="current"> - </span>
+                                            
+                                </div>
+                                
+                        </header>
+                        
+                            <img class="post-feature-image" src="https://leichen2552.github.io/post-images/hui-gu-33czhong-de-zi-fu-chuan-lei.jpg" alt="">
+                          
+                        <div class="post-content">
+                            <p><ul class="markdownIt-TOC">
+<li><a href="#%E5%8E%86%E5%8F%B2%E9%81%97%E7%95%99%E9%97%AE%E9%A2%98">历史遗留问题</a>
+<ul>
+<li><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">解决方案</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A0%87%E5%87%86%E5%BA%93%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB">标准库中的字符串类</a>
+<ul>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C">字符串基本操作</a></li>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8E%E6%95%B0%E5%AD%97%E7%9A%84%E8%BD%AC%E6%8D%A2">字符串与数字的转换</a></li>
+</ul>
+</li>
+<li><a href="#%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%86%E6%9E%90">面试题分析</a></li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8D%E8%BD%AC">字符串反转</a></li>
+</ul>
+</p>
+<h1 id="历史遗留问题">历史遗留问题</h1>
+<ul>
+<li>C语言不支持真正意义上的字符串</li>
+<li>C语言用字符数组和一组函数实现字符串操作</li>
+<li>C语言不支持自定义类型，因此无法获得字符串类型</li>
+</ul>
+<h2 id="解决方案">解决方案</h2>
+<ul>
+<li>从C到C++的进化引入了自定义类型</li>
+<li>在C++中可以通过类完成字符串类型的定义</li>
+</ul>
+<pre><code>问题：
+C++中的原生类型系统是否包含字符串类型？
+</code></pre>
+<h1 id="标准库中的字符串类">标准库中的字符串类</h1>
+<h2 id="字符串基本操作">字符串基本操作</h2>
+<ul>
+<li>C++语言<font color = blue>直接支持</font>C语言的所有概念</li>
+<li>因为C++自诞生以来的沉重使命就是兼容C语言，所以C++语言中<font color = red>没有原生的字符串类型</font></li>
+<li>C++标准库提供了string类型
+<ul>
+<li>string直接支持<font color = purple>字符串连接</font></li>
+<li>string直接支持<font color = ff8c00>字符串比较大小</font></li>
+<li>string直接支持<font color = ff6eb4>字符串查找和提取</font></li>
+<li>string直接支持<font color = f4a460>字符串的插入和替换</font></li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+void string_sort(string a[], int len)
+{
+	for(int i=0; i&lt;len; i++)
+	{
+		for(int j=i; j&lt;len; j++)
+		{
+			if(a[i] &gt; a[j])//标准库里重载了 &gt; 这个操作符
+			{
+				swap(a[i], a[j]);
+			}
+		}
+	}	
+}
+
+string string_add(string a[], int len)
+{
+	string ret = &quot;&quot;;
+	
+	for(int i=0; i&lt;len; i++)
+	{
+		ret = ret + a[i] + &quot;;&quot;;//标准库里重载了 + 这个操作符
+	}
+	
+	return ret;	
+}
+
+int main(int argc, char *argv[])
+{
+	string sa[7] = 
+	{
+        &quot;Hello World&quot;,
+        &quot;D.T.Software&quot;,
+        &quot;C#&quot;,
+        &quot;Java&quot;,
+        &quot;C++&quot;,
+        &quot;Python&quot;,
+        &quot;TypeScript&quot;
+	};
+	
+	string_sort(sa,7);
+	
+	for(int i=0; i&lt;7; i++)
+	{
+		cout &lt;&lt; sa[i] &lt;&lt; endl;	
+	}
+	cout &lt;&lt; endl;
+	cout &lt;&lt; string_add(sa, 7) &lt;&lt; endl;
+	
+	return 0;
+}
+</code></pre>
+<p>打印结果：</p>
+<pre><code>C#
+C++
+D.T.Software
+Hello World
+Java
+Python
+TypeScript
+
+C#;C++;D.T.Software;Hello World;Java;Python;TypeScript;
+</code></pre>
+<h2 id="字符串与数字的转换">字符串与数字的转换</h2>
+<ul>
+<li>标准库中提供了相关的类对字符串和数字进行转换</li>
+<li>字符串流泪（sstream）用于string的转换
+<ul>
+<li><code>&lt;sstream&gt;</code> - 相关头文件</li>
+<li><code>istringstream</code>- 字符串输入流</li>
+<li><code>ostringstream</code> - 字符串输出流</li>
+</ul>
+</li>
+<li>使用方法
+<ul>
+<li>string <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> 数字<pre><code class="language-c++">istringstream iss(&quot;123.45&quot;);
+ double num;
+ iss &gt;&gt; num;
+</code></pre>
+</li>
+<li>数字 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> string<pre><code class="language-c++">ostringstream oss;
+ oss &lt;&lt;543.21;
+ string s = oss.str();
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;sstream&gt;
+#include &lt;string&gt;
+using namespace std;
+//采用直接调用构造函数的方法形成临时对象，生命周期只有这一行语句的时间 
+#define TO_NUMBER(s, n) (istringstream(s) &gt;&gt; n)
+
+//这一行里的(ostringstream&amp;)强制类型转换，
+//如果没有的话，编译器会报错，因为如果没有的话，返回的就不是一个ostringstream类型
+#define TO_STRING(n) (((ostringstream&amp;)(ostringstream() &lt;&lt; n)).str())
+
+//函数模板支持多种类型
+template &lt;typename T&gt;
+string to_string(T n)
+{
+	ostringstream oss;
+	oss &lt;&lt; n;
+	return oss.str();	
+}
+
+//函数模板支持多种类型
+template &lt;typename T&gt;
+bool to_number(const string&amp; s, T&amp; n)
+{
+	istringstream iss(s);
+
+	return iss &gt;&gt; n;
+} 
+
+int main(int argc, char *argv[])
+{
+//采用函数模板 
+/***************************************************/	
+	double m = 0;
+	if(TO_NUMBER(&quot;123.789&quot;, m)) 
+	{
+		cout &lt;&lt; &quot;m = &quot;&lt;&lt; m &lt;&lt;endl;
+	}
+	cout &lt;&lt; endl;
+/***************************************************/
+	
+//采用函数模板 
+/***************************************************/
+	int n = 0;
+	cout &lt;&lt; &quot;to_number&lt;int&gt;(&quot; &lt;&lt; &quot;123456,n) = &quot; &lt;&lt; to_number&lt;int&gt;(&quot;123456&quot;,n) &lt;&lt; endl;		
+	cout &lt;&lt;  &quot;n = &quot; &lt;&lt; n &lt;&lt; endl;
+	cout &lt;&lt; endl;
+	
+	float f = 0;
+	cout &lt;&lt; &quot;to_number&lt;float&gt;(&quot; &lt;&lt; &quot;123.456,f) =&quot; &lt;&lt; to_number&lt;float&gt;(&quot;123.456&quot;,f) &lt;&lt; endl;		
+	cout &lt;&lt;  &quot;f = &quot; &lt;&lt; f &lt;&lt; endl;
+	cout &lt;&lt; endl;
+	
+	double d = 0;
+	cout &lt;&lt; &quot;to_number&lt;double&gt;(&quot; &lt;&lt; &quot;123.4789,d)&quot;&lt;&lt; to_number&lt;double&gt;(&quot;123.4789&quot;,d) &lt;&lt; endl;		
+	cout &lt;&lt; &quot;d = &quot; &lt;&lt; d &lt;&lt; endl;
+	cout &lt;&lt; endl;
+/***************************************************/
+
+	string s1 = TO_STRING(12345);
+	string s2 = to_string(12345);
+	
+	cout &lt;&lt; &quot;s1 = &quot; &lt;&lt; s1 &lt;&lt; endl; 
+	cout &lt;&lt; &quot;s2 = &quot; &lt;&lt; s2 &lt;&lt; endl; 
+	
+	return 0;
+}
+</code></pre>
+<p>打印结果：</p>
+<pre><code>m = 123.789
+
+to_number&lt;int&gt;(123456,n) = 1
+n = 123456
+
+to_number&lt;float&gt;(123.456,f) =1
+f = 123.456
+
+to_number&lt;double&gt;(123.4789,d)1
+d = 123.479
+
+s1 = 12345
+s2 = 12345
+</code></pre>
+<h1 id="面试题分析">面试题分析</h1>
+<p>abcdefg <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> efgabcd，需要循环右移三位</p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;sstream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+string operator &gt;&gt; (const string&amp; s, unsigned int n)
+{
+	string ret;
+	unsigned int pos = 0;
+	
+	//abc ==&gt; 1 cab
+	//abc ==&gt; 4 cab
+	n = n % s.length();//先取余
+	pos = s.length() - n;//再取位置
+	
+	ret = s.substr(pos);//提取位置之后的字串
+	
+	ret = ret + s.substr(0,pos);//再把ret加上从0到pos的字串
+	
+	//abcdefg ==&gt; 8
+	//sbcdefg ==&gt; 1
+	//8 % 7 == &gt; 1
+	//7-1 = 6
+	//abcdef g
+	//ret ==&gt; g
+	//ret = g + abcdef
+	//ret = gabcdef 
+	
+	return ret;
+}
+
+int main(int argc, char *argv[])
+{
+	string r = &quot;abcdefg&quot;;
+	
+	string s = r &gt;&gt; 3;
+	
+	cout &lt;&lt; s &lt;&lt; endl;
+	return 0;
+}
+</code></pre>
+<p>打印结果：</p>
+<pre><code>r = abcdefg
+s = efgabcd
+</code></pre>
+<h1 id="小结">小结</h1>
+<ul>
+<li>应用开发中大多数的情况都在进行字符串处理</li>
+<li>C++中<font color = red>没有直接支持</font>原生的字符串类型</li>
+<li>标准库中通过<font color = blue size = 4> <strong>string</strong> </font>类支持字符串的概念</li>
+<li>string类支持<strong>字符串</strong>和<strong>数字</strong>的相互转换</li>
+<li>string类的应用使得问题的求解变得简单</li>
+</ul>
+<h1 id="字符串反转">字符串反转</h1>
+<ul>
+<li>要求：
+<ul>
+<li>使用string类完成</li>
+</ul>
+</li>
+<li>示例：
+<ul>
+<li>&quot;we;tonight;you&quot; <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> &quot;ew;thginot;uoy&quot;</li>
+</ul>
+</li>
+<li>提示：
+<ul>
+<li>string类中提供了成员函数可以查找目标字符的位置</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                        
+                            <div class="post-toc">
+                                <ul class="markdownIt-TOC">
+<li><a href="#%E5%8E%86%E5%8F%B2%E9%81%97%E7%95%99%E9%97%AE%E9%A2%98">历史遗留问题</a>
+<ul>
+<li><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">解决方案</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A0%87%E5%87%86%E5%BA%93%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB">标准库中的字符串类</a>
+<ul>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C">字符串基本操作</a></li>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8E%E6%95%B0%E5%AD%97%E7%9A%84%E8%BD%AC%E6%8D%A2">字符串与数字的转换</a></li>
+</ul>
+</li>
+<li><a href="#%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%86%E6%9E%90">面试题分析</a></li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8D%E8%BD%AC">字符串反转</a></li>
+</ul>
+
+                            </div>
+                            
+                                
+                                    
+                                        <!--en-->
+                                        <section class="post-copyright en">
+                                            <p class="copyright-item">
+                                                <span>Author:</span>
+                                                <span>CLL's Blog</span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>Permalink:</span>
+                                                <span><a href="https://leichen2552.github.io/post/hui-gu-33czhong-de-zi-fu-chuan-lei/">https://leichen2552.github.io/post/hui-gu-33czhong-de-zi-fu-chuan-lei/</a></span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>License:</span>
+                                                <span>MIT License</span>
+                                            </p>
+                                        </section>
+                                        
+                                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/hui-gu-33czhong-de-zi-fu-chuan-lei/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/hui-gu-33czhong-de-zi-fu-chuan-lei/&sharesource=qzone&title=回顾（33）：C++中的字符串类&pics=https://leichen2552.github.io/images/avatar.png?v=1756049228364&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/hui-gu-33czhong-de-zi-fu-chuan-lei/&sharesource=weibo&title=回顾（33）：C++中的字符串类 + " - " + &pic="https://leichen2552.github.io/images/avatar.png?v=1756049228364 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                            <div class="reward ">
+                                                                <div class="reward-button ">&yen;
+                                                                    <span class="reward-code "> 
+                                                                <span class="alipay-code "> <img class="alipay-img " alt = "support " src=""><b>Alipay</b> </span>
+                                                                    <span class="wechat-code "> <img alt ="support " class="wechat-img " src=""><b>Wechat</b> </span> </span>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://leichen2552.github.io/tag/msUt_OWMOEz/">#
+                                                C++
+                                                    </a>
+                                                    
+                                                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
+                                                                
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/hui-gu-34shu-zu-cao-zuo-fu-de-chong-zai/">
+                                                                                            回顾（34）：数组操作符的重载
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-32chu-tan-cbiao-zhun-ku/">
+                                                                                                    回顾（32）：初探C++标准库
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
+                </div>
+                
+                                            
+            </div>
+    </div>
+    </div>
+    </div>
+    
+    <div id="player"></div>
+    
+        <footer id="footer" class="footer">
+            <div class="copyright">
+                
+                    <div class="Like">
+                        <div class="tip" data-tooltip="Do you like it?">
+                            <a href="https://github.com/ITJoker233/Gridea-theme-Chic" target="_blank" title=""><svg class="icon"
+                        aria-hidden="true">
+                        <use xlink:href="#like"></use>
+                    </svg><b class="like_text" id="star"></b></a>
+                        </div>
+                    </div>
+                    
+                        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+                            
+                                <b id="hitokoto"></b><br>
+                                
+                                        <svg viewBox="0 0 1024 1024" style="margin-left: 5px;margin-right: 5px;" version="1.0" width="8" height="8" class="my-face">
+            <path
+                d="M863.597631 513.574282l-271.33965-140.213484L729.783667 81.926656c3.583731-7.87141 7.167462-15.742819 7.167462-25.214109C736.887134 25.226908 708.345275 0.012799 672.635953 0.012799a63.611229 63.611229 0 0 0-39.293053 12.607055c-1.791866 1.59988-3.519736 3.19976-5.311602 3.19976L147.87531 418.925381a55.547834 55.547834 0 0 0-19.646527 47.356448c1.791866 17.278704 14.27093 33.021523 32.125591 42.492813l271.33965 141.749369L292.504463 945.221908c-12.479064 25.214109-1.791866 53.563983 23.166262 69.306802 10.751194 6.335525 23.230258 9.47129 35.709322 9.47129 16.062795 0 32.125591-4.735645 44.604655-15.742819l480.091993-403.297753a55.547834 55.547834 0 0 0 19.646526-47.228458 61.243407 61.243407 0 0 0-32.12559-44.156688z"
+                fill="#93b5cf"></path>
+        </svg>
+                                        CLL&#39;s Blog &copy;Copyright
+                                            <script>
+                                                var date = new Date();
+                                                document.write("" + date.getFullYear());
+                                            </script>
+                                            | Powered by
+                                            <a href="https://coding.net" target="_blank">
+                                                Coding.net
+                                            </a>
+            </div>
+            <div id="update" style="display:none;">
+                on
+            </div>
+            
+                <div id="version" style="display:none;">
+                    1.7.6
+                </div>
+                
+                    <script>
+                        var port = '';
+                        
+                        document.write('<div id="home_path" style="display:none;">' + document.location.protocol + '//' + window.document.location.hostname + port + '</div>')
+                    </script>
+        </footer>
+        
+            <script src='https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js'></script>
+            
+                <script>
+                    
+
+                    function LoadPlayer() {
+                        var musicList = [];
+                        
+                        musicList.push({
+                            name: '',
+                            url: '',
+                            artist: '',
+                            cover: '',
+                        });
+                        
+                        console.log(" MusicList: " + musicList);
+                        
+                        const ap = new APlayer({
+                            container: document.getElementById('player'),
+                            fixed: true,
+                            audio: musicList
+                        });
+                        
+                    }
+                    LoadPlayer();
+                    
+                    
+                    loadlive2d();
+                    
+                    
+                    hitokoto();
+                    
+                    getStar();
+                    hljs.initHighlighting();
+                    console.clear();
+                    
+                    CheckVersion();
+                    
+                    var newDate = new Date();
+                    newDate.setTime(1756049228364);
+                    console.log(" Blog Update Time: " + newDate.toLocaleDateString());
+                    console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
+                </script>
+        </div>
+</body>
+<script>
+    scroll();
+</script>
+
+</html>

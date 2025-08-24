@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+<title>
+    CLL&#39;s Blog
+</title>
+<!--[if lt IE 9]><script src="//cdn.bootcss.com/html5shiv/r29/html5.js"></script><![endif]-->
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="author" content="陈磊磊">
+<meta name="description" content="正经人谁写博客啊！">
+<meta name="keywords" content="SSD, linux, stm32, 51">
+<script async src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+<link rel="stylesheet" href="https://leichen2552.github.io/styles/main.css" />
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/css/style.min.css" />
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/script.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/icon.min.js"></script>
+        
+            <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/Card/prism.min.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/css/Card/prism.min.css" />
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css">
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js"></script>
+            
+                <!--点击特效-->
+                <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/love.min.js"></script>
+                
+                    <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic@latest/assets/media/script/APlayer.min.js"></script>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+                    
+                        <!--CDN样式-->
+                        <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/hit-kounter-lc-0.3.0.js"></script>
+                        <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+                        
+                            <script>
+                                (function() {
+                                    var bp = document.createElement('script');
+                                    var curProtocol = window.location.protocol.split(':')[0];
+                                    if (curProtocol === 'https') {
+                                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                                    } else {
+                                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                                    }
+                                    var s = document.getElementsByTagName("script")[0];
+                                    s.parentNode.insertBefore(bp, s);
+                                })();
+                            </script>
+                            
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo">
+                <a href="https://leichen2552.github.io">
+                    CLL&#39;s Blog
+                </a>
+            </div>
+            <div id="tp-weather-widget"></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/">
+                        首页
+                    </a>
+                    
+                    <a class="menu-item" href="/archives">
+                        归档
+                    </a>
+                    
+                    <a class="menu-item" href="/tags">
+                        标签
+                    </a>
+                    
+                    <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                        关于
+                    </a>
+                    
+                        <input id="switch_default" type="checkbox" class="switch_default">
+                        <label for="switch_default" class="toggleBtn"></label>
+            </div>
+            <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+            </form>
+        </div>
+    </nav>
+
+    
+        <nav class="navbar-mobile" id="nav-mobile">
+            <div class="container">
+                <div class="navbar-header">
+                    <div>
+                        <a href="https://leichen2552.github.io">
+                            CLL&#39;s Blog
+                        </a>
+                        <!--en-->
+                        <a id="mobile-toggle-theme-en" class="a en">&nbsp;Dark</a>
+                        <!--zh-->
+                        <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
+                    </div>
+                    <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                        <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+                    </form>
+                    <!--en-->
+                    <div class="menu-toggle" id="menu-toggle-en" onclick="mobileBtn()">&#9776; Menu</div>
+                    <!--zh-->
+                    <div class="menu-toggle" id="menu-toggle-zh" onclick="mobileBtn()">&#9776; &#x83DC;&#x5355;</div>
+
+                </div>
+                <div class="menu" id="mobile-menu">
+                    
+                        <a class="menu-item" href="/">
+                            首页
+                        </a>
+                        
+                        <a class="menu-item" href="/archives">
+                            归档
+                        </a>
+                        
+                        <a class="menu-item" href="/tags">
+                            标签
+                        </a>
+                        
+                        <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                            关于
+                        </a>
+                        
+                </div>
+            </div>
+        </nav>
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementById("menu-toggle-en");
+        var toggleMenu_zh = document.getElementById("menu-toggle-zh");
+
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.display != "none") {
+            if (toggleMenu.classList.contains("active")) {
+                toggleMenu.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        } else if (toggleMenu_zh.display != "none") {
+            if (toggleMenu_zh.classList.contains("active")) {
+                toggleMenu_zh.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu_zh.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        }
+
+    }
+</script>
+
+
+
+    <script>
+        (function(a, h, g, f, e, d, c, b) {
+            b = function() {
+                d = h.createElement(g);
+                c = h.getElementsByTagName(g)[0];
+                d.src = e;
+                d.charset = "utf-8";
+                d.async = 1;
+                c.parentNode.insertBefore(d, c)
+            };
+            a["SeniverseWeatherWidgetObject"] = f;
+            a[f] || (a[f] = function() {
+                (a[f].q = a[f].q || []).push(arguments)
+            });
+            a[f].l = +new Date();
+            if (a.attachEvent) {
+                a.attachEvent("onload", b)
+            } else {
+                a.addEventListener("load", b, false)
+            }
+        }(window, document, "script", "SeniverseWeatherWidget", "//cdn.sencdn.com/widget2/static/js/bundle.js?t=" + parseInt((new Date().getTime() / 100000000).toString(), 10)));
+        window.SeniverseWeatherWidget('show', {
+            flavor: "slim",
+            location: "WWEFQFPJZ7T8",
+            geolocation: true,
+            language: "auto",
+            unit: "c",
+            theme: "auto",
+            token: "61bcc333-3305-4728-9465-6785274bb0a3",
+            hover: "enabled",
+            container: "tp-weather-widget"
+        })
+    </script>
+    
+            <div class="main">
+                <div class="container">
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                STM32把程序下载到哪？从哪里执行？ROM还是RAM
+                            </h1>
+                            
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        CLL's Blog
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2020-11-10</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">6.3
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">1773</a></span>
+                                    
+                                            Views:
+                                            <span data-hk-page="current"> - </span>
+                                            
+                                </div>
+                                
+                        </header>
+                        
+                        <div class="post-content">
+                            <pre><code>stm32中的Code在程序运行时要不要拷贝到RAM里执行呢？还是直接从Flash中取程序指令执行？
+不是nand flash不能运行程序吗？难道32里用的是nor flash？
+</code></pre>
+<p>STM32的flash是代码存储区。SRAM是程序运行过程中中间变量存储区。<br>
+<img src="https://leichen2552.github.io/post-images/1604997999341.png" alt="" loading="lazy"></p>
+<p>参考这边博文：https://blog.csdn.net/zd845101500/article/details/91370939</p>
+<p>以下内容摘自论坛帖子https://bbs.csdn.net/topics/392020439<br>
+/****************************************************************************/<br>
+如果你有研究过单片机编程的分散加载机制，在编程中写过分散加载脚本。你问的第一个问题就解决了。<br>
+如果你有写过nand flash的驱动程序，你问的第二个问题就解决了。</p>
+<p>STM32中的code可以不用拷贝到RAM中运行，也可拷贝到RAM中运行，这些不是技术问题，而是要看这段code有没有加载到RAM中运行的必要。后面再解释。</p>
+<p>nand flash不支持片上执行，不能在nand flash中执行程序，但nor flash支持。<br>
+但不能因此就断定STM32用的外置flash都是nor的。只要STM32带nand flash的控制器，就可以把nand中的code加载到RAM中运行。至于能不能用IO模拟nand 的接口协议，我没搞过不清楚。</p>
+<p>首先，应该所有的单片机都是片内集成RAM和ROM(在加载域和运行域的角度看，Flash就是ROM)。<br>
+一般容量小的单片机，RAM和ROM都小，不会把flash中的代码加载到RAM中。<br>
+但有时确实需要加载，怎么办呢。就把code中比较关键的，调用很频繁的，对响应速度有要求的，就会加载到RAM中。<br>
+例如高频率中断的定时器中断ISR，就可以在分散加载脚本中修改这段code的运行域到RAM中。程序在刚上电后会在main函数之前加载这段code到RAM中。这样做的好处就是，这段code的执行速度快，我们知道ROM和RAM执行代码的速度比差距是很大的。RAM比ROM中执行速度快得多！<br>
+当然，如果你的RAM很大，你甚至可以把全部的Code加载到RAM中运行。</p>
+<p>nand flash不是直接接到CPU的三总线上的，所以CPU不能直接从nand中取得可执行的指令，而是通过nand的控制器！<br>
+而nor是在总线上的，所以nor中的code可以直接执行。(nor的这个观点仅是我个人看法，仅供参考)。</p>
+<p>再说外置RAM的问题，单片机在带SDRAM的控制器之后，就可以支持SDRAM了。<br>
+SDRAM在初始化好之后，SDRAM的使用方法和内置的SRAM没有差别。</p>
+<p>如果你的单片机支持SDRAM和Nand flash，你可以把nand flash中的code加载到SDRAM中运行。<br>
+如果你知道怎么写分散加载脚本，这个功能分分钟就能实现。<br>
+/****************************************************************************/</p>
+<p>/****************************************************************************<br>
+一般容量小的单片机，RAM和ROM都小，不会把flash中的代码加载到RAM中。<br>
+请教一下大神，如果是代码中的全局变量，静态变量，也不会把flash中的代码加载到RAM中吗，那如果需要修改这些变量，flash中可以直接修改吗，另外感觉大神这一块研究很深，但是还是没给出答案，stm32内部既不是nor flash，也不是nandflash吗，最近我也是在用这个突然想到的，我觉得应该算是nor flash，因为总线可以直接访问到，我的一点疑惑 和大神探讨一下<br>
+****************************************************************************/</p>
+<p>/****************************************************************************/<br>
+其实我也不是大神，真正的大神似乎都很少来论坛。。。。。。</p>
+<p>“一般容量小的单片机，RAM和ROM都小，不会把flash中的代码加载到RAM中”<br>
+不好意思，我这句话有些背景概念没有交代清楚，看来已经误导了人。但是要说清楚，也不是一两句就说的清楚的。还是先直接回答你的问题吧。</p>
+<p>1.flash中的代码，怎么加载到RAM中，有两种做法<br>
+A.编写或改写分散加载脚本，编译出来的程序，在启动时，也就是在进入你的main函数之前，会按照分散加载脚本的要求，<br>
+把全部或部分代码加载到RAM中。这个比较通用，也还算是比较简单。<br>
+B.自己编写加载代码，自己将自己的某个部分或全部加载到RAM中，如果没有特殊需要，建议用A方法。<br>
+什么是特殊需要呢，我一下展开不了，你看看嵌入式的bootloader，就是这么干的，非常普遍。</p>
+<p>一般A的做法，是为了让某些被调用得非常频繁的函数，运行速度更快，这个你也知道单片机内的flash，执行速度比片内RAM慢。<br>
+你可以试试。如果是为了让某些函数被运行得更快，建议你用A方法，例如中断频率非常高的定时器ISR，把代码直接加载到RAM中，<br>
+以后就直接在RAM中运行这段代码了，而不去flash中拿这段代码了。<br>
+不过这些都已经优化的高级阶段了，实际产品开发中你知道这个优化方法，但也可能不会用得很多。</p>
+<p>如果单片机本身的RAM就很小，你自然不能把太多的代码加载到里面，不然就没有足够的RAM给程序的其他代码用了，对不对。<br>
+你的代码中有没有用到静态变量（全局变量和静态变量），和代码要不要加载到RAM没有什么关系。<br>
+请注意，静态变量不是代码。静态变量属于数据段，定义时无初始化值的静态变量在ZI区，定义时有初始化值的在RW区，不过我有一点也很模糊，我不知道定义时有初始化值的，但初始值是0的，是不是也在ZI区。对应到嵌入式Linux的说法，叫ZI-&gt;BSS，RW-&gt;DATA，RO-&gt;text<br>
+建议你关注以下概念：<br>
+加载域，运行域。数据段，代码段，堆栈段。RO,RW,ZI.      text，data，bss<br>
+书籍推荐杜春雷的《ARM体系结构与编程》 ，王宇行的《ARM程序分析与设计》，高阶的可以看《程序员的自我修养：链接、装载与库》 ，这几本书中都有上面这些概念的相关章节，可以挑着看。</p>
+<p>2.怎么修改这些静态变量。<br>
+如果这些静态变量，不需要做到断电保存，那就没什么要说的。<br>
+如果你要做成断电保存，那你一定得要知道它在flash中的地址，对不对。<br>
+做法，我还是不写了，你上网找找资料吧，这个很多，做法也有几种。</p>
+<p>3.STM32内部的flash是nor还是nand，其实我也不知道，说不定还有第三种答案呢。<br>
+但是没所谓，这几种flash的特点你都知道，这几种你都会用，就好了。硬要说是哪种，我觉得似乎更接近nor的特性。<br>
+/****************************************************************************/</p>
+
+                        </div>
+                        
+                            <div class="post-toc">
+                                
+                            </div>
+                            
+                                
+                                    
+                                        <!--en-->
+                                        <section class="post-copyright en">
+                                            <p class="copyright-item">
+                                                <span>Author:</span>
+                                                <span>CLL's Blog</span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>Permalink:</span>
+                                                <span><a href="https://leichen2552.github.io/post/stm32-ba-cheng-xu-xia-zai-dao-na-cong-na-li-zhi-xing-rom-huan-shi-ram/">https://leichen2552.github.io/post/stm32-ba-cheng-xu-xia-zai-dao-na-cong-na-li-zhi-xing-rom-huan-shi-ram/</a></span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>License:</span>
+                                                <span>MIT License</span>
+                                            </p>
+                                        </section>
+                                        
+                                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/stm32-ba-cheng-xu-xia-zai-dao-na-cong-na-li-zhi-xing-rom-huan-shi-ram/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/stm32-ba-cheng-xu-xia-zai-dao-na-cong-na-li-zhi-xing-rom-huan-shi-ram/&sharesource=qzone&title=STM32把程序下载到哪？从哪里执行？ROM还是RAM&pics=https://leichen2552.github.io/images/avatar.png?v=1756049228364&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/stm32-ba-cheng-xu-xia-zai-dao-na-cong-na-li-zhi-xing-rom-huan-shi-ram/&sharesource=weibo&title=STM32把程序下载到哪？从哪里执行？ROM还是RAM + " - " + &pic="https://leichen2552.github.io/images/avatar.png?v=1756049228364 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                            <div class="reward ">
+                                                                <div class="reward-button ">&yen;
+                                                                    <span class="reward-code "> 
+                                                                <span class="alipay-code "> <img class="alipay-img " alt = "support " src=""><b>Alipay</b> </span>
+                                                                    <span class="wechat-code "> <img alt ="support " class="wechat-img " src=""><b>Wechat</b> </span> </span>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
+                                                                
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/stm32f429-de-fmc-zong-xian-ying-yong-zhi-qu-dong-ad76068-lu-16-wei-adc/">
+                                                                                            STM32F429的FMC总线应用驱动AD7606（8路16位ADC）
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/stm32f439-zhi-adc/">
+                                                                                                    STM32F429之ADC
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
+                </div>
+                
+                                            
+            </div>
+    </div>
+    </div>
+    </div>
+    
+    <div id="player"></div>
+    
+        <footer id="footer" class="footer">
+            <div class="copyright">
+                
+                    <div class="Like">
+                        <div class="tip" data-tooltip="Do you like it?">
+                            <a href="https://github.com/ITJoker233/Gridea-theme-Chic" target="_blank" title=""><svg class="icon"
+                        aria-hidden="true">
+                        <use xlink:href="#like"></use>
+                    </svg><b class="like_text" id="star"></b></a>
+                        </div>
+                    </div>
+                    
+                        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+                            
+                                <b id="hitokoto"></b><br>
+                                
+                                        <svg viewBox="0 0 1024 1024" style="margin-left: 5px;margin-right: 5px;" version="1.0" width="8" height="8" class="my-face">
+            <path
+                d="M863.597631 513.574282l-271.33965-140.213484L729.783667 81.926656c3.583731-7.87141 7.167462-15.742819 7.167462-25.214109C736.887134 25.226908 708.345275 0.012799 672.635953 0.012799a63.611229 63.611229 0 0 0-39.293053 12.607055c-1.791866 1.59988-3.519736 3.19976-5.311602 3.19976L147.87531 418.925381a55.547834 55.547834 0 0 0-19.646527 47.356448c1.791866 17.278704 14.27093 33.021523 32.125591 42.492813l271.33965 141.749369L292.504463 945.221908c-12.479064 25.214109-1.791866 53.563983 23.166262 69.306802 10.751194 6.335525 23.230258 9.47129 35.709322 9.47129 16.062795 0 32.125591-4.735645 44.604655-15.742819l480.091993-403.297753a55.547834 55.547834 0 0 0 19.646526-47.228458 61.243407 61.243407 0 0 0-32.12559-44.156688z"
+                fill="#93b5cf"></path>
+        </svg>
+                                        CLL&#39;s Blog &copy;Copyright
+                                            <script>
+                                                var date = new Date();
+                                                document.write("" + date.getFullYear());
+                                            </script>
+                                            | Powered by
+                                            <a href="https://coding.net" target="_blank">
+                                                Coding.net
+                                            </a>
+            </div>
+            <div id="update" style="display:none;">
+                on
+            </div>
+            
+                <div id="version" style="display:none;">
+                    1.7.6
+                </div>
+                
+                    <script>
+                        var port = '';
+                        
+                        document.write('<div id="home_path" style="display:none;">' + document.location.protocol + '//' + window.document.location.hostname + port + '</div>')
+                    </script>
+        </footer>
+        
+            <script src='https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js'></script>
+            
+                <script>
+                    
+
+                    function LoadPlayer() {
+                        var musicList = [];
+                        
+                        musicList.push({
+                            name: '',
+                            url: '',
+                            artist: '',
+                            cover: '',
+                        });
+                        
+                        console.log(" MusicList: " + musicList);
+                        
+                        const ap = new APlayer({
+                            container: document.getElementById('player'),
+                            fixed: true,
+                            audio: musicList
+                        });
+                        
+                    }
+                    LoadPlayer();
+                    
+                    
+                    loadlive2d();
+                    
+                    
+                    hitokoto();
+                    
+                    getStar();
+                    hljs.initHighlighting();
+                    console.clear();
+                    
+                    CheckVersion();
+                    
+                    var newDate = new Date();
+                    newDate.setTime(1756049228364);
+                    console.log(" Blog Update Time: " + newDate.toLocaleDateString());
+                    console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
+                </script>
+        </div>
+</body>
+<script>
+    scroll();
+</script>
+
+</html>

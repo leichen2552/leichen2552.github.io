@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+<title>
+    CLL&#39;s Blog
+</title>
+<!--[if lt IE 9]><script src="//cdn.bootcss.com/html5shiv/r29/html5.js"></script><![endif]-->
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="author" content="陈磊磊">
+<meta name="description" content="正经人谁写博客啊！">
+<meta name="keywords" content="SSD, linux, stm32, 51">
+<script async src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+<link rel="stylesheet" href="https://leichen2552.github.io/styles/main.css" />
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/css/style.min.css" />
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/script.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/icon.min.js"></script>
+        
+            <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/Card/prism.min.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/css/Card/prism.min.css" />
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css">
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js"></script>
+            
+                <!--点击特效-->
+                <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/love.min.js"></script>
+                
+                    <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic@latest/assets/media/script/APlayer.min.js"></script>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+                    
+                        <!--CDN样式-->
+                        <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/hit-kounter-lc-0.3.0.js"></script>
+                        <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+                        
+                            <script>
+                                (function() {
+                                    var bp = document.createElement('script');
+                                    var curProtocol = window.location.protocol.split(':')[0];
+                                    if (curProtocol === 'https') {
+                                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                                    } else {
+                                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                                    }
+                                    var s = document.getElementsByTagName("script")[0];
+                                    s.parentNode.insertBefore(bp, s);
+                                })();
+                            </script>
+                            
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo">
+                <a href="https://leichen2552.github.io">
+                    CLL&#39;s Blog
+                </a>
+            </div>
+            <div id="tp-weather-widget"></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/">
+                        首页
+                    </a>
+                    
+                    <a class="menu-item" href="/archives">
+                        归档
+                    </a>
+                    
+                    <a class="menu-item" href="/tags">
+                        标签
+                    </a>
+                    
+                    <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                        关于
+                    </a>
+                    
+                        <input id="switch_default" type="checkbox" class="switch_default">
+                        <label for="switch_default" class="toggleBtn"></label>
+            </div>
+            <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+            </form>
+        </div>
+    </nav>
+
+    
+        <nav class="navbar-mobile" id="nav-mobile">
+            <div class="container">
+                <div class="navbar-header">
+                    <div>
+                        <a href="https://leichen2552.github.io">
+                            CLL&#39;s Blog
+                        </a>
+                        <!--en-->
+                        <a id="mobile-toggle-theme-en" class="a en">&nbsp;Dark</a>
+                        <!--zh-->
+                        <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
+                    </div>
+                    <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                        <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+                    </form>
+                    <!--en-->
+                    <div class="menu-toggle" id="menu-toggle-en" onclick="mobileBtn()">&#9776; Menu</div>
+                    <!--zh-->
+                    <div class="menu-toggle" id="menu-toggle-zh" onclick="mobileBtn()">&#9776; &#x83DC;&#x5355;</div>
+
+                </div>
+                <div class="menu" id="mobile-menu">
+                    
+                        <a class="menu-item" href="/">
+                            首页
+                        </a>
+                        
+                        <a class="menu-item" href="/archives">
+                            归档
+                        </a>
+                        
+                        <a class="menu-item" href="/tags">
+                            标签
+                        </a>
+                        
+                        <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                            关于
+                        </a>
+                        
+                </div>
+            </div>
+        </nav>
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementById("menu-toggle-en");
+        var toggleMenu_zh = document.getElementById("menu-toggle-zh");
+
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.display != "none") {
+            if (toggleMenu.classList.contains("active")) {
+                toggleMenu.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        } else if (toggleMenu_zh.display != "none") {
+            if (toggleMenu_zh.classList.contains("active")) {
+                toggleMenu_zh.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu_zh.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        }
+
+    }
+</script>
+
+
+
+    <script>
+        (function(a, h, g, f, e, d, c, b) {
+            b = function() {
+                d = h.createElement(g);
+                c = h.getElementsByTagName(g)[0];
+                d.src = e;
+                d.charset = "utf-8";
+                d.async = 1;
+                c.parentNode.insertBefore(d, c)
+            };
+            a["SeniverseWeatherWidgetObject"] = f;
+            a[f] || (a[f] = function() {
+                (a[f].q = a[f].q || []).push(arguments)
+            });
+            a[f].l = +new Date();
+            if (a.attachEvent) {
+                a.attachEvent("onload", b)
+            } else {
+                a.addEventListener("load", b, false)
+            }
+        }(window, document, "script", "SeniverseWeatherWidget", "//cdn.sencdn.com/widget2/static/js/bundle.js?t=" + parseInt((new Date().getTime() / 100000000).toString(), 10)));
+        window.SeniverseWeatherWidget('show', {
+            flavor: "slim",
+            location: "WWEFQFPJZ7T8",
+            geolocation: true,
+            language: "auto",
+            unit: "c",
+            theme: "auto",
+            token: "61bcc333-3305-4728-9465-6785274bb0a3",
+            hover: "enabled",
+            container: "tp-weather-widget"
+        })
+    </script>
+    
+            <div class="main">
+                <div class="container">
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                两次出海记录反思与总结
+                            </h1>
+                            
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        CLL's Blog
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2021-01-18</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">7.4
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">2183</a></span>
+                                    
+                                            Views:
+                                            <span data-hk-page="current"> - </span>
+                                            
+                                </div>
+                                
+                        </header>
+                        
+                        <div class="post-content">
+                            <p><ul class="markdownIt-TOC">
+<li><a href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%87%BA%E6%B5%B7">第一次出海</a>
+<ul>
+<li><a href="#%E7%BC%BA%E9%99%B7">缺陷</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E5%87%BA%E6%B5%B7%E5%89%8D%E5%87%86%E5%A4%87">第二次出海前准备</a>
+<ul>
+<li><a href="#1%E6%9C%8816%E6%97%A5">1月16日</a></li>
+<li><a href="#1%E6%9C%8817%E6%97%A5">1月17日</a>
+<ul>
+<li><a href="#%E7%BB%84%E8%A3%85%E6%97%B6%E7%BC%BA%E9%99%B7">组装时缺陷</a></li>
+<li><a href="#%E5%86%85%E9%83%A8%E7%94%B5%E8%B7%AF%E7%9A%84%E7%BC%BA%E9%99%B7">内部电路的缺陷</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E5%87%BA%E6%B5%B7">第二次出海</a></li>
+<li><a href="#%E6%94%B9%E8%BF%9B">改进</a></li>
+</ul>
+</p>
+<h1 id="第一次出海">第一次出海</h1>
+<p>第一次出海是2020年11月22日礼拜天，据师兄说，第一次出海只是气密性检测，整体设备是一个圆柱导弹型，并没加推进器，从头部到电池箱到主板控制器箱（以下称主板箱）完全密封，只有尾部的推进器箱和主板箱是采用螺纹旋紧的。</p>
+<h2 id="缺陷">缺陷</h2>
+<ul>
+<li>设计缺陷(一)：采用了旋紧螺纹的连接方式。所谓完全密封，是接近两厘米的螺纹，准确的说是15*1mm，旋转15圈，螺距是1mm。当时这么设计是为了防水，但是工厂的加工师傅说再密的螺纹也是防不了水的，所以为了防水，就用螺纹密封胶，在旋螺纹之前，在螺纹上涂一些螺纹密封胶，再把头部与电池箱拧紧，其他连接处也一样。这确实是可行的解决方案，但是我们低估了拆卸的麻烦，由于是圆形，五个人卸了一个下午，才把头部给卸了下来，剩下连接处的地方根本拆不下来。</li>
+<li>设计缺陷(二)：几段圆柱中间留孔走线，真的是个糟糕的设计，完全不顾在拧螺纹的时候中间的线也会被拧紧，并且是越拧越紧，而且还会断。比如深度传感器的线，就断了，断一次就200多块。</li>
+<li>设计缺陷(三)：拉扯的线没有滚筒，导致连线很乱，而且线很重。</li>
+<li>设计缺陷(四)：虽然设计上说是200米，用了100多米的线，但是接头用了杜邦线，485的接头盒主控板之间使用KF-2.54-2P的接头，这种接头在每次接的时候总是要接头上的拧螺丝，先松开再拧紧，着实麻烦。</li>
+<li>低估了海水的浮力，由于第一次没加电池，发现根本沉不下去，头部顶端的深度传感器在海浪的推动下敲打着船底，事后回来检查，深度传感器已经砸坏了。</li>
+</ul>
+<h1 id="第二次出海前准备">第二次出海前准备</h1>
+<p>出海前的组装时的缺陷，组装整整用了一天。本以为1月15号就能组装完成，1月16号就能做完实验，万事大吉，可是命运总是跟你开足了玩笑。<br>
+不是有一句话，老天不会亏待痴情的人。是啊，都是往死里整。所以，对于停电，我放弃还不行么！</p>
+<h2 id="1月16日">1月16日</h2>
+<p>停电一天，没有电，根本无法组装。我与师兄约定17号什么时候来电，什么时候来实验室组装，争取上午组装好，下午去实验。</p>
+<h2 id="1月17日">1月17日</h2>
+<ul>
+<li>清晨5点48分，师兄的电话来了，说来电了。然后就和他去实验室，实验室确实有电。</li>
+<li>早晨6点33分，停电了，刚热的电烙铁，刚热的热风箱以及刚剪开热缩管。然后和师兄去食堂吃早饭。是的，食堂也没开，超市也没开。</li>
+<li>上午7点14分，来电了，以为是全部供电，正打算开工。</li>
+<li>上午7点17分，又断电了。看吧，学校就会和你开玩笑。</li>
+<li>上午7点34分，发现电梯有电，一楼有电，打电话给后勤，后勤说是发电机在供电，并未完全供电。</li>
+<li>上午7点40分，一楼的考研教室有电，把一些必要的器件搬到教室，开工组装。</li>
+<li>上午8点07分，导师来了，9栋没有电，看来只能在考研教室组装了。</li>
+</ul>
+<h3 id="组装时缺陷">组装时缺陷</h3>
+<ul>
+<li>师兄的想法，在本来的电池箱的底板上打个孔，把深度传感器前后旋紧在底板上，又发现之前师兄把底板的另一侧涂上了厚厚的胶，厚厚的胶不好去除，我手大，没办法把手伸进一个直径18cm深50cm里面操作去除胶。</li>
+<li>是否加装旋钮开关，本是一个很好的想法，但是开关不防水，在开关后面加装一个防水螺丝，海水密封AB胶初凝固的时间是1-2小时，也就是说，等它凝固那就要等到12点了。但是在安装的时候，那可太费劲了。四根推进器的线再加一根485的通信线在加一个旋钮开关的线，在一个孔里，然后旋紧，真的是太费劲了。最后放弃安装旋钮开关。<br>
+安装尾部的时候，我和师兄两个人，我在上面旋转尾部，师兄在底下抖线，目的就是把旋转在线上的劲道给去掉。师兄真的几次都想放弃了，但是么得办法。<br>
+终于，推进器的那部分旋进去了。终于旋进去了！旋进去了！进去了！去了！了！是的，在考研教室装完了后半部分。下午3点05分，老师来了，说已经来不及出海做实验了，怎么说都得明天了。正好，来电了，老师提议去9栋实验室。好的！</li>
+</ul>
+<h3 id="内部电路的缺陷">内部电路的缺陷</h3>
+<ul>
+<li>缺陷(一)：本来是打算使用策海科技提供的密封舱套件，接线处使用水密螺丝+灌胶的方法密封，现在时间根本来不及，还是算了。果断放弃二级密封舱防水的方法。</li>
+<li>缺陷(二)：电调散热无法解决，虽然也不知道到底会散多少热，但是这个确实算个问题。</li>
+<li>缺陷(三)：接线，粗线和细线的重力不一样，会有可能把细线拉断，今天就是，把电调的线打断了。</li>
+<li>缺陷(四)：电路板上全是杜邦线接口，设计者第二次接线都会把线接错，更别说用户了，这着实是一个糟糕的设计。</li>
+<li>缺陷(五)：接线时需要区分四个推进器顺序，这个缺陷虽然有点牵强，但是设计者还需要利用测试代码来区分推进器，这有点说不过去。</li>
+</ul>
+<h1 id="第二次出海">第二次出海</h1>
+<p>第二次出海是2021年1月18日礼拜一，也就是今天，这是导师催了很久的出海试验。这次的实验，是要完成推进器闭环的深度控制，采集数据。<br>
+也就是今天，早上7点30到实验室，再把主板密封舱的时候，那些推进器的粗线压着深度传感器的线，又差点GG，又测试了一遍，没问题，把头部旋紧主板舱，这应该是最后一次下海前把头部拧进去。算是安装完毕了，等老师过来！</p>
+<ul>
+<li>上午9点出发，导师开车上高速之后，一路100码，10点不到就到了测试的海域，船家说现在出海需要派出所证明，导师跟着去开证明了，但是万万没有想到，开证明开了两个半小时。</li>
+<li>12点40分，出海，伴随着柴油发电机的轰鸣，我们带着设备去了浅海海域，在安装后面绳子的时候，又出现了一点点小插曲，孔不够大，固定绳子的螺丝塞不进去。搞了半天，可以了。</li>
+<li>师兄拿出了电脑，准备开始调试，我把设备头部拧下来，师兄接上电源线。这时候，我最担心的事情发生了，也是昨晚最担心的事情发生了，由于在浅海海域，船晃得厉害，头部拧不紧。</li>
+<li>这时候由于之前吸了柴油烟，我开始晕了，可能是晕船，一点力气都没有，只能躺在船头，站不起来，看着师兄和老师在那边操作，加上船家，三个人在那旋转设备头部。</li>
+<li>我躺了一会，师兄也在强撑，一共吐了三次。</li>
+<li>然后去了一个风小的小地方做实验，当师兄再次检查主控制板的时候，发现电调的线断了，这就没办法了，只能返航！</li>
+</ul>
+<h1 id="改进">改进</h1>
+<ol>
+<li>接线：尤其是电源出来的供电，之前设计用到导线分流器，但是最近看到分电板，打算用分电板。</li>
+<li>水密螺丝：这个不打算用了，还要灌胶。用那种两头插芯的防水螺丝，这个也要灌胶，但是只要灌一次就可以了</li>
+<li>板子上的接口，现在打算采用XH2.54的接口。</li>
+<li>尤其是设计方面，以后在也不会用螺纹这种连接方式。</li>
+<li>一定要留调试接口！</li>
+</ol>
+
+                        </div>
+                        
+                            <div class="post-toc">
+                                <ul class="markdownIt-TOC">
+<li><a href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%87%BA%E6%B5%B7">第一次出海</a>
+<ul>
+<li><a href="#%E7%BC%BA%E9%99%B7">缺陷</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E5%87%BA%E6%B5%B7%E5%89%8D%E5%87%86%E5%A4%87">第二次出海前准备</a>
+<ul>
+<li><a href="#1%E6%9C%8816%E6%97%A5">1月16日</a></li>
+<li><a href="#1%E6%9C%8817%E6%97%A5">1月17日</a>
+<ul>
+<li><a href="#%E7%BB%84%E8%A3%85%E6%97%B6%E7%BC%BA%E9%99%B7">组装时缺陷</a></li>
+<li><a href="#%E5%86%85%E9%83%A8%E7%94%B5%E8%B7%AF%E7%9A%84%E7%BC%BA%E9%99%B7">内部电路的缺陷</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E5%87%BA%E6%B5%B7">第二次出海</a></li>
+<li><a href="#%E6%94%B9%E8%BF%9B">改进</a></li>
+</ul>
+
+                            </div>
+                            
+                                
+                                    
+                                        <!--en-->
+                                        <section class="post-copyright en">
+                                            <p class="copyright-item">
+                                                <span>Author:</span>
+                                                <span>CLL's Blog</span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>Permalink:</span>
+                                                <span><a href="https://leichen2552.github.io/post/liang-ci-chu-hai-ji-lu-fan-si-yu-zong-jie/">https://leichen2552.github.io/post/liang-ci-chu-hai-ji-lu-fan-si-yu-zong-jie/</a></span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>License:</span>
+                                                <span>MIT License</span>
+                                            </p>
+                                        </section>
+                                        
+                                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/liang-ci-chu-hai-ji-lu-fan-si-yu-zong-jie/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/liang-ci-chu-hai-ji-lu-fan-si-yu-zong-jie/&sharesource=qzone&title=两次出海记录反思与总结&pics=https://leichen2552.github.io/images/avatar.png?v=1756049228364&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/liang-ci-chu-hai-ji-lu-fan-si-yu-zong-jie/&sharesource=weibo&title=两次出海记录反思与总结 + " - " + &pic="https://leichen2552.github.io/images/avatar.png?v=1756049228364 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                            <div class="reward ">
+                                                                <div class="reward-button ">&yen;
+                                                                    <span class="reward-code "> 
+                                                                <span class="alipay-code "> <img class="alipay-img " alt = "support " src=""><b>Alipay</b> </span>
+                                                                    <span class="wechat-code "> <img alt ="support " class="wechat-img " src=""><b>Wechat</b> </span> </span>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
+                                                                
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/stm32f429-yi-zhi-stemwin-zong-jie/">
+                                                                                            stm32f429移植STemWin总结
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/an-jian-fifo-de-dai-ma-de-si-xiang-yu-bian-xie/">
+                                                                                                    按键FIFO的代码的思想与编写
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
+                </div>
+                
+                                            
+            </div>
+    </div>
+    </div>
+    </div>
+    
+    <div id="player"></div>
+    
+        <footer id="footer" class="footer">
+            <div class="copyright">
+                
+                    <div class="Like">
+                        <div class="tip" data-tooltip="Do you like it?">
+                            <a href="https://github.com/ITJoker233/Gridea-theme-Chic" target="_blank" title=""><svg class="icon"
+                        aria-hidden="true">
+                        <use xlink:href="#like"></use>
+                    </svg><b class="like_text" id="star"></b></a>
+                        </div>
+                    </div>
+                    
+                        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+                            
+                                <b id="hitokoto"></b><br>
+                                
+                                        <svg viewBox="0 0 1024 1024" style="margin-left: 5px;margin-right: 5px;" version="1.0" width="8" height="8" class="my-face">
+            <path
+                d="M863.597631 513.574282l-271.33965-140.213484L729.783667 81.926656c3.583731-7.87141 7.167462-15.742819 7.167462-25.214109C736.887134 25.226908 708.345275 0.012799 672.635953 0.012799a63.611229 63.611229 0 0 0-39.293053 12.607055c-1.791866 1.59988-3.519736 3.19976-5.311602 3.19976L147.87531 418.925381a55.547834 55.547834 0 0 0-19.646527 47.356448c1.791866 17.278704 14.27093 33.021523 32.125591 42.492813l271.33965 141.749369L292.504463 945.221908c-12.479064 25.214109-1.791866 53.563983 23.166262 69.306802 10.751194 6.335525 23.230258 9.47129 35.709322 9.47129 16.062795 0 32.125591-4.735645 44.604655-15.742819l480.091993-403.297753a55.547834 55.547834 0 0 0 19.646526-47.228458 61.243407 61.243407 0 0 0-32.12559-44.156688z"
+                fill="#93b5cf"></path>
+        </svg>
+                                        CLL&#39;s Blog &copy;Copyright
+                                            <script>
+                                                var date = new Date();
+                                                document.write("" + date.getFullYear());
+                                            </script>
+                                            | Powered by
+                                            <a href="https://coding.net" target="_blank">
+                                                Coding.net
+                                            </a>
+            </div>
+            <div id="update" style="display:none;">
+                on
+            </div>
+            
+                <div id="version" style="display:none;">
+                    1.7.6
+                </div>
+                
+                    <script>
+                        var port = '';
+                        
+                        document.write('<div id="home_path" style="display:none;">' + document.location.protocol + '//' + window.document.location.hostname + port + '</div>')
+                    </script>
+        </footer>
+        
+            <script src='https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js'></script>
+            
+                <script>
+                    
+
+                    function LoadPlayer() {
+                        var musicList = [];
+                        
+                        musicList.push({
+                            name: '',
+                            url: '',
+                            artist: '',
+                            cover: '',
+                        });
+                        
+                        console.log(" MusicList: " + musicList);
+                        
+                        const ap = new APlayer({
+                            container: document.getElementById('player'),
+                            fixed: true,
+                            audio: musicList
+                        });
+                        
+                    }
+                    LoadPlayer();
+                    
+                    
+                    loadlive2d();
+                    
+                    
+                    hitokoto();
+                    
+                    getStar();
+                    hljs.initHighlighting();
+                    console.clear();
+                    
+                    CheckVersion();
+                    
+                    var newDate = new Date();
+                    newDate.setTime(1756049228364);
+                    console.log(" Blog Update Time: " + newDate.toLocaleDateString());
+                    console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
+                </script>
+        </div>
+</body>
+<script>
+    scroll();
+</script>
+
+</html>

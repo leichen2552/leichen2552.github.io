@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+<title>
+    CLL&#39;s Blog
+</title>
+<!--[if lt IE 9]><script src="//cdn.bootcss.com/html5shiv/r29/html5.js"></script><![endif]-->
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="author" content="陈磊磊">
+<meta name="description" content="正经人谁写博客啊！">
+<meta name="keywords" content="SSD, linux, stm32, 51">
+<script async src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+<link rel="stylesheet" href="https://leichen2552.github.io/styles/main.css" />
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/css/style.min.css" />
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/script.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/icon.min.js"></script>
+        
+            <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/Card/prism.min.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/css/Card/prism.min.css" />
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css">
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js"></script>
+            
+                <!--点击特效-->
+                <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/love.min.js"></script>
+                
+                    <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic@latest/assets/media/script/APlayer.min.js"></script>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+                    
+                        <!--CDN样式-->
+                        <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/hit-kounter-lc-0.3.0.js"></script>
+                        <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+                        
+                            <script>
+                                (function() {
+                                    var bp = document.createElement('script');
+                                    var curProtocol = window.location.protocol.split(':')[0];
+                                    if (curProtocol === 'https') {
+                                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                                    } else {
+                                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                                    }
+                                    var s = document.getElementsByTagName("script")[0];
+                                    s.parentNode.insertBefore(bp, s);
+                                })();
+                            </script>
+                            
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo">
+                <a href="https://leichen2552.github.io">
+                    CLL&#39;s Blog
+                </a>
+            </div>
+            <div id="tp-weather-widget"></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/">
+                        首页
+                    </a>
+                    
+                    <a class="menu-item" href="/archives">
+                        归档
+                    </a>
+                    
+                    <a class="menu-item" href="/tags">
+                        标签
+                    </a>
+                    
+                    <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                        关于
+                    </a>
+                    
+                        <input id="switch_default" type="checkbox" class="switch_default">
+                        <label for="switch_default" class="toggleBtn"></label>
+            </div>
+            <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+            </form>
+        </div>
+    </nav>
+
+    
+        <nav class="navbar-mobile" id="nav-mobile">
+            <div class="container">
+                <div class="navbar-header">
+                    <div>
+                        <a href="https://leichen2552.github.io">
+                            CLL&#39;s Blog
+                        </a>
+                        <!--en-->
+                        <a id="mobile-toggle-theme-en" class="a en">&nbsp;Dark</a>
+                        <!--zh-->
+                        <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
+                    </div>
+                    <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                        <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+                    </form>
+                    <!--en-->
+                    <div class="menu-toggle" id="menu-toggle-en" onclick="mobileBtn()">&#9776; Menu</div>
+                    <!--zh-->
+                    <div class="menu-toggle" id="menu-toggle-zh" onclick="mobileBtn()">&#9776; &#x83DC;&#x5355;</div>
+
+                </div>
+                <div class="menu" id="mobile-menu">
+                    
+                        <a class="menu-item" href="/">
+                            首页
+                        </a>
+                        
+                        <a class="menu-item" href="/archives">
+                            归档
+                        </a>
+                        
+                        <a class="menu-item" href="/tags">
+                            标签
+                        </a>
+                        
+                        <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                            关于
+                        </a>
+                        
+                </div>
+            </div>
+        </nav>
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementById("menu-toggle-en");
+        var toggleMenu_zh = document.getElementById("menu-toggle-zh");
+
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.display != "none") {
+            if (toggleMenu.classList.contains("active")) {
+                toggleMenu.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        } else if (toggleMenu_zh.display != "none") {
+            if (toggleMenu_zh.classList.contains("active")) {
+                toggleMenu_zh.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu_zh.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        }
+
+    }
+</script>
+
+
+
+    <script>
+        (function(a, h, g, f, e, d, c, b) {
+            b = function() {
+                d = h.createElement(g);
+                c = h.getElementsByTagName(g)[0];
+                d.src = e;
+                d.charset = "utf-8";
+                d.async = 1;
+                c.parentNode.insertBefore(d, c)
+            };
+            a["SeniverseWeatherWidgetObject"] = f;
+            a[f] || (a[f] = function() {
+                (a[f].q = a[f].q || []).push(arguments)
+            });
+            a[f].l = +new Date();
+            if (a.attachEvent) {
+                a.attachEvent("onload", b)
+            } else {
+                a.addEventListener("load", b, false)
+            }
+        }(window, document, "script", "SeniverseWeatherWidget", "//cdn.sencdn.com/widget2/static/js/bundle.js?t=" + parseInt((new Date().getTime() / 100000000).toString(), 10)));
+        window.SeniverseWeatherWidget('show', {
+            flavor: "slim",
+            location: "WWEFQFPJZ7T8",
+            geolocation: true,
+            language: "auto",
+            unit: "c",
+            theme: "auto",
+            token: "61bcc333-3305-4728-9465-6785274bb0a3",
+            hover: "enabled",
+            container: "tp-weather-widget"
+        })
+    </script>
+    
+            <div class="main">
+                <div class="container">
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                Introduction to Programming in Python: An Interdisciplinary Approach
+                            </h1>
+                            
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        CLL's Blog
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2025-05-14</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">12.0
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">3601</a></span>
+                                    
+                                            Views:
+                                            <span data-hk-page="current"> - </span>
+                                            
+                                </div>
+                                
+                        </header>
+                        
+                        <div class="post-content">
+                            <h1 id="序言">序言</h1>
+<p>教育的基础在最后的一千年里面是“读、写和算数”，但是现在时“读、写和计算”。在科学与工程的学科中，学习编程是每个学生教育中必不可少的一部分。除了直接应用之外，这是理解计算机科学对现代世界不可否认的影响的本质的第一步。这本书旨在帮助那些想要在科学背景下学习编程的人。</p>
+<p>我们的目标是授予学生通过提供经验和必要的基础工具来有效地计算。我们的方法是告诉学生组建一个程序是自然的、令人满意的、并且是有创造性体验的。我们会从应用数学和科学的角度来对概念进行举例，并且提供机会让学生写程序来解决吸引人的程序，从而循序渐进得介绍必要的概念和拥抱经典的应用程序。</p>
+<p>在本书中我们对所有的程序使用Python编程语言——我们在标题中的“Programming”中机上“Python”是为了强调本书是关于编程的基本概念，而不是Python本身。这本书教授计算问题的基本技能应用与现代的计算环境，并且是为之前没有相关编程经验的人准备的的课程。</p>
+<p>这本书是传统计算机课程的跨学科方法，我们强调计算在其他学科中的作用，从材料科学到基因组学到天体物理学到网络系统。这个方法向学生强调数学、科学、工程和计算在现代世界中是交织在一起的基本思想。虽然它是对数学、科学或者工程感兴趣的一年级学生准备的教科书，同时他也被用来自学或者是作为与其他领域结合编程课程的补充。</p>
+<p><strong>课程内容</strong>：这本书围绕着学习编程的四个阶段：基础元素、函数、面向对象编程和算法。我们提供读者需要的基础的信息，在移动到下个等级之前，需要再当前等级下组成自己的程序来建立信心。我们方法最基本的期望是使用样例程序来解决有趣的问题，支持练习从自学的需求到对有挑战性问题的创造性思路。</p>
+<ul>
+<li>基础元素保罗变量，赋值表达式，内置数据类型，控制流，数组，输入和输出，包括图形和声音。</li>
+<li>函数和模块是学生第一次接触模块化编程。我们依赖于熟悉的数学函数来介绍Python函数，并且考虑函数式编程的含义，包括函数和递归的库。我们强调把一个程序划分成不同的块的基本思想，这些块需要能欧独立调试、维护并且服用。</li>
+<li>面向对象编程是我们介绍的数据抽象部分。我们强调数据类型的概念和使用Python类机制的实现。我们教授学生如何使用、创建、设计数据类型。模块、封装和其他现代的编程范例是这个阶段的中心思想。</li>
+<li>算法和数据结构是为了现代的应用，把现代编程范例和传统高效组织和处理数据的方法相组成。我们提供排序和查找的传统算法的介绍以及基础的数据结构和他们的应用。强调了使用科学方法来理解性能特征的实现。</li>
+<li>在科学和工程中应用是本书的一个关键特征。我们通过检查特定应用的影响来激励我们所处理每一个程序概念。我们从应用数学、物理学和仿生学、和计算机科学本身，和物理系统仿真、数值计算、数据可视化、声音合成、图像处理、金融仿真和信息技术这些学科中抽取样例。具体样例包括马尔科夫链在第一章中对网页排名的处理、以及解决渗流问题、n体问题和小世界现象的案例研究。这些应用是本书的必要部分。他们吸引学生到材料中，例证编程概念的重要性，并且提供关键性的证据，证明计算在现代科学与工程中扮演的关键角色。</li>
+<li>我们主要的目标是教授面对任何编程问题开发有效的解决方案所需的的特定的机制与技能。我们将使用完整的Python程序并且鼓励读者使用它们。我们专注于个人编程，而不是大规模编程。</li>
+</ul>
+<p><strong>课程中使用</strong>：这本书适用于大学一年级课程，旨在帮助新手们在科学应用下编程。从这本书中，任何科学与工程中的领域中的未来专业都都可以在相似的场景中编程。基本这本书完成的学生将为他们的技能应用与在后续的科学与工程的课程做好充分的准备，并认识到在接下来的计算机科学课程中可能收益。</p>
+<ul>
+<li>特别是未来的计算科学专业的学生，可以从未来的科学应用背景下编程获益。一个计算机科学家就要像生物学家、工程师、物理学家一样，具备相同的科学方法中基础背景，并了解计算在科学中的重要作用。</li>
+<li>事实上，我们跨学科方法使大学和学院在同一门课程中教授未来计算机专业、科学与工程中的其他领域的未来专业。我们涵盖了CS1中的规定的材料，但我们聚焦的应用程序给生活带来了生命，并且激发学生学习的动力。我们的跨学科方法给学生展示了在许多不同学科的问题，帮助他们更明智得选择专业。</li>
+<li>不管是什么具体的机制，这本书的使用最早在课程的早期。首先，我们可以在高中数学与科学中充分利用熟悉的材料。第二，在课程中早期学习的编程的学生在进入专业课程中时将会更有效地学习计算机。就像阅读和写作，对任何科学家或者工程师来说，编程被认为是一项必须的技能。已经掌握本书概念的学生将会在一生中继续发展这个技能，收获利用计算用来解决或者更好得理解在他们选择的领域中出现的问题和项目的好处。</li>
+</ul>
+<p><strong>预备知识</strong>：本书适合典型的大学一年级的科学与工程的学生，也就是说，我们不希望准备工作超出其他入门级科学和数学课程通常要求的范围。</p>
+<ul>
+<li>数学成熟度很重要。虽然我们不会纠结于数学材料，但是我们会参考学生在高中时的数学课程，包括代数、集合与三角。我们目标受众中的大部分学生自动满足这些需求。我们利用他们对基础课程的熟悉度来介绍基础的编程概念。</li>
+<li>科学好奇心也是一个必要的组成部分。理工科的学生带着一种对科学探究能力的迷恋，帮助他们解释自然界发生的事情。我们充分利用简单程序的例子来利用这些嗜好，这些简单程序充分说明的自然界。我们不假设任何超出典型高中课程提供的数学、物理、生物或化学课程提供的特定知识。</li>
+<li>编程经验不是必要的，但也不是有害的。教授编程是我们主要的目标，所以我们假设没有预先的编程经验。但是组成程序来解决一个新问题是一个很有挑战的智力问题，所以那些在高中能写出大型程序的学生可以基于此书在次入门的编程课中收益。这本书可以支持教授具有不同背景的学生，因为这些应用程序对新手和专家都有吸引力。</li>
+<li>使用计算机的经验也不是必须的，但也完全不是问题。大学生经常使用计算机，用来和亲朋交流、听音乐、处理照片，并且是许多其他活动中的一部分。意识到他们能够以有趣和重要的方式使用它们的电脑是一件意义深远的事情。</li>
+<li>最后，几乎所有科学与工程领域的学生会以此书为基础准备这个课程作为他们第一学期课程的一部分。</li>
+</ul>
+<p><strong>目标</strong>：理工科告诫课程的教师对学完基本本书开设课程的学生有什么期待？</p>
+<ul>
+<li>我们覆盖了CS1的课程，但是任何教授过这个编程入门课的人都知道后续课程中对教师的期待通常都很高：每一个教师期待所有的学生都熟悉计算环境和他们想使用的方法。一个物理教授可能期待一些学生在周末设计一个程序来跑一个仿真实验；一个工程教授可能期望其他学生使用一个特定的包来求解数值微分方程；或者一个计算机科学教授可能期待了解一个特定编程环境的知识。满足如此之多的期待现实吗？是否应该为不同组的学生开设不同的入门课程？</li>
+<li>学院和大学已经在努力克服这些问题因为20世纪末期计算机已经广泛使用。我们对他们的回答体现在这种常见的编程入门教程中，这类似于数学、物理、生物和化学等领域普遍认可的入门课程。《Python编程导论》致力于为所有理工科学生提供所需的基础准备，同时传达一个明确的信息：关于计算机科学，需要理解的远不止编程。使用本书授课的教师可以期望学生掌握必要的知识和经验，使他们能够适应新的计算环境，并在各种应用中有效地利用计算机。</li>
+<li>学完基于这本书的课程的学生，在后续课程中有望实现什么目标呢？</li>
+<li>我们要传达的信息是，编程并不难学，而且驾驭计算机的能力会带来回报。掌握本书内容的学生，已准备好应对日后职业生涯中可能出现的任何计算难题。他们会了解到，像Python所提供的现代编程环境，有助于开启解决他们日后可能遇到的任何计算问题的大门，并且他们会获得学习、评估和使用其他计算工具的信心。对计算机科学感兴趣的学生将为追求这一兴趣做好充分准备；理工科的学生也将为将计算融入他们的学习做好准备。</li>
+</ul>
+<p><strong>图书网站</strong>：大量补充本文的信息可在以下网站找到：</p>
+<ul>
+<li>为简便起见，我们在全文中将此网站称为“图书网站”。该网站包含供教师、学生以及本书普通读者使用的资料。我们在此简要介绍这些资料，不过，正如所有网络用户所知，最好的了解方式是自行浏览。除了少数用于支持测试的内容外，这些资料全部公开可用。</li>
+<li>该网站最重要的意义之一在于，它使教师和学生能够使用自己的电脑来教授和学习相关内容。任何拥有电脑和浏览器的人，只需按照网站上的一些说明操作，就可以开始学习编程。这个过程并不比下载一个媒体播放器或一首歌曲难。和任何网站一样，我们的网站也在不断发展。对于拥有这本书的每个人来说，它都是必不可少的资源。特别是，补充材料对于我们将计算机科学纳入所有科学家和工程师教育体系这一目标至关重要。</li>
+<li>对于教师而言，图书网站包含有关教学的信息。这些信息主要围绕我们在过去十年中形成的一种教学风格进行组织，即我们每周面向众多学生开设两次讲座，同时每周安排两次小组课，学生在小组课上与教师或助教进行交流。图书网站上有讲座的演示幻灯片，这些幻灯片奠定了教学基调。</li>
+<li>对于助教而言，该图书网站包含详细的习题集和编程项目，这些内容基于书中的练习，但包含更多细节。每个编程作业旨在通过有趣的应用场景传授相关概念，同时为每位学生提供富有吸引力且引人入胜的挑战。作业的逐步推进体现了我们教授编程的方法。该图书网站全面规定了所有作业，并提供详细、有条理的信息，帮助学生在规定时间内完成作业，包括建议方法的描述以及课堂教学内容的大纲。</li>
+<li>对于学生而言，本图书网站提供了便捷获取书中大部分内容的途径，包括源代码，还有额外的有助于自学的资料。书中许多练习题都配有答案，包括完整的程序代码和测试数据。与编程作业相关的信息也极为丰富，涵盖建议的方法、清单、常见问题解答以及测试数据。</li>
+</ul>
+
+                        </div>
+                        
+                            <div class="post-toc">
+                                <ul class="markdownIt-TOC">
+<li><a href="#%E5%BA%8F%E8%A8%80">序言</a></li>
+</ul>
+
+                            </div>
+                            
+                                
+                                    
+                                        <!--en-->
+                                        <section class="post-copyright en">
+                                            <p class="copyright-item">
+                                                <span>Author:</span>
+                                                <span>CLL's Blog</span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>Permalink:</span>
+                                                <span><a href="https://leichen2552.github.io/post/introduction-to-programming-in-python-an-interdisciplinary-approach/">https://leichen2552.github.io/post/introduction-to-programming-in-python-an-interdisciplinary-approach/</a></span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>License:</span>
+                                                <span>MIT License</span>
+                                            </p>
+                                        </section>
+                                        
+                                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/introduction-to-programming-in-python-an-interdisciplinary-approach/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/introduction-to-programming-in-python-an-interdisciplinary-approach/&sharesource=qzone&title=Introduction to Programming in Python: An Interdisciplinary Approach&pics=https://leichen2552.github.io/images/avatar.png?v=1756049228364&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/introduction-to-programming-in-python-an-interdisciplinary-approach/&sharesource=weibo&title=Introduction to Programming in Python: An Interdisciplinary Approach + " - " + &pic="https://leichen2552.github.io/images/avatar.png?v=1756049228364 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                            <div class="reward ">
+                                                                <div class="reward-button ">&yen;
+                                                                    <span class="reward-code "> 
+                                                                <span class="alipay-code "> <img class="alipay-img " alt = "support " src=""><b>Alipay</b> </span>
+                                                                    <span class="wechat-code "> <img alt ="support " class="wechat-img " src=""><b>Wechat</b> </span> </span>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
+                                                                
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/shen-ru-li-jie-linux-nei-he-lian-biao/">
+                                                                                            深入理解linux内核链表
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/make-xiao-jie/">
+                                                                                                    Make小结
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
+                </div>
+                
+                                            
+            </div>
+    </div>
+    </div>
+    </div>
+    
+    <div id="player"></div>
+    
+        <footer id="footer" class="footer">
+            <div class="copyright">
+                
+                    <div class="Like">
+                        <div class="tip" data-tooltip="Do you like it?">
+                            <a href="https://github.com/ITJoker233/Gridea-theme-Chic" target="_blank" title=""><svg class="icon"
+                        aria-hidden="true">
+                        <use xlink:href="#like"></use>
+                    </svg><b class="like_text" id="star"></b></a>
+                        </div>
+                    </div>
+                    
+                        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+                            
+                                <b id="hitokoto"></b><br>
+                                
+                                        <svg viewBox="0 0 1024 1024" style="margin-left: 5px;margin-right: 5px;" version="1.0" width="8" height="8" class="my-face">
+            <path
+                d="M863.597631 513.574282l-271.33965-140.213484L729.783667 81.926656c3.583731-7.87141 7.167462-15.742819 7.167462-25.214109C736.887134 25.226908 708.345275 0.012799 672.635953 0.012799a63.611229 63.611229 0 0 0-39.293053 12.607055c-1.791866 1.59988-3.519736 3.19976-5.311602 3.19976L147.87531 418.925381a55.547834 55.547834 0 0 0-19.646527 47.356448c1.791866 17.278704 14.27093 33.021523 32.125591 42.492813l271.33965 141.749369L292.504463 945.221908c-12.479064 25.214109-1.791866 53.563983 23.166262 69.306802 10.751194 6.335525 23.230258 9.47129 35.709322 9.47129 16.062795 0 32.125591-4.735645 44.604655-15.742819l480.091993-403.297753a55.547834 55.547834 0 0 0 19.646526-47.228458 61.243407 61.243407 0 0 0-32.12559-44.156688z"
+                fill="#93b5cf"></path>
+        </svg>
+                                        CLL&#39;s Blog &copy;Copyright
+                                            <script>
+                                                var date = new Date();
+                                                document.write("" + date.getFullYear());
+                                            </script>
+                                            | Powered by
+                                            <a href="https://coding.net" target="_blank">
+                                                Coding.net
+                                            </a>
+            </div>
+            <div id="update" style="display:none;">
+                on
+            </div>
+            
+                <div id="version" style="display:none;">
+                    1.7.6
+                </div>
+                
+                    <script>
+                        var port = '';
+                        
+                        document.write('<div id="home_path" style="display:none;">' + document.location.protocol + '//' + window.document.location.hostname + port + '</div>')
+                    </script>
+        </footer>
+        
+            <script src='https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js'></script>
+            
+                <script>
+                    
+
+                    function LoadPlayer() {
+                        var musicList = [];
+                        
+                        musicList.push({
+                            name: '',
+                            url: '',
+                            artist: '',
+                            cover: '',
+                        });
+                        
+                        console.log(" MusicList: " + musicList);
+                        
+                        const ap = new APlayer({
+                            container: document.getElementById('player'),
+                            fixed: true,
+                            audio: musicList
+                        });
+                        
+                    }
+                    LoadPlayer();
+                    
+                    
+                    loadlive2d();
+                    
+                    
+                    hitokoto();
+                    
+                    getStar();
+                    hljs.initHighlighting();
+                    console.clear();
+                    
+                    CheckVersion();
+                    
+                    var newDate = new Date();
+                    newDate.setTime(1756049228364);
+                    console.log(" Blog Update Time: " + newDate.toLocaleDateString());
+                    console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
+                </script>
+        </div>
+</body>
+<script>
+    scroll();
+</script>
+
+</html>

@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+<title>
+    CLL&#39;s Blog
+</title>
+<!--[if lt IE 9]><script src="//cdn.bootcss.com/html5shiv/r29/html5.js"></script><![endif]-->
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="author" content="陈磊磊">
+<meta name="description" content="正经人谁写博客啊！">
+<meta name="keywords" content="SSD, linux, stm32, 51">
+<script async src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+<link rel="stylesheet" href="https://leichen2552.github.io/styles/main.css" />
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/css/style.min.css" />
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/script.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/icon.min.js"></script>
+        
+            <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/Card/prism.min.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/css/Card/prism.min.css" />
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css">
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js"></script>
+            
+                <!--点击特效-->
+                <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/love.min.js"></script>
+                
+                    <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic@latest/assets/media/script/APlayer.min.js"></script>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+                    
+                        <!--CDN样式-->
+                        <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/hit-kounter-lc-0.3.0.js"></script>
+                        <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+                        
+                            <script>
+                                (function() {
+                                    var bp = document.createElement('script');
+                                    var curProtocol = window.location.protocol.split(':')[0];
+                                    if (curProtocol === 'https') {
+                                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                                    } else {
+                                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                                    }
+                                    var s = document.getElementsByTagName("script")[0];
+                                    s.parentNode.insertBefore(bp, s);
+                                })();
+                            </script>
+                            
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo">
+                <a href="https://leichen2552.github.io">
+                    CLL&#39;s Blog
+                </a>
+            </div>
+            <div id="tp-weather-widget"></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/">
+                        首页
+                    </a>
+                    
+                    <a class="menu-item" href="/archives">
+                        归档
+                    </a>
+                    
+                    <a class="menu-item" href="/tags">
+                        标签
+                    </a>
+                    
+                    <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                        关于
+                    </a>
+                    
+                        <input id="switch_default" type="checkbox" class="switch_default">
+                        <label for="switch_default" class="toggleBtn"></label>
+            </div>
+            <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+            </form>
+        </div>
+    </nav>
+
+    
+        <nav class="navbar-mobile" id="nav-mobile">
+            <div class="container">
+                <div class="navbar-header">
+                    <div>
+                        <a href="https://leichen2552.github.io">
+                            CLL&#39;s Blog
+                        </a>
+                        <!--en-->
+                        <a id="mobile-toggle-theme-en" class="a en">&nbsp;Dark</a>
+                        <!--zh-->
+                        <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
+                    </div>
+                    <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                        <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+                    </form>
+                    <!--en-->
+                    <div class="menu-toggle" id="menu-toggle-en" onclick="mobileBtn()">&#9776; Menu</div>
+                    <!--zh-->
+                    <div class="menu-toggle" id="menu-toggle-zh" onclick="mobileBtn()">&#9776; &#x83DC;&#x5355;</div>
+
+                </div>
+                <div class="menu" id="mobile-menu">
+                    
+                        <a class="menu-item" href="/">
+                            首页
+                        </a>
+                        
+                        <a class="menu-item" href="/archives">
+                            归档
+                        </a>
+                        
+                        <a class="menu-item" href="/tags">
+                            标签
+                        </a>
+                        
+                        <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                            关于
+                        </a>
+                        
+                </div>
+            </div>
+        </nav>
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementById("menu-toggle-en");
+        var toggleMenu_zh = document.getElementById("menu-toggle-zh");
+
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.display != "none") {
+            if (toggleMenu.classList.contains("active")) {
+                toggleMenu.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        } else if (toggleMenu_zh.display != "none") {
+            if (toggleMenu_zh.classList.contains("active")) {
+                toggleMenu_zh.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu_zh.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        }
+
+    }
+</script>
+
+
+
+    <script>
+        (function(a, h, g, f, e, d, c, b) {
+            b = function() {
+                d = h.createElement(g);
+                c = h.getElementsByTagName(g)[0];
+                d.src = e;
+                d.charset = "utf-8";
+                d.async = 1;
+                c.parentNode.insertBefore(d, c)
+            };
+            a["SeniverseWeatherWidgetObject"] = f;
+            a[f] || (a[f] = function() {
+                (a[f].q = a[f].q || []).push(arguments)
+            });
+            a[f].l = +new Date();
+            if (a.attachEvent) {
+                a.attachEvent("onload", b)
+            } else {
+                a.addEventListener("load", b, false)
+            }
+        }(window, document, "script", "SeniverseWeatherWidget", "//cdn.sencdn.com/widget2/static/js/bundle.js?t=" + parseInt((new Date().getTime() / 100000000).toString(), 10)));
+        window.SeniverseWeatherWidget('show', {
+            flavor: "slim",
+            location: "WWEFQFPJZ7T8",
+            geolocation: true,
+            language: "auto",
+            unit: "c",
+            theme: "auto",
+            token: "61bcc333-3305-4728-9465-6785274bb0a3",
+            hover: "enabled",
+            container: "tp-weather-widget"
+        })
+    </script>
+    
+            <div class="main">
+                <div class="container">
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                按键FIFO的代码的思想与编写
+                            </h1>
+                            
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        CLL's Blog
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2021-01-14</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">11.3
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">2837</a></span>
+                                    
+                                            Views:
+                                            <span data-hk-page="current"> - </span>
+                                            
+                                </div>
+                                
+                        </header>
+                        
+                        <div class="post-content">
+                            <p><ul class="markdownIt-TOC">
+<li><a href="#%E6%80%BB%E8%A7%88">总览</a>
+<ul>
+<li><a href="#%E6%8C%89%E9%94%AE%E5%AF%B9%E8%B1%A1">按键对象</a>
+<ul>
+<li><a href="#%E6%8C%89%E9%94%AE%E6%95%B0%E9%87%8F">按键数量</a></li>
+<li><a href="#%E6%8C%89%E9%94%AE%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B">按键对象类型</a></li>
+<li><a href="#%E6%8C%89%E9%94%AE%E7%8A%B6%E6%80%81">按键状态</a></li>
+<li><a href="#%E6%8C%89%E9%94%AE%E7%8A%B6%E6%80%81%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">按键状态存储数据结构</a></li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95">实现方法</a>
+<ul>
+<li><a href="#%E4%B8%80%E7%94%A8%E5%AE%8F-%E5%AE%9A%E4%B9%89%E6%8C%89%E9%94%AE%E7%9A%84%E6%97%B6%E9%92%9F-%E7%AB%AF%E5%8F%A3-%E5%BC%95%E8%84%9A">一：用宏 定义按键的时钟、端口、引脚</a></li>
+<li><a href="#%E4%BA%8C%E5%AE%9A%E4%B9%89%E6%8C%89%E9%94%AE%E4%B8%AA%E6%95%B0%E5%92%8C%E6%8C%89%E9%94%AE%E7%9A%84fifo%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">二：定义按键个数和按键的FIFO数据结构</a></li>
+<li><a href="#%E4%B8%89%E7%94%A8%E7%AE%80%E4%BE%BF%E7%9A%84%E8%AF%AD%E5%8F%A5%E5%AE%9E%E7%8E%B0%E6%8C%89%E9%94%AE%E6%98%AF%E5%90%A6%E8%A2%AB%E6%8C%89%E4%B8%8B">三：用简便的语句实现按键是否被按下</a></li>
+<li><a href="#%E5%9B%9B%E5%BE%80fifo%E4%B8%AD%E5%86%99%E5%85%A5%E4%B8%80%E4%B8%AA%E9%94%AE%E5%80%BC">四：往FIFO中写入一个键值</a></li>
+<li><a href="#%E4%BA%94%E4%BB%8E%E6%8C%89%E9%94%AEfifo%E7%BC%93%E5%86%B2%E5%8C%BA%E8%AF%BB%E5%8F%96%E4%B8%80%E4%B8%AA%E9%94%AE%E5%80%BC">五：从按键FIFO缓冲区读取一个键值</a></li>
+<li><a href="#%E5%85%AD%E8%8E%B7%E5%8F%96%E6%8C%89%E9%94%AE%E7%9A%84%E7%8A%B6%E6%80%81%E4%BB%A5%E5%8F%8A%E8%AE%BE%E7%BD%AE%E6%8C%89%E9%94%AE%E7%9A%84%E5%8F%82%E6%95%B0">六：获取按键的状态以及设置按键的参数</a></li>
+<li><a href="#%E4%B8%83%E6%B8%85%E7%A9%BA%E6%8C%89%E9%94%AEfifo%E7%BC%93%E5%86%B2%E5%8C%BA">七：清空按键FIFO缓冲区</a></li>
+<li><a href="#%E5%85%AB%E5%88%9D%E5%A7%8B%E5%8C%96%E6%8C%89%E9%94%AE%E7%A1%AC%E4%BB%B6">八：初始化按键硬件</a></li>
+<li><a href="#%E4%B9%9D%E5%88%9D%E5%A7%8B%E5%8C%96%E6%8C%89%E9%94%AE%E5%8F%98%E9%87%8F">九：初始化按键变量</a></li>
+<li><a href="#%E5%8D%81%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E6%A3%80%E6%B5%8B%E6%8C%89%E9%94%AE%E6%9C%80%E9%87%8D%E8%A6%81">十：最重要的检测按键！最重要！</a></li>
+<li><a href="#%E5%8D%81%E4%B8%80%E5%88%9D%E5%A7%8B%E5%8C%96%E6%8C%89%E9%94%AE">十一：初始化按键</a></li>
+<li><a href="#%E6%9C%80%E5%90%8E">最后</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E4%BC%98%E7%82%B9">优点</a></li>
+</ul>
+</p>
+<h1 id="总览">总览</h1>
+<p>对安富莱按键FIFO的代码进行了分析综合与运用</p>
+<p>首先说一句，面对对象的编程思想真的相当重要。相当后悔毕业之后才接触了面对对象编程的思想，其实在大一大二的时候，就喜欢原子和野火的代码，逻辑简单也好用。看到安富莱的stm32代码，有点懵逼的的，就感觉为什么一个简单的按键检测搞这么麻烦，初始化按键的GPIO之后再加一句简单的GPIO_ReadInputDataBit不就行了么，还搞这搞那这么麻烦！当时也不懂什么叫数据结构，也没有人指导。可是学到后来，就觉得仅仅一个GPIO_ReadInputDataBit真的不能解决所有的事情，当然了，按一下再弹起或许可以，但是如果有长按功能呢？有连续按的功能呢？<br>
+当时觉得STM32还写得不错，就开始向S3C2440进军，看看uboot，玩玩linux，看看内核代码，在看内核的时候，发现充斥着大量的结构体与数据结构，当时就在想，为啥用这么多的结构体呢，好不明白。立马觉得自己阅读代码的能力不够，就把C语言重新回顾了几遍，又去把C++学了一遍。当明白了面对对象的编程思想之后，才发现过去面对过程编写的思想真的是小儿科啊。</p>
+<p>其实用结构体的方式，方便就在好管理！</p>
+<h2 id="按键对象">按键对象</h2>
+<p>回归正题，编写按键程序的时候，首先想到的就是按键有几种状态，第二是对按键的操作方法。</p>
+<table>
+<thead>
+<tr>
+<th>按键对象</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>按键状态：</td>
+<td>按下</td>
+<td>弹起</td>
+<td>长按</td>
+</tr>
+<tr>
+<td>按键操作：</td>
+<td>按一下</td>
+<td>长按</td>
+<td>连续按</td>
+</tr>
+<tr>
+<td>对这个有一个意识之后，面对对象的编程思想就来了，我需要一个按键类型，就像C语言里面的int、char一样，可以声明一种按键类型，那么下面的代码就出来了：</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="按键数量">按键数量</h3>
+<p>开发板上有两个按键，把这两个按键枚举出来：</p>
+<pre><code class="language-c">typedef enum
+{
+    KID_K1 = 0,
+    KID_K2
+}KEY_ID_E;
+
+//两个按键，再加上组合按键，共有三种方式
+//组合键这个可加可不加，加的话这个值就是3，不加就是2
+#define KEY_COUNT       3  
+</code></pre>
+<h3 id="按键对象类型">按键对象类型</h3>
+<p>利用C语言的typedef和struct：</p>
+<pre><code class="language-c">
+/*
+	按键滤波时间50ms, 单位10ms。
+	只有连续检测到50ms状态不变才认为有效，包括弹起和按下两种事件
+	即使按键电路不做硬件滤波，该滤波机制也可以保证可靠地检测到按键事件
+*/
+#define KEY_FILTER_TIME     5
+#define KEY_LONG_TIME       100 /* 单位10ms， 持续1秒，认为长按事件 */
+
+typedef struct
+{
+    /*下面是一个函数指针*/
+    uint8_t (*IsKeyDownFunc)(void);/*按键按下的判断函数，1表示按下*/
+    
+    uint8_t  Count;         /* 滤波计数器 */
+    uint16_t LongCount;     /* 长按计数器 */
+    uint16_t LongTime;      /* 按键按下的持续时间，0表示不检测长按 */
+    uint8_t  State;         /* 按键当前状态（按下还是弹起） */
+    uint8_t  RepeatSpeed;   /* 连续按键周期 */
+    uint8_t  RepeatCount;   /* 连续按键计时器 */
+}KEY_Typedef;
+</code></pre>
+<h3 id="按键状态">按键状态</h3>
+<p>利用枚举定义每个按键的状态，按下、弹起、长按：</p>
+<pre><code class="language-c">typedef enum
+{
+    KEY_NONE = 0,
+    
+	KEY_1_DOWN,				/* 1键按下 1*/
+	KEY_1_UP,				/* 1键弹起 2*/
+	KEY_1_LONG,				/* 1键长按 3*/
+
+	KEY_2_DOWN,				/* 2键按下 4*/
+	KEY_2_UP,				/* 2键弹起 5*/
+	KEY_2_LONG,				/* 2键长按 6*/   
+    
+    /*组合键*/
+    KEY_3_DOWN,				/* 组合1、2键按下 7*/
+	KEY_3_UP,				/* 组合1、2键弹起 8*/
+	KEY_3_LONG				/* 组合1、2键长按 9*/     
+}KEY_ENUM;
+</code></pre>
+<h3 id="按键状态存储数据结构">按键状态存储数据结构</h3>
+<p>把按键每次的按下的状态数据存储FIFO数据结构中，然后从这个FIFO中读取按键事件，这个FIFO定义一个长度为10的数组：</p>
+<pre><code class="language-c">/* 按键FIFO用到变量 */
+#define KEY_FIFO_SIZE   10
+typedef struct
+{
+   uint8_t Buf[KEY_FIFO_SIZE];     /* 键值缓冲区 */
+   uint8_t Read;                   /* 缓冲区读指针1 */
+   uint8_t Write;                  /* 缓冲区写指针 */
+   uint8_t Read2;                  /* 缓冲区读指针2 */
+}KEY_FIFO_Typedef;
+</code></pre>
+<h3 id="小结">小结</h3>
+<p>从按键对象上手，总结出按键对象类型、按键状态以及按键状态存储数据结构，上述代码在头文件中实现。</p>
+<h2 id="实现方法">实现方法</h2>
+<h3 id="一用宏-定义按键的时钟-端口-引脚">一：用宏 定义按键的时钟、端口、引脚</h3>
+<pre><code class="language-c">#define RCC_ALL_KEY                 (RCC_AHB1Periph_GPIOA|RCC_AHB1Periph_GPIOC)
+
+#define GPIO_PORT_K1                GPIOA
+#define GPIO_PIN_K1                 GPIO_Pin_0
+
+#define GPIO_PORT_K2                GPIOC
+#define GPIO_PIN_K2                 GPIO_Pin_13
+</code></pre>
+<h3 id="二定义按键个数和按键的fifo数据结构">二：定义按键个数和按键的FIFO数据结构</h3>
+<pre><code class="language-c">static KEY_Typedef s_tBtn[KEY_COUNT];   //两个按键和二合一组合键一共三个按键
+static KEY_FIFO_Typedef s_tKey;         //定义一个FIFO数据结构
+</code></pre>
+<h3 id="三用简便的语句实现按键是否被按下">三：用简便的语句实现按键是否被按下</h3>
+<pre><code class="language-c">//其实本质上，这就是GPIO_ReadInputDataBit实现方法。不过if语句中的判断是否相等，得看硬件电路，
+//如果按键按下后，引脚检测是低电平，则就是等于0，如果按键按下后，引脚检测是高电平，就不等于0
+static uint8_t IsKeyDown1(void)  {if((GPIO_PORT_K1-&gt;IDR &amp; GPIO_PIN_K1) != 0) {return 1;} else {return 0;}}
+static uint8_t IsKeyDown2(void)  {if((GPIO_PORT_K2-&gt;IDR &amp; GPIO_PIN_K2) != 0) {return 1;} else {return 0;}}
+static uint8_t IsKeyDown3(void)  {if(IsKeyDown1() &amp;&amp; IsKeyDown2()) {return 1;} else {return 0;}}
+</code></pre>
+<h3 id="四往fifo中写入一个键值">四：往FIFO中写入一个键值</h3>
+<pre><code class="language-c">void BspPutKey(uint8_t _KeyCode)
+{
+    s_tKey.Buf[s_tKey.Write] = _KeyCode;
+    
+    if(++s_tKey.Write &gt;= KEY_FIFO_SIZE)
+    {
+        s_tKey.Write = 0;
+    }
+}
+</code></pre>
+<h3 id="五从按键fifo缓冲区读取一个键值">五：从按键FIFO缓冲区读取一个键值</h3>
+<pre><code class="language-c">uint8_t BspGetKey(void)
+{
+    uint8_t ret;
+    
+    if(s_tKey.Read == s_tKey.Write)
+    {
+        return KEY_NONE;
+    }
+    else
+    {
+        ret = s_tKey.Buf[s_tKey.Read];
+        
+        if(++s_tKey.Read &gt;= KEY_FIFO_SIZE)
+        {
+            s_tKey.Read = 0;
+        }
+        
+        return ret;
+    }        
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_GetKey2
+*	功能说明: 从按键FIFO缓冲区读取一个键值。独立的读指针。
+*	形    参:  无
+*	返 回 值: 按键代码
+*********************************************************************************************************
+*/
+uint8_t BspGetKey2(void)
+{
+    uint8_t ret;
+    
+    if(s_tKey.Read2 == s_tKey.Write)
+    {
+        return KEY_NONE;
+    }
+    else
+    {
+        ret = s_tKey.Buf[s_tKey.Read2];
+        
+        if(++s_tKey.Read2 &gt;= KEY_FIFO_SIZE)
+        {
+            s_tKey.Read2 = 0;
+        }
+        
+        return ret;
+    }        
+}
+</code></pre>
+<p>对于这个第二个读指针，从功能说明上看，是独立的读指针，与之前那个读指针有区别。</p>
+<h3 id="六获取按键的状态以及设置按键的参数">六：获取按键的状态以及设置按键的参数</h3>
+<pre><code class="language-c">/*
+*********************************************************************************************************
+*	函 数 名: bsp_GetKeyState
+*	功能说明: 读取按键的状态
+*	形    参:  _ucKeyID : 按键ID，从0开始
+*	返 回 值: 1 表示按下， 0 表示未按下
+*********************************************************************************************************
+*/
+uint8_t BspGetKeyState(KEY_ID_E _ucKeyID)
+{
+    return s_tBtn[_ucKeyID].State;
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_SetKeyParam
+*	功能说明: 设置按键参数
+*	形    参：_ucKeyID : 按键ID，从0开始
+*			_LongTime : 长按事件时间
+*			 _RepeatSpeed : 连发速度
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void BspSetKeyParam(uint8_t _ucKeyID, uint16_t _LongTime, uint8_t _RepeatSpeed)
+{
+    s_tBtn[_ucKeyID].LongTime = _LongTime;          /* 长按时间 0 表示不检测长按键事件 */
+    s_tBtn[_ucKeyID].RepeatSpeed = _RepeatSpeed;    /* 按键连发的速度，0表示不支持连发 */
+    s_tBtn[_ucKeyID].RepeatCount = 0;               /* 连发计数器 */
+}
+</code></pre>
+<h3 id="七清空按键fifo缓冲区">七：清空按键FIFO缓冲区</h3>
+<pre><code class="language-c">/*
+*********************************************************************************************************
+*	函 数 名: bsp_ClearKey
+*	功能说明: 清空按键FIFO缓冲区
+*	形    参：无
+*	返 回 值: 按键代码
+*********************************************************************************************************
+*/
+void BspClearKey(void)
+{
+    s_tKey.Read = s_tKey.Write;
+}
+</code></pre>
+<h3 id="八初始化按键硬件">八：初始化按键硬件</h3>
+<pre><code class="language-c">static void BspInitKeyHard(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+	
+	/*开启按键GPIO口的时钟*/
+	RCC_AHB1PeriphClockCmd(RCC_ALL_KEY,ENABLE);
+	 
+    /* 第2步：配置所有的按键GPIO为浮动输入模式(实际上CPU复位后就是输入状态) */
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN; 
+    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    
+    GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K1;
+	GPIO_Init(GPIO_PORT_K1, &amp;GPIO_InitStructure);    
+  
+	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K2; 
+	GPIO_Init(GPIO_PORT_K2, &amp;GPIO_InitStructure);  
+}
+</code></pre>
+<h3 id="九初始化按键变量">九：初始化按键变量</h3>
+<pre><code class="language-c">/*
+*********************************************************************************************************
+*	函 数 名: bsp_InitKeyVar
+*	功能说明: 初始化按键变量
+*	形    参:  无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void BspInitKeyVar(void)
+{
+    uint8_t i;
+    
+    s_tKey.Read = 0;
+    s_tKey.Write = 0;
+    s_tKey.Read2 = 0;
+    
+    for(i = 0; i &lt; KEY_COUNT; i++)
+    {
+        s_tBtn[i].LongTime = KEY_LONG_TIME;         /* 长按时间 0 表示不检测长按键事件 */
+        s_tBtn[i].Count = KEY_FILTER_TIME / 2;      /* 计数器设置为滤波时间的一半 */ 
+        s_tBtn[i].State = 0;                        /* 按键缺省状态，0为未按下 */
+        
+        s_tBtn[i].RepeatSpeed = 0;                  /* 按键连发的速度，0表示不支持连发 */   
+        s_tBtn[i].RepeatCount = 0;                  /* 连发计数器 */
+    }
+
+	/* 如果需要单独更改某个按键的参数，可以在此单独重新赋值 */
+	/* 比如，我们希望按键1按下超过1秒后，自动重发相同键值 */    
+    s_tBtn[KID_K1].LongTime = 100;
+    s_tBtn[KID_K1].RepeatSpeed = 5;     /* 每隔50ms自动发送键值 */
+    
+    s_tBtn[KID_K2].LongTime = 100;
+    s_tBtn[KID_K2].RepeatSpeed = 5;     /* 每隔50ms自动发送键值 */
+    
+    s_tBtn[0].IsKeyDownFunc = IsKeyDown1;
+    s_tBtn[1].IsKeyDownFunc = IsKeyDown2;
+    s_tBtn[2].IsKeyDownFunc = IsKeyDown3;   
+}
+</code></pre>
+<h3 id="十最重要的检测按键最重要">十：最重要的检测按键！最重要！</h3>
+<pre><code class="language-c">static void BspDetectKey(uint8_t i)
+{
+    KEY_Typedef *pBtn;
+    
+    pBtn = &amp;s_tBtn[i];
+    if(pBtn-&gt;IsKeyDownFunc())
+    {
+        /*这个里面执行的是按键按下的处理*/
+        
+        /* 下面这个if语句主要是用于按键滤波前给Count设置一个初值，
+        前面说按键初始化的时候，已经设置了Count = KEY_FILTER_TIME / 2 */ 
+        if(pBtn-&gt;Count &lt; KEY_FILTER_TIME)
+        {
+            pBtn-&gt;Count = KEY_FILTER_TIME;
+        }
+
+        /* 这里实现KEY_FILTER_TIME时间长度的延迟 */
+        else if(pBtn-&gt;Count &lt; 2 * KEY_FILTER_TIME)
+        {
+            pBtn-&gt;Count ++;
+        }
+        /* 这里实现KEY_FILTER_TIME时间长度的延迟 */
+        /*  个人理解以上两句就是软件消抖  */
+
+        else
+        {
+            /* 
+            ********************************************************************************** 
+            这个State变量是有其实际意义的，如果按键按下了，这里就将其设置为1，如果没有按下，
+            这个变量的值就会一直是0，这样设置的目的可以有效的防止一种情况的出现：比如按键K1
+            在某个时刻检测到了按键有按下，那么它就会做进一步的滤波处理，但是在滤波的过程中，
+            这个按键按下的状态消失了，这个时候就会进入到上面第二步else语句里面，然后再做按键
+            松手检测滤波，滤波结束后判断这个State变量，如果前面就没有检测到按下，这里就不会
+            记录按键弹起。  
+            ********************************************************************************** 
+            */
+            if(pBtn-&gt;State == 0)
+            {
+                pBtn-&gt;State = 1;
+                /* 发送按钮按下的消息 */ 
+                BspPutKey((uint8_t)(3 * i + 1));
+            }
+            
+            if(pBtn-&gt;LongTime &gt; 0)
+            {
+                if(pBtn-&gt;LongCount &lt; pBtn-&gt;LongTime)
+                {
+                    /* 发送按钮按下的消息 */ 
+                    if(++pBtn-&gt;LongCount == pBtn-&gt;LongTime)
+                    {
+                        /* 键值放入按键FIFO */ 
+                        BspPutKey((uint8_t)(3 * i + 3));
+                    }
+                }
+                else
+                {
+                    if(pBtn-&gt;RepeatSpeed &gt; 0)
+                    {
+                        if(++pBtn-&gt;RepeatCount &gt;= pBtn-&gt;RepeatSpeed)
+                        {
+                            pBtn-&gt;RepeatCount = 0;
+                            
+                            /* 长按键后，每隔10ms发送1个按键 */ 
+                            BspPutKey((uint8_t)(3 * i + 1));
+                        }
+                    }
+                }               
+            }
+        }       
+    }
+    else
+    {
+        /*这个里面执行的是按键松手的处理或者按键没有按下的处理 */
+        if(pBtn-&gt;Count &gt; KEY_FILTER_TIME)
+        {
+            pBtn-&gt;Count = KEY_FILTER_TIME;
+        }
+        else if(pBtn-&gt;Count != 0)
+        {
+            pBtn-&gt;Count --;
+        }
+        else
+        {
+            if(pBtn-&gt;State == 1)
+            {
+                pBtn-&gt;State = 0;
+                BspPutKey((uint8_t)(3 * i + 2));                
+            }
+        }  
+            
+        pBtn-&gt;LongCount = 0;
+        pBtn-&gt;RepeatCount = 0;       
+    }   
+}
+
+/* 然后就是逐一扫描按键 */
+void BspKeyScan(void)
+{
+    uint8_t i;
+    
+    for(i = 0; i &lt; KEY_COUNT; i++)
+    {
+        BspDetectKey(i);
+    }
+}
+</code></pre>
+<h3 id="十一初始化按键">十一：初始化按键</h3>
+<pre><code class="language-c">void BspInitKEY(void)
+{
+    BspInitKeyVar();
+    BspInitKeyHard();
+}
+</code></pre>
+<h3 id="最后">最后</h3>
+<p>定时起里对按键进行扫描，主函数对键值进行读取。</p>
+<pre><code class="language-c">//定时器扫描硬件函数部分省略了
+
+while(1)
+{    
+    uint8_t  ucKeyCode = BspGetKey();
+    
+    if(++i &gt; 100000)
+    {
+        printf(&quot; ucKeyCode = %d\r\n&quot;,ucKeyCode);
+        i = 0;
+    }
+    if(ucKeyCode != KEY_NONE)
+    {
+        switch (ucKeyCode)
+        {
+            case KEY_1_DOWN :
+                /* User Code 1*/
+                break;
+            case KEY_2_DOWN :
+                /* User Code 2*/
+                break;
+            
+            default:
+                break;
+        }    
+    }            
+}
+</code></pre>
+<h1 id="优点">优点</h1>
+<ul>
+<li>可靠地记录每一个按键事件，避免遗漏按键事件。特别是需要实现按键的按下、长按、自动连发、弹起等事件时。</li>
+<li>读取按键的函数可以设计为非阻塞的，不需要等待按键抖动滤波处理完毕。</li>
+<li>按键FIFO程序在嘀嗒定时器中定期的执行检测，不需要在主程序中一直做检测，这样可以有效地降低系统资源消耗。</li>
+</ul>
+
+                        </div>
+                        
+                            <div class="post-toc">
+                                <ul class="markdownIt-TOC">
+<li><a href="#%E6%80%BB%E8%A7%88">总览</a>
+<ul>
+<li><a href="#%E6%8C%89%E9%94%AE%E5%AF%B9%E8%B1%A1">按键对象</a>
+<ul>
+<li><a href="#%E6%8C%89%E9%94%AE%E6%95%B0%E9%87%8F">按键数量</a></li>
+<li><a href="#%E6%8C%89%E9%94%AE%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B">按键对象类型</a></li>
+<li><a href="#%E6%8C%89%E9%94%AE%E7%8A%B6%E6%80%81">按键状态</a></li>
+<li><a href="#%E6%8C%89%E9%94%AE%E7%8A%B6%E6%80%81%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">按键状态存储数据结构</a></li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95">实现方法</a>
+<ul>
+<li><a href="#%E4%B8%80%E7%94%A8%E5%AE%8F-%E5%AE%9A%E4%B9%89%E6%8C%89%E9%94%AE%E7%9A%84%E6%97%B6%E9%92%9F-%E7%AB%AF%E5%8F%A3-%E5%BC%95%E8%84%9A">一：用宏 定义按键的时钟、端口、引脚</a></li>
+<li><a href="#%E4%BA%8C%E5%AE%9A%E4%B9%89%E6%8C%89%E9%94%AE%E4%B8%AA%E6%95%B0%E5%92%8C%E6%8C%89%E9%94%AE%E7%9A%84fifo%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">二：定义按键个数和按键的FIFO数据结构</a></li>
+<li><a href="#%E4%B8%89%E7%94%A8%E7%AE%80%E4%BE%BF%E7%9A%84%E8%AF%AD%E5%8F%A5%E5%AE%9E%E7%8E%B0%E6%8C%89%E9%94%AE%E6%98%AF%E5%90%A6%E8%A2%AB%E6%8C%89%E4%B8%8B">三：用简便的语句实现按键是否被按下</a></li>
+<li><a href="#%E5%9B%9B%E5%BE%80fifo%E4%B8%AD%E5%86%99%E5%85%A5%E4%B8%80%E4%B8%AA%E9%94%AE%E5%80%BC">四：往FIFO中写入一个键值</a></li>
+<li><a href="#%E4%BA%94%E4%BB%8E%E6%8C%89%E9%94%AEfifo%E7%BC%93%E5%86%B2%E5%8C%BA%E8%AF%BB%E5%8F%96%E4%B8%80%E4%B8%AA%E9%94%AE%E5%80%BC">五：从按键FIFO缓冲区读取一个键值</a></li>
+<li><a href="#%E5%85%AD%E8%8E%B7%E5%8F%96%E6%8C%89%E9%94%AE%E7%9A%84%E7%8A%B6%E6%80%81%E4%BB%A5%E5%8F%8A%E8%AE%BE%E7%BD%AE%E6%8C%89%E9%94%AE%E7%9A%84%E5%8F%82%E6%95%B0">六：获取按键的状态以及设置按键的参数</a></li>
+<li><a href="#%E4%B8%83%E6%B8%85%E7%A9%BA%E6%8C%89%E9%94%AEfifo%E7%BC%93%E5%86%B2%E5%8C%BA">七：清空按键FIFO缓冲区</a></li>
+<li><a href="#%E5%85%AB%E5%88%9D%E5%A7%8B%E5%8C%96%E6%8C%89%E9%94%AE%E7%A1%AC%E4%BB%B6">八：初始化按键硬件</a></li>
+<li><a href="#%E4%B9%9D%E5%88%9D%E5%A7%8B%E5%8C%96%E6%8C%89%E9%94%AE%E5%8F%98%E9%87%8F">九：初始化按键变量</a></li>
+<li><a href="#%E5%8D%81%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E6%A3%80%E6%B5%8B%E6%8C%89%E9%94%AE%E6%9C%80%E9%87%8D%E8%A6%81">十：最重要的检测按键！最重要！</a></li>
+<li><a href="#%E5%8D%81%E4%B8%80%E5%88%9D%E5%A7%8B%E5%8C%96%E6%8C%89%E9%94%AE">十一：初始化按键</a></li>
+<li><a href="#%E6%9C%80%E5%90%8E">最后</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E4%BC%98%E7%82%B9">优点</a></li>
+</ul>
+
+                            </div>
+                            
+                                
+                                    
+                                        <!--en-->
+                                        <section class="post-copyright en">
+                                            <p class="copyright-item">
+                                                <span>Author:</span>
+                                                <span>CLL's Blog</span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>Permalink:</span>
+                                                <span><a href="https://leichen2552.github.io/post/an-jian-fifo-de-dai-ma-de-si-xiang-yu-bian-xie/">https://leichen2552.github.io/post/an-jian-fifo-de-dai-ma-de-si-xiang-yu-bian-xie/</a></span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>License:</span>
+                                                <span>MIT License</span>
+                                            </p>
+                                        </section>
+                                        
+                                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/an-jian-fifo-de-dai-ma-de-si-xiang-yu-bian-xie/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/an-jian-fifo-de-dai-ma-de-si-xiang-yu-bian-xie/&sharesource=qzone&title=按键FIFO的代码的思想与编写&pics=https://leichen2552.github.io/images/avatar.png?v=1756049228364&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/an-jian-fifo-de-dai-ma-de-si-xiang-yu-bian-xie/&sharesource=weibo&title=按键FIFO的代码的思想与编写 + " - " + &pic="https://leichen2552.github.io/images/avatar.png?v=1756049228364 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                            <div class="reward ">
+                                                                <div class="reward-button ">&yen;
+                                                                    <span class="reward-code "> 
+                                                                <span class="alipay-code "> <img class="alipay-img " alt = "support " src=""><b>Alipay</b> </span>
+                                                                    <span class="wechat-code "> <img alt ="support " class="wechat-img " src=""><b>Wechat</b> </span> </span>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
+                                                                
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/liang-ci-chu-hai-ji-lu-fan-si-yu-zong-jie/">
+                                                                                            两次出海记录反思与总结
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/tui-wan-shu-chu-yu-kai-lou-shu-chu-de-qu-bie/">
+                                                                                                    推挽输出与开漏输出的区别
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
+                </div>
+                
+                                            
+            </div>
+    </div>
+    </div>
+    </div>
+    
+    <div id="player"></div>
+    
+        <footer id="footer" class="footer">
+            <div class="copyright">
+                
+                    <div class="Like">
+                        <div class="tip" data-tooltip="Do you like it?">
+                            <a href="https://github.com/ITJoker233/Gridea-theme-Chic" target="_blank" title=""><svg class="icon"
+                        aria-hidden="true">
+                        <use xlink:href="#like"></use>
+                    </svg><b class="like_text" id="star"></b></a>
+                        </div>
+                    </div>
+                    
+                        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+                            
+                                <b id="hitokoto"></b><br>
+                                
+                                        <svg viewBox="0 0 1024 1024" style="margin-left: 5px;margin-right: 5px;" version="1.0" width="8" height="8" class="my-face">
+            <path
+                d="M863.597631 513.574282l-271.33965-140.213484L729.783667 81.926656c3.583731-7.87141 7.167462-15.742819 7.167462-25.214109C736.887134 25.226908 708.345275 0.012799 672.635953 0.012799a63.611229 63.611229 0 0 0-39.293053 12.607055c-1.791866 1.59988-3.519736 3.19976-5.311602 3.19976L147.87531 418.925381a55.547834 55.547834 0 0 0-19.646527 47.356448c1.791866 17.278704 14.27093 33.021523 32.125591 42.492813l271.33965 141.749369L292.504463 945.221908c-12.479064 25.214109-1.791866 53.563983 23.166262 69.306802 10.751194 6.335525 23.230258 9.47129 35.709322 9.47129 16.062795 0 32.125591-4.735645 44.604655-15.742819l480.091993-403.297753a55.547834 55.547834 0 0 0 19.646526-47.228458 61.243407 61.243407 0 0 0-32.12559-44.156688z"
+                fill="#93b5cf"></path>
+        </svg>
+                                        CLL&#39;s Blog &copy;Copyright
+                                            <script>
+                                                var date = new Date();
+                                                document.write("" + date.getFullYear());
+                                            </script>
+                                            | Powered by
+                                            <a href="https://coding.net" target="_blank">
+                                                Coding.net
+                                            </a>
+            </div>
+            <div id="update" style="display:none;">
+                on
+            </div>
+            
+                <div id="version" style="display:none;">
+                    1.7.6
+                </div>
+                
+                    <script>
+                        var port = '';
+                        
+                        document.write('<div id="home_path" style="display:none;">' + document.location.protocol + '//' + window.document.location.hostname + port + '</div>')
+                    </script>
+        </footer>
+        
+            <script src='https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js'></script>
+            
+                <script>
+                    
+
+                    function LoadPlayer() {
+                        var musicList = [];
+                        
+                        musicList.push({
+                            name: '',
+                            url: '',
+                            artist: '',
+                            cover: '',
+                        });
+                        
+                        console.log(" MusicList: " + musicList);
+                        
+                        const ap = new APlayer({
+                            container: document.getElementById('player'),
+                            fixed: true,
+                            audio: musicList
+                        });
+                        
+                    }
+                    LoadPlayer();
+                    
+                    
+                    loadlive2d();
+                    
+                    
+                    hitokoto();
+                    
+                    getStar();
+                    hljs.initHighlighting();
+                    console.clear();
+                    
+                    CheckVersion();
+                    
+                    var newDate = new Date();
+                    newDate.setTime(1756049228364);
+                    console.log(" Blog Update Time: " + newDate.toLocaleDateString());
+                    console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
+                </script>
+        </div>
+</body>
+<script>
+    scroll();
+</script>
+
+</html>

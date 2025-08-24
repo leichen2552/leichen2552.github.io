@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+<title>
+    CLL&#39;s Blog
+</title>
+<!--[if lt IE 9]><script src="//cdn.bootcss.com/html5shiv/r29/html5.js"></script><![endif]-->
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="author" content="陈磊磊">
+<meta name="description" content="正经人谁写博客啊！">
+<meta name="keywords" content="SSD, linux, stm32, 51">
+<script async src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+<link rel="stylesheet" href="https://leichen2552.github.io/styles/main.css" />
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/css/style.min.css" />
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/script.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/icon.min.js"></script>
+        
+            <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/Card/prism.min.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/css/Card/prism.min.css" />
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css">
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js"></script>
+            
+                <!--点击特效-->
+                <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/love.min.js"></script>
+                
+                    <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic@latest/assets/media/script/APlayer.min.js"></script>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+                    
+                        <!--CDN样式-->
+                        <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/hit-kounter-lc-0.3.0.js"></script>
+                        <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+                        
+                            <script>
+                                (function() {
+                                    var bp = document.createElement('script');
+                                    var curProtocol = window.location.protocol.split(':')[0];
+                                    if (curProtocol === 'https') {
+                                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                                    } else {
+                                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                                    }
+                                    var s = document.getElementsByTagName("script")[0];
+                                    s.parentNode.insertBefore(bp, s);
+                                })();
+                            </script>
+                            
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo">
+                <a href="https://leichen2552.github.io">
+                    CLL&#39;s Blog
+                </a>
+            </div>
+            <div id="tp-weather-widget"></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/">
+                        首页
+                    </a>
+                    
+                    <a class="menu-item" href="/archives">
+                        归档
+                    </a>
+                    
+                    <a class="menu-item" href="/tags">
+                        标签
+                    </a>
+                    
+                    <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                        关于
+                    </a>
+                    
+                        <input id="switch_default" type="checkbox" class="switch_default">
+                        <label for="switch_default" class="toggleBtn"></label>
+            </div>
+            <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+            </form>
+        </div>
+    </nav>
+
+    
+        <nav class="navbar-mobile" id="nav-mobile">
+            <div class="container">
+                <div class="navbar-header">
+                    <div>
+                        <a href="https://leichen2552.github.io">
+                            CLL&#39;s Blog
+                        </a>
+                        <!--en-->
+                        <a id="mobile-toggle-theme-en" class="a en">&nbsp;Dark</a>
+                        <!--zh-->
+                        <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
+                    </div>
+                    <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                        <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+                    </form>
+                    <!--en-->
+                    <div class="menu-toggle" id="menu-toggle-en" onclick="mobileBtn()">&#9776; Menu</div>
+                    <!--zh-->
+                    <div class="menu-toggle" id="menu-toggle-zh" onclick="mobileBtn()">&#9776; &#x83DC;&#x5355;</div>
+
+                </div>
+                <div class="menu" id="mobile-menu">
+                    
+                        <a class="menu-item" href="/">
+                            首页
+                        </a>
+                        
+                        <a class="menu-item" href="/archives">
+                            归档
+                        </a>
+                        
+                        <a class="menu-item" href="/tags">
+                            标签
+                        </a>
+                        
+                        <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                            关于
+                        </a>
+                        
+                </div>
+            </div>
+        </nav>
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementById("menu-toggle-en");
+        var toggleMenu_zh = document.getElementById("menu-toggle-zh");
+
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.display != "none") {
+            if (toggleMenu.classList.contains("active")) {
+                toggleMenu.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        } else if (toggleMenu_zh.display != "none") {
+            if (toggleMenu_zh.classList.contains("active")) {
+                toggleMenu_zh.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu_zh.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        }
+
+    }
+</script>
+
+
+
+    <script>
+        (function(a, h, g, f, e, d, c, b) {
+            b = function() {
+                d = h.createElement(g);
+                c = h.getElementsByTagName(g)[0];
+                d.src = e;
+                d.charset = "utf-8";
+                d.async = 1;
+                c.parentNode.insertBefore(d, c)
+            };
+            a["SeniverseWeatherWidgetObject"] = f;
+            a[f] || (a[f] = function() {
+                (a[f].q = a[f].q || []).push(arguments)
+            });
+            a[f].l = +new Date();
+            if (a.attachEvent) {
+                a.attachEvent("onload", b)
+            } else {
+                a.addEventListener("load", b, false)
+            }
+        }(window, document, "script", "SeniverseWeatherWidget", "//cdn.sencdn.com/widget2/static/js/bundle.js?t=" + parseInt((new Date().getTime() / 100000000).toString(), 10)));
+        window.SeniverseWeatherWidget('show', {
+            flavor: "slim",
+            location: "WWEFQFPJZ7T8",
+            geolocation: true,
+            language: "auto",
+            unit: "c",
+            theme: "auto",
+            token: "61bcc333-3305-4728-9465-6785274bb0a3",
+            hover: "enabled",
+            container: "tp-weather-widget"
+        })
+    </script>
+    
+            <div class="main">
+                <div class="container">
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                PCB 工艺设计规范
+                            </h1>
+                            
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        CLL's Blog
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2021-04-01</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">16.5
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">4540</a></span>
+                                    
+                                            Views:
+                                            <span data-hk-page="current"> - </span>
+                                            
+                                </div>
+                                
+                        </header>
+                        
+                        <div class="post-content">
+                            <h1 id="pcb-工艺设计规范">PCB 工艺设计规范</h1>
+<h2 id="1目的">1.目的</h2>
+<p>  规范产品PCB工艺设计，规定PCB工艺设计的相关参数，使得PCB的设计满足课生产性，可测试性、安规、EMC、EMI等的技术规范要求，在产品设计过程中构建产品的工艺、技术、质量、成本优势。</p>
+<h2 id="2使用范围">2.使用范围</h2>
+<p>  本规范适用于所有的电子产品的PCB工艺设计，运用于但不限于PCB的设计、PCB投板工艺审查、单板工艺审查等活动。<br>
+  本规范之前的相关标准、规范的内容如与本规范的指定相抵触的，一本规范为准。</p>
+<h2 id="3定义">3.定义</h2>
+<p>  导通孔(via)：一种用于内层连接的金属化孔，但其中并不用于插入元件或其他增强材料。<br>
+  盲孔(Blind via)：从印刷板内仅延展到一个表层的导通孔。<br>
+  埋孔(Buried via)：未延伸到印刷版表面的一种导通孔。<br>
+  过孔(Through via)：从印制板的一个表面延展到另一层表面的导通孔。<br>
+  元件孔(Component hole)：用于元件端子固定于印制板及导电图形电器联接的孔。<br>
+  Stand off：表面贴器件的本体底部到引脚底部的垂直距离。</p>
+<h2 id="4引用参考标准或资料">4.引用/参考标准或资料</h2>
+<p>  TS--S0902010001  《信息技术设备PCB安规设计规范》<br>
+  TS--SOE0199001  《电子设备的强迫风冷热设计规范》<br>
+  TS--SOE0199002  《电子设备的自然冷却热设计规范》<br>
+  IEC60194  《印刷版设计、制造与组装术语与定义》（Printed Circuit Board design manufacture assembly-terms and definituons）<br>
+  IPC--A--600F  《印刷版的验收条件》(Acceptably of printed board)<br>
+  IEC60950</p>
+<h2 id="5规范要求">5.规范要求</h2>
+<h3 id="51pcb板材要求">5.1PCB板材要求</h3>
+<h4 id="511确定pcb使用板材以及tg值">5.1.1确定PCB使用板材以及TG值</h4>
+<p>  确定PCB所选用的板材，例如FR--4、铝基板、陶瓷基板、纸芯板等，若选用高TG值得板材，应在文件中表明厚度公差。</p>
+<h4 id="512确定pcb的表面处理镀层">5.1.2确定PCB的表面处理镀层</h4>
+<p>  确定PCB铜箔的表面处理镀层，例如镀锡、镀镶金或OSP等，并在文件中注明</p>
+<h3 id="52热设计要求">5.2热设计要求</h3>
+<h4 id="521-高热器件应该考虑放于出风口或利于对流的位置">5.2.1 高热器件应该考虑放于出风口或利于对流的位置</h4>
+<p>  PCB在布局中考虑将高热器件放于出风口或利于对流的位置。</p>
+<h4 id="522-较高的元件应考虑放于出风口且不阻挡封路">5.2.2 较高的元件应考虑放于出风口，且不阻挡封路</h4>
+<h4 id="523-散热器的放置应考虑对流">5.2.3 散热器的放置应考虑对流</h4>
+<h4 id="524-温度敏感器械件应该要考虑热源">5.2.4 温度敏感器械件应该要考虑热源</h4>
+<p>  对于自身温升高与30摄氏度的热源。一般要求：<br>
+   a. 在风冷条件下，电解电容等温度敏感器件离热源距离要求大于或等于2.5mm；<br>
+   b. 自然冷条件下，电解电容等温度敏感器件离热源距离要求大于或等于4.0mm。<br>
+  若因为空间的原因不能达到要求距离，则应通过温度测试保证温度敏感器件的温升在降额范围内。</p>
+<h4 id="525-大面积铜箔要求用隔热带鱼焊盘相连">5.2.5 大面积铜箔要求用隔热带鱼焊盘相连</h4>
+<p>  为了保证透锡良好，在大面积铜箔上的元件的焊盘相连，对于需过5A以上的大电流不能采用隔热焊盘，如图所示：<img src="https://leichen2552.github.io/post-images/1617281562519.png" alt="" loading="lazy"></p>
+<h4 id="526-过回流焊的0805以及0805以下片式元件两端焊盘的散热对称性">5.2.6 过回流焊的0805以及0805以下片式元件两端焊盘的散热对称性</h4>
+<p>  为了避免器件过回流焊后出现偏位、立碑现象，地回流焊的0805以及0805以下片式元件两端焊盘应保证散热对称性，焊盘与印制导线的连接部位宽度不应大于0.3mm(对于不对称焊盘)，如图1所示。</p>
+<h4 id="527-高热器件的安装方式及是否考虑带散热器">5.2.7 高热器件的安装方式及是否考虑带散热器</h4>
+<p>  确定高热器件的安装的安装方式易于操作和焊接，原则上党员器件的发热密度超过0.4W/<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><msup><mi>m</mi><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">cm^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span>，单靠元器件的引线腿及器件本省不足充分散热，应采用散热网、汇流条件等措施来提高过电流能力，汇流条的支脚应采用多点连接，尽可能采用铆接后过波峰焊或直接过波峰焊接，以利于装配、焊接；对于较长的汇流条的使用，应考虑过波峰时受热汇流条与PCB热膨胀系数不匹配造成的PCB变形。<br>
+  为保证搪锡易于操作，锡道宽度应不大于等于2.0mm，锡道边缘间距大于1.5mm。</p>
+<h3 id="53-器件库选型要求">5.3 器件库选型要求</h3>
+<h4 id="531-已有pcb元件封装库的选用应确认无误">5.3.1 已有PCB元件封装库的选用应确认无误</h4>
+<p>  PCB上已有元件库器件的选用应保证封装与元器件实物外形轮廓、引脚间距、通孔直径等相符合。<br>
+  插装器件管脚与通孔配合良好(通孔直径大于管脚直径8 -- 20mil)，考虑公差可适当增加，确保透锡良好。<br>
+  元件的孔径形成序列化，40mil以上按5mil增加，即40mil、45mil、50mil、55mil......；40mil一下按照4mil递减，即36mil、32mil、28mil、24mil、20mil、16mil、12mil、8mil。<br>
+  器件引脚直径与PCB焊盘孔径的对应关系，以及二次电源插针焊脚与通孔回流焊的焊盘孔径对应关系如表1：<img src="https://leichen2552.github.io/post-images/1617346809259.png" alt="" loading="lazy">  建立元件封装库存是应将孔径的单位换算为英制(mil)，并使孔径满足序列化要求。</p>
+<h4 id="532-新器件的pcb封装库存应确定无误">5.3.2 新器件的PCB封装库存应确定无误</h4>
+<p>  PCB上尚无件封装库的器件，应根据器件资料建立打捞的元件封装库，并保证丝印库存与实务相符合，特别是新建立的电磁元件、自制结构件等的元件库存是否与减员的资料(承认书、图纸)相符合。新器件应建立能够满足不同工艺(回流焊、波峰焊、通孔回流焊)要求的元件库</p>
+<h4 id="533-需过波峰焊的smt器件要求使用表面贴波峰焊盘库">5.3.3 需过波峰焊的SMT器件要求使用表面贴波峰焊盘库。</h4>
+<h4 id="534-轴向器件和条线的引脚间距的种类应尽量少以减少器件的成形和安装工具">5.3.4 轴向器件和条线的引脚间距的种类应尽量少，以减少器件的成形和安装工具。</h4>
+<h4 id="535-不同pin间距的兼容要有单独焊盘孔特别是封装箭筒的继电器之间个兼容焊盘之间要连线">5.3.5 不同PIN间距的兼容要有单独焊盘孔，特别是封装箭筒的继电器之间个兼容焊盘之间要连线。</h4>
+<h4 id="536-锰铜丝等作为测量用的跳线的焊盘要做成非金属化若是金属化焊盘那么焊接后焊盘内的那段电阻江北短路电阻的有效长度将变小而且不一致从而导致测试结果不准确">5.3.6 锰铜丝等作为测量用的跳线的焊盘要做成非金属化，若是金属化焊盘，那么焊接后，焊盘内的那段电阻江北短路，电阻的有效长度将变小而且不一致，从而导致测试结果不准确。</h4>
+<h4 id="537-不能用表贴器件作为手工焊的调测器件表贴器件在手工焊接是容易受热冲击损坏">5.3.7 不能用表贴器件作为手工焊的调测器件，表贴器件在手工焊接是容易受热冲击损坏。</h4>
+<h4 id="538-除非实验验证没有问题否则不能选用和pcb热膨胀系数差别太大的无引脚表贴器件这容易引起焊盘拉托的现象">5.3.8 除非实验验证没有问题，否则不能选用和PCB热膨胀系数差别太大的无引脚表贴器件，这容易引起焊盘拉托的现象。</h4>
+<h4 id="539-除非实验验证没有问题否则不能选非表贴器件使用-因为这样可能需要手焊接效果和可靠性都会很低">5.3.9 除非实验验证没有问题，否则不能选非表贴器件使用。因为这样可能需要手焊接，效果和可靠性都会很低。</h4>
+<h4 id="5310多层pcb侧面局部镀铜作为用于焊接的引脚时必须保证每层均有铜箔相连以增加镀铜的附着强度同时要有实验验证没有问题否则双面板不能采用侧面镀铜作为焊接引脚">5.3.10多层PCB侧面局部镀铜作为用于焊接的引脚时，必须保证每层均有铜箔相连，以增加镀铜的附着强度，同时要有实验验证没有问题，否则双面板不能采用侧面镀铜作为焊接引脚。</h4>
+<h3 id="54-基本布局要求">5.4 基本布局要求</h3>
+<h4 id="541-pcba加工工序合理">5.4.1 PCBA加工工序合理</h4>
+<p>  制成板的元件布局应保证制成板的加工工序合理，以便于提高制成板加工效率和直通率。PCB布局选用的加工流程应使加工效率最高。<br>
+  常用PCBA的6种主流加工流程图如表2：</p>
+<h4 id="542-波峰焊加工的制成板进板方向要求有丝印表明">5.4.2 波峰焊加工的制成板进板方向要求有丝印表明</h4>
+<p>  波峰焊加工的制成板进板方向应在PCB上标明，并使进板方向合理，若PCB可以从两个方向进板，应采用双箭头的进板标识。<img src="https://leichen2552.github.io/post-images/1617435836265.png" alt="" loading="lazy"></p>
+<h4 id="543-两面过回流焊的pcb的buttom面要求无大体积-太重的表贴器件需两面都过回流焊的pcb第一次回流焊接器件重量限制如下">5.4.3 两面过回流焊的PCB的BUTTOM面要求无大体积、太重的表贴器件需两面都过回流焊的PCB，第一次回流焊接器件重量限制如下：</h4>
+<p>  <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span> = 器件重量/引脚与焊盘接触面积<br>
+  片式器件 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>≤</mo><mn>0.075</mn><mi>g</mi><mi mathvariant="normal">/</mi><mi>m</mi><msup><mi>m</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">A \leq 0.075g/mm^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">7</span><span class="mord">5</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord">/</span><span class="mord mathdefault">m</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><br>
+  翼形引脚器件：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>≤</mo><mn>0.300</mn><mi>g</mi><mi mathvariant="normal">/</mi><mi>m</mi><msup><mi>m</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">A \leq 0.300g/mm^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">3</span><span class="mord">0</span><span class="mord">0</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord">/</span><span class="mord mathdefault">m</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><br>
+  <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>J</mi></mrow><annotation encoding="application/x-tex">J</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.09618em;">J</span></span></span></span>形引脚器件：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>≤</mo><mn>0.200</mn><mi>g</mi><mi mathvariant="normal">/</mi><mi>m</mi><msup><mi>m</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">A \leq 0.200g/mm^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">2</span><span class="mord">0</span><span class="mord">0</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord">/</span><span class="mord mathdefault">m</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><br>
+  面阵列器件：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>≤</mo><mn>0.100</mn><mi>g</mi><mi mathvariant="normal">/</mi><mi>m</mi><msup><mi>m</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">A \leq 0.100g/mm^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord">/</span><span class="mord mathdefault">m</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><br>
+  若有超重的器件必须不在BOTTOM面，则应通过实验验证可行性。</p>
+<h4 id="544-需波峰焊加工的单板背面器件不形成阴影效应的安全距离已考虑波峰焊工艺的smt器件距离要求如下">5.4.4 需波峰焊加工的单板背面器件不形成阴影效应的安全距离已考虑波峰焊工艺的SMT器件距离要求如下：</h4>
+<p>  相同类型器件距离(见图2)<br>
+<img src="https://leichen2552.github.io/post-images/1617446033866.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io/post-images/1617435778866.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io/post-images/1617446038419.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io/post-images/1617434174744.png" alt="" loading="lazy"></p>
+<h4 id="545-大于0805封装的陶瓷电容布局是尽量靠近传送边或应力较小区域其轴向尽量与进板方向平行图4尽量不使用1825以上的尺寸的陶瓷电容-保留意见">5.4.5 大于0805封装的陶瓷电容，布局是尽量靠近传送边或应力较小区域，其轴向尽量与进板方向平行(图4)，尽量不使用1825以上的尺寸的陶瓷电容。(保留意见)</h4>
+<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io/post-images/1617434416240.jpg" alt="" loading="lazy"></figure>
+<h4 id="546-经常插拔器件或板边连接器周围3mm范围内尽量不布置smd以防止连接器插拔时产生的应力损坏器件如图5">5.4.6 经常插拔器件或板边连接器周围3mm范围内尽量不布置SMD，以防止连接器插拔时产生的应力损坏器件，如图5：</h4>
+<figure data-type="image" tabindex="2"><img src="https://leichen2552.github.io/post-images/1617434540604.png" alt="" loading="lazy"></figure>
+<h4 id="547-过波峰焊的表面贴器件的stand-off符合规范要求">5.4.7 过波峰焊的表面贴器件的stand off符合规范要求</h4>
+<p>  过波峰焊的表面贴器件的stand off应小于0.15mm，否则不能布在B面过波峰焊，若器件的stand off 在 0.15mm 与 0.2mm 之间，可在器件本体底下布铜箔以减少器件本体底部与 PCB 表面的距离。</p>
+<h4 id="548-波峰焊时背面测试点不连锡的最小安全距离已确定">5.4.8 波峰焊时背面测试点不连锡的最小安全距离已确定</h4>
+<p>  为保证过波峰焊时不连锡，背面测试点边缘间距应大于1.0mm</p>
+<h4 id="549-过波峰焊的插件元件焊盘间距大于10mm">5.4.9 过波峰焊的插件元件焊盘间距大于1.0mm</h4>
+<p>  为保证过波峰焊时不连锡，过波峰焊的插件元件焊盘边缘间距应大于1.0mm(包括元件本身引脚的焊盘边缘间距)。<br>
+  优选插件元件间距(pitch) <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 2.0mm，焊盘边缘间距 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 1.0mm<br>
+  在器件本体不相互干涉的前提下，相邻器件焊盘边缘间距满足图6要求：<br>
+<img src="https://leichen2552.github.io/post-images/1617446123110.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io/post-images/1617435443460.png" alt="" loading="lazy"><br>
+  插件元件没牌引脚为较多，以焊盘排列方向平行于进板方向布置器件时，当相邻盘边缘间距0.6mm -- 1.0mm时，推荐采用椭圆形焊盘或偷加锡焊盘(图7)。<br>
+<img src="https://leichen2552.github.io/post-images/1617435613047.png" alt="" loading="lazy"></p>
+<h4 id="5410-bga周围3mm内无器件">5.4.10 BGA周围3mm内无器件</h4>
+<p>  为了保证可维修性，BGA器件周围需留有3mm禁布区，最佳为5mm禁布区。一般情况下BGA不不允许放置背面(两次过回流焊的单板第第一次过过回流焊面)；当背面有BGA器件时，不能在正面BGA5mm禁布区的投影范围内布器件。</p>
+<h4 id="5411-贴片元件之间的最小间距满足要求">5.4.11 贴片元件之间的最小间距满足要求</h4>
+<p>  机器贴片之间器件距离要求(图8)：<br>
+  同种器件：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 0.3mm<br>
+  异种器件：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 0.13*h+0.3mm(h为周围近邻元件最大高度差)<br>
+  只能手工贴片的元件之间距离要求：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 1.5mm<br>
+<img src="https://leichen2552.github.io/post-images/1617448169458.png" alt="" loading="lazy"></p>
+<h4 id="5412-元器件的外侧距过板轨道接触的两个板边大于-等于5mm-图9">5.4.12 元器件的外侧距过板轨道接触的两个板边大于、等于5mm。(图9)</h4>
+<p><img src="https://leichen2552.github.io/post-images/1617449391782.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io/post-images/1617449395801.png" alt="" loading="lazy"><br>
+  为了保证制成板过波峰焊或回流焊，传送轨道的卡抓不到元件，元器件的外侧距板边距离应大于或等于5mm，若达不到要求，则PCB应加工艺边，器件与V--CUT的距离 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 1mm。</p>
+<h4 id="5413-可调器件-可插拔器件周围留有足够的空间供调试和维修">5.4.13 可调器件、可插拔器件周围留有足够的空间供调试和维修。</h4>
+<p>  应根据系统或模块的PCBA安装布局以及可调器件的调测方式来综合考虑可调器件的排布方向、调测空间；可插拔器件周围空间预留应根据邻近器件的高度来决定。</p>
+<h4 id="5414-所有的插装磁性元件一定要有坚固的底座禁止使用无底座插装电感">5.4.14 所有的插装磁性元件一定要有坚固的底座，禁止使用无底座插装电感。</h4>
+<h4 id="5415-有极性的变压器的引脚尽量不要设计成对称形式">5.4.15 有极性的变压器的引脚尽量不要设计成对称形式。</h4>
+<h4 id="5416-安装孔的禁布区内无元器件和走线不包括安装孔自身的走线和铜箔">5.4.16 安装孔的禁布区内无元器件和走线(不包括安装孔自身的走线和铜箔)。</h4>
+<h4 id="5417-金属壳体器件和金属件与其他器件的距离满足安规要求">5.4.17 金属壳体器件和金属件与其他器件的距离满足安规要求。</h4>
+<p>  金属壳体器件和金属件的排布应在空间上保证与其他器件的距离满足安规要求。</p>
+<h4 id="5418-对于采用通孔回流焊器件布局的要求">5.4.18 对于采用通孔回流焊器件布局的要求</h4>
+<p>  a. 对于非传送边尺寸大于300mm的PCB，较重的器件尽量不要布置在PCB的中间，以减轻由于插装件在重量在焊接过程中对PCB变形的影响，以及插装过程对板上已经贴放的器件的影响。<br>
+  b. 为方便插装，器件推荐布置在靠近插装操作侧的位置<br>
+  c. 尺寸较长的器件(如内存条插座等)长度方向推荐与传送方向一致。<br>
+<img src="https://leichen2552.github.io/post-images/1617452134170.png" alt="" loading="lazy"><br>
+  d. 通孔回流焊器件焊盘边缘与pitch <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≤</mo></mrow><annotation encoding="application/x-tex">\leq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≤</span></span></span></span> 0.65mm的QFN、SOP、连接器及所有的BGA丝印之间要 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 10mm，与其他SMT器件间距 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 2mm。<br>
+  e. 通孔回流焊器件本体间距离 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 10mm。有夹具扶持的插针焊接不做要求。<br>
+  f. 通孔回流焊器件焊盘边缘与传送边的距离 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 10mm；与非传送边距离 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 5mm。</p>
+<h4 id="5419-通孔回流焊器件禁布区要求">5.4.19 通孔回流焊器件禁布区要求</h4>
+<p>  a. 通孔回流焊器件焊盘周围要留出足够的空间进行焊膏涂布，具体禁布区要求为：对于欧式连接器靠板内的方向10.5mm不能有器件，在禁布区之内不能有器件和过孔。<br>
+  b. 须放置在禁布区内的过孔要做阻焊塞孔处理。</p>
+<h4 id="5420-器件布局要整体考虑单板装配干涉">5.4.20 器件布局要整体考虑单板装配干涉</h4>
+<p>  器件在布局设计时，要考虑单板与单板、单板与机构件的装配干涉问题，尤其是高器件、立体装配的单板等。</p>
+<h4 id="5421-器件和机箱的距离要求">5.4.21 器件和机箱的距离要求</h4>
+<p>  器件布局时要考虑尽量不要太靠近机箱壁，以避免将PCB安装到机箱是损坏器件。特别注意安装在PCB边缘的，在冲击和振动时会产生秦伟移动或没有兼顾的外形的器件：如立装电阻、无底座电感变压器等，若无法满足上述要求，就要采取另外的固定措施来满足安规和振动要求。</p>
+<h4 id="5422-有过波峰焊接的器件尽量布置在pcb边缘以方便堵孔若器件布置在pcb边缘并且式装夹具做的好在波峰焊接是甚至不需要堵孔">5.4.22 有过波峰焊接的器件尽量布置在PCB边缘以方便堵孔，若器件布置在PCB边缘，并且式装夹具做的好，在波峰焊接是甚至不需要堵孔。</h4>
+<h4 id="5423-设计和布局pcb时应尽量允许器件过波峰焊接-选择器件时尽量少选不能过波峰焊接的器件另外放在焊接面的器件应尽量少以减少手工焊接">5.4.23 设计和布局PCB时，应尽量允许器件过波峰焊接。选择器件时尽量少选不能过波峰焊接的器件，另外放在焊接面的器件应尽量少，以减少手工焊接。</h4>
+<h4 id="5424-裸跳线不能贴板跨越版上的导线或铜皮以避免和板上的铜皮短路绿油不能作为有效的绝缘">5.4.24 裸跳线不能贴板跨越版上的导线或铜皮，以避免和板上的铜皮短路，绿油不能作为有效的绝缘</h4>
+<h4 id="5425-布局时考虑所有器件在焊接后易于检查和维护">5.4.25 布局时考虑所有器件在焊接后易于检查和维护。</h4>
+<h4 id="5426-电缆的焊接端尽量靠近pcb的边缘布置以便插装和焊接否则pcb上别的器件会阻碍电缆的插装焊接或被电缆碰歪">5.4.26 电缆的焊接端尽量靠近PCB的边缘布置以便插装和焊接，否则PCB上别的器件会阻碍电缆的插装焊接或被电缆碰歪。</h4>
+<h4 id="5427-多个引脚在同一直线上的器件象连器件-dip封装器件-t220封装器件布局时应使其轴线和波峰焊方向平行-图11">5.4.27 多个引脚在同一直线上的器件，象连器件、DIP封装器件、T220封装器件，布局时应使其轴线和波峰焊方向平行。(图11)</h4>
+<figure data-type="image" tabindex="3"><img src="https://leichen2552.github.io/post-images/1617454907425.png" alt="" loading="lazy"></figure>
+<h4 id="5428-较轻的器件如二极管和-14w-电阻等布局时应使其轴线和波峰焊方向垂直-这样能防止波峰焊时因一端先焊接凝固而使器件产生浮高现象-图12">5.4.28 较轻的器件如二极管和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>4</mn><mi>W</mi></mrow><annotation encoding="application/x-tex">1/4W</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord">4</span><span class="mord mathdefault" style="margin-right:0.13889em;">W</span></span></span></span> 电阻等，布局时应使其轴线和波峰焊方向垂直。这样能防止波峰焊时因一端先焊接凝固而使器件产生浮高现象。(图12)</h4>
+<figure data-type="image" tabindex="4"><img src="https://leichen2552.github.io/post-images/1617455154752.png" alt="" loading="lazy"></figure>
+<h4 id="5429-电缆和周围器件之间要留有一定空间否则电缆的折弯部分会压迫并损坏收尾器件及其焊点">5.4.29 电缆和周围器件之间要留有一定空间，否则电缆的折弯部分会压迫并损坏收尾器件及其焊点。</h4>
+<h3 id="55-走线要求">5.5 走线要求</h3>
+<h4 id="551-印制板边距离v-cut-边大于075mm铁槽边大于03mm">5.5.1 印制板边距离：V-CUT 边大于0.75mm，铁槽边大于0.3mm。</h4>
+<p>  为了保证PCB加工时不出现露铜的缺陷，要求所有的走线及铜箔距离板边：V-CUT边大于0.75mm，铁槽边大于0.3mm(铜箔离板边的距离还应满足安装要求)。</p>
+<h4 id="552-散热器正面下方无走线或已作绝缘处理">5.5.2 散热器正面下方无走线(或已作绝缘处理)</h4>
+<p>  为了保证电器绝缘性，散热器下方周围应无走线(考虑到散热器安装的偏位及安规距离)，若需要在散热器下布线，则应采取绝缘措施使散热器与走线绝缘，或确认走线与散热器是同等点位。</p>
+<h4 id="553-金属拉手条底下无走线">5.5.3 金属拉手条底下无走线</h4>
+<p>  为了保证电气绝缘性，金属拉手条底下应无走线。</p>
+<h4 id="554-各类螺钉孔的禁布区范围要求">5.5.4 各类螺钉孔的禁布区范围要求</h4>
+<p>  各种规格的螺钉的禁布区范围如以下表 5 所示(此禁布区的范围只适用于保证电气绝缘的安装空间，未考虑安规距离，而且只是用圆孔)<br>
+<img src="https://leichen2552.github.io/post-images/1617496698782.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io/post-images/1617496703117.png" alt="" loading="lazy"><br>
+  本体范围内有安装孔的器件，例如插座的铆钉孔、螺钉安装孔等，为了保证电器绝缘性，夜莺在元件库中将也的禁布区标识清楚。</p>
+<h4 id="555-要增加孤立焊盘和走线连接部分的宽度泪滴焊般特别是对于单面板的焊盘以避免过波峰焊接时将焊盘拉脱">5.5.5 要增加孤立焊盘和走线连接部分的宽度（泪滴焊般）特别是对于单面板的焊盘，以避免过波峰焊接时将焊盘拉脱。</h4>
+<p>  腰形长孔禁步区如下表6：<br>
+<img src="https://leichen2552.github.io/post-images/1618232065423.png" alt="" loading="lazy"></p>
+<h3 id="56-固定孔-安装孔-过孔要求">5.6 固定孔、安装孔、过孔要求</h3>
+<h4 id="561-过波峰的">5.6.1 过波峰的</h4>
+<p>  </p>
+
+                        </div>
+                        
+                            <div class="post-toc">
+                                <ul class="markdownIt-TOC">
+<li><a href="#pcb-%E5%B7%A5%E8%89%BA%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83">PCB 工艺设计规范</a>
+<ul>
+<li><a href="#1%E7%9B%AE%E7%9A%84">1.目的</a></li>
+<li><a href="#2%E4%BD%BF%E7%94%A8%E8%8C%83%E5%9B%B4">2.使用范围</a></li>
+<li><a href="#3%E5%AE%9A%E4%B9%89">3.定义</a></li>
+<li><a href="#4%E5%BC%95%E7%94%A8%E5%8F%82%E8%80%83%E6%A0%87%E5%87%86%E6%88%96%E8%B5%84%E6%96%99">4.引用/参考标准或资料</a></li>
+<li><a href="#5%E8%A7%84%E8%8C%83%E8%A6%81%E6%B1%82">5.规范要求</a>
+<ul>
+<li><a href="#51pcb%E6%9D%BF%E6%9D%90%E8%A6%81%E6%B1%82">5.1PCB板材要求</a>
+<ul>
+<li><a href="#511%E7%A1%AE%E5%AE%9Apcb%E4%BD%BF%E7%94%A8%E6%9D%BF%E6%9D%90%E4%BB%A5%E5%8F%8Atg%E5%80%BC">5.1.1确定PCB使用板材以及TG值</a></li>
+<li><a href="#512%E7%A1%AE%E5%AE%9Apcb%E7%9A%84%E8%A1%A8%E9%9D%A2%E5%A4%84%E7%90%86%E9%95%80%E5%B1%82">5.1.2确定PCB的表面处理镀层</a></li>
+</ul>
+</li>
+<li><a href="#52%E7%83%AD%E8%AE%BE%E8%AE%A1%E8%A6%81%E6%B1%82">5.2热设计要求</a>
+<ul>
+<li><a href="#521-%E9%AB%98%E7%83%AD%E5%99%A8%E4%BB%B6%E5%BA%94%E8%AF%A5%E8%80%83%E8%99%91%E6%94%BE%E4%BA%8E%E5%87%BA%E9%A3%8E%E5%8F%A3%E6%88%96%E5%88%A9%E4%BA%8E%E5%AF%B9%E6%B5%81%E7%9A%84%E4%BD%8D%E7%BD%AE">5.2.1 高热器件应该考虑放于出风口或利于对流的位置</a></li>
+<li><a href="#522-%E8%BE%83%E9%AB%98%E7%9A%84%E5%85%83%E4%BB%B6%E5%BA%94%E8%80%83%E8%99%91%E6%94%BE%E4%BA%8E%E5%87%BA%E9%A3%8E%E5%8F%A3%E4%B8%94%E4%B8%8D%E9%98%BB%E6%8C%A1%E5%B0%81%E8%B7%AF">5.2.2 较高的元件应考虑放于出风口，且不阻挡封路</a></li>
+<li><a href="#523-%E6%95%A3%E7%83%AD%E5%99%A8%E7%9A%84%E6%94%BE%E7%BD%AE%E5%BA%94%E8%80%83%E8%99%91%E5%AF%B9%E6%B5%81">5.2.3 散热器的放置应考虑对流</a></li>
+<li><a href="#524-%E6%B8%A9%E5%BA%A6%E6%95%8F%E6%84%9F%E5%99%A8%E6%A2%B0%E4%BB%B6%E5%BA%94%E8%AF%A5%E8%A6%81%E8%80%83%E8%99%91%E7%83%AD%E6%BA%90">5.2.4 温度敏感器械件应该要考虑热源</a></li>
+<li><a href="#525-%E5%A4%A7%E9%9D%A2%E7%A7%AF%E9%93%9C%E7%AE%94%E8%A6%81%E6%B1%82%E7%94%A8%E9%9A%94%E7%83%AD%E5%B8%A6%E9%B1%BC%E7%84%8A%E7%9B%98%E7%9B%B8%E8%BF%9E">5.2.5 大面积铜箔要求用隔热带鱼焊盘相连</a></li>
+<li><a href="#526-%E8%BF%87%E5%9B%9E%E6%B5%81%E7%84%8A%E7%9A%840805%E4%BB%A5%E5%8F%8A0805%E4%BB%A5%E4%B8%8B%E7%89%87%E5%BC%8F%E5%85%83%E4%BB%B6%E4%B8%A4%E7%AB%AF%E7%84%8A%E7%9B%98%E7%9A%84%E6%95%A3%E7%83%AD%E5%AF%B9%E7%A7%B0%E6%80%A7">5.2.6 过回流焊的0805以及0805以下片式元件两端焊盘的散热对称性</a></li>
+<li><a href="#527-%E9%AB%98%E7%83%AD%E5%99%A8%E4%BB%B6%E7%9A%84%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F%E5%8F%8A%E6%98%AF%E5%90%A6%E8%80%83%E8%99%91%E5%B8%A6%E6%95%A3%E7%83%AD%E5%99%A8">5.2.7 高热器件的安装方式及是否考虑带散热器</a></li>
+</ul>
+</li>
+<li><a href="#53-%E5%99%A8%E4%BB%B6%E5%BA%93%E9%80%89%E5%9E%8B%E8%A6%81%E6%B1%82">5.3 器件库选型要求</a>
+<ul>
+<li><a href="#531-%E5%B7%B2%E6%9C%89pcb%E5%85%83%E4%BB%B6%E5%B0%81%E8%A3%85%E5%BA%93%E7%9A%84%E9%80%89%E7%94%A8%E5%BA%94%E7%A1%AE%E8%AE%A4%E6%97%A0%E8%AF%AF">5.3.1 已有PCB元件封装库的选用应确认无误</a></li>
+<li><a href="#532-%E6%96%B0%E5%99%A8%E4%BB%B6%E7%9A%84pcb%E5%B0%81%E8%A3%85%E5%BA%93%E5%AD%98%E5%BA%94%E7%A1%AE%E5%AE%9A%E6%97%A0%E8%AF%AF">5.3.2 新器件的PCB封装库存应确定无误</a></li>
+<li><a href="#533-%E9%9C%80%E8%BF%87%E6%B3%A2%E5%B3%B0%E7%84%8A%E7%9A%84smt%E5%99%A8%E4%BB%B6%E8%A6%81%E6%B1%82%E4%BD%BF%E7%94%A8%E8%A1%A8%E9%9D%A2%E8%B4%B4%E6%B3%A2%E5%B3%B0%E7%84%8A%E7%9B%98%E5%BA%93">5.3.3 需过波峰焊的SMT器件要求使用表面贴波峰焊盘库。</a></li>
+<li><a href="#534-%E8%BD%B4%E5%90%91%E5%99%A8%E4%BB%B6%E5%92%8C%E6%9D%A1%E7%BA%BF%E7%9A%84%E5%BC%95%E8%84%9A%E9%97%B4%E8%B7%9D%E7%9A%84%E7%A7%8D%E7%B1%BB%E5%BA%94%E5%B0%BD%E9%87%8F%E5%B0%91%E4%BB%A5%E5%87%8F%E5%B0%91%E5%99%A8%E4%BB%B6%E7%9A%84%E6%88%90%E5%BD%A2%E5%92%8C%E5%AE%89%E8%A3%85%E5%B7%A5%E5%85%B7">5.3.4 轴向器件和条线的引脚间距的种类应尽量少，以减少器件的成形和安装工具。</a></li>
+<li><a href="#535-%E4%B8%8D%E5%90%8Cpin%E9%97%B4%E8%B7%9D%E7%9A%84%E5%85%BC%E5%AE%B9%E8%A6%81%E6%9C%89%E5%8D%95%E7%8B%AC%E7%84%8A%E7%9B%98%E5%AD%94%E7%89%B9%E5%88%AB%E6%98%AF%E5%B0%81%E8%A3%85%E7%AE%AD%E7%AD%92%E7%9A%84%E7%BB%A7%E7%94%B5%E5%99%A8%E4%B9%8B%E9%97%B4%E4%B8%AA%E5%85%BC%E5%AE%B9%E7%84%8A%E7%9B%98%E4%B9%8B%E9%97%B4%E8%A6%81%E8%BF%9E%E7%BA%BF">5.3.5 不同PIN间距的兼容要有单独焊盘孔，特别是封装箭筒的继电器之间个兼容焊盘之间要连线。</a></li>
+<li><a href="#536-%E9%94%B0%E9%93%9C%E4%B8%9D%E7%AD%89%E4%BD%9C%E4%B8%BA%E6%B5%8B%E9%87%8F%E7%94%A8%E7%9A%84%E8%B7%B3%E7%BA%BF%E7%9A%84%E7%84%8A%E7%9B%98%E8%A6%81%E5%81%9A%E6%88%90%E9%9D%9E%E9%87%91%E5%B1%9E%E5%8C%96%E8%8B%A5%E6%98%AF%E9%87%91%E5%B1%9E%E5%8C%96%E7%84%8A%E7%9B%98%E9%82%A3%E4%B9%88%E7%84%8A%E6%8E%A5%E5%90%8E%E7%84%8A%E7%9B%98%E5%86%85%E7%9A%84%E9%82%A3%E6%AE%B5%E7%94%B5%E9%98%BB%E6%B1%9F%E5%8C%97%E7%9F%AD%E8%B7%AF%E7%94%B5%E9%98%BB%E7%9A%84%E6%9C%89%E6%95%88%E9%95%BF%E5%BA%A6%E5%B0%86%E5%8F%98%E5%B0%8F%E8%80%8C%E4%B8%94%E4%B8%8D%E4%B8%80%E8%87%B4%E4%BB%8E%E8%80%8C%E5%AF%BC%E8%87%B4%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C%E4%B8%8D%E5%87%86%E7%A1%AE">5.3.6 锰铜丝等作为测量用的跳线的焊盘要做成非金属化，若是金属化焊盘，那么焊接后，焊盘内的那段电阻江北短路，电阻的有效长度将变小而且不一致，从而导致测试结果不准确。</a></li>
+<li><a href="#537-%E4%B8%8D%E8%83%BD%E7%94%A8%E8%A1%A8%E8%B4%B4%E5%99%A8%E4%BB%B6%E4%BD%9C%E4%B8%BA%E6%89%8B%E5%B7%A5%E7%84%8A%E7%9A%84%E8%B0%83%E6%B5%8B%E5%99%A8%E4%BB%B6%E8%A1%A8%E8%B4%B4%E5%99%A8%E4%BB%B6%E5%9C%A8%E6%89%8B%E5%B7%A5%E7%84%8A%E6%8E%A5%E6%98%AF%E5%AE%B9%E6%98%93%E5%8F%97%E7%83%AD%E5%86%B2%E5%87%BB%E6%8D%9F%E5%9D%8F">5.3.7 不能用表贴器件作为手工焊的调测器件，表贴器件在手工焊接是容易受热冲击损坏。</a></li>
+<li><a href="#538-%E9%99%A4%E9%9D%9E%E5%AE%9E%E9%AA%8C%E9%AA%8C%E8%AF%81%E6%B2%A1%E6%9C%89%E9%97%AE%E9%A2%98%E5%90%A6%E5%88%99%E4%B8%8D%E8%83%BD%E9%80%89%E7%94%A8%E5%92%8Cpcb%E7%83%AD%E8%86%A8%E8%83%80%E7%B3%BB%E6%95%B0%E5%B7%AE%E5%88%AB%E5%A4%AA%E5%A4%A7%E7%9A%84%E6%97%A0%E5%BC%95%E8%84%9A%E8%A1%A8%E8%B4%B4%E5%99%A8%E4%BB%B6%E8%BF%99%E5%AE%B9%E6%98%93%E5%BC%95%E8%B5%B7%E7%84%8A%E7%9B%98%E6%8B%89%E6%89%98%E7%9A%84%E7%8E%B0%E8%B1%A1">5.3.8 除非实验验证没有问题，否则不能选用和PCB热膨胀系数差别太大的无引脚表贴器件，这容易引起焊盘拉托的现象。</a></li>
+<li><a href="#539-%E9%99%A4%E9%9D%9E%E5%AE%9E%E9%AA%8C%E9%AA%8C%E8%AF%81%E6%B2%A1%E6%9C%89%E9%97%AE%E9%A2%98%E5%90%A6%E5%88%99%E4%B8%8D%E8%83%BD%E9%80%89%E9%9D%9E%E8%A1%A8%E8%B4%B4%E5%99%A8%E4%BB%B6%E4%BD%BF%E7%94%A8-%E5%9B%A0%E4%B8%BA%E8%BF%99%E6%A0%B7%E5%8F%AF%E8%83%BD%E9%9C%80%E8%A6%81%E6%89%8B%E7%84%8A%E6%8E%A5%E6%95%88%E6%9E%9C%E5%92%8C%E5%8F%AF%E9%9D%A0%E6%80%A7%E9%83%BD%E4%BC%9A%E5%BE%88%E4%BD%8E">5.3.9 除非实验验证没有问题，否则不能选非表贴器件使用。因为这样可能需要手焊接，效果和可靠性都会很低。</a></li>
+<li><a href="#5310%E5%A4%9A%E5%B1%82pcb%E4%BE%A7%E9%9D%A2%E5%B1%80%E9%83%A8%E9%95%80%E9%93%9C%E4%BD%9C%E4%B8%BA%E7%94%A8%E4%BA%8E%E7%84%8A%E6%8E%A5%E7%9A%84%E5%BC%95%E8%84%9A%E6%97%B6%E5%BF%85%E9%A1%BB%E4%BF%9D%E8%AF%81%E6%AF%8F%E5%B1%82%E5%9D%87%E6%9C%89%E9%93%9C%E7%AE%94%E7%9B%B8%E8%BF%9E%E4%BB%A5%E5%A2%9E%E5%8A%A0%E9%95%80%E9%93%9C%E7%9A%84%E9%99%84%E7%9D%80%E5%BC%BA%E5%BA%A6%E5%90%8C%E6%97%B6%E8%A6%81%E6%9C%89%E5%AE%9E%E9%AA%8C%E9%AA%8C%E8%AF%81%E6%B2%A1%E6%9C%89%E9%97%AE%E9%A2%98%E5%90%A6%E5%88%99%E5%8F%8C%E9%9D%A2%E6%9D%BF%E4%B8%8D%E8%83%BD%E9%87%87%E7%94%A8%E4%BE%A7%E9%9D%A2%E9%95%80%E9%93%9C%E4%BD%9C%E4%B8%BA%E7%84%8A%E6%8E%A5%E5%BC%95%E8%84%9A">5.3.10多层PCB侧面局部镀铜作为用于焊接的引脚时，必须保证每层均有铜箔相连，以增加镀铜的附着强度，同时要有实验验证没有问题，否则双面板不能采用侧面镀铜作为焊接引脚。</a></li>
+</ul>
+</li>
+<li><a href="#54-%E5%9F%BA%E6%9C%AC%E5%B8%83%E5%B1%80%E8%A6%81%E6%B1%82">5.4 基本布局要求</a>
+<ul>
+<li><a href="#541-pcba%E5%8A%A0%E5%B7%A5%E5%B7%A5%E5%BA%8F%E5%90%88%E7%90%86">5.4.1 PCBA加工工序合理</a></li>
+<li><a href="#542-%E6%B3%A2%E5%B3%B0%E7%84%8A%E5%8A%A0%E5%B7%A5%E7%9A%84%E5%88%B6%E6%88%90%E6%9D%BF%E8%BF%9B%E6%9D%BF%E6%96%B9%E5%90%91%E8%A6%81%E6%B1%82%E6%9C%89%E4%B8%9D%E5%8D%B0%E8%A1%A8%E6%98%8E">5.4.2 波峰焊加工的制成板进板方向要求有丝印表明</a></li>
+<li><a href="#543-%E4%B8%A4%E9%9D%A2%E8%BF%87%E5%9B%9E%E6%B5%81%E7%84%8A%E7%9A%84pcb%E7%9A%84buttom%E9%9D%A2%E8%A6%81%E6%B1%82%E6%97%A0%E5%A4%A7%E4%BD%93%E7%A7%AF-%E5%A4%AA%E9%87%8D%E7%9A%84%E8%A1%A8%E8%B4%B4%E5%99%A8%E4%BB%B6%E9%9C%80%E4%B8%A4%E9%9D%A2%E9%83%BD%E8%BF%87%E5%9B%9E%E6%B5%81%E7%84%8A%E7%9A%84pcb%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%9B%9E%E6%B5%81%E7%84%8A%E6%8E%A5%E5%99%A8%E4%BB%B6%E9%87%8D%E9%87%8F%E9%99%90%E5%88%B6%E5%A6%82%E4%B8%8B">5.4.3 两面过回流焊的PCB的BUTTOM面要求无大体积、太重的表贴器件需两面都过回流焊的PCB，第一次回流焊接器件重量限制如下：</a></li>
+<li><a href="#544-%E9%9C%80%E6%B3%A2%E5%B3%B0%E7%84%8A%E5%8A%A0%E5%B7%A5%E7%9A%84%E5%8D%95%E6%9D%BF%E8%83%8C%E9%9D%A2%E5%99%A8%E4%BB%B6%E4%B8%8D%E5%BD%A2%E6%88%90%E9%98%B4%E5%BD%B1%E6%95%88%E5%BA%94%E7%9A%84%E5%AE%89%E5%85%A8%E8%B7%9D%E7%A6%BB%E5%B7%B2%E8%80%83%E8%99%91%E6%B3%A2%E5%B3%B0%E7%84%8A%E5%B7%A5%E8%89%BA%E7%9A%84smt%E5%99%A8%E4%BB%B6%E8%B7%9D%E7%A6%BB%E8%A6%81%E6%B1%82%E5%A6%82%E4%B8%8B">5.4.4 需波峰焊加工的单板背面器件不形成阴影效应的安全距离已考虑波峰焊工艺的SMT器件距离要求如下：</a></li>
+<li><a href="#545-%E5%A4%A7%E4%BA%8E0805%E5%B0%81%E8%A3%85%E7%9A%84%E9%99%B6%E7%93%B7%E7%94%B5%E5%AE%B9%E5%B8%83%E5%B1%80%E6%98%AF%E5%B0%BD%E9%87%8F%E9%9D%A0%E8%BF%91%E4%BC%A0%E9%80%81%E8%BE%B9%E6%88%96%E5%BA%94%E5%8A%9B%E8%BE%83%E5%B0%8F%E5%8C%BA%E5%9F%9F%E5%85%B6%E8%BD%B4%E5%90%91%E5%B0%BD%E9%87%8F%E4%B8%8E%E8%BF%9B%E6%9D%BF%E6%96%B9%E5%90%91%E5%B9%B3%E8%A1%8C%E5%9B%BE4%E5%B0%BD%E9%87%8F%E4%B8%8D%E4%BD%BF%E7%94%A81825%E4%BB%A5%E4%B8%8A%E7%9A%84%E5%B0%BA%E5%AF%B8%E7%9A%84%E9%99%B6%E7%93%B7%E7%94%B5%E5%AE%B9-%E4%BF%9D%E7%95%99%E6%84%8F%E8%A7%81">5.4.5 大于0805封装的陶瓷电容，布局是尽量靠近传送边或应力较小区域，其轴向尽量与进板方向平行(图4)，尽量不使用1825以上的尺寸的陶瓷电容。(保留意见)</a></li>
+<li><a href="#546-%E7%BB%8F%E5%B8%B8%E6%8F%92%E6%8B%94%E5%99%A8%E4%BB%B6%E6%88%96%E6%9D%BF%E8%BE%B9%E8%BF%9E%E6%8E%A5%E5%99%A8%E5%91%A8%E5%9B%B43mm%E8%8C%83%E5%9B%B4%E5%86%85%E5%B0%BD%E9%87%8F%E4%B8%8D%E5%B8%83%E7%BD%AEsmd%E4%BB%A5%E9%98%B2%E6%AD%A2%E8%BF%9E%E6%8E%A5%E5%99%A8%E6%8F%92%E6%8B%94%E6%97%B6%E4%BA%A7%E7%94%9F%E7%9A%84%E5%BA%94%E5%8A%9B%E6%8D%9F%E5%9D%8F%E5%99%A8%E4%BB%B6%E5%A6%82%E5%9B%BE5">5.4.6 经常插拔器件或板边连接器周围3mm范围内尽量不布置SMD，以防止连接器插拔时产生的应力损坏器件，如图5：</a></li>
+<li><a href="#547-%E8%BF%87%E6%B3%A2%E5%B3%B0%E7%84%8A%E7%9A%84%E8%A1%A8%E9%9D%A2%E8%B4%B4%E5%99%A8%E4%BB%B6%E7%9A%84stand-off%E7%AC%A6%E5%90%88%E8%A7%84%E8%8C%83%E8%A6%81%E6%B1%82">5.4.7 过波峰焊的表面贴器件的stand off符合规范要求</a></li>
+<li><a href="#548-%E6%B3%A2%E5%B3%B0%E7%84%8A%E6%97%B6%E8%83%8C%E9%9D%A2%E6%B5%8B%E8%AF%95%E7%82%B9%E4%B8%8D%E8%BF%9E%E9%94%A1%E7%9A%84%E6%9C%80%E5%B0%8F%E5%AE%89%E5%85%A8%E8%B7%9D%E7%A6%BB%E5%B7%B2%E7%A1%AE%E5%AE%9A">5.4.8 波峰焊时背面测试点不连锡的最小安全距离已确定</a></li>
+<li><a href="#549-%E8%BF%87%E6%B3%A2%E5%B3%B0%E7%84%8A%E7%9A%84%E6%8F%92%E4%BB%B6%E5%85%83%E4%BB%B6%E7%84%8A%E7%9B%98%E9%97%B4%E8%B7%9D%E5%A4%A7%E4%BA%8E10mm">5.4.9 过波峰焊的插件元件焊盘间距大于1.0mm</a></li>
+<li><a href="#5410-bga%E5%91%A8%E5%9B%B43mm%E5%86%85%E6%97%A0%E5%99%A8%E4%BB%B6">5.4.10 BGA周围3mm内无器件</a></li>
+<li><a href="#5411-%E8%B4%B4%E7%89%87%E5%85%83%E4%BB%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E6%9C%80%E5%B0%8F%E9%97%B4%E8%B7%9D%E6%BB%A1%E8%B6%B3%E8%A6%81%E6%B1%82">5.4.11 贴片元件之间的最小间距满足要求</a></li>
+<li><a href="#5412-%E5%85%83%E5%99%A8%E4%BB%B6%E7%9A%84%E5%A4%96%E4%BE%A7%E8%B7%9D%E8%BF%87%E6%9D%BF%E8%BD%A8%E9%81%93%E6%8E%A5%E8%A7%A6%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%9D%BF%E8%BE%B9%E5%A4%A7%E4%BA%8E-%E7%AD%89%E4%BA%8E5mm-%E5%9B%BE9">5.4.12 元器件的外侧距过板轨道接触的两个板边大于、等于5mm。(图9)</a></li>
+<li><a href="#5413-%E5%8F%AF%E8%B0%83%E5%99%A8%E4%BB%B6-%E5%8F%AF%E6%8F%92%E6%8B%94%E5%99%A8%E4%BB%B6%E5%91%A8%E5%9B%B4%E7%95%99%E6%9C%89%E8%B6%B3%E5%A4%9F%E7%9A%84%E7%A9%BA%E9%97%B4%E4%BE%9B%E8%B0%83%E8%AF%95%E5%92%8C%E7%BB%B4%E4%BF%AE">5.4.13 可调器件、可插拔器件周围留有足够的空间供调试和维修。</a></li>
+<li><a href="#5414-%E6%89%80%E6%9C%89%E7%9A%84%E6%8F%92%E8%A3%85%E7%A3%81%E6%80%A7%E5%85%83%E4%BB%B6%E4%B8%80%E5%AE%9A%E8%A6%81%E6%9C%89%E5%9D%9A%E5%9B%BA%E7%9A%84%E5%BA%95%E5%BA%A7%E7%A6%81%E6%AD%A2%E4%BD%BF%E7%94%A8%E6%97%A0%E5%BA%95%E5%BA%A7%E6%8F%92%E8%A3%85%E7%94%B5%E6%84%9F">5.4.14 所有的插装磁性元件一定要有坚固的底座，禁止使用无底座插装电感。</a></li>
+<li><a href="#5415-%E6%9C%89%E6%9E%81%E6%80%A7%E7%9A%84%E5%8F%98%E5%8E%8B%E5%99%A8%E7%9A%84%E5%BC%95%E8%84%9A%E5%B0%BD%E9%87%8F%E4%B8%8D%E8%A6%81%E8%AE%BE%E8%AE%A1%E6%88%90%E5%AF%B9%E7%A7%B0%E5%BD%A2%E5%BC%8F">5.4.15 有极性的变压器的引脚尽量不要设计成对称形式。</a></li>
+<li><a href="#5416-%E5%AE%89%E8%A3%85%E5%AD%94%E7%9A%84%E7%A6%81%E5%B8%83%E5%8C%BA%E5%86%85%E6%97%A0%E5%85%83%E5%99%A8%E4%BB%B6%E5%92%8C%E8%B5%B0%E7%BA%BF%E4%B8%8D%E5%8C%85%E6%8B%AC%E5%AE%89%E8%A3%85%E5%AD%94%E8%87%AA%E8%BA%AB%E7%9A%84%E8%B5%B0%E7%BA%BF%E5%92%8C%E9%93%9C%E7%AE%94">5.4.16 安装孔的禁布区内无元器件和走线(不包括安装孔自身的走线和铜箔)。</a></li>
+<li><a href="#5417-%E9%87%91%E5%B1%9E%E5%A3%B3%E4%BD%93%E5%99%A8%E4%BB%B6%E5%92%8C%E9%87%91%E5%B1%9E%E4%BB%B6%E4%B8%8E%E5%85%B6%E4%BB%96%E5%99%A8%E4%BB%B6%E7%9A%84%E8%B7%9D%E7%A6%BB%E6%BB%A1%E8%B6%B3%E5%AE%89%E8%A7%84%E8%A6%81%E6%B1%82">5.4.17 金属壳体器件和金属件与其他器件的距离满足安规要求。</a></li>
+<li><a href="#5418-%E5%AF%B9%E4%BA%8E%E9%87%87%E7%94%A8%E9%80%9A%E5%AD%94%E5%9B%9E%E6%B5%81%E7%84%8A%E5%99%A8%E4%BB%B6%E5%B8%83%E5%B1%80%E7%9A%84%E8%A6%81%E6%B1%82">5.4.18 对于采用通孔回流焊器件布局的要求</a></li>
+<li><a href="#5419-%E9%80%9A%E5%AD%94%E5%9B%9E%E6%B5%81%E7%84%8A%E5%99%A8%E4%BB%B6%E7%A6%81%E5%B8%83%E5%8C%BA%E8%A6%81%E6%B1%82">5.4.19 通孔回流焊器件禁布区要求</a></li>
+<li><a href="#5420-%E5%99%A8%E4%BB%B6%E5%B8%83%E5%B1%80%E8%A6%81%E6%95%B4%E4%BD%93%E8%80%83%E8%99%91%E5%8D%95%E6%9D%BF%E8%A3%85%E9%85%8D%E5%B9%B2%E6%B6%89">5.4.20 器件布局要整体考虑单板装配干涉</a></li>
+<li><a href="#5421-%E5%99%A8%E4%BB%B6%E5%92%8C%E6%9C%BA%E7%AE%B1%E7%9A%84%E8%B7%9D%E7%A6%BB%E8%A6%81%E6%B1%82">5.4.21 器件和机箱的距离要求</a></li>
+<li><a href="#5422-%E6%9C%89%E8%BF%87%E6%B3%A2%E5%B3%B0%E7%84%8A%E6%8E%A5%E7%9A%84%E5%99%A8%E4%BB%B6%E5%B0%BD%E9%87%8F%E5%B8%83%E7%BD%AE%E5%9C%A8pcb%E8%BE%B9%E7%BC%98%E4%BB%A5%E6%96%B9%E4%BE%BF%E5%A0%B5%E5%AD%94%E8%8B%A5%E5%99%A8%E4%BB%B6%E5%B8%83%E7%BD%AE%E5%9C%A8pcb%E8%BE%B9%E7%BC%98%E5%B9%B6%E4%B8%94%E5%BC%8F%E8%A3%85%E5%A4%B9%E5%85%B7%E5%81%9A%E7%9A%84%E5%A5%BD%E5%9C%A8%E6%B3%A2%E5%B3%B0%E7%84%8A%E6%8E%A5%E6%98%AF%E7%94%9A%E8%87%B3%E4%B8%8D%E9%9C%80%E8%A6%81%E5%A0%B5%E5%AD%94">5.4.22 有过波峰焊接的器件尽量布置在PCB边缘以方便堵孔，若器件布置在PCB边缘，并且式装夹具做的好，在波峰焊接是甚至不需要堵孔。</a></li>
+<li><a href="#5423-%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%B8%83%E5%B1%80pcb%E6%97%B6%E5%BA%94%E5%B0%BD%E9%87%8F%E5%85%81%E8%AE%B8%E5%99%A8%E4%BB%B6%E8%BF%87%E6%B3%A2%E5%B3%B0%E7%84%8A%E6%8E%A5-%E9%80%89%E6%8B%A9%E5%99%A8%E4%BB%B6%E6%97%B6%E5%B0%BD%E9%87%8F%E5%B0%91%E9%80%89%E4%B8%8D%E8%83%BD%E8%BF%87%E6%B3%A2%E5%B3%B0%E7%84%8A%E6%8E%A5%E7%9A%84%E5%99%A8%E4%BB%B6%E5%8F%A6%E5%A4%96%E6%94%BE%E5%9C%A8%E7%84%8A%E6%8E%A5%E9%9D%A2%E7%9A%84%E5%99%A8%E4%BB%B6%E5%BA%94%E5%B0%BD%E9%87%8F%E5%B0%91%E4%BB%A5%E5%87%8F%E5%B0%91%E6%89%8B%E5%B7%A5%E7%84%8A%E6%8E%A5">5.4.23 设计和布局PCB时，应尽量允许器件过波峰焊接。选择器件时尽量少选不能过波峰焊接的器件，另外放在焊接面的器件应尽量少，以减少手工焊接。</a></li>
+<li><a href="#5424-%E8%A3%B8%E8%B7%B3%E7%BA%BF%E4%B8%8D%E8%83%BD%E8%B4%B4%E6%9D%BF%E8%B7%A8%E8%B6%8A%E7%89%88%E4%B8%8A%E7%9A%84%E5%AF%BC%E7%BA%BF%E6%88%96%E9%93%9C%E7%9A%AE%E4%BB%A5%E9%81%BF%E5%85%8D%E5%92%8C%E6%9D%BF%E4%B8%8A%E7%9A%84%E9%93%9C%E7%9A%AE%E7%9F%AD%E8%B7%AF%E7%BB%BF%E6%B2%B9%E4%B8%8D%E8%83%BD%E4%BD%9C%E4%B8%BA%E6%9C%89%E6%95%88%E7%9A%84%E7%BB%9D%E7%BC%98">5.4.24 裸跳线不能贴板跨越版上的导线或铜皮，以避免和板上的铜皮短路，绿油不能作为有效的绝缘</a></li>
+<li><a href="#5425-%E5%B8%83%E5%B1%80%E6%97%B6%E8%80%83%E8%99%91%E6%89%80%E6%9C%89%E5%99%A8%E4%BB%B6%E5%9C%A8%E7%84%8A%E6%8E%A5%E5%90%8E%E6%98%93%E4%BA%8E%E6%A3%80%E6%9F%A5%E5%92%8C%E7%BB%B4%E6%8A%A4">5.4.25 布局时考虑所有器件在焊接后易于检查和维护。</a></li>
+<li><a href="#5426-%E7%94%B5%E7%BC%86%E7%9A%84%E7%84%8A%E6%8E%A5%E7%AB%AF%E5%B0%BD%E9%87%8F%E9%9D%A0%E8%BF%91pcb%E7%9A%84%E8%BE%B9%E7%BC%98%E5%B8%83%E7%BD%AE%E4%BB%A5%E4%BE%BF%E6%8F%92%E8%A3%85%E5%92%8C%E7%84%8A%E6%8E%A5%E5%90%A6%E5%88%99pcb%E4%B8%8A%E5%88%AB%E7%9A%84%E5%99%A8%E4%BB%B6%E4%BC%9A%E9%98%BB%E7%A2%8D%E7%94%B5%E7%BC%86%E7%9A%84%E6%8F%92%E8%A3%85%E7%84%8A%E6%8E%A5%E6%88%96%E8%A2%AB%E7%94%B5%E7%BC%86%E7%A2%B0%E6%AD%AA">5.4.26 电缆的焊接端尽量靠近PCB的边缘布置以便插装和焊接，否则PCB上别的器件会阻碍电缆的插装焊接或被电缆碰歪。</a></li>
+<li><a href="#5427-%E5%A4%9A%E4%B8%AA%E5%BC%95%E8%84%9A%E5%9C%A8%E5%90%8C%E4%B8%80%E7%9B%B4%E7%BA%BF%E4%B8%8A%E7%9A%84%E5%99%A8%E4%BB%B6%E8%B1%A1%E8%BF%9E%E5%99%A8%E4%BB%B6-dip%E5%B0%81%E8%A3%85%E5%99%A8%E4%BB%B6-t220%E5%B0%81%E8%A3%85%E5%99%A8%E4%BB%B6%E5%B8%83%E5%B1%80%E6%97%B6%E5%BA%94%E4%BD%BF%E5%85%B6%E8%BD%B4%E7%BA%BF%E5%92%8C%E6%B3%A2%E5%B3%B0%E7%84%8A%E6%96%B9%E5%90%91%E5%B9%B3%E8%A1%8C-%E5%9B%BE11">5.4.27 多个引脚在同一直线上的器件，象连器件、DIP封装器件、T220封装器件，布局时应使其轴线和波峰焊方向平行。(图11)</a></li>
+<li><a href="#5428-%E8%BE%83%E8%BD%BB%E7%9A%84%E5%99%A8%E4%BB%B6%E5%A6%82%E4%BA%8C%E6%9E%81%E7%AE%A1%E5%92%8C-14w-%E7%94%B5%E9%98%BB%E7%AD%89%E5%B8%83%E5%B1%80%E6%97%B6%E5%BA%94%E4%BD%BF%E5%85%B6%E8%BD%B4%E7%BA%BF%E5%92%8C%E6%B3%A2%E5%B3%B0%E7%84%8A%E6%96%B9%E5%90%91%E5%9E%82%E7%9B%B4-%E8%BF%99%E6%A0%B7%E8%83%BD%E9%98%B2%E6%AD%A2%E6%B3%A2%E5%B3%B0%E7%84%8A%E6%97%B6%E5%9B%A0%E4%B8%80%E7%AB%AF%E5%85%88%E7%84%8A%E6%8E%A5%E5%87%9D%E5%9B%BA%E8%80%8C%E4%BD%BF%E5%99%A8%E4%BB%B6%E4%BA%A7%E7%94%9F%E6%B5%AE%E9%AB%98%E7%8E%B0%E8%B1%A1-%E5%9B%BE12">5.4.28 较轻的器件如二极管和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>4</mn><mi>W</mi></mrow><annotation encoding="application/x-tex">1/4W</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord">4</span><span class="mord mathdefault" style="margin-right:0.13889em;">W</span></span></span></span> 电阻等，布局时应使其轴线和波峰焊方向垂直。这样能防止波峰焊时因一端先焊接凝固而使器件产生浮高现象。(图12)</a></li>
+<li><a href="#5429-%E7%94%B5%E7%BC%86%E5%92%8C%E5%91%A8%E5%9B%B4%E5%99%A8%E4%BB%B6%E4%B9%8B%E9%97%B4%E8%A6%81%E7%95%99%E6%9C%89%E4%B8%80%E5%AE%9A%E7%A9%BA%E9%97%B4%E5%90%A6%E5%88%99%E7%94%B5%E7%BC%86%E7%9A%84%E6%8A%98%E5%BC%AF%E9%83%A8%E5%88%86%E4%BC%9A%E5%8E%8B%E8%BF%AB%E5%B9%B6%E6%8D%9F%E5%9D%8F%E6%94%B6%E5%B0%BE%E5%99%A8%E4%BB%B6%E5%8F%8A%E5%85%B6%E7%84%8A%E7%82%B9">5.4.29 电缆和周围器件之间要留有一定空间，否则电缆的折弯部分会压迫并损坏收尾器件及其焊点。</a></li>
+</ul>
+</li>
+<li><a href="#55-%E8%B5%B0%E7%BA%BF%E8%A6%81%E6%B1%82">5.5 走线要求</a>
+<ul>
+<li><a href="#551-%E5%8D%B0%E5%88%B6%E6%9D%BF%E8%BE%B9%E8%B7%9D%E7%A6%BBv-cut-%E8%BE%B9%E5%A4%A7%E4%BA%8E075mm%E9%93%81%E6%A7%BD%E8%BE%B9%E5%A4%A7%E4%BA%8E03mm">5.5.1 印制板边距离：V-CUT 边大于0.75mm，铁槽边大于0.3mm。</a></li>
+<li><a href="#552-%E6%95%A3%E7%83%AD%E5%99%A8%E6%AD%A3%E9%9D%A2%E4%B8%8B%E6%96%B9%E6%97%A0%E8%B5%B0%E7%BA%BF%E6%88%96%E5%B7%B2%E4%BD%9C%E7%BB%9D%E7%BC%98%E5%A4%84%E7%90%86">5.5.2 散热器正面下方无走线(或已作绝缘处理)</a></li>
+<li><a href="#553-%E9%87%91%E5%B1%9E%E6%8B%89%E6%89%8B%E6%9D%A1%E5%BA%95%E4%B8%8B%E6%97%A0%E8%B5%B0%E7%BA%BF">5.5.3 金属拉手条底下无走线</a></li>
+<li><a href="#554-%E5%90%84%E7%B1%BB%E8%9E%BA%E9%92%89%E5%AD%94%E7%9A%84%E7%A6%81%E5%B8%83%E5%8C%BA%E8%8C%83%E5%9B%B4%E8%A6%81%E6%B1%82">5.5.4 各类螺钉孔的禁布区范围要求</a></li>
+<li><a href="#555-%E8%A6%81%E5%A2%9E%E5%8A%A0%E5%AD%A4%E7%AB%8B%E7%84%8A%E7%9B%98%E5%92%8C%E8%B5%B0%E7%BA%BF%E8%BF%9E%E6%8E%A5%E9%83%A8%E5%88%86%E7%9A%84%E5%AE%BD%E5%BA%A6%E6%B3%AA%E6%BB%B4%E7%84%8A%E8%88%AC%E7%89%B9%E5%88%AB%E6%98%AF%E5%AF%B9%E4%BA%8E%E5%8D%95%E9%9D%A2%E6%9D%BF%E7%9A%84%E7%84%8A%E7%9B%98%E4%BB%A5%E9%81%BF%E5%85%8D%E8%BF%87%E6%B3%A2%E5%B3%B0%E7%84%8A%E6%8E%A5%E6%97%B6%E5%B0%86%E7%84%8A%E7%9B%98%E6%8B%89%E8%84%B1">5.5.5 要增加孤立焊盘和走线连接部分的宽度（泪滴焊般）特别是对于单面板的焊盘，以避免过波峰焊接时将焊盘拉脱。</a></li>
+</ul>
+</li>
+<li><a href="#56-%E5%9B%BA%E5%AE%9A%E5%AD%94-%E5%AE%89%E8%A3%85%E5%AD%94-%E8%BF%87%E5%AD%94%E8%A6%81%E6%B1%82">5.6 固定孔、安装孔、过孔要求</a>
+<ul>
+<li><a href="#561-%E8%BF%87%E6%B3%A2%E5%B3%B0%E7%9A%84">5.6.1 过波峰的</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                            </div>
+                            
+                                
+                                    
+                                        <!--en-->
+                                        <section class="post-copyright en">
+                                            <p class="copyright-item">
+                                                <span>Author:</span>
+                                                <span>CLL's Blog</span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>Permalink:</span>
+                                                <span><a href="https://leichen2552.github.io/post/pcb-gong-yi-she-ji-gui-fan/">https://leichen2552.github.io/post/pcb-gong-yi-she-ji-gui-fan/</a></span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>License:</span>
+                                                <span>MIT License</span>
+                                            </p>
+                                        </section>
+                                        
+                                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/pcb-gong-yi-she-ji-gui-fan/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/pcb-gong-yi-she-ji-gui-fan/&sharesource=qzone&title=PCB 工艺设计规范&pics=https://leichen2552.github.io/images/avatar.png?v=1756049228364&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/pcb-gong-yi-she-ji-gui-fan/&sharesource=weibo&title=PCB 工艺设计规范 + " - " + &pic="https://leichen2552.github.io/images/avatar.png?v=1756049228364 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                            <div class="reward ">
+                                                                <div class="reward-button ">&yen;
+                                                                    <span class="reward-code "> 
+                                                                <span class="alipay-code "> <img class="alipay-img " alt = "support " src=""><b>Alipay</b> </span>
+                                                                    <span class="wechat-code "> <img alt ="support " class="wechat-img " src=""><b>Wechat</b> </span> </span>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
+                                                                
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/mei-de-xiu-kong-diao-wei-quan/">
+                                                                                            美的修冰箱维权
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/lesslessying-jian-xiang-xi-she-ji-wen-dang-greatergreater-jie-xi-zhi-wu-ke-kao-xing-zhi-biao/">
+                                                                                                    《硬件详细设计文档》解析之五 可靠性指标
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
+                </div>
+                
+                                            
+            </div>
+    </div>
+    </div>
+    </div>
+    
+    <div id="player"></div>
+    
+        <footer id="footer" class="footer">
+            <div class="copyright">
+                
+                    <div class="Like">
+                        <div class="tip" data-tooltip="Do you like it?">
+                            <a href="https://github.com/ITJoker233/Gridea-theme-Chic" target="_blank" title=""><svg class="icon"
+                        aria-hidden="true">
+                        <use xlink:href="#like"></use>
+                    </svg><b class="like_text" id="star"></b></a>
+                        </div>
+                    </div>
+                    
+                        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+                            
+                                <b id="hitokoto"></b><br>
+                                
+                                        <svg viewBox="0 0 1024 1024" style="margin-left: 5px;margin-right: 5px;" version="1.0" width="8" height="8" class="my-face">
+            <path
+                d="M863.597631 513.574282l-271.33965-140.213484L729.783667 81.926656c3.583731-7.87141 7.167462-15.742819 7.167462-25.214109C736.887134 25.226908 708.345275 0.012799 672.635953 0.012799a63.611229 63.611229 0 0 0-39.293053 12.607055c-1.791866 1.59988-3.519736 3.19976-5.311602 3.19976L147.87531 418.925381a55.547834 55.547834 0 0 0-19.646527 47.356448c1.791866 17.278704 14.27093 33.021523 32.125591 42.492813l271.33965 141.749369L292.504463 945.221908c-12.479064 25.214109-1.791866 53.563983 23.166262 69.306802 10.751194 6.335525 23.230258 9.47129 35.709322 9.47129 16.062795 0 32.125591-4.735645 44.604655-15.742819l480.091993-403.297753a55.547834 55.547834 0 0 0 19.646526-47.228458 61.243407 61.243407 0 0 0-32.12559-44.156688z"
+                fill="#93b5cf"></path>
+        </svg>
+                                        CLL&#39;s Blog &copy;Copyright
+                                            <script>
+                                                var date = new Date();
+                                                document.write("" + date.getFullYear());
+                                            </script>
+                                            | Powered by
+                                            <a href="https://coding.net" target="_blank">
+                                                Coding.net
+                                            </a>
+            </div>
+            <div id="update" style="display:none;">
+                on
+            </div>
+            
+                <div id="version" style="display:none;">
+                    1.7.6
+                </div>
+                
+                    <script>
+                        var port = '';
+                        
+                        document.write('<div id="home_path" style="display:none;">' + document.location.protocol + '//' + window.document.location.hostname + port + '</div>')
+                    </script>
+        </footer>
+        
+            <script src='https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js'></script>
+            
+                <script>
+                    
+
+                    function LoadPlayer() {
+                        var musicList = [];
+                        
+                        musicList.push({
+                            name: '',
+                            url: '',
+                            artist: '',
+                            cover: '',
+                        });
+                        
+                        console.log(" MusicList: " + musicList);
+                        
+                        const ap = new APlayer({
+                            container: document.getElementById('player'),
+                            fixed: true,
+                            audio: musicList
+                        });
+                        
+                    }
+                    LoadPlayer();
+                    
+                    
+                    loadlive2d();
+                    
+                    
+                    hitokoto();
+                    
+                    getStar();
+                    hljs.initHighlighting();
+                    console.clear();
+                    
+                    CheckVersion();
+                    
+                    var newDate = new Date();
+                    newDate.setTime(1756049228364);
+                    console.log(" Blog Update Time: " + newDate.toLocaleDateString());
+                    console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
+                </script>
+        </div>
+</body>
+<script>
+    scroll();
+</script>
+
+</html>

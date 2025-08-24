@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+<title>
+    CLL&#39;s Blog
+</title>
+<!--[if lt IE 9]><script src="//cdn.bootcss.com/html5shiv/r29/html5.js"></script><![endif]-->
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="author" content="陈磊磊">
+<meta name="description" content="正经人谁写博客啊！">
+<meta name="keywords" content="SSD, linux, stm32, 51">
+<script async src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+<link rel="stylesheet" href="https://leichen2552.github.io/styles/main.css" />
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/css/style.min.css" />
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/script.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/icon.min.js"></script>
+        
+            <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/Card/prism.min.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/css/Card/prism.min.css" />
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css">
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js"></script>
+            
+                <!--点击特效-->
+                <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/love.min.js"></script>
+                
+                    <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic@latest/assets/media/script/APlayer.min.js"></script>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+                    
+                        <!--CDN样式-->
+                        <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/hit-kounter-lc-0.3.0.js"></script>
+                        <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+                        
+                            <script>
+                                (function() {
+                                    var bp = document.createElement('script');
+                                    var curProtocol = window.location.protocol.split(':')[0];
+                                    if (curProtocol === 'https') {
+                                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                                    } else {
+                                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                                    }
+                                    var s = document.getElementsByTagName("script")[0];
+                                    s.parentNode.insertBefore(bp, s);
+                                })();
+                            </script>
+                            
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo">
+                <a href="https://leichen2552.github.io">
+                    CLL&#39;s Blog
+                </a>
+            </div>
+            <div id="tp-weather-widget"></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/">
+                        首页
+                    </a>
+                    
+                    <a class="menu-item" href="/archives">
+                        归档
+                    </a>
+                    
+                    <a class="menu-item" href="/tags">
+                        标签
+                    </a>
+                    
+                    <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                        关于
+                    </a>
+                    
+                        <input id="switch_default" type="checkbox" class="switch_default">
+                        <label for="switch_default" class="toggleBtn"></label>
+            </div>
+            <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+            </form>
+        </div>
+    </nav>
+
+    
+        <nav class="navbar-mobile" id="nav-mobile">
+            <div class="container">
+                <div class="navbar-header">
+                    <div>
+                        <a href="https://leichen2552.github.io">
+                            CLL&#39;s Blog
+                        </a>
+                        <!--en-->
+                        <a id="mobile-toggle-theme-en" class="a en">&nbsp;Dark</a>
+                        <!--zh-->
+                        <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
+                    </div>
+                    <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                        <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+                    </form>
+                    <!--en-->
+                    <div class="menu-toggle" id="menu-toggle-en" onclick="mobileBtn()">&#9776; Menu</div>
+                    <!--zh-->
+                    <div class="menu-toggle" id="menu-toggle-zh" onclick="mobileBtn()">&#9776; &#x83DC;&#x5355;</div>
+
+                </div>
+                <div class="menu" id="mobile-menu">
+                    
+                        <a class="menu-item" href="/">
+                            首页
+                        </a>
+                        
+                        <a class="menu-item" href="/archives">
+                            归档
+                        </a>
+                        
+                        <a class="menu-item" href="/tags">
+                            标签
+                        </a>
+                        
+                        <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                            关于
+                        </a>
+                        
+                </div>
+            </div>
+        </nav>
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementById("menu-toggle-en");
+        var toggleMenu_zh = document.getElementById("menu-toggle-zh");
+
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.display != "none") {
+            if (toggleMenu.classList.contains("active")) {
+                toggleMenu.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        } else if (toggleMenu_zh.display != "none") {
+            if (toggleMenu_zh.classList.contains("active")) {
+                toggleMenu_zh.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu_zh.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        }
+
+    }
+</script>
+
+
+
+    <script>
+        (function(a, h, g, f, e, d, c, b) {
+            b = function() {
+                d = h.createElement(g);
+                c = h.getElementsByTagName(g)[0];
+                d.src = e;
+                d.charset = "utf-8";
+                d.async = 1;
+                c.parentNode.insertBefore(d, c)
+            };
+            a["SeniverseWeatherWidgetObject"] = f;
+            a[f] || (a[f] = function() {
+                (a[f].q = a[f].q || []).push(arguments)
+            });
+            a[f].l = +new Date();
+            if (a.attachEvent) {
+                a.attachEvent("onload", b)
+            } else {
+                a.addEventListener("load", b, false)
+            }
+        }(window, document, "script", "SeniverseWeatherWidget", "//cdn.sencdn.com/widget2/static/js/bundle.js?t=" + parseInt((new Date().getTime() / 100000000).toString(), 10)));
+        window.SeniverseWeatherWidget('show', {
+            flavor: "slim",
+            location: "WWEFQFPJZ7T8",
+            geolocation: true,
+            language: "auto",
+            unit: "c",
+            theme: "auto",
+            token: "61bcc333-3305-4728-9465-6785274bb0a3",
+            hover: "enabled",
+            container: "tp-weather-widget"
+        })
+    </script>
+    
+            <div class="main">
+                <div class="container">
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                回顾（34）：数组操作符的重载
+                            </h1>
+                            
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        CLL's Blog
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2020-02-23</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">6.1
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">1239</a></span>
+                                    
+                                        <span class="post-category">
+                                Category:
+                                
+                                <a href="https://leichen2552.github.io/tag/msUt_OWMOEz/">C++</a>
+                                
+                            </span>
+                                        
+                                            Views:
+                                            <span data-hk-page="current"> - </span>
+                                            
+                                </div>
+                                
+                        </header>
+                        
+                            <img class="post-feature-image" src="https://leichen2552.github.io/post-images/hui-gu-34shu-zu-cao-zuo-fu-de-chong-zai.jpg" alt="">
+                          
+                        <div class="post-content">
+                            <p><ul class="markdownIt-TOC">
+<li><a href="#%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E9%87%8D%E8%BD%BD">数组操作符的重载</a>
+<ul>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7">字符串类的兼容性</a></li>
+<li><a href="#%E9%87%8D%E8%BD%BD%E6%95%B0%E7%BB%84%E8%AE%BF%E9%97%AE%E6%93%8D%E4%BD%9C%E7%AC%A6">重载数组访问操作符</a></li>
+<li><a href="#%E5%86%8D%E6%AC%A1%E5%8D%87%E7%BA%A7%E6%95%B0%E7%BB%84%E7%B1%BB">再次升级数组类</a>
+<ul>
+<li><a href="#intarrayh">IntArray.h</a></li>
+<li><a href="#intarraycpp">IntArray.cpp</a></li>
+<li><a href="#maincpp">main.cpp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</p>
+<h1 id="数组操作符的重载">数组操作符的重载</h1>
+<pre><code>问题：
+string类对象还具备C方式字符串的灵活性吗？还能访问单个字符吗？意思就是通过[]访问单个字符
+</code></pre>
+<h2 id="字符串类的兼容性">字符串类的兼容性</h2>
+<ul>
+<li>string类最大限度的考虑了C字符串的兼容性</li>
+<li>可以按照使用C字符串的方式使用string对象</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+	string s = &quot;abcdefg1234&quot;;
+	int n = 0;
+	
+	for(int i=0;i&lt;s.length(); i++)
+	{
+		if(isdigit(s[i]))
+		{
+			n++;
+		}	
+	} 
+	
+	cout &lt;&lt; n &lt;&lt; endl;
+	
+	return 0;
+}
+//编译通过，说明string支持这种访问
+</code></pre>
+<pre><code>问题：
+类的对象怎么能和数组操作符[]在一起使用呢？
+</code></pre>
+<h2 id="重载数组访问操作符">重载数组访问操作符</h2>
+<ul>
+<li>被忽略的事实
+<ul>
+<li>数组访问操作符是C/C++中内置操作符</li>
+<li>数组访问操作符的原生意义是<font color = ff00ff size = 4>数组访问</font>和<font color = ff00ff size = 4>指针运算</font></li>
+</ul>
+</li>
+<li>变换公式<br>
+<font color = red size = 4>a[n]</font> <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>←</mo><mo>→</mo></mrow><annotation encoding="application/x-tex">\leftarrow \rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">←</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span><font color = red size = 4> * (a + n)</font><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>←</mo><mo>→</mo></mrow><annotation encoding="application/x-tex">\leftarrow \rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">←</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> <font color = red size = 4>*(n + a) </font><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>←</mo><mo>→</mo></mrow><annotation encoding="application/x-tex">\leftarrow \rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">←</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> <font color = red size = 4>n[a]</font></li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+int main()
+{
+    int a[5] = {0};
+    
+    for(int i=0; i&lt;5; i++)
+    {
+        a[i] = i;
+    }
+    
+    for(int i=0; i&lt;5; i++)
+    {
+        cout &lt;&lt; *(a + i) &lt;&lt; endl;    // cout &lt;&lt; a[i] &lt;&lt; endl;
+    }
+    
+    cout &lt;&lt; endl;
+    
+    for(int i=0; i&lt;5; i++)
+    {
+        i[a] = i + 10;    // a[i] = i + 10;
+    }
+    
+    for(int i=0; i&lt;5; i++)
+    {
+        cout &lt;&lt; *(i + a) &lt;&lt; endl;  // cout &lt;&lt; a[i] &lt;&lt; endl;
+    }
+    
+    return 0;
+}
+</code></pre>
+<ul>
+<li>数组访问操作符（[ ]）：重载一个操作符不能违背它的原生语义
+<ul>
+<li>只能通过类的成员函数重载</li>
+<li>重载函数能且仅能使用一个参数</li>
+<li>可以定义不同参数的多个重载函数</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Test
+{
+	int a[5];
+public:
+	int&amp; operator [] (int i)
+	{
+		return a[i];//通过特殊的技术返回一个函数的返回值，如果真的想返回这个数组里面的值，就该使用引用 
+	}	
+	int&amp; operator [] (const string&amp; s)
+	{
+		if(s == &quot;1st&quot;)
+		{
+			return a[0];
+		}
+		if(s == &quot;2nd&quot;)
+		{
+			return a[1];
+		}
+		if(s == &quot;3rd&quot;)
+		{
+			return a[2];
+		}
+		if(s == &quot;4th&quot;)
+		{
+			return a[3];
+		}
+		if(s == &quot;5th&quot;)
+		{
+			return a[4];
+		}
+	}
+	
+	int lenrth()
+	{
+		return 5;
+	}
+};
+
+
+int main(int argc, char *argv[])
+{
+	Test t;
+	
+	for(int i=0; i&lt;t.lenrth(); i++)
+	{
+		t.operator[](i) = i; //在重载函数的返回值不是引用的时候，把一个值赋给函数的返回值，绝对的不合法 
+		t[i] = i;
+	}
+	
+	for(int i=0; i&lt;t.lenrth(); i++)
+	{
+		cout &lt;&lt; t[i] &lt;&lt; endl;
+	}
+	
+	cout &lt;&lt;t[&quot;1st&quot;]&lt;&lt;endl;
+	cout &lt;&lt;t[&quot;2nd&quot;]&lt;&lt;endl;
+	cout &lt;&lt;t[&quot;3rd&quot;]&lt;&lt;endl;
+	cout &lt;&lt;t[&quot;4th&quot;]&lt;&lt;endl;
+	cout &lt;&lt;t[&quot;5th&quot;]&lt;&lt;endl;//通过字符串来访问数组，在c#、D语言中，如果看到这个不要觉得惊奇 
+	
+	return 0;
+}
+
+//测试成功，编译器没有报错
+</code></pre>
+<h2 id="再次升级数组类">再次升级数组类</h2>
+<h3 id="intarrayh">IntArray.h</h3>
+<pre><code class="language-c++">#ifndef INTARRAY_H
+#define INTARRAY_H
+
+class IntArray{
+private:
+	int m_length;
+	int* m_pointer;
+	
+	IntArray(int len);
+	//IntArray(const IntArray&amp; ob);
+	bool construct();
+public:
+	static IntArray* NewInstance(int length);
+	int length();
+	bool get(int index, int&amp; value);
+	bool set(int index, int value);	
+	int&amp; operator [](int index);
+	IntArray&amp; self(); //返回自身，从而减少使用指针
+	~IntArray();
+};
+
+#endif
+</code></pre>
+<h3 id="intarraycpp">IntArray.cpp</h3>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &quot;IntArray.h&quot;
+
+IntArray::IntArray(int len)
+{
+	m_length = len;	
+}
+
+bool IntArray::construct()
+{
+	bool ret = true;
+	
+	m_pointer = new int[m_length];
+	
+	if(m_pointer)
+	{
+		for(int i = 0;i &lt; m_length; i++)
+		{
+			m_pointer[i] = 0;
+		}
+	}
+	else
+	{
+		ret = false;
+	}
+	
+	return ret;
+}
+
+IntArray* IntArray::NewInstance(int length)
+{
+	IntArray* ret = new IntArray(length);
+	
+	if( !(ret &amp;&amp; ret-&gt;construct()) )
+	{
+		delete ret;
+		ret = NULL;
+	}
+	
+	return ret;
+}
+
+int IntArray::length()
+{
+	return m_length;
+}
+
+bool IntArray::get(int index, int&amp; value)
+{
+	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
+	
+	if(ret)
+	{
+		value = m_pointer[index];
+	}
+	
+	return ret;
+}
+
+bool IntArray::set(int index, int value)
+{
+	bool ret = (0 &lt;= index)&amp;&amp;(index &lt; length());
+	
+	if(ret)
+	{
+ 		m_pointer[index] = value;
+	}
+	
+	return ret;
+}
+
+int&amp; IntArray::operator [](int index)
+{
+	return m_pointer[index];
+}
+
+IntArray&amp; IntArray::self()
+{
+	return *this;
+}
+
+IntArray::~IntArray()
+{
+	delete[] m_pointer;
+}
+</code></pre>
+<h3 id="maincpp">main.cpp</h3>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &quot;IntArray.h&quot;
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+	IntArray* a = IntArray::NewInstance(5);//但是即使这样 
+	cout &lt;&lt; &quot;a-&gt;length() = &quot; &lt;&lt; a-&gt;length() &lt;&lt; endl;
+	
+	if(a != NULL)//在堆空间中创建的对象，我们给他娶个别名 
+	{
+		IntArray&amp; array = a-&gt;self();
+		
+		array[0] = 1;
+		
+		
+		for(int i=0; i&lt;array.length(); i++)
+		{
+			cout &lt;&lt; &quot;array[&quot;&lt;&lt; i &lt;&lt;&quot;] = &quot; &lt;&lt; array[i] &lt;&lt; endl;
+		}
+		
+		//再次总结对于这句IntArray* a = IntArray::NewInstance(5);
+		//但是即使这样，还是出现了指针，在后面会有智能指针的技术来改善
+	}
+/*
+	(*a)[0] = 1;//但是这样子访问看着很别扭，在C++开发中，尽可能的不使用指针*，所以我们再提供一个self()成员函数来返回自身 
+	
+	for(int i=0; i&lt;a-&gt;length(); i++)
+	{
+		cout &lt;&lt; &quot;a[&quot;&lt;&lt; i &lt;&lt;&quot;] = &quot; &lt;&lt; (*a)[i] &lt;&lt; endl;
+	}*/
+	
+	delete a;
+	
+	return 0;
+}
+</code></pre>
+<h1 id="小结">小结</h1>
+<ul>
+<li>string类<font color = blue size = 4>最大程度的兼容</font>了C字符串的用法</li>
+<li>数组访问福的重载能够<font color = purple size = 4>使得对象模拟数组的行为</font></li>
+<li>只能通过<font color = ff4500 size = 4>类的成员函数重载数组访问符</font></li>
+<li>重载函数<font color = ff00ff size = 4>能且仅能</font>使用一个参数</li>
+</ul>
+
+                        </div>
+                        
+                            <div class="post-toc">
+                                <ul class="markdownIt-TOC">
+<li><a href="#%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E9%87%8D%E8%BD%BD">数组操作符的重载</a>
+<ul>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7">字符串类的兼容性</a></li>
+<li><a href="#%E9%87%8D%E8%BD%BD%E6%95%B0%E7%BB%84%E8%AE%BF%E9%97%AE%E6%93%8D%E4%BD%9C%E7%AC%A6">重载数组访问操作符</a></li>
+<li><a href="#%E5%86%8D%E6%AC%A1%E5%8D%87%E7%BA%A7%E6%95%B0%E7%BB%84%E7%B1%BB">再次升级数组类</a>
+<ul>
+<li><a href="#intarrayh">IntArray.h</a></li>
+<li><a href="#intarraycpp">IntArray.cpp</a></li>
+<li><a href="#maincpp">main.cpp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+
+                            </div>
+                            
+                                
+                                    
+                                        <!--en-->
+                                        <section class="post-copyright en">
+                                            <p class="copyright-item">
+                                                <span>Author:</span>
+                                                <span>CLL's Blog</span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>Permalink:</span>
+                                                <span><a href="https://leichen2552.github.io/post/hui-gu-34shu-zu-cao-zuo-fu-de-chong-zai/">https://leichen2552.github.io/post/hui-gu-34shu-zu-cao-zuo-fu-de-chong-zai/</a></span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>License:</span>
+                                                <span>MIT License</span>
+                                            </p>
+                                        </section>
+                                        
+                                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/hui-gu-34shu-zu-cao-zuo-fu-de-chong-zai/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/hui-gu-34shu-zu-cao-zuo-fu-de-chong-zai/&sharesource=qzone&title=回顾（34）：数组操作符的重载&pics=https://leichen2552.github.io/images/avatar.png?v=1756049228364&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/hui-gu-34shu-zu-cao-zuo-fu-de-chong-zai/&sharesource=weibo&title=回顾（34）：数组操作符的重载 + " - " + &pic="https://leichen2552.github.io/images/avatar.png?v=1756049228364 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                            <div class="reward ">
+                                                                <div class="reward-button ">&yen;
+                                                                    <span class="reward-code "> 
+                                                                <span class="alipay-code "> <img class="alipay-img " alt = "support " src=""><b>Alipay</b> </span>
+                                                                    <span class="wechat-code "> <img alt ="support " class="wechat-img " src=""><b>Wechat</b> </span> </span>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://leichen2552.github.io/tag/msUt_OWMOEz/">#
+                                                C++
+                                                    </a>
+                                                    
+                                                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
+                                                                
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/zhi-neng-xin-xi-chu-li-gai-lun/">
+                                                                                            智能信息处理概论
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/hui-gu-33czhong-de-zi-fu-chuan-lei/">
+                                                                                                    回顾（33）：C++中的字符串类
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
+                </div>
+                
+                                            
+            </div>
+    </div>
+    </div>
+    </div>
+    
+    <div id="player"></div>
+    
+        <footer id="footer" class="footer">
+            <div class="copyright">
+                
+                    <div class="Like">
+                        <div class="tip" data-tooltip="Do you like it?">
+                            <a href="https://github.com/ITJoker233/Gridea-theme-Chic" target="_blank" title=""><svg class="icon"
+                        aria-hidden="true">
+                        <use xlink:href="#like"></use>
+                    </svg><b class="like_text" id="star"></b></a>
+                        </div>
+                    </div>
+                    
+                        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+                            
+                                <b id="hitokoto"></b><br>
+                                
+                                        <svg viewBox="0 0 1024 1024" style="margin-left: 5px;margin-right: 5px;" version="1.0" width="8" height="8" class="my-face">
+            <path
+                d="M863.597631 513.574282l-271.33965-140.213484L729.783667 81.926656c3.583731-7.87141 7.167462-15.742819 7.167462-25.214109C736.887134 25.226908 708.345275 0.012799 672.635953 0.012799a63.611229 63.611229 0 0 0-39.293053 12.607055c-1.791866 1.59988-3.519736 3.19976-5.311602 3.19976L147.87531 418.925381a55.547834 55.547834 0 0 0-19.646527 47.356448c1.791866 17.278704 14.27093 33.021523 32.125591 42.492813l271.33965 141.749369L292.504463 945.221908c-12.479064 25.214109-1.791866 53.563983 23.166262 69.306802 10.751194 6.335525 23.230258 9.47129 35.709322 9.47129 16.062795 0 32.125591-4.735645 44.604655-15.742819l480.091993-403.297753a55.547834 55.547834 0 0 0 19.646526-47.228458 61.243407 61.243407 0 0 0-32.12559-44.156688z"
+                fill="#93b5cf"></path>
+        </svg>
+                                        CLL&#39;s Blog &copy;Copyright
+                                            <script>
+                                                var date = new Date();
+                                                document.write("" + date.getFullYear());
+                                            </script>
+                                            | Powered by
+                                            <a href="https://coding.net" target="_blank">
+                                                Coding.net
+                                            </a>
+            </div>
+            <div id="update" style="display:none;">
+                on
+            </div>
+            
+                <div id="version" style="display:none;">
+                    1.7.6
+                </div>
+                
+                    <script>
+                        var port = '';
+                        
+                        document.write('<div id="home_path" style="display:none;">' + document.location.protocol + '//' + window.document.location.hostname + port + '</div>')
+                    </script>
+        </footer>
+        
+            <script src='https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js'></script>
+            
+                <script>
+                    
+
+                    function LoadPlayer() {
+                        var musicList = [];
+                        
+                        musicList.push({
+                            name: '',
+                            url: '',
+                            artist: '',
+                            cover: '',
+                        });
+                        
+                        console.log(" MusicList: " + musicList);
+                        
+                        const ap = new APlayer({
+                            container: document.getElementById('player'),
+                            fixed: true,
+                            audio: musicList
+                        });
+                        
+                    }
+                    LoadPlayer();
+                    
+                    
+                    loadlive2d();
+                    
+                    
+                    hitokoto();
+                    
+                    getStar();
+                    hljs.initHighlighting();
+                    console.clear();
+                    
+                    CheckVersion();
+                    
+                    var newDate = new Date();
+                    newDate.setTime(1756049228364);
+                    console.log(" Blog Update Time: " + newDate.toLocaleDateString());
+                    console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
+                </script>
+        </div>
+</body>
+<script>
+    scroll();
+</script>
+
+</html>

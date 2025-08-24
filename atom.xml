@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://leichen2552.github.io</id>
+    <title>CLL&apos;s Blog</title>
+    <updated>2025-08-24T15:55:52.645Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://leichen2552.github.io"/>
+    <link rel="self" href="https://leichen2552.github.io/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>https://leichen2552.github.io/images/avatar.png</logo>
+    <icon>https://leichen2552.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2025, CLL&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[深入理解linux内核链表]]></title>
+        <id>https://leichen2552.github.io/post/shen-ru-li-jie-linux-nei-he-lian-biao/</id>
+        <link href="https://leichen2552.github.io/post/shen-ru-li-jie-linux-nei-he-lian-biao/">
+        </link>
+        <updated>2025-08-24T07:03:01.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8">双向链表</a>
+<ul>
+<li><a href="#%E4%B8%80%E8%88%AC%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8">一般双向链表</a>
+<ul>
+<li><a href="#linux%E5%86%85%E6%A0%B8%E9%93%BE%E8%A1%A8">Linux内核链表</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</p>
+<h1 id="双向链表">双向链表</h1>
+<h2 id="一般双向链表">一般双向链表</h2>
+<p>核心就是一个node结构体，里面有两个指针，指向前后节点，另外包含了一个存储数据的成员变量。</p>
+<pre><code class="language-c">struct Data {
+    int a;
+};
+
+struct Node {
+    struct Data data;
+    struct Node *prev, *next;
+}
+</code></pre>
+<p>但是C没有模板，这意味着不同类型的数据，Node结构体都是不同类型，用来实现链表逻辑的函数得为每种类型的都写一遍。</p>
+<h3 id="linux内核链表">Linux内核链表</h3>
+<p>linux的实现是反过来，把节点指针存在数据里面。</p>
+<pre><code class="language-c">struct Node {
+	struct Node *next, *prev;
+};
+
+struct Data {
+	struct Node data_list;
+	int age;
+};
+
+struct list_head student_list_head;
+</code></pre>
+<p>node里面的指针是指向Data里面的data_list成员，所以要获取所在Data的指针，需要做一些指针偏移何强制类型转换。注意，data_list也可以是其他类型的链表，它就是链表的头。</p>
+<pre><code class="language-c">#define offsetof(TYPE, MEMBER) ((int) &amp;((TYPE *)0)-&gt;MEMBER)
+#define member_size(TYPE, MEMBER) sizeof(((TYPE *)0)-&gt;MEMBER)
+
+#ifdef __GNUC__
+#define member_type(type, member) __typeof__ (((type *)0)-&gt;member)
+#else
+#define member_type(type, member) const void
+#endif
+
+#define container_of(ptr, type, member) ((type *)( \
+    (char *)(member_type(type, member) *){ ptr } - offsetof(type, member)))
+</code></pre>
+<pre><code class="language-c">#include &quot;list.h&quot;
+
+struct student{
+	struct list_head entry;
+	int age;
+};
+
+struct list_head student_list_head;
+
+int main()
+{
+	INIT_LIST_HEAD(&amp;student_list_head);
+	struct student s1={.age = 1};
+	struct student s2={.age = 2};
+	struct student s3={.age = 3};
+	struct student s4={.age = 4};
+
+	list_add_tail(&amp;s1.entry, &amp;student_list_head);
+	list_add_tail(&amp;s2.entry, &amp;student_list_head);
+	list_add_tail(&amp;s3.entry, &amp;student_list_head);
+	list_add_tail(&amp;s4.entry, &amp;student_list_head);
+
+	return 0;
+}
+
+</code></pre>
+<p>如下图所示，把几个student用链表链起来的是student结构体中的entry，s1中entry中的next指针指向s2中的entry。通过entry链起来，通过entry来访问每个strudent的其他结构体成员。</p>
+<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io/post-images/1756035176924.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Introduction to Programming in Python: An Interdisciplinary Approach]]></title>
+        <id>https://leichen2552.github.io/post/introduction-to-programming-in-python-an-interdisciplinary-approach/</id>
+        <link href="https://leichen2552.github.io/post/introduction-to-programming-in-python-an-interdisciplinary-approach/">
+        </link>
+        <updated>2025-05-14T13:57:06.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="序言">序言</h1>
+<p>教育的基础在最后的一千年里面是“读、写和算数”，但是现在时“读、写和计算”。在科学与工程的学科中，学习编程是每个学生教育中必不可少的一部分。除了直接应用之外，这是理解计算机科学对现代世界不可否认的影响的本质的第一步。这本书旨在帮助那些想要在科学背景下学习编程的人。</p>
+<p>我们的目标是授予学生通过提供经验和必要的基础工具来有效地计算。我们的方法是告诉学生组建一个程序是自然的、令人满意的、并且是有创造性体验的。我们会从应用数学和科学的角度来对概念进行举例，并且提供机会让学生写程序来解决吸引人的程序，从而循序渐进得介绍必要的概念和拥抱经典的应用程序。</p>
+<p>在本书中我们对所有的程序使用Python编程语言——我们在标题中的“Programming”中机上“Python”是为了强调本书是关于编程的基本概念，而不是Python本身。这本书教授计算问题的基本技能应用与现代的计算环境，并且是为之前没有相关编程经验的人准备的的课程。</p>
+<p>这本书是传统计算机课程的跨学科方法，我们强调计算在其他学科中的作用，从材料科学到基因组学到天体物理学到网络系统。这个方法向学生强调数学、科学、工程和计算在现代世界中是交织在一起的基本思想。虽然它是对数学、科学或者工程感兴趣的一年级学生准备的教科书，同时他也被用来自学或者是作为与其他领域结合编程课程的补充。</p>
+<p><strong>课程内容</strong>：这本书围绕着学习编程的四个阶段：基础元素、函数、面向对象编程和算法。我们提供读者需要的基础的信息，在移动到下个等级之前，需要再当前等级下组成自己的程序来建立信心。我们方法最基本的期望是使用样例程序来解决有趣的问题，支持练习从自学的需求到对有挑战性问题的创造性思路。</p>
+<ul>
+<li>基础元素保罗变量，赋值表达式，内置数据类型，控制流，数组，输入和输出，包括图形和声音。</li>
+<li>函数和模块是学生第一次接触模块化编程。我们依赖于熟悉的数学函数来介绍Python函数，并且考虑函数式编程的含义，包括函数和递归的库。我们强调把一个程序划分成不同的块的基本思想，这些块需要能欧独立调试、维护并且服用。</li>
+<li>面向对象编程是我们介绍的数据抽象部分。我们强调数据类型的概念和使用Python类机制的实现。我们教授学生如何使用、创建、设计数据类型。模块、封装和其他现代的编程范例是这个阶段的中心思想。</li>
+<li>算法和数据结构是为了现代的应用，把现代编程范例和传统高效组织和处理数据的方法相组成。我们提供排序和查找的传统算法的介绍以及基础的数据结构和他们的应用。强调了使用科学方法来理解性能特征的实现。</li>
+<li>在科学和工程中应用是本书的一个关键特征。我们通过检查特定应用的影响来激励我们所处理每一个程序概念。我们从应用数学、物理学和仿生学、和计算机科学本身，和物理系统仿真、数值计算、数据可视化、声音合成、图像处理、金融仿真和信息技术这些学科中抽取样例。具体样例包括马尔科夫链在第一章中对网页排名的处理、以及解决渗流问题、n体问题和小世界现象的案例研究。这些应用是本书的必要部分。他们吸引学生到材料中，例证编程概念的重要性，并且提供关键性的证据，证明计算在现代科学与工程中扮演的关键角色。</li>
+<li>我们主要的目标是教授面对任何编程问题开发有效的解决方案所需的的特定的机制与技能。我们将使用完整的Python程序并且鼓励读者使用它们。我们专注于个人编程，而不是大规模编程。</li>
+</ul>
+<p><strong>课程中使用</strong>：这本书适用于大学一年级课程，旨在帮助新手们在科学应用下编程。从这本书中，任何科学与工程中的领域中的未来专业都都可以在相似的场景中编程。基本这本书完成的学生将为他们的技能应用与在后续的科学与工程的课程做好充分的准备，并认识到在接下来的计算机科学课程中可能收益。</p>
+<ul>
+<li>特别是未来的计算科学专业的学生，可以从未来的科学应用背景下编程获益。一个计算机科学家就要像生物学家、工程师、物理学家一样，具备相同的科学方法中基础背景，并了解计算在科学中的重要作用。</li>
+<li>事实上，我们跨学科方法使大学和学院在同一门课程中教授未来计算机专业、科学与工程中的其他领域的未来专业。我们涵盖了CS1中的规定的材料，但我们聚焦的应用程序给生活带来了生命，并且激发学生学习的动力。我们的跨学科方法给学生展示了在许多不同学科的问题，帮助他们更明智得选择专业。</li>
+<li>不管是什么具体的机制，这本书的使用最早在课程的早期。首先，我们可以在高中数学与科学中充分利用熟悉的材料。第二，在课程中早期学习的编程的学生在进入专业课程中时将会更有效地学习计算机。就像阅读和写作，对任何科学家或者工程师来说，编程被认为是一项必须的技能。已经掌握本书概念的学生将会在一生中继续发展这个技能，收获利用计算用来解决或者更好得理解在他们选择的领域中出现的问题和项目的好处。</li>
+</ul>
+<p><strong>预备知识</strong>：本书适合典型的大学一年级的科学与工程的学生，也就是说，我们不希望准备工作超出其他入门级科学和数学课程通常要求的范围。</p>
+<ul>
+<li>数学成熟度很重要。虽然我们不会纠结于数学材料，但是我们会参考学生在高中时的数学课程，包括代数、集合与三角。我们目标受众中的大部分学生自动满足这些需求。我们利用他们对基础课程的熟悉度来介绍基础的编程概念。</li>
+<li>科学好奇心也是一个必要的组成部分。理工科的学生带着一种对科学探究能力的迷恋，帮助他们解释自然界发生的事情。我们充分利用简单程序的例子来利用这些嗜好，这些简单程序充分说明的自然界。我们不假设任何超出典型高中课程提供的数学、物理、生物或化学课程提供的特定知识。</li>
+<li>编程经验不是必要的，但也不是有害的。教授编程是我们主要的目标，所以我们假设没有预先的编程经验。但是组成程序来解决一个新问题是一个很有挑战的智力问题，所以那些在高中能写出大型程序的学生可以基于此书在次入门的编程课中收益。这本书可以支持教授具有不同背景的学生，因为这些应用程序对新手和专家都有吸引力。</li>
+<li>使用计算机的经验也不是必须的，但也完全不是问题。大学生经常使用计算机，用来和亲朋交流、听音乐、处理照片，并且是许多其他活动中的一部分。意识到他们能够以有趣和重要的方式使用它们的电脑是一件意义深远的事情。</li>
+<li>最后，几乎所有科学与工程领域的学生会以此书为基础准备这个课程作为他们第一学期课程的一部分。</li>
+</ul>
+<p><strong>目标</strong>：理工科告诫课程的教师对学完基本本书开设课程的学生有什么期待？</p>
+<ul>
+<li>我们覆盖了CS1的课程，但是任何教授过这个编程入门课的人都知道后续课程中对教师的期待通常都很高：每一个教师期待所有的学生都熟悉计算环境和他们想使用的方法。一个物理教授可能期待一些学生在周末设计一个程序来跑一个仿真实验；一个工程教授可能期望其他学生使用一个特定的包来求解数值微分方程；或者一个计算机科学教授可能期待了解一个特定编程环境的知识。满足如此之多的期待现实吗？是否应该为不同组的学生开设不同的入门课程？</li>
+<li>学院和大学已经在努力克服这些问题因为20世纪末期计算机已经广泛使用。我们对他们的回答体现在这种常见的编程入门教程中，这类似于数学、物理、生物和化学等领域普遍认可的入门课程。《Python编程导论》致力于为所有理工科学生提供所需的基础准备，同时传达一个明确的信息：关于计算机科学，需要理解的远不止编程。使用本书授课的教师可以期望学生掌握必要的知识和经验，使他们能够适应新的计算环境，并在各种应用中有效地利用计算机。</li>
+<li>学完基于这本书的课程的学生，在后续课程中有望实现什么目标呢？</li>
+<li>我们要传达的信息是，编程并不难学，而且驾驭计算机的能力会带来回报。掌握本书内容的学生，已准备好应对日后职业生涯中可能出现的任何计算难题。他们会了解到，像Python所提供的现代编程环境，有助于开启解决他们日后可能遇到的任何计算问题的大门，并且他们会获得学习、评估和使用其他计算工具的信心。对计算机科学感兴趣的学生将为追求这一兴趣做好充分准备；理工科的学生也将为将计算融入他们的学习做好准备。</li>
+</ul>
+<p><strong>图书网站</strong>：大量补充本文的信息可在以下网站找到：</p>
+<ul>
+<li>为简便起见，我们在全文中将此网站称为“图书网站”。该网站包含供教师、学生以及本书普通读者使用的资料。我们在此简要介绍这些资料，不过，正如所有网络用户所知，最好的了解方式是自行浏览。除了少数用于支持测试的内容外，这些资料全部公开可用。</li>
+<li>该网站最重要的意义之一在于，它使教师和学生能够使用自己的电脑来教授和学习相关内容。任何拥有电脑和浏览器的人，只需按照网站上的一些说明操作，就可以开始学习编程。这个过程并不比下载一个媒体播放器或一首歌曲难。和任何网站一样，我们的网站也在不断发展。对于拥有这本书的每个人来说，它都是必不可少的资源。特别是，补充材料对于我们将计算机科学纳入所有科学家和工程师教育体系这一目标至关重要。</li>
+<li>对于教师而言，图书网站包含有关教学的信息。这些信息主要围绕我们在过去十年中形成的一种教学风格进行组织，即我们每周面向众多学生开设两次讲座，同时每周安排两次小组课，学生在小组课上与教师或助教进行交流。图书网站上有讲座的演示幻灯片，这些幻灯片奠定了教学基调。</li>
+<li>对于助教而言，该图书网站包含详细的习题集和编程项目，这些内容基于书中的练习，但包含更多细节。每个编程作业旨在通过有趣的应用场景传授相关概念，同时为每位学生提供富有吸引力且引人入胜的挑战。作业的逐步推进体现了我们教授编程的方法。该图书网站全面规定了所有作业，并提供详细、有条理的信息，帮助学生在规定时间内完成作业，包括建议方法的描述以及课堂教学内容的大纲。</li>
+<li>对于学生而言，本图书网站提供了便捷获取书中大部分内容的途径，包括源代码，还有额外的有助于自学的资料。书中许多练习题都配有答案，包括完整的程序代码和测试数据。与编程作业相关的信息也极为丰富，涵盖建议的方法、清单、常见问题解答以及测试数据。</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Make小结]]></title>
+        <id>https://leichen2552.github.io/post/make-xiao-jie/</id>
+        <link href="https://leichen2552.github.io/post/make-xiao-jie/">
+        </link>
+        <updated>2024-09-28T13:11:11.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#overview">overview</a></li>
+</ul>
+</p>
+<h1 id="overview">overview</h1>
+<p>其实用make作为工程管理其实是一件很难受的事情，因为现在各种的IDE都把编译链接这些东西封装起来，导致用make的人越来越少，而且学习make是一件时间成本很高的事情，以至于很多人都不愿意去学。</p>
+<pre><code class="language-c">//test.c
+#include &lt;stdio.h&gt;
+
+int main(){
+    int distance = 100;
+  
+  	printf(&quot;You are %d miles away.\n&quot;, distance);
+}
+</code></pre>
+<p>上面是一个<code>test.c</code>文件，在命令行执行<code>make test</code>，再执行<code>./test</code>你能看到如下的显示：</p>
+<pre><code class="language-sh">make test
+cc     test.c   -o test
+
+./test
+You are 10 miles away.
+</code></pre>
+<p>很奇怪对不对，我们都没有写<code>Makefile</code>，为什么能编译出我们想要的。<code>make</code>里面内建了一些规则，它就是一个规则机器。规则说，在给定了一个<code>target</code>后，所以在<code>make test</code>中，<code>test</code>就是目标，<code>make</code>会去当前目录下寻找同名但是不同后缀名的文件，从而进行编译，但是目标<code>test</code>的依赖我们并没有去指明。这是远古传说中的隐含依赖，这些远古传说来自于几十年的C代码构建经验，我们不需要告诉make所有事情，make本来就知道怎么构建C文件。</p>
+<p>我们可以去指定一个<code>Makefile</code>文件：</p>
+<pre><code class="language-sh">CFLAGS=-Wall -g
+
+all: clean test
+
+clean:
+	rm -rf test
+</code></pre>
+<p>执行<code>make all</code>显示如下：</p>
+<pre><code class="language-sh">make all
+rm -rf test
+cc -Wall -g    test.c   -o test
+</code></pre>
+<p>显然对于目标<code>all</code>来说，有两个依赖，一个是<code>clean</code>，还有一个是<code>test</code>。对于目标<code>clean</code>来说，是删除<code>test</code>文件，但是目标<code>test</code>的依赖仍然没有指定，上面已经解释过是隐含依赖。</p>
+<p><code>CFLAGS</code>是一个环境变量，可以用来设置参数，把<code>Makefile</code>中<code>CFLAGS</code>那行代码前面加个<code>#</code>后注释掉，然后执行<code>CFLAGS=&quot;-Wall&quot; make all</code></p>
+<pre><code class="language-sh">CFLAGS=&quot;-Wall&quot; make all
+
+rm -rf test
+cc -Wall    test.c   -o test
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[正则表达式汇总]]></title>
+        <id>https://leichen2552.github.io/post/zheng-ze-biao-da-shi-hui-zong/</id>
+        <link href="https://leichen2552.github.io/post/zheng-ze-biao-da-shi-hui-zong/">
+        </link>
+        <updated>2023-02-26T05:34:03.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="匹配任意字符">匹配任意字符</h1>
+<ol>
+<li>.字符，也就是英文句号，可以匹配任何一个单个的字符</li>
+<li></li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[笔记：NULL、null、nullptr三者的区别]]></title>
+        <id>https://leichen2552.github.io/post/bi-ji-nullnullnullptr-san-zhe-de-qu-bie/</id>
+        <link href="https://leichen2552.github.io/post/bi-ji-nullnullnullptr-san-zhe-de-qu-bie/">
+        </link>
+        <updated>2022-02-13T14:35:31.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#1-null">1. NULL</a></li>
+<li><a href="#2-nullptr">2. nullptr</a></li>
+<li><a href="#3">3. &quot;&quot;</a></li>
+</ul>
+</li>
+</ul>
+</p>
+<p>其实null和NULL都是字符串（没啥区别，欢迎高手纠错！），具体看它们宏定义被定义成为什么值。</p>
+<p>在VS中NULL被定义为0，因为习惯上把宏定义的所有字符都大写，当把NULL它赋值给指针时意思为空，当然你也可以把null定义为0了，都一样。</p>
+<p>它们都没定义时都只能叫符号了，定义后就有另外的意思了，你把0直接赋值给指针也行，只要指针指向0就为空。</p>
+<p>其实NULL在有些编译器中是赋为0了，这时你不能再去#define定义它了，否则就重定义了！</p>
+<h2 id="1-null">1. NULL</h2>
+<pre><code class="language-cpp">#ifdef __cplusplus  
+#define NULL    0  
+#else  
+#define NULL    ((void *)0) 
+#endif  
+</code></pre>
+<p>在C语言环境下，由于不存在函数重载等问题，直接将NULL定义为一个void<em>的指针就可以完美的解决一切问题。<br>
+但是在C++环境下情况就变得复杂起来，首先我们不能写这样的代码：<br>
+FILE</em> fp = (void*)0; //将void*直接赋值给一个指针是不合法的，编译器会报错。<br>
+我们只能这样写代码</p>
+<pre><code class="language-cpp">FILE* fp = (FILE*)0;
+// or  
+FILE* fp = 0;
+</code></pre>
+<h2 id="2-nullptr">2. nullptr</h2>
+<p>C++11，其中有一个是新的关键字nullptr<br>
+如果我们的编译器是支持nullptr的话，那么我们应该直接使用nullptr来替代NULL的宏定义。正常使用过程中他们是完全等价的。</p>
+<h2 id="3">3. &quot;&quot;</h2>
+<p>&quot;&quot; 也表示空，但是和null有很大区别：null没有分配空间，&quot;&quot;分配了空间</p>
+<pre><code class="language-cpp">String str1 = null;  //str引用为空
+
+String str2 = &quot;&quot;;  //str引用一个空串
+</code></pre>
+<p>也就是null没有分配空间，&quot;&quot;分配了空间，因此str1还不是一个实例化的对象，而str2已经实例化。</p>
+<p>注意：</p>
+<p>因为null不是对象，&quot;&quot;是对象。所以比较的时候必须是 if(str1==null){...}和if(str2.equals(&quot;&quot;)){...}。</p>
+<p>对象用equals比较，null用等号比较。</p>
+<p>因此，如果str1=null;下面的写法错误：</p>
+<p>if(str1.equals(&quot;&quot;)||str1==null){//如果str1没有值，则.... }</p>
+<p>正确的写法是</p>
+<p>if(str1==null||str1.equals(&quot;&quot;)){//先判断是不是对象，如果是，再判断是不是空字符串}</p>
+<p>打个比方：一个空玻璃杯，你不能说它里面什么都没有，因为里面有空气，当然也可以把它弄成真空，null与&quot; &quot;的区别就象真空与空气一样。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[数字0、字符0、"0"、'0'、'\0'的区别]]></title>
+        <id>https://leichen2552.github.io/post/shu-zi-0zi-fu-0000de-qu-bie/</id>
+        <link href="https://leichen2552.github.io/post/shu-zi-0zi-fu-0000de-qu-bie/">
+        </link>
+        <updated>2022-02-13T09:22:51.000Z</updated>
+        <content type="html"><![CDATA[<p>首先把上面5种分下类，分成4类</p>
+<ul>
+<li>数字0：这个0是整型，int a = 0，ASCII表里面，对应的就是0；</li>
+<li>字符0、'0'：这这两个是char型，char c = '0'，ASCII表里面，对应的就是0x30，也就是48；</li>
+<li>'\0'：这个是转义字符，意义是空字符(NULL)，也是字符串结束符，ASCII表里面，对应的就是0，所以'\0' == 数字0；</li>
+<li>&quot;0&quot;：这个是字符串0，看似只有一个字符其实有两个，是字符0和转义字符'\0'的结合，&quot;0&quot; =={ '0', '\0' }。</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[stm32f4外部晶振更换为8M时]]></title>
+        <id>https://leichen2552.github.io/post/stm32f4-wai-bu-jing-zhen-geng-huan-wei-8m-shi/</id>
+        <link href="https://leichen2552.github.io/post/stm32f4-wai-bu-jing-zhen-geng-huan-wei-8m-shi/">
+        </link>
+        <updated>2021-05-18T01:44:55.000Z</updated>
+        <content type="html"><![CDATA[<p>程序上设置的晶振频率跟实际外部用的晶振频率不一致，会导致时钟紊乱，比如定时器定时不准，还会导致串口传输数据错误。</p>
+<p>将晶振频率设置成12M的步骤如下：</p>
+<ol>
+<li>将stm32f4xx.h中语句 #define HSE_VALUE    ((uint32_t)25000000)改作#define HSE_VALUE    ((uint32_t)8000000)</li>
+<li>(这一步可能需要也可能不需要)将system_stm32f4xx.c中的语句 #define HSE_BYPASS_INPUT_FREQUENCY  25000000改作 #define HSE_BYPASS_INPUT_FREQUENCY 8000000</li>
+<li>将system_stm32f4xx.c中 #define PLL_M  25     改作 #define PLL_M 8</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[五次实验记录]]></title>
+        <id>https://leichen2552.github.io/post/di-san-ci-shi-yan-ji-lu/</id>
+        <link href="https://leichen2552.github.io/post/di-san-ci-shi-yan-ji-lu/">
+        </link>
+        <updated>2021-04-30T00:37:48.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="3月27日第一次实验记录">3月27日第一次实验记录</h1>
+<p>  开学以来的第一次试验，地点是在解放军301医院那边的码头。<br>
+  获取测深仪的数据，为学长的实验作准备，水深大概是5米。期间还看到大水母。关于测深仪真是一言难尽，测深仪的上位机是用老古董VC++6.0开发的，所以要使用上位机的话，必须安装VC++6.0.幸好我的电脑是win7系统，还可与之一战。就后续实验，他们的电脑是win10，没有一个能把VC++6.0企业版装成功的。因为301医院地处原因，期间有个做水下设备的人员与我们探讨，并且还给我们指了一条明路。<br>
+  水下图像数据获取。</p>
+<h1 id="4月4日第二次实验记录">4月4日第二次实验记录</h1>
+<p>  第二次实验，地点是红塘湾，也是教训最为惨痛的一次。<br>
+  学长的设备可以下水了。这次做了一个接插件(如图)，利用12个螺丝在周围压紧固定。<br>
+<img src="https://leichen2552.github.io/post-images/1619400503693.jpg" alt="" loading="lazy"><br>
+因为之前那个设备拧不开，包括头部拧上去太难了。这次接插件的只要目的就是衔接上下，然后用螺丝固定。接插件的内嵌部分采用双层的密封圈挤压防水，两层衔接部分采用一层密封圈防水。<br>
+  本以为层层防水之下不会再漏水，科是整个设备刚如水，就推进器在水面短暂地旋转之后就停止工作，数据也没有出现。急忙拉上来之后，原来是进水了。主板也烧了。心情异常复杂<br>
+  后来导师提议把所有内部东西拆了，先检测防水。试验之后，漏水量挺多。初步怀疑是密封圈的尺寸太小导致的漏水。<br>
+  这次来回搬设备真的挺累，26千克的东西，下次得带个小车托运。</p>
+<h1 id="4月17日第三次实验记录">4月17日第三次实验记录</h1>
+<p>  千呼万唤始出来，地点还是红塘湾，依稀记得那天的太阳仍然是那么毒辣，跟清明节那天的比起来，热度丝毫不减<br>
+  在这个实验开始之前，学长更换了不同类型的防水密封圈，可是在7~8米水深下，依然漏水。这真的不知道是什么原因了。但是作为看过所有柯南剧场版的我来说，”排除所有的不可能，剩下的即使再难以相信，那也是真相“。所以要么就是头部的胶开裂漏水，要么就是尾部的胶开裂漏水。</p>
+<h1 id="4月24日第四次实验记录">4月24日第四次实验记录</h1>
+<p>  这回真的是背水一战了，毫无退路。环氧树脂AB胶在头部以及尾部完完全全封了一层，并且在水缸中测试了一遍。这次依旧是红塘湾，在设备下水呆了近十分钟之后，拉上来看，还是漏水，但是此时进水不多，很少。<br>
+  学长提议把电池啥的装进去，因为装进去盖上的操作，然后衔接器的内嵌部分抵住电池盖，其实一开始并没有抱太大希望，因为水这个东西，无孔不入。所以先让学长准备，然后我们去做了另一个实验。回来把电池盖安装好，在电池盖的背面加上了配重块，然后再放下去测试。<br>
+      很意外，舱内没有进水！<br>
+      结果非常好，没有漏水！<br>
+      非常好，没有漏水！<br>
+  紧接着，我们又把控制电路放进设备中，姿态数据完全出来了，但是深度闭环数据并没有出来！也不知道是什么原因，所以这次算50%的成功！</p>
+<h1 id="4月30日第五次实验记录">4月30日第五次实验记录</h1>
+<p>  赶在四月的最后一天，因为上次深度数据没有出来，所以没办法完成推进器的PWM与深度的闭环。经过这几天的修改程序，应该差不多吧。<br>
+  两点半出发，到那三点，整理东西到场地三点半，就在准备下水的时候，忘记带数据线了，也就是开发板和电脑的数据线。这里提一下，开发板和潜水器是通过485总线来通信的。电脑和开发板通过USB转串口的线来通信，线的接口类型是MINI-USB，这种接口在也被称为老式的USB接口。本以为老师的车上有，同门去拿过来的线是micro-usb，途中还撞得头破血流。没办法，老师开车带着我去离着最近的镇上去买，也不知道跑了多少家中国移动、中国电信、华为体验店、文具商行，最后在一家中国移动的维修处那里买到了两根线。<br>
+  开始实验，从一开始计算的浮力数据来看，只需要加四个配重块就可以进行闭环控制。但是实验结果并不对。后来把配重块卸了，继续实验，还是不行。原因就是设备太重，推进器反推最大也没办法浮起来，这个设计上的缺陷，没办法改变。而且设备旋转的很厉害，那么就把后面绕的绳子不停地上劲，打结，甚至推进器在水下被485的线缠绕，甚至推进器缠绕上了水中垃圾。<br>
+  其实从去年跟学长讨论闭环的时候，我就提议，这个闭环应该是深度和PWM之间构成的闭环。什么意思呢？因为电脑通过上位机发指令给开发板，开发板把指令发给水中的潜水器，然后潜水器执行操作。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[美的修冰箱维权]]></title>
+        <id>https://leichen2552.github.io/post/mei-de-xiu-kong-diao-wei-quan/</id>
+        <link href="https://leichen2552.github.io/post/mei-de-xiu-kong-diao-wei-quan/">
+        </link>
+        <updated>2021-04-07T12:18:18.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="记一次修美的冰箱的事件">记一次修美的冰箱的事件</h1>
+<h2 id="3月25日美的冰箱第一次出现问题">3月25日美的冰箱第一次出现问题</h2>
+<p>冷冻室制冷达不到效果，本来应该零下18度，可是却只有零下四五度的样子。初步判断是温控器的问题<br>
+在美的公众号上报修。</p>
+<h2 id="3月28日第一次维修">3月28日第一次维修</h2>
+<p>3月28日维修师傅来换了一个温控器，一分钱没有收。本以为好了，发现还是不行。</p>
+<h2 id="3月29日美的冰箱第二次出现问题">3月29日美的冰箱第二次出现问题</h2>
+<p>现象是压缩机一直不停工作，冷藏室还是没有达到应有的制冷效果。冰箱内存储物很少，冷藏室结很厚一层冰，温控器失灵，压缩机一直工作不停。维修师傅把冰箱运回去维修。</p>
+<h2 id="4月6日第二次维修">4月6日第二次维修</h2>
+<p>售后维修在电源处加接了一个冰箱知音(在网上可查其功用)，它一个旋钮调冰箱压缩机运行时间{电接通〉，另一个旋钮调压缩机停止时间(电断开)，而冰箱自己的温控失灵问题没有解决;另一个问题就是压缩机不停的运行而冰箱冰冻室只有零下8度左右的问题，我看到压缩机两侧管道有重新焊接的痕迹，可能加了制冷制。</p>
+<p>又继续联系维修师傅，维修师傅问我们是不是压缩机一会儿工作一会儿停止，冷藏室温度降了下来。现象确实是，但是冷藏室的温度只有4摄氏度，压缩机工作一会儿工作一会儿停下来是因为加了人工定时器（就是前面说的冰箱知音）。</p>
+<p>其实维修师傅就是在糊弄我们，本来冰箱是没有人工定时器的，我们直接打售后。他说继续来维修。</p>
+<h2 id="4月8日第三次维修">4月8日第三次维修</h2>
+<p>维修师傅来电告知换台新冰箱，需要十几天时间。要走了淘宝订单号，换台新的。可是迟迟没有动静，等了小半个月，都没啥动静。</p>
+<h2 id="事情继续发展">事情继续发展</h2>
+<p>4月25日售后来人说只能折旧退款，退659。但是我拒绝了，这不是折旧退款的事情，是现在售后修不好的事情，整机维修一年，核心零部件三年。这不满足核心零部件三年的这项条款。继续报修投诉，打400投诉，过了两天仍无动静。</p>
+<p>4月28日6点半我又打美的400客服冰箱报修投诉。她说是25日报修投诉的？我说是的，但这几天也没人答理我，冰箱又被他们拖走了。她说需了解一下情况再回复。</p>
+<p>4月28日8点多维修师傅打电话来说上午来送线。10点多美的客服又来电询问情况。11点58分维修师傅终于来电说在万塔街等我。我去在冰箱收回退款959元的机打印收条上签字，还在一张也是机打印的内容是冰箱收回什么的上面有许多空挌(内需填写型号丶退货原因之类，维修师傅说由他们填写)签字，这张维修师傅说需要贴在回收冰箱上。</p>
+<p>然而4月25日那天来人只是要我写一张659元的手写收据，两一对比我怀疑是维修处擅自退款659元，然后再在机打印的两个文件上签上我的名字去美的厂家领取959元，这样近300元就到维修处的腰包。</p>
+<p>这段时间，维修处拖延、蒙骗、暗强迫等方法，尤其25号来拖冰箱送钱时，我打电话质疑维修处的负责人(是固话女的)时，她态度蛮横、嚣张，上消协投诉好了之类。无利不起早，我当时就怀疑里面有诈。不说了，为了这事这一阵挺累的，好了，终于守得云开见月明！</p>
+<h2 id="后记">后记</h2>
+<p>美的的售后维修并不是美的总部开的，我觉得是一种加盟的方式。比如某个地方有一个修冰箱的小作坊，然后越修店面越大，后来就加盟美的售后维修。从某种程度上说这种开售后维修的方式有点像外包。经此事件，对美的的好感度大减，天下的乌鸦一般黑。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[PCB 工艺设计规范]]></title>
+        <id>https://leichen2552.github.io/post/pcb-gong-yi-she-ji-gui-fan/</id>
+        <link href="https://leichen2552.github.io/post/pcb-gong-yi-she-ji-gui-fan/">
+        </link>
+        <updated>2021-04-01T11:13:21.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="pcb-工艺设计规范">PCB 工艺设计规范</h1>
+<h2 id="1目的">1.目的</h2>
+<p>  规范产品PCB工艺设计，规定PCB工艺设计的相关参数，使得PCB的设计满足课生产性，可测试性、安规、EMC、EMI等的技术规范要求，在产品设计过程中构建产品的工艺、技术、质量、成本优势。</p>
+<h2 id="2使用范围">2.使用范围</h2>
+<p>  本规范适用于所有的电子产品的PCB工艺设计，运用于但不限于PCB的设计、PCB投板工艺审查、单板工艺审查等活动。<br>
+  本规范之前的相关标准、规范的内容如与本规范的指定相抵触的，一本规范为准。</p>
+<h2 id="3定义">3.定义</h2>
+<p>  导通孔(via)：一种用于内层连接的金属化孔，但其中并不用于插入元件或其他增强材料。<br>
+  盲孔(Blind via)：从印刷板内仅延展到一个表层的导通孔。<br>
+  埋孔(Buried via)：未延伸到印刷版表面的一种导通孔。<br>
+  过孔(Through via)：从印制板的一个表面延展到另一层表面的导通孔。<br>
+  元件孔(Component hole)：用于元件端子固定于印制板及导电图形电器联接的孔。<br>
+  Stand off：表面贴器件的本体底部到引脚底部的垂直距离。</p>
+<h2 id="4引用参考标准或资料">4.引用/参考标准或资料</h2>
+<p>  TS--S0902010001  《信息技术设备PCB安规设计规范》<br>
+  TS--SOE0199001  《电子设备的强迫风冷热设计规范》<br>
+  TS--SOE0199002  《电子设备的自然冷却热设计规范》<br>
+  IEC60194  《印刷版设计、制造与组装术语与定义》（Printed Circuit Board design manufacture assembly-terms and definituons）<br>
+  IPC--A--600F  《印刷版的验收条件》(Acceptably of printed board)<br>
+  IEC60950</p>
+<h2 id="5规范要求">5.规范要求</h2>
+<h3 id="51pcb板材要求">5.1PCB板材要求</h3>
+<h4 id="511确定pcb使用板材以及tg值">5.1.1确定PCB使用板材以及TG值</h4>
+<p>  确定PCB所选用的板材，例如FR--4、铝基板、陶瓷基板、纸芯板等，若选用高TG值得板材，应在文件中表明厚度公差。</p>
+<h4 id="512确定pcb的表面处理镀层">5.1.2确定PCB的表面处理镀层</h4>
+<p>  确定PCB铜箔的表面处理镀层，例如镀锡、镀镶金或OSP等，并在文件中注明</p>
+<h3 id="52热设计要求">5.2热设计要求</h3>
+<h4 id="521-高热器件应该考虑放于出风口或利于对流的位置">5.2.1 高热器件应该考虑放于出风口或利于对流的位置</h4>
+<p>  PCB在布局中考虑将高热器件放于出风口或利于对流的位置。</p>
+<h4 id="522-较高的元件应考虑放于出风口且不阻挡封路">5.2.2 较高的元件应考虑放于出风口，且不阻挡封路</h4>
+<h4 id="523-散热器的放置应考虑对流">5.2.3 散热器的放置应考虑对流</h4>
+<h4 id="524-温度敏感器械件应该要考虑热源">5.2.4 温度敏感器械件应该要考虑热源</h4>
+<p>  对于自身温升高与30摄氏度的热源。一般要求：<br>
+   a. 在风冷条件下，电解电容等温度敏感器件离热源距离要求大于或等于2.5mm；<br>
+   b. 自然冷条件下，电解电容等温度敏感器件离热源距离要求大于或等于4.0mm。<br>
+  若因为空间的原因不能达到要求距离，则应通过温度测试保证温度敏感器件的温升在降额范围内。</p>
+<h4 id="525-大面积铜箔要求用隔热带鱼焊盘相连">5.2.5 大面积铜箔要求用隔热带鱼焊盘相连</h4>
+<p>  为了保证透锡良好，在大面积铜箔上的元件的焊盘相连，对于需过5A以上的大电流不能采用隔热焊盘，如图所示：<img src="https://leichen2552.github.io/post-images/1617281562519.png" alt="" loading="lazy"></p>
+<h4 id="526-过回流焊的0805以及0805以下片式元件两端焊盘的散热对称性">5.2.6 过回流焊的0805以及0805以下片式元件两端焊盘的散热对称性</h4>
+<p>  为了避免器件过回流焊后出现偏位、立碑现象，地回流焊的0805以及0805以下片式元件两端焊盘应保证散热对称性，焊盘与印制导线的连接部位宽度不应大于0.3mm(对于不对称焊盘)，如图1所示。</p>
+<h4 id="527-高热器件的安装方式及是否考虑带散热器">5.2.7 高热器件的安装方式及是否考虑带散热器</h4>
+<p>  确定高热器件的安装的安装方式易于操作和焊接，原则上党员器件的发热密度超过0.4W/<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><msup><mi>m</mi><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">cm^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span>，单靠元器件的引线腿及器件本省不足充分散热，应采用散热网、汇流条件等措施来提高过电流能力，汇流条的支脚应采用多点连接，尽可能采用铆接后过波峰焊或直接过波峰焊接，以利于装配、焊接；对于较长的汇流条的使用，应考虑过波峰时受热汇流条与PCB热膨胀系数不匹配造成的PCB变形。<br>
+  为保证搪锡易于操作，锡道宽度应不大于等于2.0mm，锡道边缘间距大于1.5mm。</p>
+<h3 id="53-器件库选型要求">5.3 器件库选型要求</h3>
+<h4 id="531-已有pcb元件封装库的选用应确认无误">5.3.1 已有PCB元件封装库的选用应确认无误</h4>
+<p>  PCB上已有元件库器件的选用应保证封装与元器件实物外形轮廓、引脚间距、通孔直径等相符合。<br>
+  插装器件管脚与通孔配合良好(通孔直径大于管脚直径8 -- 20mil)，考虑公差可适当增加，确保透锡良好。<br>
+  元件的孔径形成序列化，40mil以上按5mil增加，即40mil、45mil、50mil、55mil......；40mil一下按照4mil递减，即36mil、32mil、28mil、24mil、20mil、16mil、12mil、8mil。<br>
+  器件引脚直径与PCB焊盘孔径的对应关系，以及二次电源插针焊脚与通孔回流焊的焊盘孔径对应关系如表1：<img src="https://leichen2552.github.io/post-images/1617346809259.png" alt="" loading="lazy">  建立元件封装库存是应将孔径的单位换算为英制(mil)，并使孔径满足序列化要求。</p>
+<h4 id="532-新器件的pcb封装库存应确定无误">5.3.2 新器件的PCB封装库存应确定无误</h4>
+<p>  PCB上尚无件封装库的器件，应根据器件资料建立打捞的元件封装库，并保证丝印库存与实务相符合，特别是新建立的电磁元件、自制结构件等的元件库存是否与减员的资料(承认书、图纸)相符合。新器件应建立能够满足不同工艺(回流焊、波峰焊、通孔回流焊)要求的元件库</p>
+<h4 id="533-需过波峰焊的smt器件要求使用表面贴波峰焊盘库">5.3.3 需过波峰焊的SMT器件要求使用表面贴波峰焊盘库。</h4>
+<h4 id="534-轴向器件和条线的引脚间距的种类应尽量少以减少器件的成形和安装工具">5.3.4 轴向器件和条线的引脚间距的种类应尽量少，以减少器件的成形和安装工具。</h4>
+<h4 id="535-不同pin间距的兼容要有单独焊盘孔特别是封装箭筒的继电器之间个兼容焊盘之间要连线">5.3.5 不同PIN间距的兼容要有单独焊盘孔，特别是封装箭筒的继电器之间个兼容焊盘之间要连线。</h4>
+<h4 id="536-锰铜丝等作为测量用的跳线的焊盘要做成非金属化若是金属化焊盘那么焊接后焊盘内的那段电阻江北短路电阻的有效长度将变小而且不一致从而导致测试结果不准确">5.3.6 锰铜丝等作为测量用的跳线的焊盘要做成非金属化，若是金属化焊盘，那么焊接后，焊盘内的那段电阻江北短路，电阻的有效长度将变小而且不一致，从而导致测试结果不准确。</h4>
+<h4 id="537-不能用表贴器件作为手工焊的调测器件表贴器件在手工焊接是容易受热冲击损坏">5.3.7 不能用表贴器件作为手工焊的调测器件，表贴器件在手工焊接是容易受热冲击损坏。</h4>
+<h4 id="538-除非实验验证没有问题否则不能选用和pcb热膨胀系数差别太大的无引脚表贴器件这容易引起焊盘拉托的现象">5.3.8 除非实验验证没有问题，否则不能选用和PCB热膨胀系数差别太大的无引脚表贴器件，这容易引起焊盘拉托的现象。</h4>
+<h4 id="539-除非实验验证没有问题否则不能选非表贴器件使用-因为这样可能需要手焊接效果和可靠性都会很低">5.3.9 除非实验验证没有问题，否则不能选非表贴器件使用。因为这样可能需要手焊接，效果和可靠性都会很低。</h4>
+<h4 id="5310多层pcb侧面局部镀铜作为用于焊接的引脚时必须保证每层均有铜箔相连以增加镀铜的附着强度同时要有实验验证没有问题否则双面板不能采用侧面镀铜作为焊接引脚">5.3.10多层PCB侧面局部镀铜作为用于焊接的引脚时，必须保证每层均有铜箔相连，以增加镀铜的附着强度，同时要有实验验证没有问题，否则双面板不能采用侧面镀铜作为焊接引脚。</h4>
+<h3 id="54-基本布局要求">5.4 基本布局要求</h3>
+<h4 id="541-pcba加工工序合理">5.4.1 PCBA加工工序合理</h4>
+<p>  制成板的元件布局应保证制成板的加工工序合理，以便于提高制成板加工效率和直通率。PCB布局选用的加工流程应使加工效率最高。<br>
+  常用PCBA的6种主流加工流程图如表2：</p>
+<h4 id="542-波峰焊加工的制成板进板方向要求有丝印表明">5.4.2 波峰焊加工的制成板进板方向要求有丝印表明</h4>
+<p>  波峰焊加工的制成板进板方向应在PCB上标明，并使进板方向合理，若PCB可以从两个方向进板，应采用双箭头的进板标识。<img src="https://leichen2552.github.io/post-images/1617435836265.png" alt="" loading="lazy"></p>
+<h4 id="543-两面过回流焊的pcb的buttom面要求无大体积-太重的表贴器件需两面都过回流焊的pcb第一次回流焊接器件重量限制如下">5.4.3 两面过回流焊的PCB的BUTTOM面要求无大体积、太重的表贴器件需两面都过回流焊的PCB，第一次回流焊接器件重量限制如下：</h4>
+<p>  <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span> = 器件重量/引脚与焊盘接触面积<br>
+  片式器件 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>≤</mo><mn>0.075</mn><mi>g</mi><mi mathvariant="normal">/</mi><mi>m</mi><msup><mi>m</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">A \leq 0.075g/mm^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">7</span><span class="mord">5</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord">/</span><span class="mord mathdefault">m</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><br>
+  翼形引脚器件：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>≤</mo><mn>0.300</mn><mi>g</mi><mi mathvariant="normal">/</mi><mi>m</mi><msup><mi>m</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">A \leq 0.300g/mm^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">3</span><span class="mord">0</span><span class="mord">0</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord">/</span><span class="mord mathdefault">m</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><br>
+  <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>J</mi></mrow><annotation encoding="application/x-tex">J</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.09618em;">J</span></span></span></span>形引脚器件：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>≤</mo><mn>0.200</mn><mi>g</mi><mi mathvariant="normal">/</mi><mi>m</mi><msup><mi>m</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">A \leq 0.200g/mm^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">2</span><span class="mord">0</span><span class="mord">0</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord">/</span><span class="mord mathdefault">m</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><br>
+  面阵列器件：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>≤</mo><mn>0.100</mn><mi>g</mi><mi mathvariant="normal">/</mi><mi>m</mi><msup><mi>m</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">A \leq 0.100g/mm^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord">/</span><span class="mord mathdefault">m</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><br>
+  若有超重的器件必须不在BOTTOM面，则应通过实验验证可行性。</p>
+<h4 id="544-需波峰焊加工的单板背面器件不形成阴影效应的安全距离已考虑波峰焊工艺的smt器件距离要求如下">5.4.4 需波峰焊加工的单板背面器件不形成阴影效应的安全距离已考虑波峰焊工艺的SMT器件距离要求如下：</h4>
+<p>  相同类型器件距离(见图2)<br>
+<img src="https://leichen2552.github.io/post-images/1617446033866.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io/post-images/1617435778866.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io/post-images/1617446038419.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io/post-images/1617434174744.png" alt="" loading="lazy"></p>
+<h4 id="545-大于0805封装的陶瓷电容布局是尽量靠近传送边或应力较小区域其轴向尽量与进板方向平行图4尽量不使用1825以上的尺寸的陶瓷电容-保留意见">5.4.5 大于0805封装的陶瓷电容，布局是尽量靠近传送边或应力较小区域，其轴向尽量与进板方向平行(图4)，尽量不使用1825以上的尺寸的陶瓷电容。(保留意见)</h4>
+<figure data-type="image" tabindex="1"><img src="https://leichen2552.github.io/post-images/1617434416240.jpg" alt="" loading="lazy"></figure>
+<h4 id="546-经常插拔器件或板边连接器周围3mm范围内尽量不布置smd以防止连接器插拔时产生的应力损坏器件如图5">5.4.6 经常插拔器件或板边连接器周围3mm范围内尽量不布置SMD，以防止连接器插拔时产生的应力损坏器件，如图5：</h4>
+<figure data-type="image" tabindex="2"><img src="https://leichen2552.github.io/post-images/1617434540604.png" alt="" loading="lazy"></figure>
+<h4 id="547-过波峰焊的表面贴器件的stand-off符合规范要求">5.4.7 过波峰焊的表面贴器件的stand off符合规范要求</h4>
+<p>  过波峰焊的表面贴器件的stand off应小于0.15mm，否则不能布在B面过波峰焊，若器件的stand off 在 0.15mm 与 0.2mm 之间，可在器件本体底下布铜箔以减少器件本体底部与 PCB 表面的距离。</p>
+<h4 id="548-波峰焊时背面测试点不连锡的最小安全距离已确定">5.4.8 波峰焊时背面测试点不连锡的最小安全距离已确定</h4>
+<p>  为保证过波峰焊时不连锡，背面测试点边缘间距应大于1.0mm</p>
+<h4 id="549-过波峰焊的插件元件焊盘间距大于10mm">5.4.9 过波峰焊的插件元件焊盘间距大于1.0mm</h4>
+<p>  为保证过波峰焊时不连锡，过波峰焊的插件元件焊盘边缘间距应大于1.0mm(包括元件本身引脚的焊盘边缘间距)。<br>
+  优选插件元件间距(pitch) <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 2.0mm，焊盘边缘间距 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 1.0mm<br>
+  在器件本体不相互干涉的前提下，相邻器件焊盘边缘间距满足图6要求：<br>
+<img src="https://leichen2552.github.io/post-images/1617446123110.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io/post-images/1617435443460.png" alt="" loading="lazy"><br>
+  插件元件没牌引脚为较多，以焊盘排列方向平行于进板方向布置器件时，当相邻盘边缘间距0.6mm -- 1.0mm时，推荐采用椭圆形焊盘或偷加锡焊盘(图7)。<br>
+<img src="https://leichen2552.github.io/post-images/1617435613047.png" alt="" loading="lazy"></p>
+<h4 id="5410-bga周围3mm内无器件">5.4.10 BGA周围3mm内无器件</h4>
+<p>  为了保证可维修性，BGA器件周围需留有3mm禁布区，最佳为5mm禁布区。一般情况下BGA不不允许放置背面(两次过回流焊的单板第第一次过过回流焊面)；当背面有BGA器件时，不能在正面BGA5mm禁布区的投影范围内布器件。</p>
+<h4 id="5411-贴片元件之间的最小间距满足要求">5.4.11 贴片元件之间的最小间距满足要求</h4>
+<p>  机器贴片之间器件距离要求(图8)：<br>
+  同种器件：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 0.3mm<br>
+  异种器件：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 0.13*h+0.3mm(h为周围近邻元件最大高度差)<br>
+  只能手工贴片的元件之间距离要求：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 1.5mm<br>
+<img src="https://leichen2552.github.io/post-images/1617448169458.png" alt="" loading="lazy"></p>
+<h4 id="5412-元器件的外侧距过板轨道接触的两个板边大于-等于5mm-图9">5.4.12 元器件的外侧距过板轨道接触的两个板边大于、等于5mm。(图9)</h4>
+<p><img src="https://leichen2552.github.io/post-images/1617449391782.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io/post-images/1617449395801.png" alt="" loading="lazy"><br>
+  为了保证制成板过波峰焊或回流焊，传送轨道的卡抓不到元件，元器件的外侧距板边距离应大于或等于5mm，若达不到要求，则PCB应加工艺边，器件与V--CUT的距离 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 1mm。</p>
+<h4 id="5413-可调器件-可插拔器件周围留有足够的空间供调试和维修">5.4.13 可调器件、可插拔器件周围留有足够的空间供调试和维修。</h4>
+<p>  应根据系统或模块的PCBA安装布局以及可调器件的调测方式来综合考虑可调器件的排布方向、调测空间；可插拔器件周围空间预留应根据邻近器件的高度来决定。</p>
+<h4 id="5414-所有的插装磁性元件一定要有坚固的底座禁止使用无底座插装电感">5.4.14 所有的插装磁性元件一定要有坚固的底座，禁止使用无底座插装电感。</h4>
+<h4 id="5415-有极性的变压器的引脚尽量不要设计成对称形式">5.4.15 有极性的变压器的引脚尽量不要设计成对称形式。</h4>
+<h4 id="5416-安装孔的禁布区内无元器件和走线不包括安装孔自身的走线和铜箔">5.4.16 安装孔的禁布区内无元器件和走线(不包括安装孔自身的走线和铜箔)。</h4>
+<h4 id="5417-金属壳体器件和金属件与其他器件的距离满足安规要求">5.4.17 金属壳体器件和金属件与其他器件的距离满足安规要求。</h4>
+<p>  金属壳体器件和金属件的排布应在空间上保证与其他器件的距离满足安规要求。</p>
+<h4 id="5418-对于采用通孔回流焊器件布局的要求">5.4.18 对于采用通孔回流焊器件布局的要求</h4>
+<p>  a. 对于非传送边尺寸大于300mm的PCB，较重的器件尽量不要布置在PCB的中间，以减轻由于插装件在重量在焊接过程中对PCB变形的影响，以及插装过程对板上已经贴放的器件的影响。<br>
+  b. 为方便插装，器件推荐布置在靠近插装操作侧的位置<br>
+  c. 尺寸较长的器件(如内存条插座等)长度方向推荐与传送方向一致。<br>
+<img src="https://leichen2552.github.io/post-images/1617452134170.png" alt="" loading="lazy"><br>
+  d. 通孔回流焊器件焊盘边缘与pitch <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≤</mo></mrow><annotation encoding="application/x-tex">\leq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≤</span></span></span></span> 0.65mm的QFN、SOP、连接器及所有的BGA丝印之间要 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 10mm，与其他SMT器件间距 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 2mm。<br>
+  e. 通孔回流焊器件本体间距离 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 10mm。有夹具扶持的插针焊接不做要求。<br>
+  f. 通孔回流焊器件焊盘边缘与传送边的距离 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 10mm；与非传送边距离 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 5mm。</p>
+<h4 id="5419-通孔回流焊器件禁布区要求">5.4.19 通孔回流焊器件禁布区要求</h4>
+<p>  a. 通孔回流焊器件焊盘周围要留出足够的空间进行焊膏涂布，具体禁布区要求为：对于欧式连接器靠板内的方向10.5mm不能有器件，在禁布区之内不能有器件和过孔。<br>
+  b. 须放置在禁布区内的过孔要做阻焊塞孔处理。</p>
+<h4 id="5420-器件布局要整体考虑单板装配干涉">5.4.20 器件布局要整体考虑单板装配干涉</h4>
+<p>  器件在布局设计时，要考虑单板与单板、单板与机构件的装配干涉问题，尤其是高器件、立体装配的单板等。</p>
+<h4 id="5421-器件和机箱的距离要求">5.4.21 器件和机箱的距离要求</h4>
+<p>  器件布局时要考虑尽量不要太靠近机箱壁，以避免将PCB安装到机箱是损坏器件。特别注意安装在PCB边缘的，在冲击和振动时会产生秦伟移动或没有兼顾的外形的器件：如立装电阻、无底座电感变压器等，若无法满足上述要求，就要采取另外的固定措施来满足安规和振动要求。</p>
+<h4 id="5422-有过波峰焊接的器件尽量布置在pcb边缘以方便堵孔若器件布置在pcb边缘并且式装夹具做的好在波峰焊接是甚至不需要堵孔">5.4.22 有过波峰焊接的器件尽量布置在PCB边缘以方便堵孔，若器件布置在PCB边缘，并且式装夹具做的好，在波峰焊接是甚至不需要堵孔。</h4>
+<h4 id="5423-设计和布局pcb时应尽量允许器件过波峰焊接-选择器件时尽量少选不能过波峰焊接的器件另外放在焊接面的器件应尽量少以减少手工焊接">5.4.23 设计和布局PCB时，应尽量允许器件过波峰焊接。选择器件时尽量少选不能过波峰焊接的器件，另外放在焊接面的器件应尽量少，以减少手工焊接。</h4>
+<h4 id="5424-裸跳线不能贴板跨越版上的导线或铜皮以避免和板上的铜皮短路绿油不能作为有效的绝缘">5.4.24 裸跳线不能贴板跨越版上的导线或铜皮，以避免和板上的铜皮短路，绿油不能作为有效的绝缘</h4>
+<h4 id="5425-布局时考虑所有器件在焊接后易于检查和维护">5.4.25 布局时考虑所有器件在焊接后易于检查和维护。</h4>
+<h4 id="5426-电缆的焊接端尽量靠近pcb的边缘布置以便插装和焊接否则pcb上别的器件会阻碍电缆的插装焊接或被电缆碰歪">5.4.26 电缆的焊接端尽量靠近PCB的边缘布置以便插装和焊接，否则PCB上别的器件会阻碍电缆的插装焊接或被电缆碰歪。</h4>
+<h4 id="5427-多个引脚在同一直线上的器件象连器件-dip封装器件-t220封装器件布局时应使其轴线和波峰焊方向平行-图11">5.4.27 多个引脚在同一直线上的器件，象连器件、DIP封装器件、T220封装器件，布局时应使其轴线和波峰焊方向平行。(图11)</h4>
+<figure data-type="image" tabindex="3"><img src="https://leichen2552.github.io/post-images/1617454907425.png" alt="" loading="lazy"></figure>
+<h4 id="5428-较轻的器件如二极管和-14w-电阻等布局时应使其轴线和波峰焊方向垂直-这样能防止波峰焊时因一端先焊接凝固而使器件产生浮高现象-图12">5.4.28 较轻的器件如二极管和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>4</mn><mi>W</mi></mrow><annotation encoding="application/x-tex">1/4W</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord">4</span><span class="mord mathdefault" style="margin-right:0.13889em;">W</span></span></span></span> 电阻等，布局时应使其轴线和波峰焊方向垂直。这样能防止波峰焊时因一端先焊接凝固而使器件产生浮高现象。(图12)</h4>
+<figure data-type="image" tabindex="4"><img src="https://leichen2552.github.io/post-images/1617455154752.png" alt="" loading="lazy"></figure>
+<h4 id="5429-电缆和周围器件之间要留有一定空间否则电缆的折弯部分会压迫并损坏收尾器件及其焊点">5.4.29 电缆和周围器件之间要留有一定空间，否则电缆的折弯部分会压迫并损坏收尾器件及其焊点。</h4>
+<h3 id="55-走线要求">5.5 走线要求</h3>
+<h4 id="551-印制板边距离v-cut-边大于075mm铁槽边大于03mm">5.5.1 印制板边距离：V-CUT 边大于0.75mm，铁槽边大于0.3mm。</h4>
+<p>  为了保证PCB加工时不出现露铜的缺陷，要求所有的走线及铜箔距离板边：V-CUT边大于0.75mm，铁槽边大于0.3mm(铜箔离板边的距离还应满足安装要求)。</p>
+<h4 id="552-散热器正面下方无走线或已作绝缘处理">5.5.2 散热器正面下方无走线(或已作绝缘处理)</h4>
+<p>  为了保证电器绝缘性，散热器下方周围应无走线(考虑到散热器安装的偏位及安规距离)，若需要在散热器下布线，则应采取绝缘措施使散热器与走线绝缘，或确认走线与散热器是同等点位。</p>
+<h4 id="553-金属拉手条底下无走线">5.5.3 金属拉手条底下无走线</h4>
+<p>  为了保证电气绝缘性，金属拉手条底下应无走线。</p>
+<h4 id="554-各类螺钉孔的禁布区范围要求">5.5.4 各类螺钉孔的禁布区范围要求</h4>
+<p>  各种规格的螺钉的禁布区范围如以下表 5 所示(此禁布区的范围只适用于保证电气绝缘的安装空间，未考虑安规距离，而且只是用圆孔)<br>
+<img src="https://leichen2552.github.io/post-images/1617496698782.png" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io/post-images/1617496703117.png" alt="" loading="lazy"><br>
+  本体范围内有安装孔的器件，例如插座的铆钉孔、螺钉安装孔等，为了保证电器绝缘性，夜莺在元件库中将也的禁布区标识清楚。</p>
+<h4 id="555-要增加孤立焊盘和走线连接部分的宽度泪滴焊般特别是对于单面板的焊盘以避免过波峰焊接时将焊盘拉脱">5.5.5 要增加孤立焊盘和走线连接部分的宽度（泪滴焊般）特别是对于单面板的焊盘，以避免过波峰焊接时将焊盘拉脱。</h4>
+<p>  腰形长孔禁步区如下表6：<br>
+<img src="https://leichen2552.github.io/post-images/1618232065423.png" alt="" loading="lazy"></p>
+<h3 id="56-固定孔-安装孔-过孔要求">5.6 固定孔、安装孔、过孔要求</h3>
+<h4 id="561-过波峰的">5.6.1 过波峰的</h4>
+<p>  </p>
+]]></content>
+    </entry>
+</feed>

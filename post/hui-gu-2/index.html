@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+<title>
+    CLL&#39;s Blog
+</title>
+<!--[if lt IE 9]><script src="//cdn.bootcss.com/html5shiv/r29/html5.js"></script><![endif]-->
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="author" content="陈磊磊">
+<meta name="description" content="正经人谁写博客啊！">
+<meta name="keywords" content="SSD, linux, stm32, 51">
+<script async src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+<link rel="stylesheet" href="https://leichen2552.github.io/styles/main.css" />
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/css/style.min.css" />
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/script.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/icon.min.js"></script>
+        
+            <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/Card/prism.min.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/css/Card/prism.min.css" />
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css">
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js"></script>
+            
+                <!--点击特效-->
+                <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/love.min.js"></script>
+                
+                    <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic@latest/assets/media/script/APlayer.min.js"></script>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+                    
+                        <!--CDN样式-->
+                        <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/hit-kounter-lc-0.3.0.js"></script>
+                        <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+                        
+                            <script>
+                                (function() {
+                                    var bp = document.createElement('script');
+                                    var curProtocol = window.location.protocol.split(':')[0];
+                                    if (curProtocol === 'https') {
+                                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                                    } else {
+                                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                                    }
+                                    var s = document.getElementsByTagName("script")[0];
+                                    s.parentNode.insertBefore(bp, s);
+                                })();
+                            </script>
+                            
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo">
+                <a href="https://leichen2552.github.io">
+                    CLL&#39;s Blog
+                </a>
+            </div>
+            <div id="tp-weather-widget"></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/">
+                        首页
+                    </a>
+                    
+                    <a class="menu-item" href="/archives">
+                        归档
+                    </a>
+                    
+                    <a class="menu-item" href="/tags">
+                        标签
+                    </a>
+                    
+                    <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                        关于
+                    </a>
+                    
+                        <input id="switch_default" type="checkbox" class="switch_default">
+                        <label for="switch_default" class="toggleBtn"></label>
+            </div>
+            <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+            </form>
+        </div>
+    </nav>
+
+    
+        <nav class="navbar-mobile" id="nav-mobile">
+            <div class="container">
+                <div class="navbar-header">
+                    <div>
+                        <a href="https://leichen2552.github.io">
+                            CLL&#39;s Blog
+                        </a>
+                        <!--en-->
+                        <a id="mobile-toggle-theme-en" class="a en">&nbsp;Dark</a>
+                        <!--zh-->
+                        <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
+                    </div>
+                    <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                        <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+                    </form>
+                    <!--en-->
+                    <div class="menu-toggle" id="menu-toggle-en" onclick="mobileBtn()">&#9776; Menu</div>
+                    <!--zh-->
+                    <div class="menu-toggle" id="menu-toggle-zh" onclick="mobileBtn()">&#9776; &#x83DC;&#x5355;</div>
+
+                </div>
+                <div class="menu" id="mobile-menu">
+                    
+                        <a class="menu-item" href="/">
+                            首页
+                        </a>
+                        
+                        <a class="menu-item" href="/archives">
+                            归档
+                        </a>
+                        
+                        <a class="menu-item" href="/tags">
+                            标签
+                        </a>
+                        
+                        <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                            关于
+                        </a>
+                        
+                </div>
+            </div>
+        </nav>
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementById("menu-toggle-en");
+        var toggleMenu_zh = document.getElementById("menu-toggle-zh");
+
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.display != "none") {
+            if (toggleMenu.classList.contains("active")) {
+                toggleMenu.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        } else if (toggleMenu_zh.display != "none") {
+            if (toggleMenu_zh.classList.contains("active")) {
+                toggleMenu_zh.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu_zh.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        }
+
+    }
+</script>
+
+
+
+    <script>
+        (function(a, h, g, f, e, d, c, b) {
+            b = function() {
+                d = h.createElement(g);
+                c = h.getElementsByTagName(g)[0];
+                d.src = e;
+                d.charset = "utf-8";
+                d.async = 1;
+                c.parentNode.insertBefore(d, c)
+            };
+            a["SeniverseWeatherWidgetObject"] = f;
+            a[f] || (a[f] = function() {
+                (a[f].q = a[f].q || []).push(arguments)
+            });
+            a[f].l = +new Date();
+            if (a.attachEvent) {
+                a.attachEvent("onload", b)
+            } else {
+                a.addEventListener("load", b, false)
+            }
+        }(window, document, "script", "SeniverseWeatherWidget", "//cdn.sencdn.com/widget2/static/js/bundle.js?t=" + parseInt((new Date().getTime() / 100000000).toString(), 10)));
+        window.SeniverseWeatherWidget('show', {
+            flavor: "slim",
+            location: "WWEFQFPJZ7T8",
+            geolocation: true,
+            language: "auto",
+            unit: "c",
+            theme: "auto",
+            token: "61bcc333-3305-4728-9465-6785274bb0a3",
+            hover: "enabled",
+            container: "tp-weather-widget"
+        })
+    </script>
+    
+            <div class="main">
+                <div class="container">
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                回顾（2）：C到C++的升级
+                            </h1>
+                            
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        CLL's Blog
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2020-01-12</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">3.5
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">954</a></span>
+                                    
+                                        <span class="post-category">
+                                Category:
+                                
+                                <a href="https://leichen2552.github.io/tag/msUt_OWMOEz/">C++</a>
+                                
+                            </span>
+                                        
+                                            Views:
+                                            <span data-hk-page="current"> - </span>
+                                            
+                                </div>
+                                
+                        </header>
+                        
+                            <img class="post-feature-image" src="https://leichen2552.github.io/post-images/hui-gu-2.jpg" alt="">
+                          
+                        <div class="post-content">
+                            <p><ul class="markdownIt-TOC">
+<li><a href="#c%E4%B8%8Ec%E7%9A%84%E5%85%B3%E7%B3%BB">C与C++的关系</a></li>
+<li><a href="#c%E5%88%B0c%E7%9A%84%E5%8D%87%E7%BA%A7">C到C++的升级</a>
+<ul>
+<li><a href="#%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89">变量定义</a></li>
+<li><a href="#register%E5%85%B3%E9%94%AE%E5%AD%97">register关键字</a></li>
+<li><a href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89">全局变量的定义</a></li>
+<li><a href="#struct%E5%85%B3%E9%94%AE%E8%AF%8D%E7%9A%84%E5%8A%A0%E5%BC%BA">struct关键词的加强</a>
+<ul>
+<li><a href="#c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84struct">C语言中的struct</a></li>
+<li><a href="#c%E4%B8%AD%E7%9A%84struct">C++中的struct</a></li>
+</ul>
+</li>
+<li><a href="#int-f%E4%B8%8Eint-fvoid%E7%9A%84%E5%8C%BA%E5%88%AB">int f()与int f(void)的区别</a></li>
+<li><a href="#%E7%B1%BB%E5%9E%8B">类型</a>
+<ul>
+<li><a href="#%E5%9C%A8c%E8%AF%AD%E8%A8%80%E4%B8%AD">在C语言中</a></li>
+<li><a href="#%E5%9C%A8c%E4%B8%AD">在C++中</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</li>
+</ul>
+</p>
+<h1 id="c与c的关系">C与C++的关系</h1>
+<ul>
+<li>C++<font color = blue size = 4>继承了所有的C特性</font></li>
+<li>C++在C的基础上<font color = purple size = 4>提供了更多的语法和特性</font></li>
+<li>C++的设计目标是<font color = red size = 4>运行效率与开发效率的统一</font></li>
+</ul>
+<p><font size = 5>以<font color = red size = 7>C</font>语言为基础，<font color = red size = 7>+</font>面对对象支持，<font color = red size = 7>+</font>类型加强、函数加强、异常处理等等 = <font color = red size = 7>C + +</font></font></p>
+<h1 id="c到c的升级">C到C++的升级</h1>
+<h2 id="变量定义">变量定义</h2>
+<ul>
+<li>C++更强调语言的实用性</li>
+<li>所有变量都可以在需要使用时在定义，对比C语言中的所有变量必须在作用域开始的位置定义</li>
+</ul>
+<h2 id="register关键字">register关键字</h2>
+<ul>
+<li><font color = blue>register</font>关键字请求编译器将局部变量存储在寄存器中，在C++中依然支持<font color = blue>register</font>关键字，但是在C++编译器有自己的优化方式，<strong>C语言中无法获取</strong><font color = blue>register</font>变量的地址，<strong>C++中可以取得</strong><font color = blue>register</font>变量的地址</li>
+<li><font color = 990000>C++编译器发现程序中需要取<font color = blue>register</font>变量的地址时，<font color = blue>register</font>对变量的声明变得无效</font></li>
+<li><font color = 1fffdd>在早期C语言编译器不会对代码进行优化，因此<font color = blue>register</font>变量是一个很好的补充</font></li>
+</ul>
+<h2 id="全局变量的定义">全局变量的定义</h2>
+<ul>
+<li>在C语言中，<font color = 991122>重复定义多个同名的全局变量是合法的</font>。<font color = 991122>C语言中多个同名的全局变量最终会被链接到同一个地址空间上</font></li>
+<li>在C++中，<font color = purple>不允许定义多个同名的全局变量</font></li>
+</ul>
+<h2 id="struct关键词的加强">struct关键词的加强</h2>
+<ul>
+<li>C语言中的<font  face = "Courier New" color = blue size = 4><strong>struct</strong></font>定义了<strong>一组变量的集合</strong></li>
+<li>C语言中的<font face = "Courier New" color = blue size = 4><strong>struct</strong></font>定义的<font color = green>标识符</font>并不是<font color = purple>一种新的类型</font></li>
+<li>C++中的<font face = "Courier New" color = blue size = 4><strong>struct</strong></font>用于<font color = blue>定义一个全新的类型</font></li>
+</ul>
+<h3 id="c语言中的struct">C语言中的struct</h3>
+<pre><code class="language-c">struct _tag_student//这只是定义一个标签，并不是一个全新的类型
+{
+    const char* name;
+    int age;
+} ;
+typedef struct _tag_student Student;//C语言只是利用typedef把一个标签变成一个类型，
+                            //只是当做一个类型来用，而C语言并不认为Student是一个类型
+</code></pre>
+<h3 id="c中的struct">C++中的struct</h3>
+<pre><code class="language-c++">struct Student//直接就是一个全新的类型
+{
+    const char* name;
+    int age;
+};
+</code></pre>
+<h2 id="int-f与int-fvoid的区别">int f()与int f(void)的区别</h2>
+<h2 id="类型">类型</h2>
+<ul>
+<li>C++中<font color = blue>所有的标识符都必须显示的声明类型</font></li>
+<li>C语言中的<font color = red>默认类型<font color = green>在C++中</font>是不合法的</font></li>
+</ul>
+<pre><code class="language-c">f(i)
+{
+    printf(&quot;i = %d\n&quot;,i);
+}
+
+g()
+{
+    return 5;
+}
+//函数f的返回值和参数分别是什么类型？函数在没有给出返回值时，默认类型为int
+//函数g可以接受多少个参数？任意多的参数
+</code></pre>
+<p>思考题：int f() 与 int f(void)有什么区别？<br>
+解答：他们有没有区别看什么编译器</p>
+<ul>
+<li>如果是C语言编译器，那么<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">f()</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mclose">)</span></span></span></span>就是接受任意多的参数，并且返回值是int类型的函数，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mi>v</mi><mi>o</mi><mi>i</mi><mi>d</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">f(void)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">o</span><span class="mord mathdefault">i</span><span class="mord mathdefault">d</span><span class="mclose">)</span></span></span></span>是不接收参数并且返回值是int类型的函数</li>
+<li>如果是C++编译器，那它们两个就没什么区别</li>
+</ul>
+<h3 id="在c语言中">在C语言中</h3>
+<ul>
+<li><font color = blue>int</font> f() 表示<font color = blue>返回值</font>为<font color = blue>int</font>类型，<font color = 888888>接受任意参数的函数</font></li>
+<li>f(<font color = blue>void</font>)表示返回值为<font color = blue>int</font>的<font color = purple>无参函数</font></li>
+</ul>
+<h3 id="在c中">在C++中</h3>
+<ul>
+<li><font color = blue>int</font> f() 和 <font color = blue>int</font> f(<font color = blue>void</font>)具有<font color = 979700>相同的意义</font>，表示返回值为<font color = blue>int</font>的无参函数</li>
+</ul>
+<h2 id="小结">小结</h2>
+<ul>
+<li>C++更<font color = blue>强调实用性</font>，可以在<font color = cd0000>任意地方声明变量</font></li>
+<li>C++中的<font color = blue>register</font>只是一个兼容的作用，C++兼容C语言只是为了兼容C语言，因为C++有自己的优化方式，他不需要register这个关键字来指示优化</li>
+<li>C++编译器能够<font color = ff00ff>更好的进行优化</font></li>
+<li>C++中<font color = 71c671>任意的标识符都必须显示的指明类型</font></li>
+</ul>
+
+                        </div>
+                        
+                            <div class="post-toc">
+                                <ul class="markdownIt-TOC">
+<li><a href="#c%E4%B8%8Ec%E7%9A%84%E5%85%B3%E7%B3%BB">C与C++的关系</a></li>
+<li><a href="#c%E5%88%B0c%E7%9A%84%E5%8D%87%E7%BA%A7">C到C++的升级</a>
+<ul>
+<li><a href="#%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89">变量定义</a></li>
+<li><a href="#register%E5%85%B3%E9%94%AE%E5%AD%97">register关键字</a></li>
+<li><a href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89">全局变量的定义</a></li>
+<li><a href="#struct%E5%85%B3%E9%94%AE%E8%AF%8D%E7%9A%84%E5%8A%A0%E5%BC%BA">struct关键词的加强</a>
+<ul>
+<li><a href="#c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84struct">C语言中的struct</a></li>
+<li><a href="#c%E4%B8%AD%E7%9A%84struct">C++中的struct</a></li>
+</ul>
+</li>
+<li><a href="#int-f%E4%B8%8Eint-fvoid%E7%9A%84%E5%8C%BA%E5%88%AB">int f()与int f(void)的区别</a></li>
+<li><a href="#%E7%B1%BB%E5%9E%8B">类型</a>
+<ul>
+<li><a href="#%E5%9C%A8c%E8%AF%AD%E8%A8%80%E4%B8%AD">在C语言中</a></li>
+<li><a href="#%E5%9C%A8c%E4%B8%AD">在C++中</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</li>
+</ul>
+
+                            </div>
+                            
+                                
+                                    
+                                        <!--en-->
+                                        <section class="post-copyright en">
+                                            <p class="copyright-item">
+                                                <span>Author:</span>
+                                                <span>CLL's Blog</span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>Permalink:</span>
+                                                <span><a href="https://leichen2552.github.io/post/hui-gu-2/">https://leichen2552.github.io/post/hui-gu-2/</a></span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>License:</span>
+                                                <span>MIT License</span>
+                                            </p>
+                                        </section>
+                                        
+                                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/hui-gu-2/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/hui-gu-2/&sharesource=qzone&title=回顾（2）：C到C++的升级&pics=https://leichen2552.github.io/images/avatar.png?v=1756049228364&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/hui-gu-2/&sharesource=weibo&title=回顾（2）：C到C++的升级 + " - " + &pic="https://leichen2552.github.io/images/avatar.png?v=1756049228364 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                            <div class="reward ">
+                                                                <div class="reward-button ">&yen;
+                                                                    <span class="reward-code "> 
+                                                                <span class="alipay-code "> <img class="alipay-img " alt = "support " src=""><b>Alipay</b> </span>
+                                                                    <span class="wechat-code "> <img alt ="support " class="wechat-img " src=""><b>Wechat</b> </span> </span>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://leichen2552.github.io/tag/msUt_OWMOEz/">#
+                                                C++
+                                                    </a>
+                                                    
+                                                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
+                                                                
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/hui-gu-3jin-hua-hou-de-const-fen-xi/">
+                                                                                            回顾（3）：进化后的const分析
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/xue-xi-cde-yi-yi/">
+                                                                                                    回顾（1）：学习C++的意义
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
+                </div>
+                
+                                            
+            </div>
+    </div>
+    </div>
+    </div>
+    
+    <div id="player"></div>
+    
+        <footer id="footer" class="footer">
+            <div class="copyright">
+                
+                    <div class="Like">
+                        <div class="tip" data-tooltip="Do you like it?">
+                            <a href="https://github.com/ITJoker233/Gridea-theme-Chic" target="_blank" title=""><svg class="icon"
+                        aria-hidden="true">
+                        <use xlink:href="#like"></use>
+                    </svg><b class="like_text" id="star"></b></a>
+                        </div>
+                    </div>
+                    
+                        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+                            
+                                <b id="hitokoto"></b><br>
+                                
+                                        <svg viewBox="0 0 1024 1024" style="margin-left: 5px;margin-right: 5px;" version="1.0" width="8" height="8" class="my-face">
+            <path
+                d="M863.597631 513.574282l-271.33965-140.213484L729.783667 81.926656c3.583731-7.87141 7.167462-15.742819 7.167462-25.214109C736.887134 25.226908 708.345275 0.012799 672.635953 0.012799a63.611229 63.611229 0 0 0-39.293053 12.607055c-1.791866 1.59988-3.519736 3.19976-5.311602 3.19976L147.87531 418.925381a55.547834 55.547834 0 0 0-19.646527 47.356448c1.791866 17.278704 14.27093 33.021523 32.125591 42.492813l271.33965 141.749369L292.504463 945.221908c-12.479064 25.214109-1.791866 53.563983 23.166262 69.306802 10.751194 6.335525 23.230258 9.47129 35.709322 9.47129 16.062795 0 32.125591-4.735645 44.604655-15.742819l480.091993-403.297753a55.547834 55.547834 0 0 0 19.646526-47.228458 61.243407 61.243407 0 0 0-32.12559-44.156688z"
+                fill="#93b5cf"></path>
+        </svg>
+                                        CLL&#39;s Blog &copy;Copyright
+                                            <script>
+                                                var date = new Date();
+                                                document.write("" + date.getFullYear());
+                                            </script>
+                                            | Powered by
+                                            <a href="https://coding.net" target="_blank">
+                                                Coding.net
+                                            </a>
+            </div>
+            <div id="update" style="display:none;">
+                on
+            </div>
+            
+                <div id="version" style="display:none;">
+                    1.7.6
+                </div>
+                
+                    <script>
+                        var port = '';
+                        
+                        document.write('<div id="home_path" style="display:none;">' + document.location.protocol + '//' + window.document.location.hostname + port + '</div>')
+                    </script>
+        </footer>
+        
+            <script src='https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js'></script>
+            
+                <script>
+                    
+
+                    function LoadPlayer() {
+                        var musicList = [];
+                        
+                        musicList.push({
+                            name: '',
+                            url: '',
+                            artist: '',
+                            cover: '',
+                        });
+                        
+                        console.log(" MusicList: " + musicList);
+                        
+                        const ap = new APlayer({
+                            container: document.getElementById('player'),
+                            fixed: true,
+                            audio: musicList
+                        });
+                        
+                    }
+                    LoadPlayer();
+                    
+                    
+                    loadlive2d();
+                    
+                    
+                    hitokoto();
+                    
+                    getStar();
+                    hljs.initHighlighting();
+                    console.clear();
+                    
+                    CheckVersion();
+                    
+                    var newDate = new Date();
+                    newDate.setTime(1756049228364);
+                    console.log(" Blog Update Time: " + newDate.toLocaleDateString());
+                    console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
+                </script>
+        </div>
+</body>
+<script>
+    scroll();
+</script>
+
+</html>

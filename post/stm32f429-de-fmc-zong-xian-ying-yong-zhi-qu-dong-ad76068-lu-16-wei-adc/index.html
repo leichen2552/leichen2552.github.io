@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+<title>
+    CLL&#39;s Blog
+</title>
+<!--[if lt IE 9]><script src="//cdn.bootcss.com/html5shiv/r29/html5.js"></script><![endif]-->
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="author" content="陈磊磊">
+<meta name="description" content="正经人谁写博客啊！">
+<meta name="keywords" content="SSD, linux, stm32, 51">
+<script async src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+<link rel="stylesheet" href="https://leichen2552.github.io/styles/main.css" />
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/css/style.min.css" />
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/script.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic/assets/media/script/icon.min.js"></script>
+        
+            <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/Card/prism.min.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/css/Card/prism.min.css" />
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css">
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js"></script>
+            
+                <!--点击特效-->
+                <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/love.min.js"></script>
+                
+                    <script src="https://cdn.jsdelivr.net/gh/itjoker233/Gridea-theme-Chic@latest/assets/media/script/APlayer.min.js"></script>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+                    
+                        <!--CDN样式-->
+                        <script src="https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/js/hit-kounter-lc-0.3.0.js"></script>
+                        <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+                        
+                            <script>
+                                (function() {
+                                    var bp = document.createElement('script');
+                                    var curProtocol = window.location.protocol.split(':')[0];
+                                    if (curProtocol === 'https') {
+                                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                                    } else {
+                                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                                    }
+                                    var s = document.getElementsByTagName("script")[0];
+                                    s.parentNode.insertBefore(bp, s);
+                                })();
+                            </script>
+                            
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo">
+                <a href="https://leichen2552.github.io">
+                    CLL&#39;s Blog
+                </a>
+            </div>
+            <div id="tp-weather-widget"></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/">
+                        首页
+                    </a>
+                    
+                    <a class="menu-item" href="/archives">
+                        归档
+                    </a>
+                    
+                    <a class="menu-item" href="/tags">
+                        标签
+                    </a>
+                    
+                    <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                        关于
+                    </a>
+                    
+                        <input id="switch_default" type="checkbox" class="switch_default">
+                        <label for="switch_default" class="toggleBtn"></label>
+            </div>
+            <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+            </form>
+        </div>
+    </nav>
+
+    
+        <nav class="navbar-mobile" id="nav-mobile">
+            <div class="container">
+                <div class="navbar-header">
+                    <div>
+                        <a href="https://leichen2552.github.io">
+                            CLL&#39;s Blog
+                        </a>
+                        <!--en-->
+                        <a id="mobile-toggle-theme-en" class="a en">&nbsp;Dark</a>
+                        <!--zh-->
+                        <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
+                    </div>
+                    <form id="gridea-search-form" data-update="1756049228364" action="/search/index.html">
+                        <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
+                    </form>
+                    <!--en-->
+                    <div class="menu-toggle" id="menu-toggle-en" onclick="mobileBtn()">&#9776; Menu</div>
+                    <!--zh-->
+                    <div class="menu-toggle" id="menu-toggle-zh" onclick="mobileBtn()">&#9776; &#x83DC;&#x5355;</div>
+
+                </div>
+                <div class="menu" id="mobile-menu">
+                    
+                        <a class="menu-item" href="/">
+                            首页
+                        </a>
+                        
+                        <a class="menu-item" href="/archives">
+                            归档
+                        </a>
+                        
+                        <a class="menu-item" href="/tags">
+                            标签
+                        </a>
+                        
+                        <a class="menu-item" href="https://leichen2552.github.io/post/about">
+                            关于
+                        </a>
+                        
+                </div>
+            </div>
+        </nav>
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementById("menu-toggle-en");
+        var toggleMenu_zh = document.getElementById("menu-toggle-zh");
+
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.display != "none") {
+            if (toggleMenu.classList.contains("active")) {
+                toggleMenu.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        } else if (toggleMenu_zh.display != "none") {
+            if (toggleMenu_zh.classList.contains("active")) {
+                toggleMenu_zh.classList.remove("active")
+                mobileMenu.classList.remove("active")
+            } else {
+                toggleMenu_zh.classList.add("active")
+                mobileMenu.classList.add("active")
+            }
+        }
+
+    }
+</script>
+
+
+
+    <script>
+        (function(a, h, g, f, e, d, c, b) {
+            b = function() {
+                d = h.createElement(g);
+                c = h.getElementsByTagName(g)[0];
+                d.src = e;
+                d.charset = "utf-8";
+                d.async = 1;
+                c.parentNode.insertBefore(d, c)
+            };
+            a["SeniverseWeatherWidgetObject"] = f;
+            a[f] || (a[f] = function() {
+                (a[f].q = a[f].q || []).push(arguments)
+            });
+            a[f].l = +new Date();
+            if (a.attachEvent) {
+                a.attachEvent("onload", b)
+            } else {
+                a.addEventListener("load", b, false)
+            }
+        }(window, document, "script", "SeniverseWeatherWidget", "//cdn.sencdn.com/widget2/static/js/bundle.js?t=" + parseInt((new Date().getTime() / 100000000).toString(), 10)));
+        window.SeniverseWeatherWidget('show', {
+            flavor: "slim",
+            location: "WWEFQFPJZ7T8",
+            geolocation: true,
+            language: "auto",
+            unit: "c",
+            theme: "auto",
+            token: "61bcc333-3305-4728-9465-6785274bb0a3",
+            hover: "enabled",
+            container: "tp-weather-widget"
+        })
+    </script>
+    
+            <div class="main">
+                <div class="container">
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                STM32F429的FMC总线应用驱动AD7606（8路16位ADC）
+                            </h1>
+                            
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        CLL's Blog
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2020-11-11</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">4.3
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">1156</a></span>
+                                    
+                                            Views:
+                                            <span data-hk-page="current"> - </span>
+                                            
+                                </div>
+                                
+                        </header>
+                        
+                        <div class="post-content">
+                            <h1 id="ad7607">AD7607</h1>
+<h2 id="产品规格">产品规格：</h2>
+<ol>
+<li>16bit 分辨率，内置基准，单5V 供电。</li>
+<li>8 路模拟输入，阻抗1M欧姆。【无需负电源，无需前端模拟运放电路，可直接接传感器输出】</li>
+<li>输入范围可以选择正负5V 或者正负10V，可通过IO 控制量程。</li>
+<li>最大采样频率  200Ksps，支持8 档过采样设置（可以有效降低抖动）。</li>
+<li>通信接口支持SPI或16 位总线方式（也支持8 位总线，一般用的比较少），接口IO电平可以是5V<br>
+或3.3V。</li>
+</ol>
+<h2 id="重要提示">重要提示：</h2>
+<ul>
+<li>AD7606 的配置很简单，它没有内部寄存器，量程范围和过采样参数是通过外部 IO控制的，采样速<br>
+率由MCU 或DSP 提供的脉冲频率控制。</li>
+<li>AD7606 必须使用单5V供电。 而AD7606和 MCU 之间的通信接口电平由VIO （VDRIVE）引脚控制。<br>
+也就是说VIO 必须接单片机的电源，可以是3.3V也可以是5V（范围2.3V – 5V）。</li>
+</ul>
+<h1 id="ad7607的过采样">AD7607的过采样</h1>
+<ul>
+<li>采样频率高于信号最高频率的两倍，这种采样被称为过采样。</li>
+<li>采样频率低于信号最高频率的两倍，这种采样被称为欠采样。</li>
+<li>正确的理解过采样，比如我们设置是 1Ksps 采样率，64 倍过采样。意思是指每次采样，AD7606会<br>
+采样64 次数据并求平均，相当于AD7606以64Ksps 进行采样的，只是将每 64 个采样点的值做了<br>
+平均，用户得到的值就是平均后的数值。因此，如果使用AD7606最高的200Ksps采样率，就不可<br>
+以使用过采样了。</li>
+</ul>
+<h1 id="什么是fmc">什么是FMC</h1>
+<p>在这之前先说一下FSMC和FMC的区别：<br>
+<img src="https://leichen2552.github.io/post-images/1605077768178.jpg" alt="" loading="lazy"><br>
+<img src="https://leichen2552.github.io/post-images/1605077772475.jpg" alt="" loading="lazy"><br>
+看到了吧，不同的芯片支部不同的功能，我们可以理解FMC是FSMC的增强版！</p>
+<p>其实一开始不理解为什么要用FMC来驱动AD7606，一般的资料对其的描述是“灵活的静态存储控制器”，乍一听以为是来控制存储的，再想想的话，其实就能理解为一个外部总线，且是一个可以自己定义时序的总线并且速度不慢，当驱动8080接口的器件是时，如果只是使用GPIO来实现此时序的话，会占用大量的CPU资源，所以这个时候就可以考虑采用FSMC功能。</p>
+<p>由上面的FMC图可知，FMC支持NAND FLASH和NOR FLASH等接口。FMC将外部设备分为三类，分别是NOR/PSRAM设备，NAND设备和PC卡设备，以及SDRAM。他们共用地址数据总线等信号，通过不同的片选CS来区分不同的设备。</p>
+<h2 id="fmc-包含五个主要模块">FMC 包含五个主要模块：</h2>
+<ul>
+<li>AHB 接口（包括 FMC 配置寄存器）</li>
+<li>NOR Flash/PSRAM/SRAM 控制器</li>
+<li>NAND Flash/PC 卡控制器</li>
+<li>SDRAM 控制器</li>
+<li>外部器件接口<br>
+<img src="https://leichen2552.github.io/post-images/1605141178749.png" alt="" loading="lazy"></li>
+</ul>
+<h2 id="外部器件地址映射">外部器件地址映射</h2>
+<p>从 FMC 的角度，外部存储器被划分为 6 个固定大小的存储区域，每个存储区域的大小为<br>
+256 MB（请参见图 455）：</p>
+<ul>
+<li>
+<p>存储区域 1 可连接多达 4 个 NOR Flash 或 PSRAM 器件。此存储区域被划分为如下 4 个NOR/PSRAM 子区域，带 4 个专用片选信号：</p>
+<ul>
+<li>存储区域 1 NOR/PSRAM 1</li>
+<li>存储区域 1 NOR/PSRAM 2</li>
+<li>存储区域 1 NOR/PSRAM 3</li>
+<li>存储区域 1 NOR/PSRAM 4</li>
+</ul>
+</li>
+<li>
+<p>存储区域 2 和 3 用于连接 NAND Flash 器件（每个存储区域一个器件）</p>
+</li>
+<li>
+<p>存储区域 4 用于连接 PC 卡</p>
+</li>
+<li>
+<p>存储区域 5 和 6 用于连接 SDRAM 器件（每个存储区域一个器件）<br>
+对于每个存储区域，所要使用的存储器类型可由用户应用程序通过配置寄存器配置。<br>
+<img src="https://leichen2552.github.io/post-images/1605141612795.png" alt="" loading="lazy"></p>
+<p>那为什么要把AD7606当成这些内存设备来用呢？</p>
+</li>
+</ul>
+<p>一般的外部SRAM有如下几根线：地址线（A0 ~ A18），数据线（D0 ~ D15），读信号（WE），写信号（OE），片选信号（CS），如果SRAM支持字节控制的话，还有UB和LB信号。</p>
+<p>而这个AD7606的8080模式有哪几根线呢？<br>
+<img src="https://leichen2552.github.io/post-images/1605078796335.jpg" alt="" loading="lazy"><br>
+而8080接口的AD7606有如下几根线：复位信号（RST），数据线（D0 ~ D15），读信号（RD），写信号（WD），片选信号（CS）和读写功能标志（RS）。</p>
+<p>这两种接口看上去好像差不多诶…<br>
+但是不同的地方在于，AD7606没有地址信号，而且还多了个复位信号（RST），不过没事，这两个可以通过软件来控制。</p>
+<p>https://blog.csdn.net/z_jinye/article/details/41045939<br>
+但是核心板上没有把接在SDRAM上的FMC接口引出，需要16个IO口。打算用SPI模式读取AD7606。</p>
+
+                        </div>
+                        
+                            <div class="post-toc">
+                                <ul class="markdownIt-TOC">
+<li><a href="#ad7607">AD7607</a>
+<ul>
+<li><a href="#%E4%BA%A7%E5%93%81%E8%A7%84%E6%A0%BC">产品规格：</a></li>
+<li><a href="#%E9%87%8D%E8%A6%81%E6%8F%90%E7%A4%BA">重要提示：</a></li>
+</ul>
+</li>
+<li><a href="#ad7607%E7%9A%84%E8%BF%87%E9%87%87%E6%A0%B7">AD7607的过采样</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AFfmc">什么是FMC</a>
+<ul>
+<li><a href="#fmc-%E5%8C%85%E5%90%AB%E4%BA%94%E4%B8%AA%E4%B8%BB%E8%A6%81%E6%A8%A1%E5%9D%97">FMC 包含五个主要模块：</a></li>
+<li><a href="#%E5%A4%96%E9%83%A8%E5%99%A8%E4%BB%B6%E5%9C%B0%E5%9D%80%E6%98%A0%E5%B0%84">外部器件地址映射</a></li>
+</ul>
+</li>
+</ul>
+
+                            </div>
+                            
+                                
+                                    
+                                        <!--en-->
+                                        <section class="post-copyright en">
+                                            <p class="copyright-item">
+                                                <span>Author:</span>
+                                                <span>CLL's Blog</span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>Permalink:</span>
+                                                <span><a href="https://leichen2552.github.io/post/stm32f429-de-fmc-zong-xian-ying-yong-zhi-qu-dong-ad76068-lu-16-wei-adc/">https://leichen2552.github.io/post/stm32f429-de-fmc-zong-xian-ying-yong-zhi-qu-dong-ad76068-lu-16-wei-adc/</a></span>
+                                            </p>
+
+                                            <p class="copyright-item">
+                                                <span>License:</span>
+                                                <span>MIT License</span>
+                                            </p>
+                                        </section>
+                                        
+                                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://leichen2552.github.io/post/stm32f429-de-fmc-zong-xian-ying-yong-zhi-qu-dong-ad76068-lu-16-wei-adc/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://leichen2552.github.io/post/stm32f429-de-fmc-zong-xian-ying-yong-zhi-qu-dong-ad76068-lu-16-wei-adc/&sharesource=qzone&title=STM32F429的FMC总线应用驱动AD7606（8路16位ADC）&pics=https://leichen2552.github.io/images/avatar.png?v=1756049228364&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://leichen2552.github.io/post/stm32f429-de-fmc-zong-xian-ying-yong-zhi-qu-dong-ad76068-lu-16-wei-adc/&sharesource=weibo&title=STM32F429的FMC总线应用驱动AD7606（8路16位ADC） + " - " + &pic="https://leichen2552.github.io/images/avatar.png?v=1756049228364 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                            <div class="reward ">
+                                                                <div class="reward-button ">&yen;
+                                                                    <span class="reward-code "> 
+                                                                <span class="alipay-code "> <img class="alipay-img " alt = "support " src=""><b>Alipay</b> </span>
+                                                                    <span class="wechat-code "> <img alt ="support " class="wechat-img " src=""><b>Wechat</b> </span> </span>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
+                                                                
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://leichen2552.github.io/post/stm32f429-de-spi-zong-xian-qu-dong-ad76068-lu-16-wei-adc/">
+                                                                                            STM32F429的SPI总线驱动AD7606
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://leichen2552.github.io/post/stm32-ba-cheng-xu-xia-zai-dao-na-cong-na-li-zhi-xing-rom-huan-shi-ram/">
+                                                                                                    STM32把程序下载到哪？从哪里执行？ROM还是RAM
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
+                </div>
+                
+                                            
+            </div>
+    </div>
+    </div>
+    </div>
+    
+    <div id="player"></div>
+    
+        <footer id="footer" class="footer">
+            <div class="copyright">
+                
+                    <div class="Like">
+                        <div class="tip" data-tooltip="Do you like it?">
+                            <a href="https://github.com/ITJoker233/Gridea-theme-Chic" target="_blank" title=""><svg class="icon"
+                        aria-hidden="true">
+                        <use xlink:href="#like"></use>
+                    </svg><b class="like_text" id="star"></b></a>
+                        </div>
+                    </div>
+                    
+                        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+                            
+                                <b id="hitokoto"></b><br>
+                                
+                                        <svg viewBox="0 0 1024 1024" style="margin-left: 5px;margin-right: 5px;" version="1.0" width="8" height="8" class="my-face">
+            <path
+                d="M863.597631 513.574282l-271.33965-140.213484L729.783667 81.926656c3.583731-7.87141 7.167462-15.742819 7.167462-25.214109C736.887134 25.226908 708.345275 0.012799 672.635953 0.012799a63.611229 63.611229 0 0 0-39.293053 12.607055c-1.791866 1.59988-3.519736 3.19976-5.311602 3.19976L147.87531 418.925381a55.547834 55.547834 0 0 0-19.646527 47.356448c1.791866 17.278704 14.27093 33.021523 32.125591 42.492813l271.33965 141.749369L292.504463 945.221908c-12.479064 25.214109-1.791866 53.563983 23.166262 69.306802 10.751194 6.335525 23.230258 9.47129 35.709322 9.47129 16.062795 0 32.125591-4.735645 44.604655-15.742819l480.091993-403.297753a55.547834 55.547834 0 0 0 19.646526-47.228458 61.243407 61.243407 0 0 0-32.12559-44.156688z"
+                fill="#93b5cf"></path>
+        </svg>
+                                        CLL&#39;s Blog &copy;Copyright
+                                            <script>
+                                                var date = new Date();
+                                                document.write("" + date.getFullYear());
+                                            </script>
+                                            | Powered by
+                                            <a href="https://coding.net" target="_blank">
+                                                Coding.net
+                                            </a>
+            </div>
+            <div id="update" style="display:none;">
+                on
+            </div>
+            
+                <div id="version" style="display:none;">
+                    1.7.6
+                </div>
+                
+                    <script>
+                        var port = '';
+                        
+                        document.write('<div id="home_path" style="display:none;">' + document.location.protocol + '//' + window.document.location.hostname + port + '</div>')
+                    </script>
+        </footer>
+        
+            <script src='https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js'></script>
+            
+                <script>
+                    
+
+                    function LoadPlayer() {
+                        var musicList = [];
+                        
+                        musicList.push({
+                            name: '',
+                            url: '',
+                            artist: '',
+                            cover: '',
+                        });
+                        
+                        console.log(" MusicList: " + musicList);
+                        
+                        const ap = new APlayer({
+                            container: document.getElementById('player'),
+                            fixed: true,
+                            audio: musicList
+                        });
+                        
+                    }
+                    LoadPlayer();
+                    
+                    
+                    loadlive2d();
+                    
+                    
+                    hitokoto();
+                    
+                    getStar();
+                    hljs.initHighlighting();
+                    console.clear();
+                    
+                    CheckVersion();
+                    
+                    var newDate = new Date();
+                    newDate.setTime(1756049228364);
+                    console.log(" Blog Update Time: " + newDate.toLocaleDateString());
+                    console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
+                </script>
+        </div>
+</body>
+<script>
+    scroll();
+</script>
+
+</html>
