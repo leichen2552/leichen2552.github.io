@@ -40,6 +40,14 @@ for (const required of [
   if (!fs.existsSync(path.join(output, required))) failures.push(`missing required output: ${required}`);
 }
 
+const aboutHtml = fs.readFileSync(path.join(output, 'post', 'about', 'index.html'), 'utf8');
+if (!aboutHtml.includes('katex@0.17.0/dist/contrib/auto-render.min.js')) {
+  failures.push('About page is missing the KaTeX auto-render script');
+}
+if (!aboutHtml.includes('renderMathInElement(document.body')) {
+  failures.push('About page is missing the KaTeX auto-render initialization');
+}
+
 const htmlFiles = [];
 function walk(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
