@@ -1,0 +1,16 @@
+{
+  "name": "leichen2552-github-pages",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check-site.mjs",
+    "serve": "python3 -m http.server 4000 --directory _site"
+  },
+  "dependencies": {
+    "ejs": "3.1.10",
+    "gray-matter": "4.0.3",
+    "markdown-it": "14.3.0",
+    "markdown-it-anchor": "9.2.0"
+  }
+}
