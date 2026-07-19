@@ -73,6 +73,17 @@ function readingStats(markdown) {
   return { text: `${minutes} min read`, time: minutes * 60000, words, minutes };
 }
 
+function normalizeDate(value, fileName) {
+  if (value instanceof Date) {
+    if (Number.isNaN(value.getTime())) throw new Error(`Invalid date in ${fileName}.md`);
+    return value.toISOString().replace('T', ' ').slice(0, 19);
+  }
+
+  const match = /^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2})(?::(\d{2}))?)?/.exec(String(value || '').trim());
+  if (!match) throw new Error(`Invalid date in ${fileName}.md: ${value}`);
+  return `${match[1]}-${match[2]}-${match[3]} ${match[4] || '00'}:${match[5] || '00'}:${match[6] || '00'}`;
+}
+
 function tocFrom(markdown) {
   const tokens = md.parse(markdown, {});
   const headings = [];
@@ -131,12 +142,13 @@ const rawPosts = fs.readdirSync(contentDir)
     return {
       fileName,
       data: parsed.data,
+      date: normalizeDate(parsed.data.date, fileName),
       hasInlineToc,
       markdown: parsed.content.replace(/^\s*@\[toc\]\s*/i, '')
     };
   })
   .filter((post) => post.data.published !== false)
-  .sort((a, b) => String(b.data.date).localeCompare(String(a.data.date)));
+  .sort((a, b) => b.date.localeCompare(a.date));
 
 const tagNames = [...new Set(rawPosts.flatMap((post) => post.data.tags || []))];
 const tags = tagNames.map((name) => {
@@ -146,9 +158,7 @@ const tags = tagNames.map((name) => {
 const tagsByName = new Map(tags.map((tag) => [tag.name, tag]));
 
 const posts = rawPosts.map((post) => {
-  const date = typeof post.data.date === 'string'
-    ? post.data.date
-    : new Date(post.data.date).toISOString().replace('T', ' ').slice(0, 19);
+  const date = post.date;
   const description = plainText(post.markdown);
   const toc = tocFrom(post.markdown);
   return {
