@@ -5,6 +5,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "check": "node scripts/check-site.mjs",
+    "import:wechat": "node scripts/import-wechat.mjs",
     "serve": "python3 -m http.server 4000 --directory _site"
   },
   "dependencies": {
