@@ -10,6 +10,23 @@
   "archivesPageSize": 50,
   "showFeatureImage": true,
   "footerInfo": "",
+  "comments": {
+    "enabled": true,
+    "provider": "giscus",
+    "giscus": {
+      "repo": "leichen2552/leichen2552.github.io",
+      "repoId": "MDEwOlJlcG9zaXRvcnkyMzE5MTE4NzQ=",
+      "category": "Announcements",
+      "categoryId": "DIC_kwDODdKxws4DBf1K",
+      "mapping": "pathname",
+      "strict": "1",
+      "reactionsEnabled": "1",
+      "inputPosition": "top",
+      "theme": "preferred_color_scheme",
+      "lang": "zh-CN",
+      "loading": "lazy"
+    }
+  },
   "menus": [
     { "name": "首页", "link": "/" },
     { "name": "归档", "link": "/archives/" },

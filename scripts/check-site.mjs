@@ -18,7 +18,13 @@ if (sourcePosts.length !== builtPosts.length) {
 for (const name of sourcePosts) {
   const slug = name.slice(0, -3);
   const file = path.join(output, 'post', slug, 'index.html');
-  if (!fs.existsSync(file)) failures.push(`missing post: ${slug}`);
+  if (!fs.existsSync(file)) {
+    failures.push(`missing post: ${slug}`);
+    continue;
+  }
+  const html = fs.readFileSync(file, 'utf8');
+  if (!html.includes('src="https://giscus.app/client.js"')) failures.push(`missing Giscus comments: ${slug}`);
+  if (!html.includes('data-mapping="pathname"')) failures.push(`incorrect Giscus mapping: ${slug}`);
 }
 
 for (const required of [

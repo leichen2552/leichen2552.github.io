@@ -193,7 +193,11 @@ const themeConfig = {
   showFeatureImage: config.showFeatureImage,
   footerInfo: config.footerInfo
 };
-const commentSetting = { showComment: false, commentPlatform: '' };
+const commentSetting = {
+  showComment: Boolean(config.comments?.enabled),
+  commentPlatform: config.comments?.provider || '',
+  giscusSetting: config.comments?.giscus || {}
+};
 const utils = { now };
 const site = {
   posts,
