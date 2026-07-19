@@ -48,6 +48,18 @@ isTop: false
 
 首次切换时，需要在仓库 **Settings → Pages → Build and deployment → Source** 中选择 **GitHub Actions**。这是一次性设置。
 
+## 导入微信公众号文章
+
+微信公众号离线导出目录可以直接同步到博客：
+
+```bash
+npm run import:wechat -- "/path/to/wechat-export"
+npm run build
+npm run check
+```
+
+导入器会读取每篇文章的标题与发布时间，保留正文 HTML 排版，并只复制正文和封面实际使用的图片。当前导入的 SSD 系列使用 `ssd-YYYY-MM-DD` 作为稳定文章地址，并添加 `SSD`、`公众号` 标签。
+
 ## 已知历史问题
 
 转载文章《通信简史：5G通信为什么快于4G》引用的 `post-images/1582874273999.jpg` 在原 Gridea 数据中已经缺失。迁移保持原文引用，没有生成误导性的占位图片。
