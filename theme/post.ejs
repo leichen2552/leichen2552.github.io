@@ -216,6 +216,8 @@
                         <%- include('./include/gitalk') %>
                             <% } else if (commentSetting.commentPlatform === 'disqus') { %>
                                 <%- include('./include/disqus') %>
+                                    <% } else if (commentSetting.commentPlatform === 'giscus') { %>
+                                        <%- include('./include/giscus') %>
                                     <% } %>
                                         <% } %>
                                             <% if (site.customConfig.Valine==='on') { %>

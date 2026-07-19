@@ -48,6 +48,10 @@ isTop: false
 
 首次切换时，需要在仓库 **Settings → Pages → Build and deployment → Source** 中选择 **GitHub Actions**。这是一次性设置。
 
+## 评论
+
+文章评论使用 [Giscus](https://giscus.app/zh-CN)，数据保存在仓库的 GitHub Discussions 中。评论按文章 URL 的 `pathname` 映射到 `Announcements` 分类，具体仓库与分类 ID 配置在 `site.config.json` 的 `comments` 字段中。
+
 ## 导入微信公众号文章
 
 微信公众号离线导出目录可以直接同步到博客：
