@@ -1,4 +1,7 @@
 <% if (site.customConfig.music == "on") { %>
+    <button id="music-launcher" type="button" aria-controls="player" aria-expanded="false">
+        <span aria-hidden="true">♫</span><span>打开音乐</span>
+    </button>
     <div id="player"></div>
     <% } %>
         <footer id="footer" class="footer">
@@ -14,6 +17,18 @@
                     </div>
                     <%}%>
                         <%- themeConfig.footerInfo %>
+                            <% if (site.customConfig.music == "on") { %>
+                                <div class="music-attribution">
+                                    音乐：
+                                    <% site.customConfig.musics.forEach(function(music, index) { %>
+                                        <% if (index > 0) { %>、<% } %>
+                                        <a href="<%= music.source %>" target="_blank" rel="license noopener"><%= music.name %></a>
+                                        <a class="music-mirror" href="<%= music.mirror %>" target="_blank" rel="noopener" aria-label="<%= music.name %> 的 Wikimedia Commons 文件页">[文件]</a>
+                                    <% }); %>
+                                    — <a href="https://www.scottbuckley.com.au/" target="_blank" rel="noopener">Scott Buckley</a>，
+                                    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener">CC BY 4.0</a>
+                                </div>
+                                <% } %>
                             <% if (site.customConfig.sentence == "on") { %>
                                 <b id="hitokoto"></b><br>
                                 <%} if( (site.customConfig.icpcode != "") && (site.customConfig.icpinfo != "")) { %>
@@ -60,38 +75,49 @@
             <% } %>
                 <script>
                     <% if (site.customConfig.music == "on") { %>
+                    const musicList = <%- JSON.stringify(site.customConfig.musics.map(function(music) {
+                        return { name: music.name, url: music.url, artist: music.author, cover: music.pic };
+                    })).replace(/</g, '\\u003c') %>;
 
-                    function LoadPlayer() {
-                        var musicList = [];
-                        <%site.customConfig.musics.forEach(function(music) { %>
-                        musicList.push({
-                            name: '<%=music.name%>',
-                            url: '<%=music.url%>',
-                            artist: '<%=music.author%>',
-                            cover: '<%=music.pic%>',
+                    function loadMusicAsset(tagName, attributes) {
+                        return new Promise(function(resolve, reject) {
+                            const element = document.createElement(tagName);
+                            Object.keys(attributes).forEach(function(name) {
+                                element[name] = attributes[name];
+                            });
+                            element.onload = resolve;
+                            element.onerror = reject;
+                            document.head.appendChild(element);
                         });
-                        <%}); %>
-                        console.log(" MusicList: " + musicList);
-                        <% if (site.customConfig.musicModel == "fixed") { %>
-                        const ap = new APlayer({
-                            container: document.getElementById('player'),
-                            fixed: true,
-                            audio: musicList
-                        });
-                        <% } else if(site.customConfig.musicModel == "mini"){%>
-                        const ap = new APlayer({
-                            container: document.getElementById('player'),
-                            mini: true,
-                            audio: musicList
-                        });
-                        <%}else{%>
-                        const ap = new APlayer({
-                            container: document.getElementById('player'),
-                            audio: musicList
-                        });
-                        <%}%>
                     }
-                    LoadPlayer();
+
+                    function loadMusicPlayer() {
+                        const launcher = document.getElementById('music-launcher');
+                        launcher.disabled = true;
+                        launcher.setAttribute('aria-expanded', 'true');
+
+                        return Promise.all([
+                            loadMusicAsset('link', { rel: 'stylesheet', href: '/media/css/APlayer.min.css' }),
+                            window.APlayer
+                                ? Promise.resolve()
+                                : loadMusicAsset('script', { src: '/media/script/APlayer.min.js', async: true })
+                        ]).then(function() {
+                            new APlayer({
+                                container: document.getElementById('player'),
+                                fixed: true,
+                                autoplay: false,
+                                preload: "none",
+                                audio: musicList
+                            });
+                            launcher.remove();
+                        }).catch(function() {
+                            launcher.disabled = false;
+                            launcher.setAttribute('aria-expanded', 'false');
+                            launcher.textContent = '音乐加载失败';
+                        });
+                    }
+
+                    document.getElementById('music-launcher').addEventListener('click', loadMusicPlayer, { once: true });
                     <% } %>
                     <% if (site.customConfig.live2d == "on") { %>
                     loadlive2d();
