@@ -12,7 +12,7 @@ Repair the fixed music player without slowing down article reading, and replace 
 - Scott Buckley — Felicity
 - Scott Buckley — Snowfall
 
-The audio files will come from Wikimedia Commons copies whose file pages identify Scott Buckley as the author and reference the original Scott Buckley source. Each selected track also has an official Scott Buckley page confirming CC BY 4.0. The site footer will link to the artist, the official track pages, Wikimedia Commons, and the CC BY 4.0 license using the attribution format requested by the artist.
+The audio files will come from Wikimedia Commons MP3 copies or MP3 transcodes whose file pages identify Scott Buckley as the author and reference the original Scott Buckley source. Each selected track also has an official Scott Buckley page confirming CC BY 4.0. MP3 is used for Safari/iPhone compatibility. The site footer will link to the artist, the official track pages, Wikimedia Commons, and the CC BY 4.0 license using the attribution format requested by the artist.
 
 ## Architecture and performance
 

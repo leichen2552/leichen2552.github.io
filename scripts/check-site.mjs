@@ -56,7 +56,7 @@ if (tracks.length !== expectedTracks.length || tracks.some((track, index) => tra
 }
 for (const track of tracks) {
   if (track.author !== 'Scott Buckley') failures.push(`incorrect music author: ${track.name || '(unnamed)'}`);
-  if (!/^\/media\/audio\/[a-z0-9-]+\.(?:mp3|ogg|oga)$/.test(track.url || '')) {
+  if (!/^\/media\/audio\/[a-z0-9-]+\.mp3$/.test(track.url || '')) {
     failures.push(`music URL must be a local audio file: ${track.name || '(unnamed)'}`);
     continue;
   }

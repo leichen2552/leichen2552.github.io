@@ -56,11 +56,11 @@ git commit -m "test: define lazy music player requirements"
 ### Task 2: Add licensed audio and playlist metadata
 
 **Files:**
-- Create: `media/audio/growing-up.oga`
+- Create: `media/audio/growing-up.mp3`
 - Create: `media/audio/hymn.mp3`
-- Create: `media/audio/elementary.ogg`
-- Create: `media/audio/felicity.oga`
-- Create: `media/audio/snowfall.oga`
+- Create: `media/audio/elementary.mp3`
+- Create: `media/audio/felicity.mp3`
+- Create: `media/audio/snowfall.mp3`
 - Modify: `site.config.json:83-85`
 - Modify: `scripts/build.mjs:130-132`
 - Delete: `Cat and Mouse.mp3`
@@ -75,18 +75,18 @@ git commit -m "test: define lazy music player requirements"
 Use these exact official URLs and save them with the paths above:
 
 ```text
-https://commons.wikimedia.org/wiki/Special:Redirect/file/Scott_Buckley_-_Growing_Up.oga
+https://upload.wikimedia.org/wikipedia/commons/transcoded/9/90/Scott_Buckley_-_Growing_Up.oga/Scott_Buckley_-_Growing_Up.oga.mp3
 https://commons.wikimedia.org/wiki/Special:Redirect/file/Scott_Buckley_-_Hymn.mp3
-https://commons.wikimedia.org/wiki/Special:Redirect/file/Scott_Buckley_-_Elementary.ogg
-https://commons.wikimedia.org/wiki/Special:Redirect/file/Scott_Buckley_-_Felicity.oga
-https://commons.wikimedia.org/wiki/Special:Redirect/file/Scott_Buckley_-_Snowfall.oga
+https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e0/Scott_Buckley_-_Elementary.ogg/Scott_Buckley_-_Elementary.ogg.mp3
+https://upload.wikimedia.org/wikipedia/commons/transcoded/2/24/Scott_Buckley_-_Felicity.oga/Scott_Buckley_-_Felicity.oga.mp3
+https://upload.wikimedia.org/wikipedia/commons/transcoded/5/54/Scott_Buckley_-_Snowfall.oga/Scott_Buckley_-_Snowfall.oga.mp3
 ```
 
 - [ ] **Step 2: Verify file types before using the downloads**
 
 Run: `file media/audio/*.mp3 && find media/audio -type f -size 0 -print`
 
-Expected: five MP3/Ogg audio files and no output from the zero-byte search.
+Expected: five MPEG audio files and no output from the zero-byte search.
 
 - [ ] **Step 3: Replace the empty playlist and legacy copy rules**
 
