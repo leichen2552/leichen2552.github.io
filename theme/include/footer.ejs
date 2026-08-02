@@ -18,16 +18,19 @@
                     <%}%>
                         <%- themeConfig.footerInfo %>
                             <% if (site.customConfig.music == "on") { %>
-                                <div class="music-attribution">
-                                    音乐：
-                                    <% site.customConfig.musics.forEach(function(music, index) { %>
-                                        <% if (index > 0) { %>、<% } %>
-                                        <a href="<%= music.source %>" target="_blank" rel="license noopener"><%= music.name %></a>
-                                        <a class="music-mirror" href="<%= music.mirror %>" target="_blank" rel="noopener" aria-label="<%= music.name %> 的 Wikimedia Commons 文件页">[文件]</a>
-                                    <% }); %>
-                                    — <a href="https://www.scottbuckley.com.au/" target="_blank" rel="noopener">Scott Buckley</a>，
-                                    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener">CC BY 4.0</a>
-                                </div>
+                                <details class="music-attribution">
+                                    <summary>音乐版权</summary>
+                                    <div class="music-attribution-details">
+                                        音乐：
+                                        <% site.customConfig.musics.forEach(function(music, index) { %>
+                                            <% if (index > 0) { %>、<% } %>
+                                            <a href="<%= music.source %>" target="_blank" rel="license noopener"><%= music.name %></a>
+                                            <a class="music-mirror" href="<%= music.mirror %>" target="_blank" rel="noopener" aria-label="<%= music.name %> 的 Wikimedia Commons 文件页">[文件]</a>
+                                        <% }); %>
+                                        — <a href="https://www.scottbuckley.com.au/" target="_blank" rel="noopener">Scott Buckley</a>，
+                                        <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener">CC BY 4.0</a>
+                                    </div>
+                                </details>
                                 <% } %>
                             <% if (site.customConfig.sentence == "on") { %>
                                 <b id="hitokoto"></b><br>

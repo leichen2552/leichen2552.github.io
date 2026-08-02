@@ -50,6 +50,22 @@ if (!aboutHtml.includes('renderMathInElement(document.body')) {
   failures.push('About page is missing the KaTeX auto-render initialization');
 }
 
+if (config.theme?.donate === 'on') {
+  const rewardImages = [
+    ['Alipay', 'donate_alipay', '/alipay.jpg'],
+    ['WeChat', 'donate_wechat', '/wechat.jpg']
+  ];
+  for (const [label, configKey, expectedPath] of rewardImages) {
+    if (config.theme[configKey] !== expectedPath) {
+      failures.push(`${label} reward image must use ${expectedPath}`);
+    }
+    const relativePath = expectedPath.slice(1);
+    if (!fs.existsSync(path.join(root, relativePath))) failures.push(`missing source reward image: ${relativePath}`);
+    if (!fs.existsSync(path.join(output, relativePath))) failures.push(`missing built reward image: ${relativePath}`);
+    if (!aboutHtml.includes(`src="${expectedPath}"`)) failures.push(`About page is missing reward image: ${expectedPath}`);
+  }
+}
+
 const tracks = config.theme?.musics || [];
 if (tracks.length !== expectedTracks.length || tracks.some((track, index) => track.name !== expectedTracks[index])) {
   failures.push(`music playlist must contain: ${expectedTracks.join(', ')}`);
@@ -84,6 +100,18 @@ for (const marker of [
   'class="music-attribution"'
 ]) {
   if (!homeHtml.includes(marker)) failures.push(`missing lazy music player behavior: ${marker}`);
+}
+const attributionHtml = homeHtml.match(/<details\s+class="music-attribution"(?![^>]*\bopen\b)[^>]*>[\s\S]*?<\/details>/i)?.[0] || '';
+if (!attributionHtml.includes('<summary>音乐版权</summary>')) {
+  failures.push('music attribution must be collapsed behind the 音乐版权 summary');
+}
+for (const track of tracks) {
+  if (!attributionHtml.includes(track.source) || !attributionHtml.includes(track.mirror)) {
+    failures.push(`collapsed music attribution is incomplete: ${track.name}`);
+  }
+}
+if (!attributionHtml.includes('https://creativecommons.org/licenses/by/4.0/')) {
+  failures.push('collapsed music attribution is missing the CC BY 4.0 license');
 }
 for (const legacyTrack of ['Cat and Mouse.mp3', '简单爱-周杰伦.mp3']) {
   if (homeHtml.includes(legacyTrack)) failures.push(`legacy music remains in generated HTML: ${legacyTrack}`);

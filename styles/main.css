@@ -662,6 +662,32 @@
   line-height: 1.6;
 }
 
+.music-attribution summary {
+  display: inline-block;
+  color: #999;
+  cursor: pointer;
+  list-style: none;
+  text-decoration: underline;
+  text-decoration-color: rgba(153, 153, 153, 0.35);
+  text-underline-offset: 2px;
+}
+
+.music-attribution summary::-webkit-details-marker {
+  display: none;
+}
+
+.music-attribution summary::before {
+  content: '♫ ';
+}
+
+.music-attribution[open] summary {
+  margin-bottom: 2px;
+}
+
+.music-attribution-details {
+  color: #777;
+}
+
 .music-attribution a {
   color: inherit;
   text-decoration: underline;
