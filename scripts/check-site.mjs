@@ -8,7 +8,7 @@ const config = JSON.parse(fs.readFileSync(path.join(root, 'site.config.json'), '
 const sourcePosts = fs.readdirSync(path.join(root, 'content', 'posts')).filter((name) => name.endsWith('.md'));
 const builtPosts = fs.readdirSync(path.join(output, 'post'), { withFileTypes: true }).filter((entry) => entry.isDirectory());
 const failures = [];
-const expectedTracks = ['Cobalt', 'Snowfall', 'A New Year', 'Childhood', 'Life Is'];
+const expectedTracks = ['Growing Up', 'Hymn', 'Elementary', 'Felicity', 'Snowfall'];
 const knownMissing = new Set([
   'post-images/1582874273999.jpg'
 ]);
@@ -56,13 +56,16 @@ if (tracks.length !== expectedTracks.length || tracks.some((track, index) => tra
 }
 for (const track of tracks) {
   if (track.author !== 'Scott Buckley') failures.push(`incorrect music author: ${track.name || '(unnamed)'}`);
-  if (!/^\/media\/audio\/[a-z0-9-]+\.mp3$/.test(track.url || '')) {
-    failures.push(`music URL must be a local MP3: ${track.name || '(unnamed)'}`);
+  if (!/^\/media\/audio\/[a-z0-9-]+\.(?:mp3|ogg|oga)$/.test(track.url || '')) {
+    failures.push(`music URL must be a local audio file: ${track.name || '(unnamed)'}`);
     continue;
   }
   if (track.pic) failures.push(`music cover must stay empty: ${track.name}`);
   if (!/^https:\/\/www\.scottbuckley\.com\.au\/library\/[a-z0-9-]+\/$/.test(track.source || '')) {
     failures.push(`music source must be an official track page: ${track.name}`);
+  }
+  if (!/^https:\/\/commons\.wikimedia\.org\/wiki\/File:Scott_Buckley_-_[A-Za-z_]+\.(?:mp3|ogg|oga)$/.test(track.mirror || '')) {
+    failures.push(`music mirror must be a Wikimedia Commons file page: ${track.name}`);
   }
   const relativeAudio = track.url.slice(1);
   if (!fs.existsSync(path.join(root, relativeAudio))) failures.push(`missing source audio: ${relativeAudio}`);

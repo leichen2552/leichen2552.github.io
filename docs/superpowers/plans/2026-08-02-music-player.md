@@ -13,7 +13,7 @@
 - Initial HTML must not statically request APlayer JavaScript, APlayer CSS, a cover image, or an MP3.
 - Player resources load only after the first click on the lower-left launcher.
 - Audio uses `autoplay: false` and `preload: "none"`.
-- MP3 files must come from the five official Scott Buckley track download links and remain locally hosted under `media/audio/`.
+- Audio files must come from the five approved Wikimedia Commons mirrors, with official Scott Buckley track pages retained for license attribution, and remain locally hosted under `media/audio/`.
 - Every track must receive visible attribution with its official page and the CC BY 4.0 license link.
 - Existing page content and unrelated theme behavior remain unchanged.
 
@@ -34,7 +34,7 @@ Load the configuration and define the expected names:
 
 ```js
 const config = JSON.parse(fs.readFileSync(path.join(root, 'site.config.json'), 'utf8'));
-const expectedTracks = ['Cobalt', 'Snowfall', 'A New Year', 'Childhood', 'Life Is'];
+const expectedTracks = ['Growing Up', 'Hymn', 'Elementary', 'Felicity', 'Snowfall'];
 const tracks = config.theme?.musics || [];
 ```
 
@@ -56,41 +56,41 @@ git commit -m "test: define lazy music player requirements"
 ### Task 2: Add licensed audio and playlist metadata
 
 **Files:**
-- Create: `media/audio/cobalt.mp3`
-- Create: `media/audio/snowfall.mp3`
-- Create: `media/audio/a-new-year.mp3`
-- Create: `media/audio/childhood.mp3`
-- Create: `media/audio/life-is.mp3`
+- Create: `media/audio/growing-up.oga`
+- Create: `media/audio/hymn.mp3`
+- Create: `media/audio/elementary.ogg`
+- Create: `media/audio/felicity.oga`
+- Create: `media/audio/snowfall.oga`
 - Modify: `site.config.json:83-85`
 - Modify: `scripts/build.mjs:130-132`
 - Delete: `Cat and Mouse.mp3`
 - Delete: `简单爱-周杰伦.mp3`
 
 **Interfaces:**
-- Consumes: official MP3 downloads from `scottbuckley.com.au`.
-- Produces: five `musics` entries with `name`, local `url`, `author`, empty `pic`, and official `source` attribution URL.
+- Consumes: approved Wikimedia Commons copies of tracks whose official Scott Buckley pages confirm CC BY 4.0.
+- Produces: five `musics` entries with `name`, local `url`, `author`, empty `pic`, official `source`, and Commons `mirror` attribution URL.
 
-- [ ] **Step 1: Download only the five official full mixes**
+- [ ] **Step 1: Download only the five approved Commons files**
 
 Use these exact official URLs and save them with the paths above:
 
 ```text
-https://www.scottbuckley.com.au/library/wp-content/uploads/2017/11/sb_cobalt.mp3
-https://www.scottbuckley.com.au/library/wp-content/uploads/2018/12/sb_snowfall.mp3
-https://www.scottbuckley.com.au/library/wp-content/uploads/2018/01/sb_anewyear.mp3
-https://www.scottbuckley.com.au/library/wp-content/uploads/2019/01/sb_childhood.mp3
-https://www.scottbuckley.com.au/library/wp-content/uploads/2017/10/sb_lifeis.mp3
+https://commons.wikimedia.org/wiki/Special:Redirect/file/Scott_Buckley_-_Growing_Up.oga
+https://commons.wikimedia.org/wiki/Special:Redirect/file/Scott_Buckley_-_Hymn.mp3
+https://commons.wikimedia.org/wiki/Special:Redirect/file/Scott_Buckley_-_Elementary.ogg
+https://commons.wikimedia.org/wiki/Special:Redirect/file/Scott_Buckley_-_Felicity.oga
+https://commons.wikimedia.org/wiki/Special:Redirect/file/Scott_Buckley_-_Snowfall.oga
 ```
 
 - [ ] **Step 2: Verify file types before using the downloads**
 
 Run: `file media/audio/*.mp3 && find media/audio -type f -size 0 -print`
 
-Expected: five MPEG audio files and no output from the zero-byte search.
+Expected: five MP3/Ogg audio files and no output from the zero-byte search.
 
 - [ ] **Step 3: Replace the empty playlist and legacy copy rules**
 
-Use local URLs `/media/audio/<filename>.mp3`, author `Scott Buckley`, empty `pic`, and source URLs `https://www.scottbuckley.com.au/library/<track-slug>/`. Remove the two root MP3 names from `scripts/build.mjs`; `copy('media')` already publishes the new files.
+Use local URLs under `/media/audio/`, author `Scott Buckley`, empty `pic`, official source URLs `https://www.scottbuckley.com.au/library/<track-slug>/`, and the exact Commons file-page URL as `mirror`. Remove the two root MP3 names from `scripts/build.mjs`; `copy('media')` already publishes the new files.
 
 - [ ] **Step 4: Remove the two legacy root MP3 files**
 

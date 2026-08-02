@@ -2,17 +2,17 @@
 
 ## Goal
 
-Repair the fixed music player without slowing down article reading, and replace the two legacy tracks with five quiet instrumental tracks whose official download pages identify them as CC BY 4.0.
+Repair the fixed music player without slowing down article reading, and replace the two legacy tracks with five quiet instrumental tracks whose official pages identify them as CC BY 4.0.
 
 ## Selected music
 
-- Scott Buckley — Cobalt
+- Scott Buckley — Growing Up
+- Scott Buckley — Hymn
+- Scott Buckley — Elementary
+- Scott Buckley — Felicity
 - Scott Buckley — Snowfall
-- Scott Buckley — A New Year
-- Scott Buckley — Childhood
-- Scott Buckley — Life Is
 
-The MP3 files will come only from each track's official Scott Buckley download page. The site footer will link to the artist, the track pages, and the CC BY 4.0 license using the attribution format requested by the artist.
+The audio files will come from Wikimedia Commons copies whose file pages identify Scott Buckley as the author and reference the original Scott Buckley source. Each selected track also has an official Scott Buckley page confirming CC BY 4.0. The site footer will link to the artist, the official track pages, Wikimedia Commons, and the CC BY 4.0 license using the attribution format requested by the artist.
 
 ## Architecture and performance
 
@@ -20,7 +20,7 @@ The MP3 files will come only from each track's official Scott Buckley download p
 - Do not include APlayer JavaScript or CSS in the initial document head.
 - On the first click of the music button, load the vendored APlayer JavaScript and CSS from the site itself, then replace the button with the existing fixed APlayer interface.
 - Initialize APlayer with `autoplay: false` and `preload: "none"`. Loading the page or opening the player must not download an MP3; audio begins loading only after the visitor presses play.
-- Store the five official MP3 files under `media/audio/`. The existing build already copies the complete `media/` directory, so no new asset pipeline is needed.
+- Store the five Commons audio files under `media/audio/`. The existing build already copies the complete `media/` directory, so no new asset pipeline is needed.
 - Remove the two legacy root-level MP3 files and remove their special cases from the build script.
 - Use no album-cover image so the player creates no additional image request.
 
@@ -28,13 +28,13 @@ This approach adds only a small inline button and loader to the initial HTML. Th
 
 ## Configuration and rendering
 
-`site.config.json` remains the source of truth for track metadata. Each entry will contain a title, Scott Buckley as author, and a local `/media/audio/...mp3` URL. The footer template will safely serialize this data for the lazy initializer and render a compact attribution block.
+`site.config.json` remains the source of truth for track metadata. Each entry will contain a title, Scott Buckley as author, a local `/media/audio/` URL, the official track page, and the Commons file page. The footer template will safely serialize this data for the lazy initializer and render a compact attribution block.
 
 If the player resources fail to load, the button will display a short failure message and the article remains fully usable. Existing unrelated theme JavaScript errors are outside this change unless they prevent the lazy player from operating.
 
 ## Verification
 
-- Extend `scripts/check-site.mjs` to require five non-empty track records, local audio files, copied build artifacts, lazy APlayer loading, `preload: "none"`, disabled autoplay, and visible attribution.
+- Extend `scripts/check-site.mjs` to require five non-empty track records, local audio files, official and mirror sources, copied build artifacts, lazy APlayer loading, `preload: "none"`, disabled autoplay, and visible attribution.
 - Confirm generated HTML has no APlayer stylesheet or script in the initial `<head>` and contains no references to the two removed legacy songs.
 - Run `npm run build` and `npm run check`.
 - Serve the generated site locally and verify the article remains readable before interaction, the lower-left button expands the player, no MP3 request occurs before play, and every track can start successfully.
