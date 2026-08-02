@@ -128,7 +128,7 @@ fs.rmSync(output, { recursive: true, force: true });
 ensureDir(output);
 
 for (const item of ['media', 'styles', 'images', 'post-images']) copy(item);
-for (const item of ['favicon.ico', 'CNAME', 'wechat.jpg', 'alipay.jpg', 'Cat and Mouse.mp3', '简单爱-周杰伦.mp3']) copy(item);
+for (const item of ['favicon.ico', 'CNAME', 'wechat.jpg', 'alipay.jpg']) copy(item);
 if (fs.existsSync(path.join(root, '404.html'))) copy('404.html');
 write('.nojekyll', '');
 

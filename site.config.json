@@ -82,7 +82,48 @@
     "love_click_animation": "on",
     "music": "on",
     "musicModel": "fixed",
-    "musics": [{ "name": "", "url": "", "author": "", "pic": "" }],
+    "musics": [
+      {
+        "name": "Growing Up",
+        "url": "/media/audio/growing-up.mp3",
+        "author": "Scott Buckley",
+        "pic": "",
+        "source": "https://www.scottbuckley.com.au/library/growing-up/",
+        "mirror": "https://commons.wikimedia.org/wiki/File:Scott_Buckley_-_Growing_Up.oga"
+      },
+      {
+        "name": "Hymn",
+        "url": "/media/audio/hymn.mp3",
+        "author": "Scott Buckley",
+        "pic": "",
+        "source": "https://www.scottbuckley.com.au/library/hymn/",
+        "mirror": "https://commons.wikimedia.org/wiki/File:Scott_Buckley_-_Hymn.mp3"
+      },
+      {
+        "name": "Elementary",
+        "url": "/media/audio/elementary.mp3",
+        "author": "Scott Buckley",
+        "pic": "",
+        "source": "https://www.scottbuckley.com.au/library/elementary/",
+        "mirror": "https://commons.wikimedia.org/wiki/File:Scott_Buckley_-_Elementary.ogg"
+      },
+      {
+        "name": "Felicity",
+        "url": "/media/audio/felicity.mp3",
+        "author": "Scott Buckley",
+        "pic": "",
+        "source": "https://www.scottbuckley.com.au/library/felicity/",
+        "mirror": "https://commons.wikimedia.org/wiki/File:Scott_Buckley_-_Felicity.oga"
+      },
+      {
+        "name": "Snowfall",
+        "url": "/media/audio/snowfall.mp3",
+        "author": "Scott Buckley",
+        "pic": "",
+        "source": "https://www.scottbuckley.com.au/library/snowfall/",
+        "mirror": "https://commons.wikimedia.org/wiki/File:Scott_Buckley_-_Snowfall.oga"
+      }
+    ],
     "platformLink": "https://github.com",
     "platformName": "GitHub Pages",
     "prismSetting": "https://cdn.jsdelivr.net/gh/ITJoker233/ITJoker233.github.io@latest/CDN/css/Card/prism.min.css",
