@@ -1,0 +1,30 @@
+name: Fetch approved music assets
+
+on:
+  push:
+    branches: [codex/fix-music-player]
+
+permissions:
+  contents: read
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download approved Wikimedia Commons files
+        run: |
+          mkdir -p media/audio
+          curl --fail --location --retry 3 --output media/audio/growing-up.oga https://upload.wikimedia.org/wikipedia/commons/9/90/Scott_Buckley_-_Growing_Up.oga
+          curl --fail --location --retry 3 --output media/audio/hymn.mp3 https://upload.wikimedia.org/wikipedia/commons/c/c2/Scott_Buckley_-_Hymn.mp3
+          curl --fail --location --retry 3 --output media/audio/elementary.ogg https://upload.wikimedia.org/wikipedia/commons/e/e0/Scott_Buckley_-_Elementary.ogg
+          curl --fail --location --retry 3 --output media/audio/felicity.oga https://upload.wikimedia.org/wikipedia/commons/2/24/Scott_Buckley_-_Felicity.oga
+          curl --fail --location --retry 3 --output media/audio/snowfall.oga https://upload.wikimedia.org/wikipedia/commons/5/54/Scott_Buckley_-_Snowfall.oga
+          file media/audio/*
+          test -z "$(find media/audio -type f -size 0 -print)"
+      - name: Upload music assets
+        uses: actions/upload-artifact@v4
+        with:
+          name: music-assets
+          path: media/audio
+          if-no-files-found: error
+          retention-days: 1
