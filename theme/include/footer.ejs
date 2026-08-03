@@ -19,7 +19,7 @@
                         <%- themeConfig.footerInfo %>
                             <% if (site.customConfig.music == "on") { %>
                                 <details class="music-attribution">
-                                    <summary>音乐版权</summary>
+                                    <summary aria-label="音乐版权"><span aria-hidden="true">♫</span></summary>
                                     <div class="music-attribution-details">
                                         音乐：
                                         <% site.customConfig.musics.forEach(function(music, index) { %>
