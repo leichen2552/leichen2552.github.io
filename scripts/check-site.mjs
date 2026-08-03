@@ -102,8 +102,8 @@ for (const marker of [
   if (!homeHtml.includes(marker)) failures.push(`missing lazy music player behavior: ${marker}`);
 }
 const attributionHtml = homeHtml.match(/<details\s+class="music-attribution"(?![^>]*\bopen\b)[^>]*>[\s\S]*?<\/details>/i)?.[0] || '';
-if (!attributionHtml.includes('<summary>音乐版权</summary>')) {
-  failures.push('music attribution must be collapsed behind the 音乐版权 summary');
+if (!attributionHtml.includes('<summary aria-label="音乐版权"><span aria-hidden="true">♫</span></summary>')) {
+  failures.push('music attribution summary must be an accessible icon without visible label text');
 }
 for (const track of tracks) {
   if (!attributionHtml.includes(track.source) || !attributionHtml.includes(track.mirror)) {
@@ -112,6 +112,22 @@ for (const track of tracks) {
 }
 if (!attributionHtml.includes('https://creativecommons.org/licenses/by/4.0/')) {
   failures.push('collapsed music attribution is missing the CC BY 4.0 license');
+}
+const mainCss = fs.readFileSync(path.join(output, 'styles', 'main.css'), 'utf8');
+const attributionStyle = mainCss.match(/\.music-attribution\s*\{([^}]*)\}/)?.[1] || '';
+for (const marker of [
+  'position: fixed',
+  'right: 10px',
+  'bottom: 10px'
+]) {
+  if (!attributionStyle.includes(marker)) failures.push(`missing fixed music attribution style: ${marker}`);
+}
+const attributionDetailsStyle = mainCss.match(/\.music-attribution-details\s*\{([^}]*)\}/)?.[1] || '';
+for (const marker of [
+  'width: min(440px, calc(100vw - 24px))',
+  'max-height: 40vh'
+]) {
+  if (!attributionDetailsStyle.includes(marker)) failures.push(`missing responsive music attribution panel style: ${marker}`);
 }
 for (const legacyTrack of ['Cat and Mouse.mp3', '简单爱-周杰伦.mp3']) {
   if (homeHtml.includes(legacyTrack)) failures.push(`legacy music remains in generated HTML: ${legacyTrack}`);
