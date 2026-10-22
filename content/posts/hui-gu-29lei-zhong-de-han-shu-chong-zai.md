@@ -207,7 +207,7 @@ int main(int argc, char *argv[])
 - 那么重载是否也能够扩展其他更多的功能？
 
 ## 复数类解决方案
-![](https://leichen2552.github.io//post-images/1581739873099.jpg)
+![](https://c3ll.top/post-images/1581739873099.jpg)
 但是复数的相加减，C++的编译器是做不到的，这个下次再说
 
 # 小结

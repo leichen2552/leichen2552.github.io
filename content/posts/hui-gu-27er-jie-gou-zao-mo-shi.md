@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
         - 可能出现异常情况，如：内存申请，访问文件
 
 
-![](https://leichen2552.github.io//post-images/1581582529088.png =600x600)
+![](https://c3ll.top/post-images/1581582529088.png =600x600)
 
 ```c++
 class TwoPhaseCons

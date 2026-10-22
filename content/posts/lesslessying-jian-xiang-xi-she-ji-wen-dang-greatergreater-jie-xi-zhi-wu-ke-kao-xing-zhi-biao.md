@@ -7,7 +7,7 @@ hideInList: false
 feature: 
 isTop: false
 ---
-![](https://leichen2552.github.io//post-images/1617275531233.jpg)
+![](https://c3ll.top/post-images/1617275531233.jpg)
 ## 可靠性要求分类
 定性要求用一种非量化的形式来设计、评价和保证产品的可靠性。
 定量要求规定产品的可靠性参数、指标和相应的验证方法。用定量方法进行设计分析，进行可靠性验证，从而保证产品的可靠性。

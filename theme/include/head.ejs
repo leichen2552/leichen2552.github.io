@@ -1,14 +1,16 @@
 <meta charset="utf-8" />
-<title>
-    <%= siteTitle %>
-</title>
+<title><%= siteTitle %></title>
 <!--[if lt IE 9]><script src="//cdn.bootcss.com/html5shiv/r29/html5.js"></script><![endif]-->
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 <meta name="author" content="<%= site.customConfig.author%>">
-<meta name="description" content="<%= site.customConfig.description%>">
+<meta name="description" content="<%= (typeof pageDescription !== 'undefined' && pageDescription) ? pageDescription : site.customConfig.description %>">
 <meta name="keywords" content="<%= site.customConfig.keywords%>">
+<% if (typeof canonicalUrl !== 'undefined' && canonicalUrl) { %>
+<link rel="canonical" href="<%= canonicalUrl %>" />
+<% } %>
+<link rel="alternate" type="application/atom+xml" title="<%= themeConfig.siteName %>" href="<%= themeConfig.domain %>/atom.xml" />
 <script async src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
 <link rel="stylesheet" href="<%= themeConfig.domain %>/styles/main.css" />
 <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">

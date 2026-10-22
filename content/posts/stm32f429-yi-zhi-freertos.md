@@ -10,21 +10,21 @@ isTop: false
 @[toc]
 ## 第一步 
 从官方下载的freertos文件中找到如下目录，我们只需要FreeRTOS目录下的Source目录下的文件，至于FreeRTOS-Plus目录下的，咱们不用管。
-![](https://leichen2552.github.io//post-images/1610025381010.jpg)
+![](https://c3ll.top/post-images/1610025381010.jpg)
 
 ## 第二步
 - 在原有的某工程目录下新建一个FreeRTOS文件夹
-  ![](https://leichen2552.github.io//post-images/1610026183467.jpg)
+  ![](https://c3ll.top/post-images/1610026183467.jpg)
 - 在这个文件夹下，把刚才Source目录下的文件全部复制过来
-  ![](https://leichen2552.github.io//post-images/1610026075955.png)
+  ![](https://c3ll.top/post-images/1610026075955.png)
 - portable目录下只保留三个文件夹
-  ![](https://leichen2552.github.io//post-images/1610026165083.png)
+  ![](https://c3ll.top/post-images/1610026165083.png)
 - RVDS目录下，我们需要的是M4F这个文件夹
-  ![](https://leichen2552.github.io//post-images/1610026254473.jpg)
+  ![](https://c3ll.top/post-images/1610026254473.jpg)
    
 ## 第三步
 在原有的工程目录里新建两个组，如图，并把刚才Freertos目录下的文件放入，也如图所示
-![](https://leichen2552.github.io//post-images/1610026399947.jpg) 
+![](https://c3ll.top/post-images/1610026399947.jpg) 
 
 ## 第四步
 把下载下来的FreeRTOS文件夹下Demo（找到CORTEX_M4F_STM32F407ZG-SK这个Demo就可以了）中的的FreeRTOSconfig.h放进工程中新建FreeRTOS文件夹下
@@ -40,14 +40,14 @@ isTop: false
 ```
 #### 第二处：config开头宏修改
 把这四项改成0
-![](https://leichen2552.github.io//post-images/1610026754623.jpg)
+![](https://c3ll.top/post-images/1610026754623.jpg)
 
 ### 开启F429的FPU
 #### 第一处
 在system_stm32f4xx.c文件的SystemInit函数里，也就是该文件的第478行，有一个__FPU_USED，选中Go To Definetion会跳转core_cm4.h中，把core_cm4.h文件中的第123行修改为__FPU_USED的值修改为1就行
 #### 第二处
 修改MDK软件的选项
-![](https://leichen2552.github.io//post-images/1611580228056.jpg)
+![](https://c3ll.top/post-images/1611580228056.jpg)
 
 到此为止，修改完成
 

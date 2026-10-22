@@ -10,8 +10,8 @@ isTop: false
 @[toc]
 # 阻塞赋值
 ## （d = a+b）在前，（out = d+c）在后
-![](https://leichen2552.github.io//post-images/1584087038775.png)
-![](https://leichen2552.github.io//post-images/1584103818545.png)
+![](https://c3ll.top/post-images/1584087038775.png)
+![](https://c3ll.top/post-images/1584103818545.png)
 ```c
 module block_nonblock(Clk, Rst_n, a,b,c, out);
 
@@ -38,8 +38,8 @@ endmodule
 ```
 
 ## （out = d+c）在前，（d = a+b）在后
-![](https://leichen2552.github.io//post-images/1584087052664.png)
-![](https://leichen2552.github.io//post-images/1584104806285.png)
+![](https://c3ll.top/post-images/1584087052664.png)
+![](https://c3ll.top/post-images/1584104806285.png)
 ```c
 module block_nonblock(Clk, Rst_n, a,b,c, out);
 
@@ -67,8 +67,8 @@ endmodule
 # 非阻塞赋值
 
 ## （d <= a+b）在前，（out <= d+c）在后
-![](https://leichen2552.github.io//post-images/1584087437779.png)
-![](https://leichen2552.github.io//post-images/1584104694854.png)
+![](https://c3ll.top/post-images/1584087437779.png)
+![](https://c3ll.top/post-images/1584104694854.png)
 ```c
 module block_nonblock(Clk, Rst_n, a,b,c, out);
 
@@ -122,8 +122,8 @@ endmodule
 ```
 
 ## （out <= d+c）在前，（d <= a+b）在后
-![](https://leichen2552.github.io//post-images/1584087293324.png)
-![](https://leichen2552.github.io//post-images/1584104624629.png)
+![](https://c3ll.top/post-images/1584087293324.png)
+![](https://c3ll.top/post-images/1584104624629.png)
 ```c
 module block_nonblock(Clk, Rst_n, a,b,c, out);
 

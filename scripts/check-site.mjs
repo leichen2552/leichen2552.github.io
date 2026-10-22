@@ -36,6 +36,8 @@ for (const required of [
   'search/index.html',
   'posts/index.html',
   'atom.xml',
+  'robots.txt',
+  'sitemap.xml',
   'CNAME',
   '.nojekyll'
 ]) {
@@ -190,6 +192,9 @@ for (const file of htmlFiles) {
   if (/(?:[=>"']undefined[<"']|href="undefined|src="undefined)/.test(html)) {
     failures.push(`rendered placeholder found: ${path.relative(output, file)}`);
   }
+  if (html.includes('https://leichen2552.github.io') || html.includes('http://leichen2552.github.io')) {
+    failures.push(`github.io absolute URL remains: ${path.relative(output, file)}`);
+  }
   for (const match of html.matchAll(/(?:href|src)=["']([^"']+)["']/g)) {
     const target = localTarget(match[1], file);
     const relativeTarget = target ? path.relative(output, target) : '';
@@ -198,6 +203,84 @@ for (const file of htmlFiles) {
     }
   }
 }
+
+if (config.domain !== 'https://c3ll.top') failures.push(`site domain must be https://c3ll.top, found ${config.domain}`);
+if (config.theme?.language !== 'zh') failures.push('theme language must be zh');
+if (config.theme?.rss !== 'https://c3ll.top/atom.xml') failures.push('RSS must point at the site Atom feed');
+if (fs.readFileSync(path.join(output, 'CNAME'), 'utf8').trim() !== 'c3ll.top') failures.push('CNAME must stay c3ll.top');
+
+const robots = fs.readFileSync(path.join(output, 'robots.txt'), 'utf8');
+if (robots.trim() !== 'User-agent: *\nAllow: /\n\nSitemap: https://c3ll.top/sitemap.xml') {
+  failures.push('robots.txt must allow crawling and advertise the c3ll.top sitemap');
+}
+
+const sitemap = fs.readFileSync(path.join(output, 'sitemap.xml'), 'utf8');
+const sitemapLocs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+if (sitemap.includes('github.io') || sitemap.includes('www.c3ll.top')) failures.push('sitemap must use the apex c3ll.top host');
+for (const requiredLoc of [
+  'https://c3ll.top/',
+  'https://c3ll.top/archives/',
+  'https://c3ll.top/tags/',
+  'https://c3ll.top/post/rtos_from_zero_to_one/'
+]) {
+  if (!sitemapLocs.includes(requiredLoc)) failures.push(`sitemap is missing ${requiredLoc}`);
+}
+if (!sitemap.includes('<lastmod>')) failures.push('sitemap is missing lastmod');
+const sitemapPosts = sitemapLocs.filter((loc) => loc.includes('/post/'));
+if (sitemapPosts.length !== builtPosts.length) {
+  failures.push(`sitemap post count differs: ${sitemapPosts.length} locs, ${builtPosts.length} posts`);
+}
+if (sitemapLocs.some((loc) => !loc.startsWith('https://c3ll.top/'))) failures.push('sitemap contains a non-canonical URL');
+
+const atom = fs.readFileSync(path.join(output, 'atom.xml'), 'utf8');
+if (!atom.includes('href="https://c3ll.top/atom.xml"') || atom.includes('github.io')) {
+  failures.push('Atom feed must use https://c3ll.top');
+}
+
+function decodeEntities(value) {
+  return value
+    .replaceAll('&lt;', '<')
+    .replaceAll('&gt;', '>')
+    .replaceAll('&quot;', '"')
+    .replaceAll('&#34;', '"')
+    .replaceAll('&#39;', "'")
+    .replaceAll('&apos;', "'")
+    .replaceAll('&amp;', '&');
+}
+function pageTitle(html) {
+  return decodeEntities((html.match(/<title>([\s\S]*?)<\/title>/i)?.[1] || '').replace(/\s+/g, ' ').trim());
+}
+function metaDescription(html) {
+  return html.match(/<meta name="description" content="([^"]*)"/i)?.[1] || '';
+}
+function canonical(html) {
+  return html.match(/<link rel="canonical" href="([^"]+)"/i)?.[1] || '';
+}
+
+const sampleHtml = fs.readFileSync(path.join(output, 'post', 'rtos_from_zero_to_one', 'index.html'), 'utf8');
+const sampleTitle = pageTitle(sampleHtml);
+if (!/<html[^>]*\blang="zh-CN"/i.test(sampleHtml)) failures.push('sample post is missing lang="zh-CN"');
+if (sampleTitle !== `从0到1写RTOS | ${config.siteName}`) failures.push(`sample post title is not unique: ${sampleTitle}`);
+const sampleDescription = metaDescription(sampleHtml);
+if (!sampleDescription || sampleDescription === config.theme.description || sampleDescription === metaDescription(homeHtml)) {
+  failures.push('sample post is missing a unique meta description');
+}
+if (canonical(sampleHtml) !== 'https://c3ll.top/post/rtos_from_zero_to_one/') {
+  failures.push(`sample post canonical is ${canonical(sampleHtml) || 'missing'}`);
+}
+if (!sampleHtml.includes('rel="alternate" type="application/atom+xml"') || !sampleHtml.includes('href="https://c3ll.top/atom.xml"')) {
+  failures.push('sample post is missing the Atom alternate link');
+}
+if (!sampleHtml.includes('https://c3ll.top/styles/main.css')) failures.push('sample post stylesheet is not on c3ll.top');
+
+if (!/<html[^>]*\blang="zh-CN"/i.test(homeHtml)) failures.push('homepage is missing lang="zh-CN"');
+if (pageTitle(homeHtml) !== config.siteName) failures.push(`homepage title changed: ${pageTitle(homeHtml)}`);
+if (decodeEntities(metaDescription(homeHtml)) !== config.theme.description) failures.push('homepage meta description should stay the site default');
+if (canonical(homeHtml) !== 'https://c3ll.top/') failures.push(`homepage canonical is ${canonical(homeHtml) || 'missing'}`);
+
+const mainCssLanguage = fs.readFileSync(path.join(output, 'styles', 'main.css'), 'utf8');
+if (/\.zh\s*\{[^}]*display\s*:\s*none/.test(mainCssLanguage)) failures.push('Chinese theme text is still hidden');
+if (!/\.en\s*\{[^}]*display\s*:\s*none/.test(mainCssLanguage)) failures.push('English theme text is still shown for zh language');
 
 if (failures.length) {
   console.error(failures.join('\n'));

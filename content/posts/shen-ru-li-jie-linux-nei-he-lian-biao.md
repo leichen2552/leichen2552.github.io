@@ -90,4 +90,4 @@ int main()
 如下图所示，把几个student用链表链起来的是student结构体中的entry，s1中entry中的next指针指向s2中的entry。通过entry链起来，通过entry来访问每个strudent的其他结构体成员。
 
 
-![](https://leichen2552.github.io/post-images/1756035176924.png)
+![](https://c3ll.top/post-images/1756035176924.png)

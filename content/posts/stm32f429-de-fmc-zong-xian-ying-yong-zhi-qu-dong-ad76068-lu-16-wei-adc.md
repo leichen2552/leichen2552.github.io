@@ -30,8 +30,8 @@ isTop: false
 
 # 什么是FMC
 在这之前先说一下FSMC和FMC的区别：
-![](https://leichen2552.github.io//post-images/1605077768178.jpg)
-![](https://leichen2552.github.io//post-images/1605077772475.jpg)
+![](https://c3ll.top/post-images/1605077768178.jpg)
+![](https://c3ll.top/post-images/1605077772475.jpg)
 看到了吧，不同的芯片支部不同的功能，我们可以理解FMC是FSMC的增强版！
 
 其实一开始不理解为什么要用FMC来驱动AD7606，一般的资料对其的描述是“灵活的静态存储控制器”，乍一听以为是来控制存储的，再想想的话，其实就能理解为一个外部总线，且是一个可以自己定义时序的总线并且速度不慢，当驱动8080接口的器件是时，如果只是使用GPIO来实现此时序的话，会占用大量的CPU资源，所以这个时候就可以考虑采用FSMC功能。
@@ -44,7 +44,7 @@ isTop: false
 - NAND Flash/PC 卡控制器
 - SDRAM 控制器
 - 外部器件接口
-![](https://leichen2552.github.io//post-images/1605141178749.png)
+![](https://c3ll.top/post-images/1605141178749.png)
        
 ## 外部器件地址映射  
 从 FMC 的角度，外部存储器被划分为 6 个固定大小的存储区域，每个存储区域的大小为    
@@ -58,7 +58,7 @@ isTop: false
 - 存储区域 4 用于连接 PC 卡
 - 存储区域 5 和 6 用于连接 SDRAM 器件（每个存储区域一个器件）
 对于每个存储区域，所要使用的存储器类型可由用户应用程序通过配置寄存器配置。
-![](https://leichen2552.github.io//post-images/1605141612795.png)
+![](https://c3ll.top/post-images/1605141612795.png)
 
 
 
@@ -67,7 +67,7 @@ isTop: false
 一般的外部SRAM有如下几根线：地址线（A0 ~ A18），数据线（D0 ~ D15），读信号（WE），写信号（OE），片选信号（CS），如果SRAM支持字节控制的话，还有UB和LB信号。
 
 而这个AD7606的8080模式有哪几根线呢？
-![](https://leichen2552.github.io//post-images/1605078796335.jpg)
+![](https://c3ll.top/post-images/1605078796335.jpg)
 而8080接口的AD7606有如下几根线：复位信号（RST），数据线（D0 ~ D15），读信号（RD），写信号（WD），片选信号（CS）和读写功能标志（RS）。
 
 这两种接口看上去好像差不多诶…

@@ -8,7 +8,7 @@ feature:
 isTop: false
 ---
 STM32型号的说明：以STM32F103RBT6这个型号的芯片为例，该型号的组成为7个部分，其命名规则如下：
-![](https://leichen2552.github.io//post-images/1603675741233.jpg)
+![](https://c3ll.top/post-images/1603675741233.jpg)
 
 所以，目前所用芯片STM32F429IGT6，名字解读如下：
 STM32：32位MCU

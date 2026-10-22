@@ -9,7 +9,7 @@ isTop: false
 ---
 # 信号放大器
 ## 电压放大器（比例运算电路）
-![](https://leichen2552.github.io//post-images/1585298914402.jpg)
+![](https://c3ll.top/post-images/1585298914402.jpg)
 ### 虚短和虚断的概念
 - 由于运放的电压放大倍数很大，一般通用型运算放大器的开环电压放大倍数都在$80 dB$以上(1万倍)。而运放的输出电压是有限的，一般在 $10 V～14 V$。因此运放的差模输入电压不足$1 mV$，两输入端近似等电位，相当于 “短路”。开环电压放大倍数越大，两输入端的电位越接近相等。
 - “虚短”是指在分析运算放大器处于线性状态时，可把两输入端视为等电位，这一特性称为虚假短路，简称虚短。显然不能将两输入端真正短路。
@@ -17,23 +17,23 @@ isTop: false
 
 ## 豪兰德电流源
 点过电阻之间的比值有以下关系的话，那么：
-![](https://leichen2552.github.io//post-images/1585299070806.png)
+![](https://c3ll.top/post-images/1585299070806.png)
 
 ## 电荷放大器
-![](https://leichen2552.github.io//post-images/1585299219513.png)
+![](https://c3ll.top/post-images/1585299219513.png)
 
 ## 隔离放大器
-![](https://leichen2552.github.io//post-images/1585299414067.jpg)
+![](https://c3ll.top/post-images/1585299414067.jpg)
 
 # 滤波电路
 ## 有源滤波器
 有源滤波器带负载能力强
-![](https://leichen2552.github.io//post-images/1585299835707.jpg)
+![](https://c3ll.top/post-images/1585299835707.jpg)
 ### 幅频特性及通带截止频率
-![](https://leichen2552.github.io//post-images/1585299846246.png)
+![](https://c3ll.top/post-images/1585299846246.png)
 
 ### 滤波器的传输函数
-![](https://leichen2552.github.io//post-images/1585300117558.jpg)
+![](https://c3ll.top/post-images/1585300117558.jpg)
 对于二阶：
 - $a_0,a_1 = 0，a_2 \neq 0$，那么这就是二阶高通滤波器
 - $a_1,a_2 = 0，a_0 \neq 0$，那么这就是二阶低通滤波器
@@ -42,17 +42,17 @@ Q是传输函数的品质因数，Q是指：频率在截止频率fp附近，它�
 
 ### 滤波器设计
 #### 一阶滤波器，-20dB下降速度
-![](https://leichen2552.github.io//post-images/1585300811715.jpg)
+![](https://c3ll.top/post-images/1585300811715.jpg)
 - 效果不够理想
 #### 二阶滤波器，-40dB下降速度
-![](https://leichen2552.github.io//post-images/1585301080247.png)
+![](https://c3ll.top/post-images/1585301080247.png)
 但是在曲线拐弯的地方，也就是通带到过渡带的地方，它的电压放大倍数幅度下降得比较快的地方，这时它的滤波特性还不够理想，那么就要提升他在截止频率附近的电压放大倍数。
 
 那有什么办法提升它在截止频率附近的电压放大倍数？
 引入正反馈，VCVS（电压控制的电压源）用来提升它在截止频率附近的电压放大倍数
-![](https://leichen2552.github.io//post-images/1585305092448.png)
+![](https://c3ll.top/post-images/1585305092448.png)
 - BPF：$R_1、C_1$组成低通滤波环节，$R_2、C_2$组成高通滤波环节
 - BEF：采用双T带阻网络，$2个R$和$2C$组成组成低通滤波环节，上面的$2个C$和一个$R/2$的组成高通滤波环节
 
 ### 低通滤波器的幅频特性曲线
-![](https://leichen2552.github.io//post-images/1585305822526.png)
+![](https://c3ll.top/post-images/1585305822526.png)

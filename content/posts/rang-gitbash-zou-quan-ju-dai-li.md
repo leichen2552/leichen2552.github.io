@@ -19,6 +19,6 @@ isTop: false
     git config --global http.proxy 127.0.0.1:1080 为全局的 git 项目都设置代理
     git config --local http.proxy 127.0.0.1:1080  为某个 git 项目单独设置代理
 ```
-4. 完美解决![](https://leichen2552.github.io//post-images/1616115028836.png)
+4. 完美解决![](https://c3ll.top/post-images/1616115028836.png)
 5. 再次打开gridea，写一篇文章之后，点击预览，其实就是Gridea把写好的文章中心编译放进output文件夹里。然后git push -u origin master，上传代码就OK！
 6. 再也不需要看到Gridea日常同步失败了！妈妈再也不用担心我的学习！

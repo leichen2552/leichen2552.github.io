@@ -124,6 +124,43 @@ function pagination(base, page, totalPages) {
   };
 }
 
+function absoluteUrl(pathname = '/') {
+  if (/^https?:\/\//i.test(pathname)) return pathname;
+  const domain = config.domain.replace(/\/$/, '');
+  const pathPart = pathname.startsWith('/') ? pathname : `/${pathname}`;
+  return `${domain}${pathPart.endsWith('/') ? pathPart : `${pathPart}/`}`;
+}
+
+const sitemap = [];
+function addSitemap(loc, date) {
+  sitemap.push({
+    loc: /^https?:\/\//i.test(loc) ? loc : absoluteUrl(loc),
+    date: date || ''
+  });
+}
+
+function sitemapXml() {
+  const domain = config.domain.replace(/\/$/, '');
+  const rank = (loc) => {
+    const pathPart = loc.slice(domain.length);
+    if (pathPart === '/') return 0;
+    if (pathPart.startsWith('/page/')) return 1;
+    if (pathPart.startsWith('/archives')) return 2;
+    if (pathPart.startsWith('/tags')) return 3;
+    if (pathPart.startsWith('/tag/')) return 4;
+    if (pathPart.startsWith('/post/')) return 5;
+    return 6;
+  };
+  const entries = sitemap
+    .slice()
+    .sort((a, b) => rank(a.loc) - rank(b.loc) || a.loc.localeCompare(b.loc, 'en', { numeric: true }))
+    .map((item) => {
+      const lastmod = item.date ? `\n    <lastmod>${escapeXml(String(item.date).replace(' ', 'T') + '+08:00')}</lastmod>` : '';
+      return `  <url>\n    <loc>${escapeXml(item.loc)}</loc>${lastmod}\n  </url>`;
+    });
+  return `<?xml version="1.0" encoding="utf-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries.join('\n')}\n</urlset>\n`;
+}
+
 fs.rmSync(output, { recursive: true, force: true });
 ensureDir(output);
 
@@ -216,31 +253,38 @@ const common = {
 };
 
 for (const post of posts) {
-  write(`post/${post.fileName}/index.html`, render('post.ejs', { ...common, post }));
+  addSitemap(post.link, post.date);
+  write(`post/${post.fileName}/index.html`, render('post.ejs', { ...common, post, canonicalUrl: post.link }));
 }
 
 const homePages = Math.max(1, Math.ceil(visiblePosts.length / config.postPageSize));
 for (let page = 1; page <= homePages; page += 1) {
   const pagePosts = visiblePosts.slice((page - 1) * config.postPageSize, page * config.postPageSize);
+  const canonicalUrl = page === 1 ? absoluteUrl('/') : absoluteUrl(`/page/${page}/`);
+  addSitemap(canonicalUrl, pagePosts[0]?.date);
   const pageSite = { ...site, posts: pagePosts };
-  const html = render('index.ejs', { ...common, site: pageSite, pagination: pagination('', page, homePages) });
+  const html = render('index.ejs', { ...common, site: pageSite, pagination: pagination('', page, homePages), canonicalUrl });
   write(page === 1 ? 'index.html' : `page/${page}/index.html`, html);
 }
 
-write('posts/index.html', render('posts.ejs', common));
-write('tags/index.html', render('tags.ejs', common));
-write('friends/index.html', render('friends.ejs', common));
-write('search/index.html', render('search.ejs', common));
+write('posts/index.html', render('posts.ejs', { ...common, canonicalUrl: absoluteUrl('/posts/') }));
+addSitemap('/tags/', visiblePosts[0]?.date);
+write('tags/index.html', render('tags.ejs', { ...common, canonicalUrl: absoluteUrl('/tags/') }));
+write('friends/index.html', render('friends.ejs', { ...common, canonicalUrl: absoluteUrl('/friends/') }));
+write('search/index.html', render('search.ejs', { ...common, canonicalUrl: absoluteUrl('/search/') }));
 write('api-info/index.html', render('api-info.ejs', common));
 write('api-content/index.html', render('api-content.ejs', common));
 
 const archivePages = Math.max(1, Math.ceil(visiblePosts.length / config.archivesPageSize));
 for (let page = 1; page <= archivePages; page += 1) {
   const pagePosts = visiblePosts.slice((page - 1) * config.archivesPageSize, page * config.archivesPageSize);
+  const canonicalUrl = page === 1 ? absoluteUrl('/archives/') : absoluteUrl(`/archives/page/${page}/`);
+  addSitemap(canonicalUrl, pagePosts[0]?.date);
   const html = render('archives.ejs', {
     ...common,
     posts: pagePosts,
-    pagination: pagination('archives', page, archivePages)
+    pagination: pagination('archives', page, archivePages),
+    canonicalUrl
   });
   write(page === 1 ? 'archives/index.html' : `archives/page/${page}/index.html`, html);
 }
@@ -252,11 +296,14 @@ for (const tag of tags) {
   for (let page = 1; page <= totalPages; page += 1) {
     const pagePosts = tagPosts.slice((page - 1) * pageSize, page * pageSize);
     const base = `tag/${tag.path}`;
+    const canonicalUrl = page === 1 ? absoluteUrl(`/${base}/`) : absoluteUrl(`/${base}/page/${page}/`);
+    addSitemap(canonicalUrl, pagePosts[0]?.date);
     const html = render('tag.ejs', {
       ...common,
       posts: pagePosts,
       tag,
-      pagination: pagination(base, page, totalPages)
+      pagination: pagination(base, page, totalPages),
+      canonicalUrl
     });
     write(page === 1 ? `${base}/index.html` : `${base}/page/${page}/index.html`, html);
   }
@@ -266,5 +313,8 @@ const feedPosts = visiblePosts.slice(0, 10);
 const updated = feedPosts[0]?.date.replace(' ', 'T') + '+08:00';
 const entries = feedPosts.map((post) => `  <entry>\n    <title>${escapeXml(post.title)}</title>\n    <link href="${escapeXml(post.link)}"/>\n    <id>${escapeXml(post.link)}</id>\n    <updated>${post.date.replace(' ', 'T')}+08:00</updated>\n    <summary>${escapeXml(post.description)}</summary>\n  </entry>`).join('\n');
 write('atom.xml', `<?xml version="1.0" encoding="utf-8"?>\n<feed xmlns="http://www.w3.org/2005/Atom">\n  <title>${escapeXml(config.siteName)}</title>\n  <link href="${config.domain}/atom.xml" rel="self"/>\n  <link href="${config.domain}/"/>\n  <updated>${updated}</updated>\n  <id>${config.domain}/</id>\n  <author><name>${escapeXml(config.author)}</name></author>\n${entries}\n</feed>\n`);
+
+write('sitemap.xml', sitemapXml());
+write('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${config.domain.replace(/\/$/, '')}/sitemap.xml\n`);
 
 console.log(`Built ${posts.length} posts, ${tags.length} tags, and ${homePages} index pages into _site.`);

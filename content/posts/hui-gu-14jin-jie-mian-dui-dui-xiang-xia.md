@@ -22,17 +22,17 @@ isTop: false
 # 类的表示法
 ## 如何让编译器读懂这些类的表示法
 - 类的表示法
-![](https://leichen2552.github.io//post-images/1580911863301.png)
+![](https://c3ll.top/post-images/1580911863301.png)
 - 类的表示法-改进1
-![](https://leichen2552.github.io//post-images/1580911870890.png)
+![](https://c3ll.top/post-images/1580911870890.png)
 - 类的表示法-改进2
-![](https://leichen2552.github.io//post-images/1580911881299.png)
+![](https://c3ll.top/post-images/1580911881299.png)
 - 类的表示法-改进3
-![](https://leichen2552.github.io//post-images/1580911885439.png)
+![](https://c3ll.top/post-images/1580911885439.png)
 - 类的表示法-改进4
-![](https://leichen2552.github.io//post-images/1580911900662.png)
+![](https://c3ll.top/post-images/1580911900662.png)
 - 类的表示法-改进5
-![](https://leichen2552.github.io//post-images/1580911905917.png)
+![](https://c3ll.top/post-images/1580911905917.png)
 
 貌似大功告成，好像看着编译器可以识别了！
 

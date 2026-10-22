@@ -97,22 +97,22 @@ endmodule
 ## 开始仿真
 点击Tools$\rightarrow$Run EDA Simulation Tool$\rightarrow$EDA RTL Simulation
 如果出来下面这幅图，就说明你没有安装ModelSim-Altera，去安装就可以了
-![](https://leichen2552.github.io//post-images/1583389087279.jpg)
+![](https://c3ll.top/post-images/1583389087279.jpg)
 然后设置Tools$\rightarrow$Options$\rightarrow$EDA Tool Options
-![](https://leichen2552.github.io//post-images/1583389680297.jpg)
+![](https://c3ll.top/post-images/1583389680297.jpg)
 在ModelSim-Altera那儿设置路径。
 
 这中间还有个门级电路仿真，条件更苛刻，会出现延时，以后再说！
 
 ### 仿真结果
-![](https://leichen2552.github.io//post-images/1583390005256.jpg)
+![](https://c3ll.top/post-images/1583390005256.jpg)
 这个仿真结果跟之前分析的一样。
 
 ## 分配管脚
 点击Assignmengs$\rightarrow$Pin Planner
-![](https://leichen2552.github.io//post-images/1583390552457.jpg)
+![](https://c3ll.top/post-images/1583390552457.jpg)
 
 ## 下载程序
 点击Tools$\rightarrow$Programmer
-![](https://leichen2552.github.io//post-images/1583392519646.jpg)
+![](https://c3ll.top/post-images/1583392519646.jpg)
 这就OK，然后在板子上看现象就行

@@ -9,11 +9,11 @@ isTop: false
 ---
 给大家看几块开发板的VBAT外围电路的设计图：
 
-（1）![](https://leichen2552.github.io//post-images/1615278632205.png)
-（2）![](https://leichen2552.github.io//post-images/1615278635722.png)
-（3）![](https://leichen2552.github.io//post-images/1615278639824.png)
-（4）![](https://leichen2552.github.io//post-images/1615278651119.png)
-（5）![](https://leichen2552.github.io//post-images/1615278654252.png)
+（1）![](https://c3ll.top/post-images/1615278632205.png)
+（2）![](https://c3ll.top/post-images/1615278635722.png)
+（3）![](https://c3ll.top/post-images/1615278639824.png)
+（4）![](https://c3ll.top/post-images/1615278651119.png)
+（5）![](https://c3ll.top/post-images/1615278654252.png)
 
 stm32芯片手册要求：（大体上就这两个要求，具体要求看AN2586供电方案）
 1. 如果应用中没有使用外部电池，VBAT必须连接到VDD引脚上。

@@ -122,11 +122,11 @@ int main(int argc, char *argv[])
 
 
 - C++编译环境组成
-![](https://leichen2552.github.io//post-images/1581929564115.png)
+![](https://c3ll.top/post-images/1581929564115.png)
 
 
 - C++标准库预定义了多数常用的数据结构
-![](https://leichen2552.github.io//post-images/1581929709852.png)
+![](https://c3ll.top/post-images/1581929709852.png)
 ```c++
 #include <cstdio>
 #include <cstring>
@@ -152,7 +152,7 @@ int main(int argc, char *argv[])
 
 ```
 - 使用cout和cin
-![](https://leichen2552.github.io//post-images/1581930295253.png)
+![](https://c3ll.top/post-images/1581930295253.png)
 ```c++
 #include <iostream>
 #include <cmath>

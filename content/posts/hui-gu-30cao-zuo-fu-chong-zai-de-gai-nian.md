@@ -10,7 +10,7 @@ isTop: false
 @[toc]
 # 复数的问题
 上节课复数的类问题，重载最重要的意义之一就是可以拓展系统当中的功能
-![](https://leichen2552.github.io//post-images/1581842743648.jpg)
+![](https://c3ll.top/post-images/1581842743648.jpg)
 但是面对这个复数的加法，编译器肯定不知道怎么办，所以结合前面的友元等一些知识，利用函数显示加法来实现这一功能
 ```c++
 #include <iostream>

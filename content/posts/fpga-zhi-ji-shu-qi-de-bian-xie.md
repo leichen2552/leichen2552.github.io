@@ -81,10 +81,10 @@ endmodule
 ## ModelSim仿真波形
 如果是按照500ms翻转，博主已经试过，得跑四五十分钟才能看到波形，所以我们改成500us
 ```(cnt == 25'd24_999_999)```改成```(cnt == 25'd24_999)```
-![](https://leichen2552.github.io//post-images/1583744255346.jpg)
+![](https://c3ll.top/post-images/1583744255346.jpg)
 
 ## 数字逻辑图
 Quarters软件生成的数字逻辑电路
-![](https://leichen2552.github.io//post-images/1583744492018.png)
+![](https://c3ll.top/post-images/1583744492018.png)
 点击```RTL Viewer```，就可以该软件根据代码生成的数字逻辑图
-![](https://leichen2552.github.io//post-images/1583745546612.png)
+![](https://c3ll.top/post-images/1583745546612.png)

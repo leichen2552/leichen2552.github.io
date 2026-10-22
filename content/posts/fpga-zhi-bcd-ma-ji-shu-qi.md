@@ -66,7 +66,7 @@ endmodule
 
 # 用时序逻辑电路的波形问题
 进位链的问题
-![](https://leichen2552.github.io//post-images/1584021084132.jpg)
+![](https://c3ll.top/post-images/1584021084132.jpg)
 
 # 改用组合逻辑电路的正确波形
-![](https://leichen2552.github.io//post-images/1584021113091.jpg)
+![](https://c3ll.top/post-images/1584021113091.jpg)

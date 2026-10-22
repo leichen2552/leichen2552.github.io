@@ -11,7 +11,7 @@ isTop: false
     不是nand flash不能运行程序吗？难道32里用的是nor flash？
 
 STM32的flash是代码存储区。SRAM是程序运行过程中中间变量存储区。
-![](https://leichen2552.github.io//post-images/1604997999341.png)
+![](https://c3ll.top/post-images/1604997999341.png)
 
 参考这边博文：https://blog.csdn.net/zd845101500/article/details/91370939
 
