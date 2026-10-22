@@ -1,6 +1,6 @@
 # CLL's Blog
 
-这是 `leichen2552.github.io` 的可维护源码仓库。站点已从 Gridea 桌面应用迁移为：
+这是 `leichen2552.github.io` 的可维护源码仓库。公开站点以 [https://c3ll.top](https://c3ll.top) 为唯一规范域名。站点已从 Gridea 桌面应用迁移为：
 
 - `content/posts/`：104 篇 Markdown 原稿；
 - `theme/`：原 Chic 主题模板，保留现有页面样式；

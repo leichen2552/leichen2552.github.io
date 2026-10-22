@@ -63,9 +63,9 @@ $$\mu(x_{\phi}) = {\lim_{x \to +\infty}}{\frac{x_{\phi} \in A^*的次数}{n}}$$
 
 - 几种常见的隶属函数形式，一些专家在某些领域研究的隶属度规则
     - 正态形
-![](https://leichen2552.github.io//post-images/1583158778787.png)
+![](https://c3ll.top/post-images/1583158778787.png)
     - 斜坡形
-![](https://leichen2552.github.io//post-images/1583158677786.jpg)
+![](https://c3ll.top/post-images/1583158677786.jpg)
 
 
 ## 模糊集的运算

@@ -16,7 +16,7 @@ SPI协议是由摩托罗拉公司提出的通讯协议(Serial Peripheral Interfa
 要求通讯速率较高的场合。 
 
 # SPI物理层
-![](https://leichen2552.github.io//post-images/1605143966040.png)
+![](https://c3ll.top/post-images/1605143966040.png)
 SPI通讯使用3条总线及片选线，3条总线分别为SCK、MOSI、MISO，片选线为$\overline{SS}$，它们的作用介绍如下：
 1. $\overline{SS}$( Slave Select)：从设备选择信号线，常称为片选信号线，也称为NSS,CS，以下用 NSS 表示。当有多个 SPI 从设备与 SPI 主机相连时，设备的其它信号线 SCK、MOSI及 MISO同时并联到相同的 SPI总线上，即无论有多少个从设备，都共同只使用这 3条总线；而每个从设备都有独立的这一条 NSS信号线，本信号线独占主机的一个引脚，即有多少个从设备，就有多少条片选信号线。I2C 协议中通过设备地址来寻址、选中总线上的某个设备并与其进行通讯；而 SPI 协议中没有设备地址，它使用 NSS 信号线来寻址，当主机要选择从设备时，把该从设备的 NSS 信号线设置为低电平，该从设备即被选中，即片选有效，接着主机开始与被选中的从设备进行 SPI 通讯。所以SPI通讯以NSS线置低电平为开始信号，以NSS线被拉高作为结束信号。 
 2. SCK  (Serial Clock)：时钟信号线，用于通讯数据同步。它由通讯主机产生，决定了通讯的速率，不同的设备支持的最高时钟频率不一样，如 STM32的 SPI时钟频率最大为$f_{plick}$/2，两个设备之间通讯时，通讯速率受限于低速设备。 
@@ -28,7 +28,7 @@ SPI通讯使用3条总线及片选线，3条总线分别为SCK、MOSI、MISO，�
 
 ## SPI基本通讯过程
 - 先看看SPI通讯的通讯时序：
-![](https://leichen2552.github.io//post-images/1605144777765.png)
+![](https://c3ll.top/post-images/1605144777765.png)
 - 这是一个主机的通讯时序。NSS、SCK、MOSI信号都由主机控制产生，而 MISO的信号由从机产生，主机通过该信号线读取从机的数据。MOSI与MISO的信号只在 NSS为低电平的时候才有效，在 SCK的每个时钟周期MOSI和MISO传输一位数据。 
 以上通讯流程中包含的各个信号分解如下：
 
@@ -44,14 +44,14 @@ SPI通讯使用3条总线及片选线，3条总线分别为SCK、MOSI、MISO，�
 - 上面讲述的图中的时序只是SPI中的其中一种通讯模式，SPI一共有四种通讯模式，它们的主要区别是总线空闲时 SCK的时钟状态以及数据采样时刻。为方便说明，在此引入“时钟极性CPOL”和“时钟相位CPHA”的概念。 
 - 时钟极性CPOL是指 SPI通讯设备处于空闲状态时，SCK信号线的电平信号(即 SPI通讯开始前、 NSS线为高电平时 SCK的状态)。CPOL=0时， SCK在空闲状态时为低电平，CPOL=1时，则相反。 
 时钟相位CPHA是指数据的采样的时刻，当CPHA=0时，MOSI或 MISO数据线上的信号将会在SCK时钟线的“奇数边沿”被采样。当CPHA=1时，数据线在SCK的“偶数边沿”采样。见下图。
-![](https://leichen2552.github.io//post-images/1605145711355.png)
+![](https://c3ll.top/post-images/1605145711355.png)
 - 我们来分析这个CPHA=0的时序图。首先，根据 SCK在空闲状态时的电平，分为两种情况。SCK信号线在空闲状态为低电平时，CPOL=0；空闲状态为高电平时，CPOL=1。 
 无论CPOL=0还是=1，因为我们配置的时钟相位CPHA=0，在图中可以看到，采样时刻都是在SCK的奇数边沿。注意当CPOL=0的时候，时钟的奇数边沿是上升沿，而CPOL=1的时候，时钟的奇数边沿是下降沿。所以SPI的采样时刻不是由上升/下降沿决定的。MOSI和MISO数据线的有效信号在SCK的奇数边沿保持不变，数据信号将在 SCK奇数边沿时被采样，在非采样时刻，MOSI和 MISO的有效信号才发生切换。
 
 - 类似地，当CPHA=1时，不受CPOL的影响，数据信号在 SCK的偶数边沿被采样，见下图。
-![](https://leichen2552.github.io//post-images/1605145997913.png)
+![](https://c3ll.top/post-images/1605145997913.png)
 - 由 CPOL及CPHA的不同状态，SPI分成了四种模式，见表 24-1，主机与从机需要工作在相同的模式下才可以正常通讯，实际中采用较多的是“模式0”与“模式3”。
-![](https://leichen2552.github.io//post-images/1605146200840.png)
+![](https://c3ll.top/post-images/1605146200840.png)
 
 # STM32的 SPI特性及架构
 STM32芯片也集成了专门用于 SPI协议通讯的外设。
@@ -60,16 +60,16 @@ STM32芯片也集成了专门用于 SPI协议通讯的外设。
 STM32的SPI外设可用作通讯的主机及从机，支持最高的 SCK时钟频率为 $f_{pclk}/2$ (STM32F429型号的芯片默认$f_{pclk1}$为 90MHz，$f_{pclk2}$为 45MHz)，完全支持SPI协议的4种模式，数据帧长度可设置为 8位或16位，可设置数据 MSB先行或LSB先行。它还支持双线全双工(前面小节说明的都是这种模式)、双线单向以及单线模式。其中双线单向模式可以同时使用MOSI及 MISO数据线向一个方向传输数据，可以加快一倍的传输速度。而单线模式则可以减少硬件接线，当然这样速率会受到影响。我们只讲解双线全双工模式。
 
 ## STM32的 SPI架构剖析
-![](https://leichen2552.github.io//post-images/1605249305205.png)
+![](https://c3ll.top/post-images/1605249305205.png)
 
 ## 通讯引脚
 SPI的所有硬件架构都从图中左侧MOSI、MISO、SCK及NSS线展开的。STM32芯片有多个SPI外设，它们的SPI通讯信号引出到不同的GPIO引脚上，使用时必须配置到这些指定的引脚，见上表。关于GPIO引脚的复用功能，可查阅《STM32F4xx规格书》，以它为准。
-![](https://leichen2552.github.io//post-images/1605249547835.png)
+![](https://c3ll.top/post-images/1605249547835.png)
 其中SPI1、SPI4、SPI5、SPI6是APB2上的设备，最高通信速率达45Mbtis/s，SPI2、SPI3是APB1上的设备，最高通信速率为 22.5Mbits/s。其它功能上没有差异。
 
 # AD7606与STM32的连接
 AD7606B是一个8路16位的ADC模块，AD7606接口有三种模式选择，并行接口模式、串行接口模式、并行字节接口模式。采用stm32的8080接口来驱动，AD7606模块上两个选择，一是8080模式，二是SPI模式，下图是SPI模式的接口。
-![](https://leichen2552.github.io//post-images/1605148318989.png)
+![](https://c3ll.top/post-images/1605148318989.png)
 
 ## AD7606初始化
 STM32的SPI初始化、AD7606的GPIO初始化、设置采样量程、设置过采样模式、硬件复位AD7606、开始转换引脚设置为高电平。因为AD7606内部没有寄存器，所以不需要SPI发什么指令配置啥玩意儿的。

@@ -10,12 +10,12 @@ isTop: false
 由于项目需要把有线传输改成无线传输，蓝牙传输容易丢包，所以就用现在很火的WiFi芯片——ESP8266。
 
 前前后后购置了三样东西
-![](https://leichen2552.github.io//post-images/1578316456867.png)
-![](https://leichen2552.github.io//post-images/1578316462777.png)
-![](https://leichen2552.github.io//post-images/1578313188960.png)
+![](https://c3ll.top/post-images/1578316456867.png)
+![](https://c3ll.top/post-images/1578316462777.png)
+![](https://c3ll.top/post-images/1578313188960.png)
 
 随机打开安信可串口调试助手，发送AT+RST，一定要先发这个保证初始化。
-![](https://leichen2552.github.io//post-images/1578314172950.png)
+![](https://c3ll.top/post-images/1578314172950.png)
 
 看到最后的ready。这时，固件启动完成。
 

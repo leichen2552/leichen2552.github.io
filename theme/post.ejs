@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 
 <head>
-    <%- include('./include/head', { siteTitle: themeConfig.siteName }) %>
+    <%- include('./include/head', { siteTitle: `${post.title} | ${themeConfig.siteName}`, pageDescription: post.description }) %>
 </head>
 
 <body>

@@ -31,7 +31,7 @@ isTop: false
 
 ## ☎️ 联系我呀
 
-* Home: https://leichen2552.github.io
+* Home: https://c3ll.top
 * 博客园:https://www.cnblogs.com/sanshijvshi/
 * Github:https://github.com/leichen2552
 * 微信公众号：耳东三石的电子乐园，分享专业心得，分享生活，可以关注我哦  
